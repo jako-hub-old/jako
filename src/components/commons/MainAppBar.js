@@ -8,7 +8,17 @@ import {
     Title,
 } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import { StyleSheet } from 'react-native';
+import PropTypes from 'prop-types';
+import { displayName as appName } from '../../../app';
 
+/**
+ * This component renders the main application menu bar.
+ * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
+ * @param navigation
+ * @returns {*}
+ * @constructor
+ */
 const MainAppBar = ({navigation}) => (
     <Header>
         <Left>
@@ -17,7 +27,7 @@ const MainAppBar = ({navigation}) => (
             </Button>
         </Left>
         <Body>
-            <Title>OPlay</Title>
+            <Title>{appName}</Title>
         </Body>
         <Right>
             <Button transparent>
@@ -29,4 +39,9 @@ const MainAppBar = ({navigation}) => (
 MainAppBar.propTypes = {
     navigation : PropTypes.object.isRequired,
 };
+
+const styles = StyleSheet.create({
+
+});
+
 export default MainAppBar;

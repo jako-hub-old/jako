@@ -1,3 +1,8 @@
+/**
+ * In this file we configure all the application navigation routes.
+ * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
+ */
+
 import { createSwitchNavigator, createDrawerNavigator } from 'react-navigation';
 import {HomeScreen} from '../screens';
 import {MainDrawer} from "../components/commons";

@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import {
-    StyleSheet,
     ScrollView,
 } from 'react-native';
 import {
     DrawerItems,
 } from 'react-navigation';
 
+/**
+ * This component draws the main drawer options.
+ * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
+ */
 class MainDrawer extends Component {
-
     render() {
         const {items, ...restProps} = this.props;
         return (

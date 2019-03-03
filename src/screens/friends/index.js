@@ -4,16 +4,16 @@ import { BaseScreen } from '../../components/commons';
 import PropTypes from 'prop-types';
 
 /**
- * This is the main or home screen for the application.
+ * This is the screen for admin my friends
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
  */
-class HomeScreen extends React.PureComponent {
+class FriendsScreen extends React.PureComponent {
     render() {
         const navigation = this.props.navigation;
         return (
-            <BaseScreen navigation={navigation}>
+            <BaseScreen navigation={navigation} title={"Mis amigos"}>
                 <View style={styles.root}>
-                    <Text>Esta es la vista principal de la aplicación</Text>
+                    <Text>Aquí podré encontrar una lista de mis amigos</Text>
                 </View>
             </BaseScreen>
         );
@@ -28,8 +28,8 @@ const styles = StyleSheet.create({
     },
 });
 
-HomeScreen.propTypes = {
+FriendsScreen.propTypes = {
     navigation : PropTypes.object,
 };
 
-export default HomeScreen;
+export default FriendsScreen;

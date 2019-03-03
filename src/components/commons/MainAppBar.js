@@ -19,10 +19,11 @@ import stylesPalette from "../../utils/stylesPalette";
  * This component renders the main application menu bar.
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
  * @param navigation
+ * @param title
  * @returns {*}
  * @constructor
  */
-const MainAppBar = ({navigation}) => (
+const MainAppBar = ({navigation, title=appName}) => (
     <Header
         style={styles.root}
         androidStatusBarColor={palette.primary.variant}
@@ -33,7 +34,7 @@ const MainAppBar = ({navigation}) => (
             </Button>
         </Left>
         <Body>
-            <Title>{appName}</Title>
+            <Title>{title}</Title>
         </Body>
         <Right>
             <Button transparent>
@@ -43,7 +44,8 @@ const MainAppBar = ({navigation}) => (
     </Header>
 );
 MainAppBar.propTypes = {
-    navigation : PropTypes.object.isRequired,
+    navigation  : PropTypes.object.isRequired,
+    title       : PropTypes.string,
 };
 
 const palette = stylesPalette();

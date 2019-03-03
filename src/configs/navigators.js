@@ -4,14 +4,23 @@
  */
 
 import { createSwitchNavigator, createDrawerNavigator } from 'react-navigation';
-import {HomeScreen} from '../screens';
-import {MainDrawer} from "../components/commons";
+import {
+    HomeScreen,
+    FriendsScreen,
+} from '../screens';
+import { MainDrawer } from "../components/commons";
 
 const DrawerNavigator = createDrawerNavigator({
     DrawerHome : {
         screen : HomeScreen,
         navigationOptions : {
-            drawerLabel : 'Home',
+            drawerLabel : 'Inicio',
+        },
+    },
+    DrawerFriends : {
+        screen : FriendsScreen,
+        navigationOptions : {
+            drawerLabel : 'Mis amigos',
         },
     },
 }, {

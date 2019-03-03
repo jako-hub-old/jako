@@ -11,6 +11,9 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import { StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { displayName as appName } from '../../../app';
+import stylesPalette from "../../utils/stylesPalette";
+
+
 
 /**
  * This component renders the main application menu bar.
@@ -20,7 +23,10 @@ import { displayName as appName } from '../../../app';
  * @constructor
  */
 const MainAppBar = ({navigation}) => (
-    <Header>
+    <Header
+        style={styles.root}
+        androidStatusBarColor={palette.primary.variant}
+    >
         <Left>
             <Button transparent onPress={() => navigation.openDrawer()}>
                 <Icon name="bars" size={18}/>
@@ -40,8 +46,11 @@ MainAppBar.propTypes = {
     navigation : PropTypes.object.isRequired,
 };
 
+const palette = stylesPalette();
 const styles = StyleSheet.create({
-
+    root : {
+        backgroundColor : palette.primary.color,
+    },
 });
 
 export default MainAppBar;

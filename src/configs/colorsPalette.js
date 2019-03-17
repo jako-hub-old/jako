@@ -6,14 +6,14 @@
 export default {
     main : {
         primary : {
-            color       : '#2e7d32',
-            variant     : '#005005',
+            color       : '#2196f3',
+            variant     : '#0026ca',
             contrast    : '#FFF',
         },
         secondary : {
-            color      : '#3d5afe',
-            variant    : '#0031ca',
-            contrast   : '#FFF',
+            color      : '#2fdcf7',
+            variant    : '#00b2cc',
+            contrast   : '#000',
         },
     }
 };

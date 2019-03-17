@@ -28,19 +28,19 @@ const MainAppBar = ({navigation, title=appName}) => (
         style={styles.root}
         androidStatusBarColor={palette.primary.variant}
     >
-        <Left>
-            <Button transparent onPress={() => navigation.openDrawer()}>
-                <Icon name="bars" size={18}/>
-            </Button>
-        </Left>
-        <Body>
+        {/*<Left>*/}
+            {/*<Button transparent onPress={() => navigation.openDrawer()}>*/}
+                {/*<Icon name="bars" size={18}/>*/}
+            {/*</Button>*/}
+        {/*</Left>*/}
+        <Body style={styles.body}>
             <Title>{title}</Title>
         </Body>
-        <Right>
-            <Button transparent>
-                <Icon style={styles.icon} name="ellipsis-v" size={18}/>
-            </Button>
-        </Right>
+        {/*<Right>*/}
+            {/*<Button transparent>*/}
+                {/*<Icon style={styles.icon} name="ellipsis-v" size={18}/>*/}
+            {/*</Button>*/}
+        {/*</Right>*/}
     </Header>
 );
 MainAppBar.propTypes = {
@@ -52,6 +52,9 @@ const palette = stylesPalette();
 const styles = StyleSheet.create({
     root : {
         backgroundColor : palette.primary.color,
+    },
+    body : {
+        alignItems : "center",
     },
 });
 

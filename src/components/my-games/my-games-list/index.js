@@ -15,6 +15,7 @@ class ListComponent extends React.PureComponent {
                 <View style={styles.root}>
                     {games.map((item, key) => (
                         <GameItem
+                            item        = {item}
                             key={`my-games-item-${key}`}
                         />
                     ))}

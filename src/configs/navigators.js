@@ -12,28 +12,31 @@ import {
     HomeScreen,
     FriendsScreen,
 } from '../screens';
-import { MainDrawer, MainTabs } from "../components/commons";
-import Icon from 'react-native-vector-icons/FontAwesome5';
-
-const BottomNavigator = createBottomTabNavigator({
-    BottomHome : {
-        screen : HomeScreen,
-        navigationOptions : {
-            drawerLabel : 'Inicio',
-            icon        : 'home',
-            tabBarIcon  : ({tintColor}) => (
-                <Icon name="home" color={tintColor} size={24} />
-            ),
-        },
+import { MainDrawer} from "../components/commons";
+import {tabRoutes} from "./routes";
+import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
+//
+const BottomNavigator = createMaterialBottomTabNavigator(tabRoutes, {
+    shifting            : true,
+    initialRouteName    : "BottomHome",
+    activeColor         : "white",
+    labeled             : false,
+    barStyle : {
+        backgroundColor: '#42a5f5',
     },
-}, {
-    tabBarOptions : {
-        showLabel : false,
-        showIcon : true,
-    },
-    initialRouteName : "BottomHome",
-    tabBarComponent : MainTabs,
 });
+//
+// const BottomNavigator = createBottomTabNavigator(tabRoutes, {
+//     tabBarOptions : {
+//         showLabel : false,
+//         showIcon : true,
+//     },
+//     initialRouteName    : "BottomHome",
+//     animationEnabled    : true,
+//     // tabBarComponent     : MainTabs,
+//     swipeEnabled        : true,
+//     shifting            : true,
+// });
 
 const DrawerNavigator = createDrawerNavigator({
     DrawerHome : {

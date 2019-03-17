@@ -7,7 +7,7 @@ export default {
     main : {
         primary : {
             color       : '#2196f3',
-            variant     : '#0026ca',
+            variant     : '#2fdcf7',
             contrast    : '#FFF',
         },
         secondary : {

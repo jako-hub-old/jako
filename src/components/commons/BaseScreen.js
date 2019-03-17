@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {MainAppBar} from "./index";
+import MainAppBar from "./MainAppBar";
 
 /**
  * This component allows to use the same structure or layout for every that uses.

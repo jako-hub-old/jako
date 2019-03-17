@@ -17,34 +17,40 @@ const RenderButton = ({icon, active, onPress}) => (
 
 class MainTabs extends React.Component {
     state = {
-        currentRoute : 0,
+        selectedTab : 0,
     };
 
-    icons = [
-        'home',
-        'futbol',
-        'user-friends',
-        'search',
-        'plus-circle',
+    tabs = [
+        {id : "home",       icon : "home",          path: "BottomHome"},
+        {id : "my-games",   icon : "futbol",        path: "MyGames"},
+        {id : "search",     icon : "search",        path: "BottomHome"},
+        {id : "create-game",icon : "plus-circle",   path: "MyGames"},
+        {id : "profile",    icon : "user",          path: "BottomHome"},
     ];
 
-    render() {
+    onSelectTab(selectedTab) {
         const {navigation} = this.props;
-        const {currentRoute} = this.state;
+        this.setState({
+            selectedTab
+        }, () => {
+            const {path} = this.tabs[selectedTab];
+                navigation.navigate(path);
+        });
+    }
+
+    render() {
+
+        const {selectedTab} = this.state;
         return (
             <Header style={styles.root}>
-                {/*{navigation.state.routes.map((item, key) => (*/}
-                    {/*<RenderButton*/}
-                        {/*active  = {currentRoute === key}*/}
-                        {/*icon    = {"home"}*/}
-                        {/*key     = {`unique-id-key-for-route-${key}`}*/}
-                    {/*/>*/}
-                {/*))}*/}
-                <RenderButton icon={"home"} active />
-                <RenderButton icon={"futbol"} />
-                <RenderButton icon={"user-friends"} />
-                <RenderButton icon={"search"} />
-                <RenderButton icon={"plus-circle"} />
+                {this.tabs.map((item, key) => (
+                    <RenderButton
+                        onPress = { () => this.onSelectTab(key) }
+                        key     = { `main-tab-item-${key}` }
+                        active  = { key === selectedTab }
+                        {...item}
+                    />
+                ))}
             </Header>
         );
     }

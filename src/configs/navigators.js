@@ -7,10 +7,12 @@ import {
     createSwitchNavigator,
     createDrawerNavigator,
     createBottomTabNavigator,
+    createStackNavigator,
 } from 'react-navigation';
 import {
     HomeScreen,
     FriendsScreen,
+    LoginScreen, RegisterScreen,
 } from '../screens';
 import { MainDrawer} from "../components/commons";
 import {tabRoutes} from "./routes";
@@ -25,18 +27,27 @@ const BottomNavigator = createMaterialBottomTabNavigator(tabRoutes, {
         backgroundColor: '#42a5f5',
     },
 });
-//
-// const BottomNavigator = createBottomTabNavigator(tabRoutes, {
-//     tabBarOptions : {
-//         showLabel : false,
-//         showIcon : true,
-//     },
-//     initialRouteName    : "BottomHome",
-//     animationEnabled    : true,
-//     // tabBarComponent     : MainTabs,
-//     swipeEnabled        : true,
-//     shifting            : true,
-// });
+
+const AuthNavigator = createStackNavigator({
+    Login : {
+        screen : LoginScreen,
+        navigationOptions: {
+            headerVisible: false
+        }
+    },
+    Register : {
+        screen : RegisterScreen,
+        navigationOptions: {
+            headerVisible: false
+        }
+    },
+}, {
+    initialRouteName : "Login",
+    headerMode: 'none',
+    navigationOptions: {
+        headerVisible: false,
+    }
+});
 
 const DrawerNavigator = createDrawerNavigator({
     DrawerHome : {
@@ -57,10 +68,11 @@ const DrawerNavigator = createDrawerNavigator({
 });
 
 const AppNavigator = createSwitchNavigator({
-    Bottom : BottomNavigator,
-    Drawer : DrawerNavigator,
+    Auth    : AuthNavigator,
+    Bottom  : BottomNavigator,
+    Drawer  : DrawerNavigator,
 }, {
-    initialRouteName: "Bottom",
+    initialRouteName: "Auth",
 });
 
 export default AppNavigator;

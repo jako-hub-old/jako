@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import RegisterForm from "./RegisterForm";
-import LoginForm from "../login";
 
 class RegisterComponent extends React.Component {
     state = {
@@ -28,7 +27,7 @@ class RegisterComponent extends React.Component {
     }
 
     goToLogin() {
-        this.props.navigation.goBack();
+        this.props.navigation.navigate("Login");
     }
 
     render() {

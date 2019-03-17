@@ -45,6 +45,10 @@ class LoginComponent extends React.Component {
         this.props.navigation.navigate("Register");
     }
 
+    onSubmit() {
+        this.props.navigation.navigate("Main");
+    }
+
     render() {
         const {
             form,
@@ -57,6 +61,7 @@ class LoginComponent extends React.Component {
                 goToRegister    = {() => this.goToRegister()}
                 togglePassword  = {() => this.togglePassword()}
                 viewPassword    = {viewPassword}
+                onSubmit        = {() => this.onSubmit()}
             />
         )
     }

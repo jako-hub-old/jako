@@ -20,7 +20,7 @@ import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom
 //
 const BottomNavigator = createMaterialBottomTabNavigator(tabRoutes, {
     shifting            : true,
-    initialRouteName    : "MyGames",
+    initialRouteName    : "Home",
     activeColor         : "white",
     labeled             : false,
     barStyle : {
@@ -42,7 +42,7 @@ const AuthNavigator = createStackNavigator({
         }
     },
 }, {
-    initialRouteName : "Login",
+    initialRouteName : "Register",
     headerMode: 'none',
     navigationOptions: {
         headerVisible: false,
@@ -69,7 +69,7 @@ const DrawerNavigator = createDrawerNavigator({
 
 const AppNavigator = createSwitchNavigator({
     Auth    : AuthNavigator,
-    Bottom  : BottomNavigator,
+    Main    : BottomNavigator,
     Drawer  : DrawerNavigator,
 }, {
     initialRouteName: "Auth",

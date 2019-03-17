@@ -9,7 +9,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 export const tabRoutes = {
-    BottomHome : {
+    Home : {
         screen : HomeScreen,
         navigationOptions : { tabBarIcon : ({tintColor}) => (<Icon color={tintColor} name={"home"} size={24} />)},
     },

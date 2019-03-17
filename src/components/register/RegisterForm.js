@@ -21,6 +21,11 @@ const RegisterForm = ({form, onChange, onSubmit, viewPassword, togglePassword, g
     <View style={styles.root}>
         <ScrollView>
             <Form style={styles.form}>
+                <View style={{alignItems : "center"}}>
+                    <Text uppercase>
+                        Registrate en jako
+                    </Text>
+                </View>
                 <Item floatingLabel style={styles.row}>
                     <Label>Teléfono</Label>
                     <Input

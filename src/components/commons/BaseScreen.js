@@ -8,20 +8,24 @@ import MainAppBar from "./MainAppBar";
  * @param navigation
  * @param children
  * @param title
+ * @param header
  * @returns {*}
  * @constructor
  */
-const BaseScreen = ({navigation, children, title}) => (
+const BaseScreen = ({navigation, children, title, header=true}) => (
     <>
-        <MainAppBar
-            navigation  = {navigation}
-            title       = {title}
-        />
+        {header && (
+            <MainAppBar
+                navigation  = {navigation}
+                title       = {title}
+            />
+        )}
         {children}
     </>
 );
 BaseScreen.propTypes = {
     navigation  : PropTypes.object.isRequired,
     title       : PropTypes.string,
+    header      : PropTypes.bool,
 };
 export default BaseScreen;

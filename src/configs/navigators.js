@@ -18,7 +18,7 @@ import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom
 //
 const BottomNavigator = createMaterialBottomTabNavigator(tabRoutes, {
     shifting            : true,
-    initialRouteName    : "BottomHome",
+    initialRouteName    : "MyGames",
     activeColor         : "white",
     labeled             : false,
     barStyle : {

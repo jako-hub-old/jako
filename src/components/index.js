@@ -1,0 +1,1 @@
+export {default as MyGamesComponent} from './my-games';

@@ -5,6 +5,19 @@ import store from './src/store/store';
 import { Root } from 'native-base';
 import AppNavigator from './src/configs/navigators';
 const AppContainer = createAppContainer(AppNavigator);
+import { connect } from 'react-redux';
+import { ModalLoader } from './src/components/commons';
+
+const mapStateToProps = ({global}) => ({
+    loading : global.loadingState,
+});
+
+const AppWrapper = connect(mapStateToProps, null)(props => (
+    <>
+        <AppContainer/>
+        {props.loading && (<ModalLoader />)}
+    </>
+));
 
 /**
  * This is the main application component, here we can put every component we need to
@@ -12,17 +25,13 @@ const AppContainer = createAppContainer(AppNavigator);
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
  */
 export default class App extends Component {
-  render() {
-    return (
-        <ReduxProvider store={store}>
-            <Root>
-                <ReduxProvider store={store}>
-                    <Root>
-                        <AppContainer/>
-                    </Root>
-                </ReduxProvider>
-            </Root>
-        </ReduxProvider>
-    );
-  }
+    render() {
+        return (
+            <ReduxProvider store={store}>
+                <Root>
+                    <AppWrapper/>
+                </Root>
+            </ReduxProvider>
+        );
+    }
 }

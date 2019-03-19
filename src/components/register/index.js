@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import RegisterForm from "./RegisterForm";
 import { withLoader } from '../../providers';
+import {API_SERVER} from 'react-native-dotenv';
 
 /**
  * This component allows to handle the user register
@@ -17,6 +18,10 @@ class RegisterComponent extends React.Component {
         },
         viewPassword : false,
     };
+
+    componentDidMount() {
+        alert(API_SERVER);
+    }
 
     onChange(name, value) {
         this.setState(({form}) => ({
@@ -38,7 +43,7 @@ class RegisterComponent extends React.Component {
     }
 
     onRegister() {
-        
+
     };
 
     render() {

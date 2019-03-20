@@ -16,11 +16,11 @@ class ApiService {
      * @memberof ApiService
      */
     doPost(path, data) {
-        data.headers = {
-            "Content-type": "application/json",
-        };
         data.method = "POST";
-        return this.doRequest(path, data);
+        return this.doRequest(path, data, "POST", {
+            // "Content-type": "text/plain",
+            "Content-type": "application/json",
+        });
     }
 
     /**
@@ -39,13 +39,18 @@ class ApiService {
      *
      * @param {*} path
      * @param {*} [data={}]
+     * @param {*} [headers={}]
      * @returns
      * @memberof ApiService
      */
-    doRequest(path, data={}) {
+    doRequest(path, data={}, method="GET", headers={}) {
         return new Promise((resolve, reject) => {
-            const url = `${API_SERVER }${path}`;
-            fetch(url, data)
+            const url = `${ API_SERVER }${path}`;
+            fetch(url, {
+                method,
+                headers,
+                body : JSON.stringify(data),
+            })
             .then(response => response.json())
             .then(response => {
                 resolve(response);

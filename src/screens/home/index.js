@@ -23,9 +23,10 @@ class HomeScreen extends React.PureComponent {
 
 const styles = StyleSheet.create({
     root : {
+        flex : 1,
+        flexDirection : 'row',
         paddingHorizontal   : 10,
         paddingVertical     : 10,
-        alignItems          : "center",
     },
 });
 

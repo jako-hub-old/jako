@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { sessionWrite, sessionWriteAll, logout } from "../store/actions/session.actions";
+import { sessionWrite, sessionWriteAll, logout, login } from "../store/actions/session.actions";
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types'
 
@@ -9,6 +9,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
     sessionWrite,
     sessionWriteAll,
     logout,
+    login,
 }, dispatch);
 
 const mapStateToProps = (states) => {
@@ -21,6 +22,7 @@ export const props = {
     sessionWrite        : PropTypes.func,
     sessionWriteAll     : PropTypes.func,
     logout              : PropTypes.func,
+    login               : PropTypes.func,
     sessionStack        : PropTypes.object,
 };
 

@@ -1,6 +1,6 @@
 export const consoleError = (type, response) => {
     console.group(type);
-    console.error(response);
+    console.log(response);
     console.groupEnd();
 };
 

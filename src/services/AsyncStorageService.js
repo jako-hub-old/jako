@@ -1,8 +1,8 @@
-import { AsyncStorage } from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-community/async-storage';
 import uuid from 'react-native-uuid';
 
-export const DB_NAME = '@TrikoStorage';
-export const SESSION = 'user-session';
+export const DB_NAME = '@Jako-storage';
+export const SESSION = 'session';
 
 /**
  * This class allows to interact with the AsyncStorage using simple function and manipulating the data,
@@ -58,10 +58,11 @@ class StorageService {
      * @returns {Promise<boolean>}
      */
     persistEntity = async (entityName, data, callback) => {
-        try {
+        try {            
             await AsyncStorage.setItem(`${DB_NAME}:${entityName}`, JSON.stringify(data), callback);
             return true;
         } catch (e) {
+            console.log("Error writing: ", e);
             return false;
         }
     };
@@ -83,7 +84,6 @@ class StorageService {
             data.code = code;
         }
         return new Promise((resolve, reject) => {
-
             const onError = (object, type) => {
                 reject({
                     error   : true,
@@ -95,7 +95,7 @@ class StorageService {
             try {
                 // Now we fetch the current data from the storage.
                 this.getEntityData(entityName, callback)
-                    .then(currentRecords => {
+                    .then(currentRecords => {                    
                         const records = currentRecords? currentRecords : [];
                         records.push(data); // Then we add the new record.
                         this.persistEntity(entityName, records, callback) // then we save all the storage key with the new data.

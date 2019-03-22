@@ -17,6 +17,7 @@ import { VerifyCode } from '../';
  * @extends {React.Component}
  */
 class RegisterComponent extends React.Component {
+    _isMounted = true;
     state = {
         form : {
             phoneNumber : "", //Todo: remove
@@ -37,12 +38,26 @@ class RegisterComponent extends React.Component {
      * @memberof RegisterComponent
      */
     onChange(name, value) {
-        this.setState(({form}) => ({
-            form : {
-                ...form,
-                [name] : value,
-            },
-        }));
+        if(this._isMounted) {
+            this.setState(({form}) => ({
+                form : {
+                    ...form,
+                    [name] : value,
+                },
+            }));
+        }        
+    }
+
+    componentDidUpdate(propProps) {
+        const {reading, logged} = propProps.sessionStack;
+        if(!reading && logged && this._isMounted) {
+            this._isMounted = false;
+            this.props.startLoading();
+            setTimeout(() => {                
+                this.props.stopLoading();
+                this.props.navigation.navigate("Home");
+            }, 200)
+        }
     }
 
     goToLogin() {
@@ -136,7 +151,7 @@ class RegisterComponent extends React.Component {
 
                 } else {
                     if(verificado) {
-                        showMessage('El usuario ya está verificado!');
+                        this.onVerifyCode();
                     } else {
                         showMessage('Hemos enviado un mesaje de texto con el código');
                         this.setState({
@@ -160,7 +175,18 @@ class RegisterComponent extends React.Component {
     }
 
     onVerifyCode() {
-        
+        const {form:{phoneNumber}, imei} = this.state;
+        this.props.login({            
+            imei,
+            user : phoneNumber,
+        })
+        .then(() => {
+            alert("Sessión iniciada!");
+        })
+        .catch(response => {
+            consoleError("Login: ", response);
+            Toast.show({ text : "Error inesperado al iniciar sesión" });
+        });
     }
 
     render() {
@@ -206,10 +232,7 @@ class RegisterComponent extends React.Component {
 }
 
 RegisterComponent.propTypes = {
-    navigation : PropTypes.object.isRequired,
-};
-
-RegisterComponent.propTypes = {
+    navigation      : PropTypes.object.isRequired,
     startLoading    : PropTypes.func,
     stopLoading     : PropTypes.func,
     loading         : PropTypes.bool,
@@ -219,6 +242,7 @@ RegisterComponent.propTypes = {
     sessionWriteAll : PropTypes.func,
     logout          : PropTypes.func,
     sessionStack    : PropTypes.object,
+    login           : PropTypes.func,
 };
 
 export default withApi(withSession(RegisterComponent));

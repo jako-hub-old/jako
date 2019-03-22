@@ -1,6 +1,7 @@
 import {readSession, writeInSession, writeAllInSession} from "../../services/SessionService";
 import {startLoading, stopLoading} from './global.actions';
 import AsynStorageService, {SESSION} from "../../services/AsyncStorageService";
+import { consoleInfo } from "../../utils/functions";
 
 export const SET_SESSION_VAR = '[SESSION] SET_SESSION_VAR';
 export const DEL_SESSION_VAR = '[SESSION] DEL_SESSION_VARS';
@@ -138,3 +139,25 @@ export const logout = () => {
         AsynStorageService.clearEntity(SESSION);
     };
 };
+
+export const login = ({user, imei}) => dispatch => (new Promise((resolve, reject) => {
+    writeAllInSession({
+        user, imei, logged : true,
+    })
+        .then((saved) => {
+            if(saved) {
+                dispatch(setAllSessionVars({
+                    user,
+                    imei,
+                }));
+                resolve();
+            } else {
+                consoleInfo("could not save the session var (Login)");
+                reject(false);
+            }
+        })
+        .catch((response) => {
+            consoleInfo("Error while saving the session (Login): ", response);
+            reject(response);
+        })
+}));

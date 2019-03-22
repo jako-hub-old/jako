@@ -1,7 +1,7 @@
 import {readSession, writeInSession, writeAllInSession} from "../../services/SessionService";
 import {startLoading, stopLoading} from './global.actions';
 import AsynStorageService, {SESSION} from "../../services/AsyncStorageService";
-import { consoleInfo } from "../../utils/functions";
+import { consoleInfo, consoleError } from "../../utils/functions";
 
 export const SET_SESSION_VAR = '[SESSION] SET_SESSION_VAR';
 export const DEL_SESSION_VAR = '[SESSION] DEL_SESSION_VARS';
@@ -133,10 +133,17 @@ export const sessionWriteAll = (data) => {
     };
 };
 
-export const logout = () => {
+export const logout = (navigation) => {
     return (dispatch) => {
         dispatch(clearSession());
-        AsynStorageService.clearEntity(SESSION);
+        AsynStorageService.clearEntity(SESSION)
+            .then(() => {
+                if(navigation) navigation.navigate("Register");
+            })
+            .catch(response => {
+                consoleError('Error loginout', response);
+            });
+        
     };
 };
 

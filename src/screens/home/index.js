@@ -1,7 +1,8 @@
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { BaseScreen } from '../../components/commons';
 import PropTypes from 'prop-types';
+import { SearchComponent } from '../../components';
 
 /**
  * This is the main or home screen for the application.
@@ -13,7 +14,7 @@ class HomeScreen extends React.PureComponent {
         return (
             <BaseScreen navigation={navigation}>
                 <View style={styles.root}>
-                    <Text>Esta es la vista principal de la aplicación</Text>
+                    <SearchComponent />
                 </View>
             </BaseScreen>
         );

@@ -256,9 +256,17 @@ class StorageService {
      */
     clearEntity = (entityName) => {
         try {
-            this.persistEntity(entityName, [])
-                .then(() => console.log(`Entity ${entityName} cleared!`))
-                .catch(() => console.log(`Cannot clear entity ${entityName}`));
+            return (new Promise((resolve, reject) => {
+                this.persistEntity(entityName, [])
+                .then(() => {
+                    console.log(`Entity ${entityName} cleared!`)
+                    resolve();
+                })
+                .catch(() => {
+                    console.log(`Cannot clear entity ${entityName}`)
+                    reject();
+                });
+            }))
         } catch (e) {
             console.log(`Cannot clear entity ${entityName}`, e);
         }

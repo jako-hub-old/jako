@@ -181,16 +181,15 @@ class RegisterComponent extends React.Component {
             user : phoneNumber,
         })
         .then(() => {
-            alert("Sessión iniciada!");
+            this.props.navigation.navigate("Home");
         })
         .catch(response => {
             consoleError("Login: ", response);
             Toast.show({ text : "Error inesperado al iniciar sesión" });
-        });
+        });3178
     }
 
     render() {
-        console.log("Session: ", this.props.sessionStack);
         const {
             form,
             error,

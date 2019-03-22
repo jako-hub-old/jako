@@ -7,17 +7,30 @@ import AppNavigator from './src/configs/navigators';
 const AppContainer = createAppContainer(AppNavigator);
 import { connect } from 'react-redux';
 import { ModalLoader } from './src/components/commons';
+import { initializeSession } from './src/store/actions/session.actions';
 
 const mapStateToProps = ({global}) => ({
     loading : global.loadingState,
 });
 
-const AppWrapper = connect(mapStateToProps, null)(props => (
-    <>
-        <AppContainer/>
-        {props.loading && (<ModalLoader />)}
-    </>
-));
+class AppComponent extends React.Component {
+
+    componentDidMount() {
+        store.dispatch(initializeSession());
+    }
+    
+    render() {
+        const {loading} = this.props;
+        return (
+            <>
+                <AppContainer/>
+                {loading && (<ModalLoader />)}
+            </>
+        );
+    }
+}
+
+const AppWrapper = connect(mapStateToProps, null)(AppComponent);
 
 /**
  * This is the main application component, here we can put every component we need to

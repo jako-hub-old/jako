@@ -7,8 +7,10 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-community/async-storage": "^1.2.1",
     "@react-native-community/slider": "^1.0.3",
     "@react-native-community/viewpager": "^1.1.5",
+    "buffer": "^5.2.1",
     "native-base": "2.12.1",
     "prop-types": "^15.7.2",
     "react": "16.8.1",
@@ -20,6 +22,7 @@
     "react-native-link": "^4.1.0",
     "react-native-paper": "^2.13.0",
     "react-native-sim-data": "^2.0.3",
+    "react-native-uuid": "^1.4.9",
     "react-native-vector-icons": "^6.3.0",
     "react-navigation": "^3.3.2",
     "react-navigation-material-bottom-tabs": "^1.0.0",

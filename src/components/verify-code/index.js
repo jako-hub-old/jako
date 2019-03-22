@@ -3,6 +3,8 @@ import VerifyCodeForm from './VerifyCodeForm';
 import { withApi } from '../../providers';
 import PropTypes from 'prop-types';
 import endpoints from '../../configs/endpoints';
+import { consoleError } from '../../utils/functions';
+import { Toast } from 'native-base';
 
 /**
  * This component allows to verify the user code.
@@ -31,21 +33,21 @@ class VerifyCode extends React.Component {
         const data = {
             usuario : userNumber,
             codigo  : verifyCode,
-            imei,            
+            imei,     
         };
         this.props.doPost(endpoints.usuarios.verificar, data)
             .then(response => {
+                this.props.stopLoading();
                 if(response) {
                     this.props.onCodeVerified();
                 } else {
                     showMessage('Código inválido');
-                }                
-                this.props.stopLoading();
+                }        
             })
             .catch(response => {
-                consoleError("Error registro", response);
-                showMessage('Ocurrió un error inesperado');
                 this.props.stopLoading();
+                consoleError("Error registro", response);
+                showMessage('Ocurrió un error inesperado');                
             });
     }
 

@@ -40,9 +40,13 @@ const RegisterForm = ({form, onChange, error, onSubmit, goToLogin}) => {
                         />
                     </Item>
                     <View style={styles.buttonRow}>
-                        <SubmitButton block primary onPress={onSubmit}>
-                            <Text>Ingresa</Text>
-                        </SubmitButton>
+                        <SubmitButton 
+                            block 
+                            primary 
+                            onPress     = { onSubmit                }
+                            disabled    = { form.phoneNumber === "" }
+                            label       = { "Ingresa"               }
+                        />
                     </View>
                 </Form>
             </ScrollView>

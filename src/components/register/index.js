@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import RegisterForm from "./RegisterForm";
-import { withApi } from '../../providers';
+import { withApi, withSession } from '../../providers';
 import endpoints from '../../configs/endpoints';
 import { Toast } from 'native-base';
 import { consoleError, consoleInfo } from '../../utils/functions';
 import { IMEI } from '../../utils/constants';
 import { PermissionsAndroid } from 'react-native';
 import NoPermission from '../login/NoPermission';
-//import VerifyCode from './VerifyCode';
 import { VerifyCode } from '../';
 
 /**
@@ -20,14 +19,14 @@ import { VerifyCode } from '../';
 class RegisterComponent extends React.Component {
     state = {
         form : {
-            phoneNumber : "3176739653", //Todo: remove
+            phoneNumber : "", //Todo: remove
         },
         send        : false,
         error       : false,
         permission  : false,
         requesting  : true,
         imei        : null,
-        openVerify  : true,
+        openVerify  : false,
     };
 
     /**
@@ -130,13 +129,20 @@ class RegisterComponent extends React.Component {
 
         this.props.doPost(endpoints.usuarios.validar, data)
             .then(response => {
-                const {error_controlado, validacion} = response;
+                const {error_controlado, validacion, verificado} = response;
                 if(error_controlado) {
-                    showMessage('Error inesperado, contacte al administrador');                    
+                    showMessage('Error inesperado, contacte al administrador');
                 } else if(validacion) {
 
                 } else {
-                    // Validar código.
+                    if(verificado) {
+                        showMessage('El usuario ya está verificado!');
+                    } else {
+                        showMessage('Hemos enviado un mesaje de texto con el código');
+                        this.setState({
+                            openVerify : true,
+                        });
+                    }
                 }
                 consoleInfo("Info registro", response);
                 this.props.stopLoading();
@@ -154,10 +160,11 @@ class RegisterComponent extends React.Component {
     }
 
     onVerifyCode() {
-        alert("Code is verified!");
+        
     }
 
     render() {
+        console.log("Session: ", this.props.sessionStack);
         const {
             form,
             error,
@@ -208,6 +215,10 @@ RegisterComponent.propTypes = {
     loading         : PropTypes.bool,
     doPost          : PropTypes.func,
     doGet           : PropTypes.func,
+    sessionWrite    : PropTypes.func,
+    sessionWriteAll : PropTypes.func,
+    logout          : PropTypes.func,
+    sessionStack    : PropTypes.object,
 };
 
-export default withApi(RegisterComponent);   
+export default withApi(withSession(RegisterComponent));

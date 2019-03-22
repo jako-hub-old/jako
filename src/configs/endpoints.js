@@ -1,8 +1,8 @@
 export default {
     usuarios : {
-        lista       : '/v1/usuario/lista',
-        nuevo       : '/v1/usuario/nuevo',
-        autenticar  : '/v1/usuario/autenticar',
+        lista      : '/v1/usuario/lista',
+        validar    : '/v1/usuario/validar',
+        verificar  : '/v1/usuario/verificar',
     },
     juego : {
         nuevo   : '/v1/juego/nuevo',

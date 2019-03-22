@@ -1,4 +1,5 @@
 import {API_SERVER} from 'react-native-dotenv';
+import { consoleError } from '../utils/functions';
 
 /**
  * This service allows to execute simple api fetchs
@@ -51,7 +52,15 @@ class ApiService {
                 headers,
                 body : JSON.stringify(data),
             })
-            .then(response => response.json())
+            .then(response => {
+                try {
+                    return response.json()
+                } catch(error) {
+                    consoleError('Api', error);
+                    consoleError('Api-response: ', response);
+                    reject(response);
+                }
+            })
             .then(response => {
                 resolve(response);
             })

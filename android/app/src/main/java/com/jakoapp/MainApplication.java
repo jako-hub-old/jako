@@ -3,6 +3,9 @@ package com.jakoapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import eu.sigrlami.rnsimdata.RNSimDataReactPackage;
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
+import codes.simen.IMEI.IMEI;
 import com.reactnativecommunity.viewpager.RNCViewPagerPackage;
 import com.reactnativecommunity.slider.ReactSliderPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -27,6 +30,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNSimDataReactPackage(),
+            new RNDeviceInfo(),
+            new IMEI(),
             new RNCViewPagerPackage(),
             new ReactSliderPackage(),
             new VectorIconsPackage(),

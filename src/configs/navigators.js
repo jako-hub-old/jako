@@ -2,11 +2,9 @@
  * In this file we configure all the application navigation routes.
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
  */
-import React from 'react';
 import {
     createSwitchNavigator,
     createDrawerNavigator,
-    createBottomTabNavigator,
     createStackNavigator,
 } from 'react-navigation';
 import {

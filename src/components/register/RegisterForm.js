@@ -24,7 +24,7 @@ const RegisterForm = ({form, onChange, error, onSubmit, goToLogin}) => {
                 <Form style={styles.form}>
                     <View style={{alignItems : "center"}}>
                         <Text uppercase>
-                            Registrate en jako
+                            Ingresa a jako
                         </Text>
                     </View>
                     <Item 
@@ -32,7 +32,7 @@ const RegisterForm = ({form, onChange, error, onSubmit, goToLogin}) => {
                         style           = { styles.row } 
                         error           = { error }
                     >
-                        <Label>Teléfono</Label>
+                        <Label>Número de teléfono</Label>
                         <Input
                             keyboardType    = "numeric"
                             value           = {form.phoneNumber}
@@ -41,13 +41,8 @@ const RegisterForm = ({form, onChange, error, onSubmit, goToLogin}) => {
                     </Item>
                     <View style={styles.buttonRow}>
                         <SubmitButton block primary onPress={onSubmit}>
-                            <Text>Registrarme</Text>
+                            <Text>Ingresa</Text>
                         </SubmitButton>
-                    </View>
-                    <View style={styles.buttonRow}>
-                        <Button bordered block rounded onPress={goToLogin}>
-                            <Text>Ya tengo cuenta</Text>
-                        </Button>
                     </View>
                 </Form>
             </ScrollView>

@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    View,
     StyleSheet,
-    Text,
+    View,
 } from 'react-native';
 import {
     Input,
@@ -15,22 +14,31 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 /** 
  * 
  */
-const Filter = () => (
-    <Form style={styles.form}>
-        <Item rounded style={styles.row}>
-            <Input
-                placeholder="Busca juegos"
-             />
-            <Icon 
-                style={styles.icon} 
-                name="search" 
-                size={30}                 
-            />
-        </Item>
-    </Form>
+const Filter = ({value, onChange}) => (
+    <View style={styles.root}>
+        <Form style={styles.form}>
+            <Item rounded style={styles.row}>
+                <Input
+                    placeholder="Busca juegos"
+                    value       = { value }
+                    onChangeText= { text => onChange(text) }
+                />
+                <Icon 
+                    style={styles.icon} 
+                    name="search" 
+                    size={30}                 
+                />
+            </Item>
+        </Form>
+    </View>
 );
 
 const styles = StyleSheet.create({
+    root : {
+        flexDirection : "row",
+        alignItems : "flex-start",
+        justifyContent : "flex-start",        
+    },
     form : {
         flex : 1,
     },
@@ -45,5 +53,10 @@ const styles = StyleSheet.create({
         width : "100%",
     },
 });
+
+Filter.propTypes = {
+    onChange : PropTypes.func,
+    value    : PropTypes.string,
+};
 
 export default Filter;

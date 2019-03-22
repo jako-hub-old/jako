@@ -2,11 +2,14 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchGames } from '../store/actions/search.actions';
+import { fetchGames, onChangeQueryString, } from '../store/actions/search.actions';
 import { startLoading, stopLoading } from '../store/actions/global.actions';
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
     fetchGames,
+    startLoading,
+    stopLoading,
+    onChangeQuery : onChangeQueryString,
 }, dispatch);
 
 const mapStateToProps = ({search:{results=[], searchQuery=""}}) => ({
@@ -15,11 +18,12 @@ const mapStateToProps = ({search:{results=[], searchQuery=""}}) => ({
 });
 
 export const propTypes = {
-    results     : PropTypes.array,
-    searchQuery : PropTypes.string,
-    fetchGames  : PropTypes.func,
-    startLoading: PropTypes.func,
-    stopLoading : PropTypes.func,
+    results         : PropTypes.array,
+    searchQuery     : PropTypes.string,
+    fetchGames      : PropTypes.func,
+    startLoading    : PropTypes.func,
+    stopLoading     : PropTypes.func,
+    onChangeQuery   : PropTypes.func,
 };
 
 /**

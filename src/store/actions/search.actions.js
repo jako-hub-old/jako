@@ -35,3 +35,7 @@ export const fetchGames = () => (dispatch) => (new Promise((resolve, reject) => 
         dispatch(stopLoading());
     }); 
 }));
+
+export const onChangeQueryString = text => dispatch => {
+    dispatch(setQuery(text));
+};

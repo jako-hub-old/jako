@@ -146,7 +146,6 @@ android {
 
 dependencies {
     implementation project(':@react-native-community_async-storage')
-    implementation project(':react-native-sim-data')
     implementation project(':react-native-device-info')
     implementation project(':react-native-imei')
     implementation project(':@react-native-community_viewpager')

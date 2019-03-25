@@ -6,8 +6,6 @@ import { PermissionsAndroid } from 'react-native';
 import { consoleError } from '../../utils/functions';
 import NoPermission from './NoPermission';
 import { Toast } from 'native-base';
-import DeviceInfo from 'react-native-device-info';
-import RNSimData from 'react-native-sim-data';
 import { withApi } from '../../providers';
 
 class LoginComponent extends React.Component {

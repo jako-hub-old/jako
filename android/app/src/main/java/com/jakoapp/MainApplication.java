@@ -4,7 +4,6 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
-import eu.sigrlami.rnsimdata.RNSimDataReactPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import codes.simen.IMEI.IMEI;
 import com.reactnativecommunity.viewpager.RNCViewPagerPackage;
@@ -32,7 +31,6 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new AsyncStoragePackage(),
-            new RNSimDataReactPackage(),
             new RNDeviceInfo(),
             new IMEI(),
             new RNCViewPagerPackage(),

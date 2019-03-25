@@ -46,7 +46,7 @@ class CommentGame extends React.Component {
                     comentario: comment,
                     fecha,
                     codigo_comentario,
-                    jugador,
+                    jugador_seudonimo : jugador,
                     codigo_jugador,
                     foto_usuario,
                 });

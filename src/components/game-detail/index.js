@@ -77,8 +77,8 @@ class GameDetailComponent extends React.Component {
     }
 
     onSaveComment(comment) {
-        this.setState(({comments}) => ({
-            comments        : [...comments, comment],
+        this.setState(({comentarios}) => ({
+            comentarios        : [...comentarios, comment],
             openComment     : false,
         }));
     }

@@ -23,35 +23,46 @@ import {
 } from '../';
 
 class GameDetailComponent extends React.Component {
-    state = {
-        comments        : [],
+    state = {        
+        codigo_juego    : null,
+        nombre          : null,
+        jugadores : 0,
+        jugadores_confirmados : 0,
+        fecha : "",
+        acceso : "",
+        escenario_nombre : "",
+        negocio_nombre   : "",
+        jugador_seudonimo : "",
+        comentarios : [],
+        detalles    : [],
         loadingComments : false,
         openComment     : true,
     };
 
     componentDidMount() {
-        this.fetchComments();
+        this.fetchGameInfo();
     }
 
-    fetchComments() {
+    fetchGameInfo() {
         const {codigo_juego} = this.props.selectedGame;
         this.setState({loadingComments : true});
-        this.props.doPost(endpoints.comentario.lista, {
+        this.props.doPost(endpoints.juego.detalle, {
             juego : codigo_juego,
         })
         .then(response => {        
-            let comments = [];
-            if(response.error_controlado) {
-
-            } else if(response.error){
-
+            if(response.error_controlado || response.error) {
+                Toast.show({text : "Ocurrió un error al obtener la información del juego"});
+                this.setState({
+                    loadingComments : false,
+                });
             } else {
-                comments = response;
+                this.setState({
+                    ...response,
+                    loadingComments : false,
+                }, () => {
+                    console.log("data: ", this.state);
+                });
             }
-            this.setState({
-                comments,
-                loadingComments : false,
-            });
         })
         .catch(response => {
             consoleError("List of comments", response);
@@ -75,7 +86,7 @@ class GameDetailComponent extends React.Component {
     render() {
         const {selectedGame} = this.props;
         const {
-            comments,
+            comentarios,
             loadingComments,
             openComment,
         } = this.state;
@@ -109,7 +120,7 @@ class GameDetailComponent extends React.Component {
                             >
                                 
                                 <CommentsList 
-                                    comments = { comments }
+                                    comments = { comentarios }
                                     loading  = { loadingComments }
                                 />
                             </Tab>

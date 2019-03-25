@@ -18,7 +18,7 @@ import { LoadingSpinner, } from '../commons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
-const Comment = ({jugador, foto_usuario, comentario, fecha}) => {
+const Comment = ({jugador_seudonimo, foto_usuario, comentario, fecha}) => {
     const formattedDate = moment(fecha).format("YY/MM/DD HH:MM");
     return (
         <ListItem avatar style={styles.comment} noBorder> 
@@ -27,7 +27,7 @@ const Comment = ({jugador, foto_usuario, comentario, fecha}) => {
                 {!foto_usuario && <View style={styles.iconUser}><Icon name="user" size={20}/></View>}
             </Left>
             <Body>
-                <Text style={styles.userName}>{jugador}</Text>
+                <Text style={styles.userName}>{jugador_seudonimo}</Text>
                 <Text note>{comentario}</Text>
             </Body>
             <Right>

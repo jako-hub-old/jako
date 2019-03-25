@@ -3,6 +3,9 @@ import { Api } from '../../services/ApiService';
 import endpoints from '../../configs/endpoints';
 export const SET_RESULTS = '[SEARCH] SET_RESULTS';
 export const SET_QUERY  = '[SEARCH] SET_QUERY';
+export const SET_SELECTED_GAME = '[SEARCH] SET_SELECTED_GAME';
+export const SELECT_GAME = '[SEARCH] SELECT_GAME';
+export const CLEAR_SELECTED_GAME = '[SEARCH] CLEAR_SELECTED_GAME';
 
 export const setResults = results => ({
     type : SET_RESULTS,
@@ -12,6 +15,21 @@ export const setResults = results => ({
 export const setQuery = query => ({
     type : SET_QUERY,
     query,
+});
+
+export const setSelectedGame = selectedGame => ({
+    type : SET_SELECTED_GAME,
+    selectedGame,
+});
+
+export const selectGame = selectedGame => ({
+    type        : SELECT_GAME,
+    openDetail  : true,
+    selectedGame,
+});
+
+export const clearSelectedGame = () => ({
+    type : CLEAR_SELECTED_GAME,
 });
 
 /***************************

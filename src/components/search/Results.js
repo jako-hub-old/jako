@@ -10,9 +10,9 @@ const Results = ({results=[], onSelectItem,}) => (
     <ScrollView style={{marginTop : 15, flex : 1, flexDirection: "column"}}>
         {results.map((item, key) => (
             <Item 
-                key         = {`${item.code}-${key}`} 
-                onSelect    = {onSelectItem}
-                item        = {item}
+                key         = { `${item.code}-${key}` } 
+                onSelect    = { () => onSelectItem(item) }
+                item        = { item }
             />
         ))}        
     </ScrollView>

@@ -7,15 +7,19 @@ import {
 import Header from './Header';
 import Content from './Content';
 import Footer from './Footer';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import ImagePreview from './ImagePreview';
 import PropTypes from 'prop-types';
 
-const Item = ({item, onPress}) => (
-    <TouchableOpacity onPress={onPress}>
-        <View style={styles.root}>
+/**
+ * This component renders the Item presentation
+ * @param {*} param0 
+ */
+const Item = ({item, onSelect}) => (
+    <View style={styles.root}>
+        <TouchableOpacity onPress={onSelect}>
             <View style={styles.wrapper}>
                 <View style={styles.pictureWrapper}>
-                    <Icon name="image" size={80}/>
+                    <ImagePreview />
                 </View>
                 <View style={styles.infoWrapper}>
                     <Header
@@ -26,14 +30,15 @@ const Item = ({item, onPress}) => (
                     />
                     <Content 
                         item={item}
-                    />
-                    <Footer
-                        
-                    />
+                    />                    
                 </View>
             </View>
-        </View>
-    </TouchableOpacity>
+        </TouchableOpacity>
+        <Footer
+
+         />
+    </View>
+    
 );
 
 const styles = StyleSheet.create({
@@ -51,7 +56,6 @@ const styles = StyleSheet.create({
         flex : 3,
         justifyContent : "center",
         alignItems  : "center",
-        padding : 5,
     },
     infoWrapper : {
         flex : 7,
@@ -59,7 +63,9 @@ const styles = StyleSheet.create({
 });
 
 Item.propTypes = {
-    onPress : PropTypes.func,
+    onSelect    : PropTypes.func,
+    onAdd       : PropTypes.func,
+    onComment   : PropTypes.func,
 };
 
 export default Item;

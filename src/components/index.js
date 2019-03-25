@@ -4,3 +4,5 @@ export {default as RegisterComponent    } from './register';
 export {default as VerifyCode           } from './verify-code';
 export {default as MyProfileComponent   } from './my-profile';
 export {default as SearchComponent      } from './search';
+export {default as GameDetailComponent  } from './game-detail';
+export {default as CommentGameComponent } from './comment-game';

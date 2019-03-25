@@ -2,28 +2,44 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchGames, onChangeQueryString, } from '../store/actions/search.actions';
+import { 
+    fetchGames, 
+    onChangeQueryString, 
+    clearSelectedGame,
+    selectGame,
+    setSelectedGame,
+} from '../store/actions/search.actions';
 import { startLoading, stopLoading } from '../store/actions/global.actions';
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
+    clearSelectedGame,
+    selectGame,
+    setSelectedGame,
     fetchGames,
     startLoading,
     stopLoading,
     onChangeQuery : onChangeQueryString,
 }, dispatch);
 
-const mapStateToProps = ({search:{results=[], searchQuery=""}}) => ({
+const mapStateToProps = ({search:{results=[], searchQuery="", viewGameDetail, selectedGame}}) => ({
     results,
     searchQuery,
+    viewGameDetail,
+    selectedGame,
 });
 
 export const propTypes = {
-    results         : PropTypes.array,
-    searchQuery     : PropTypes.string,
-    fetchGames      : PropTypes.func,
-    startLoading    : PropTypes.func,
-    stopLoading     : PropTypes.func,
-    onChangeQuery   : PropTypes.func,
+    viewGameDetail      : PropTypes.bool,
+    selectedGame        : PropTypes.object,
+    results             : PropTypes.array,
+    searchQuery         : PropTypes.string,
+    fetchGames          : PropTypes.func,
+    startLoading        : PropTypes.func,
+    stopLoading         : PropTypes.func,
+    onChangeQuery       : PropTypes.func,
+    clearSelectedGame   : PropTypes.func,
+    selectGame          : PropTypes.func,
+    setSelectedGame     : PropTypes.func,
 };
 
 /**

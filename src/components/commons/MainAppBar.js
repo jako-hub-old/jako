@@ -18,34 +18,33 @@ import stylesPalette from "../../utils/stylesPalette";
 /**
  * This component renders the main application menu bar.
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
- * @param navigation
  * @param title
+ * @param allowBack
+ * @param goBack
  * @returns {*}
  * @constructor
  */
-const MainAppBar = ({navigation, title=appName}) => (
+const MainAppBar = ({allowBack, title=appName, goBack}) => (
     <Header
         style={styles.root}
         androidStatusBarColor={palette.primary.variant}
     >
-        {/*<Left>*/}
-            {/*<Button transparent onPress={() => navigation.openDrawer()}>*/}
-                {/*<Icon name="bars" size={18}/>*/}
-            {/*</Button>*/}
-        {/*</Left>*/}
+        {allowBack && (
+            <Left>            
+                <Button transparent onPress={() => goBack()}>
+                    <Icon name="arrow-left" size={18}/>
+                </Button>
+            </Left>
+        )}
         <Body style={styles.body}>
             <Title>{title}</Title>
         </Body>
-        {/*<Right>*/}
-            {/*<Button transparent>*/}
-                {/*<Icon style={styles.icon} name="ellipsis-v" size={18}/>*/}
-            {/*</Button>*/}
-        {/*</Right>*/}
     </Header>
 );
 MainAppBar.propTypes = {
     navigation  : PropTypes.object.isRequired,
     title       : PropTypes.string,
+    allowBack   : PropTypes.bool,
 };
 
 const palette = stylesPalette();

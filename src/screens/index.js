@@ -1,8 +1,20 @@
-export { default as HomeScreen          } from './home';
-export { default as FriendsScreen       } from './friends';
-export { default as MyGamesScreen       } from './my-games';
-export { default as CreateGameScreen    } from './create-game';
-export { default as MyProfileScreen     } from './my-profile';
-export { default as SearchScreen        } from './search';
-export { default as LoginScreen         } from './login';
-export { default as RegisterScreen      } from './register';
+import HomeScreen       from './home';
+import FriendsScreen    from './friends';
+import MyGamesScreen    from './my-games'
+import CreateGameScreen from './create-game';
+import MyProfileScreen  from './my-profile';
+import SearchScreen, {GameDetailScreen}     from './search';
+import LoginScreen      from './login';
+import RegisterScreen   from './register';
+
+export {
+    HomeScreen,
+    FriendsScreen,
+    MyGamesScreen,
+    CreateGameScreen,
+    MyProfileScreen,
+    SearchScreen,
+    LoginScreen,
+    RegisterScreen,
+    GameDetailScreen,
+};

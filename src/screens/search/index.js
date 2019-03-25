@@ -3,6 +3,9 @@ import { Text, View, StyleSheet } from 'react-native';
 import { BaseScreen } from '../../components/commons';
 import PropTypes from 'prop-types';
 import {_t} from "../../configs/dictionary";
+import { SearchComponent } from '../../components';
+
+export {default as GameDetailScreen} from './GameDetail';
 
 /**
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
@@ -13,9 +16,7 @@ class MyProfileScreen extends React.PureComponent {
         return (
             <BaseScreen navigation={navigation} title={_t('search_title_1')}>
                 <View style={styles.root}>
-                    <Text>
-                        Search
-                    </Text>
+                    <SearchComponent navigation={navigation} />
                 </View>
             </BaseScreen>
         );
@@ -24,9 +25,11 @@ class MyProfileScreen extends React.PureComponent {
 
 const styles = StyleSheet.create({
     root : {
+        flex : 1,
+        justifyContent : "flex-start",
+        flexDirection : "column",
         paddingHorizontal   : 10,
         paddingVertical     : 10,
-        alignItems          : "center",
     },
 });
 

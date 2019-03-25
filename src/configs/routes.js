@@ -5,6 +5,9 @@ import {
     CreateGameScreen,
     MyProfileScreen,
     SearchScreen,
+    GameDetailScreen,
+    LoginScreen,
+    RegisterScreen,
 } from "../screens";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
@@ -28,5 +31,26 @@ export const tabRoutes = {
     Profile : {
         screen : MyProfileScreen,
         navigationOptions : { tabBarIcon : ({tintColor}) => (<Icon color={tintColor} name={"user"} size={24} />) },
+    },
+};
+
+export const GameRoutes = {
+    GameDetail : {
+        screen : GameDetailScreen,
+    },
+};
+
+export const AuthRoutes = {
+    Login : {
+        screen : LoginScreen,
+        navigationOptions: {
+            headerVisible: false
+        }
+    },
+    Register : {
+        screen : RegisterScreen,
+        navigationOptions: {
+            headerVisible: false
+        }
     },
 };

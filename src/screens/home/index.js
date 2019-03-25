@@ -14,7 +14,7 @@ class HomeScreen extends React.PureComponent {
         return (
             <BaseScreen navigation={navigation}>
                 <View style={styles.root}>
-                    <SearchComponent />
+                    
                 </View>
             </BaseScreen>
         );

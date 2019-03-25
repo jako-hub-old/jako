@@ -4,17 +4,10 @@
  */
 import {
     createSwitchNavigator,
-    createDrawerNavigator,
     createStackNavigator,
 } from 'react-navigation';
-import {
-    HomeScreen,
-    FriendsScreen,
-    LoginScreen, RegisterScreen,
-} from '../screens';
-import { MainDrawer} from "../components/commons";
-import {tabRoutes} from "./routes";
-import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
+import { tabRoutes, GameRoutes, AuthRoutes } from "./routes";
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 //
 const BottomNavigator = createMaterialBottomTabNavigator(tabRoutes, {
     shifting            : true,
@@ -26,20 +19,7 @@ const BottomNavigator = createMaterialBottomTabNavigator(tabRoutes, {
     },
 });
 
-const AuthNavigator = createStackNavigator({
-    Login : {
-        screen : LoginScreen,
-        navigationOptions: {
-            headerVisible: false
-        }
-    },
-    Register : {
-        screen : RegisterScreen,
-        navigationOptions: {
-            headerVisible: false
-        }
-    },
-}, {
+const AuthNavigator = createStackNavigator(AuthRoutes, {
     initialRouteName : "Register",
     headerMode: 'none',
     navigationOptions: {
@@ -47,28 +27,20 @@ const AuthNavigator = createStackNavigator({
     }
 });
 
-const DrawerNavigator = createDrawerNavigator({
-    DrawerHome : {
-        screen : HomeScreen,
-        navigationOptions : {
-            drawerLabel : 'Inicio',
-        },
-    },
-    DrawerFriends : {
-        screen : FriendsScreen,
-        navigationOptions : {
-            drawerLabel : 'Mis amigos',
-        },
-    },
+const GeneralNavigator = createStackNavigator({
+    ...GameRoutes,
 }, {
-    initialRouteName    : "DrawerHome",
-    contentComponent    : MainDrawer,
+    initialRouteName : "GameDetail",
+    headerMode: 'none',
+    navigationOptions: {
+        headerVisible: false,
+    }
 });
 
 const AppNavigator = createSwitchNavigator({
     Auth    : AuthNavigator,
     Main    : BottomNavigator,
-    Drawer  : DrawerNavigator,
+    General : GeneralNavigator,
 }, {
     initialRouteName: "Auth",
 });

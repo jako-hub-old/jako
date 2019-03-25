@@ -147,15 +147,16 @@ export const logout = (navigation) => {
     };
 };
 
-export const login = ({user, imei}) => dispatch => (new Promise((resolve, reject) => {
+export const login = ({user, imei, userCode}) => dispatch => (new Promise((resolve, reject) => {
     writeAllInSession({
-        user, imei, logged : true,
+        user, imei, logged : true, userCode,
     })
         .then((saved) => {
             if(saved) {
                 dispatch(setAllSessionVars({
                     user,
                     imei,
+                    userCode,
                 }));
                 resolve();
             } else {

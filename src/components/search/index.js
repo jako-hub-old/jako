@@ -1,32 +1,29 @@
 import React from 'react';
 import {
     Text,
-    StyleSheet,
 } from 'react-native';
 import { withSearch } from '../../providers';
 import PropTypes from 'prop-types';
 import Filter from './Filter';
-import Pager from './Pager';
+// import Pager from './Pager';
 import Results from './Results';
 
+/**
+ * This component handles the items search.
+ */
 class SearchComponent extends React.Component {
     state = {
         loading : true,
     };
     componentDidMount() {
         this.props.fetchGames()
-            .then(response => {
-                this.setState({
-                    loading : false,
-                });
-            })
-            .catch(response => {
-                this.setState({
-                    loading : false,
-                });
-            });
+            .then(() => this.setState({loading : false,}))
+            .catch(() => this.setState({loading : false}));
     }
 
+    /**
+     * This function aplies the filters to the search.
+     */
     getFilteredList() {
         let elements = [...this.props.results];
         const {searchQuery} = this.props;
@@ -37,6 +34,12 @@ class SearchComponent extends React.Component {
             });
         }
         return elements;
+    }
+
+    onSelectResult(item) {
+        this.props.selectGame(item);
+        const currentRoute = this.props.navigation.state.routeName;
+        this.props.navigation.navigate("GameDetail", {prevRoute : currentRoute});
     }
 
     render() {
@@ -52,34 +55,29 @@ class SearchComponent extends React.Component {
             <>
                 {loading && (<Text>Buscando juegos...</Text>)}                
                 <Filter 
-                    onChange = {text => onChangeQuery(text)}
-                    value    = {searchQuery}
-                />
-                <Pager 
-                    total={results.length}
-                />
+                    onChange = { text => onChangeQuery(text) }
+                    value    = { searchQuery }
+                />                
                 <Results 
-                    results={results}
+                    results         = { results }
+                    onSelectItem    = { this.onSelectResult.bind(this) }
                 />
             </>
         );
     }
 }
 
-const styles = StyleSheet.create({
-    root : {
-        flex : 1,
-        justifyContent : "center",
-    },
-});
-
 SearchComponent.propTypes = {
-    results         : PropTypes.array,
-    searchQuery     : PropTypes.string,
-    fetchGames      : PropTypes.func,
-    startLoading    : PropTypes.func,
-    stopLoading     : PropTypes.func,
-    onChangeQuery   : PropTypes.func,
+    results             : PropTypes.array,
+    searchQuery         : PropTypes.string,
+    fetchGames          : PropTypes.func,
+    startLoading        : PropTypes.func,
+    stopLoading         : PropTypes.func,
+    onChangeQuery       : PropTypes.func,
+    clearSelectedGame   : PropTypes.func,
+    selectGame          : PropTypes.func,
+    setSelectedGame     : PropTypes.func,
+    navigation          : PropTypes.object.isRequired,
 };
 
 export default withSearch(SearchComponent);

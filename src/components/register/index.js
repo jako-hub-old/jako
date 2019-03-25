@@ -56,7 +56,7 @@ class RegisterComponent extends React.Component {
             setTimeout(() => {                
                 this.props.stopLoading();
                 this.props.navigation.navigate("Home");
-            }, 200)
+            }, 500)
         }
     }
 
@@ -144,14 +144,14 @@ class RegisterComponent extends React.Component {
 
         this.props.doPost(endpoints.usuarios.validar, data)
             .then(response => {
-                const {error_controlado, validacion, verificado} = response;
+                const {error_controlado, validacion, verificado, codigo_usuario} = response;
                 if(error_controlado) {
                     showMessage('Error inesperado, contacte al administrador');
                 } else if(validacion) {
 
                 } else {
-                    if(verificado) {
-                        this.onVerifyCode();
+                    if(verificado) {                        
+                        this.onVerifyCode(codigo_usuario);
                     } else {
                         showMessage('Hemos enviado un mesaje de texto con el código');
                         this.setState({
@@ -174,11 +174,12 @@ class RegisterComponent extends React.Component {
         this.requestPhonePermissions();
     }
 
-    onVerifyCode() {
+    onVerifyCode(userCode) {
         const {form:{phoneNumber}, imei} = this.state;
         this.props.login({            
             imei,
             user : phoneNumber,
+            userCode,
         })
         .then(() => {
             this.props.navigation.navigate("Home");
@@ -204,7 +205,7 @@ class RegisterComponent extends React.Component {
             <VerifyCode 
                 userNumber      = {form.phoneNumber             }
                 imei            = { imei                        }
-                onCodeVerified  = { () => this.onVerifyCode()   } 
+                onCodeVerified  = { this.onVerifyCode.bind(this) } 
             />
            );
         }

@@ -36,10 +36,12 @@ class VerifyCode extends React.Component {
             imei,     
         };
         this.props.doPost(endpoints.usuarios.verificar, data)
-            .then(response => {
+            .then(response => {                
                 this.props.stopLoading();
-                if(response) {
-                    this.props.onCodeVerified();
+                const {verificado, codigo_usuario} = response;
+                if(verificado) {
+                    console.log(codigo_usuario);
+                    this.props.onCodeVerified(codigo_usuario);
                 } else {
                     showMessage('Código inválido');
                 }        

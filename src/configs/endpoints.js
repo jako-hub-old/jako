@@ -27,6 +27,7 @@ export default {
     },
     comentario : {
         nuevo : '/v1/comentario/nuevo',
+        lista : '/v1/comentario/lista',
     },
     posicion : {
         lista : '/v1/posicion/lista',

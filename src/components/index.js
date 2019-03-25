@@ -6,3 +6,4 @@ export {default as MyProfileComponent   } from './my-profile';
 export {default as SearchComponent      } from './search';
 export {default as GameDetailComponent  } from './game-detail';
 export {default as CommentGameComponent } from './comment-game';
+export {default as UserInfoVerifier     } from './user-info-verifier';

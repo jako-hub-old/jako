@@ -10,8 +10,9 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     stopLoading,
 }, dispatch);
 
-const mapStateToProps = ({global:{loadingState}}) => ({
+const mapStateToProps = ({global:{loadingState}, session:{userCode}}) => ({
     loading : loadingState,
+    userCode,
 });
 
 export const propTypes = {
@@ -20,6 +21,7 @@ export const propTypes = {
     loading         : PropTypes.bool,
     doPost          : PropTypes.func,
     doGet           : PropTypes.func,
+    userCode        : PropTypes.any,
 };
 /**
  * This Wrapper provides the functions to execute ajax requests.

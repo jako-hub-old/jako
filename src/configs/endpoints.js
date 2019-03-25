@@ -3,6 +3,8 @@ export default {
         lista      : '/v1/usuario/lista',
         validar    : '/v1/usuario/validar',
         verificar  : '/v1/usuario/verificar',
+        informacion: '/v1/usuario/informacion',
+        guardarPseudonimo : '/v1/usuario/guardar/pseudonimo',
     },
     juego : {
         nuevo   : '/v1/juego/nuevo',

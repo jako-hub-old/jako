@@ -9,3 +9,7 @@ export const consoleInfo = (type, response) => {
     console.info(response);
     console.groupEnd();
 };
+
+export const replaceSpaces = (str, replacement) => {
+    return str.replace(/ /g, replacement);
+};

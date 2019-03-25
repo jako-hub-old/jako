@@ -2,7 +2,10 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { BaseScreen } from '../../components/commons';
 import PropTypes from 'prop-types';
-import { SearchComponent } from '../../components';
+import {
+    UserInfoVerifier,
+} from '../../components';
+
 
 /**
  * This is the main or home screen for the application.
@@ -12,11 +15,14 @@ class HomeScreen extends React.PureComponent {
     render() {
         const navigation = this.props.navigation;
         return (
+            <>
             <BaseScreen navigation={navigation}>
                 <View style={styles.root}>
                     
                 </View>
             </BaseScreen>
+            <UserInfoVerifier />
+            </>
         );
     }
 }

@@ -1,9 +1,27 @@
-export {default as MyGamesComponent     } from './my-games';
-export {default as LoginComponent       } from './login';
-export {default as RegisterComponent    } from './register';
-export {default as VerifyCode           } from './verify-code';
-export {default as MyProfileComponent   } from './my-profile';
-export {default as SearchComponent      } from './search';
-export {default as GameDetailComponent  } from './game-detail';
-export {default as CommentGameComponent } from './comment-game';
-export {default as UserInfoVerifier     } from './user-info-verifier';
+import LoginComponent       from './login';
+import MyGamesComponent     from './my-games';
+import RegisterComponent    from './register';
+import VerifyCode           from './verify-code';
+import MyProfileComponent   from './my-profile';
+import SearchComponent      from './search';
+import GameDetailComponent  from './game-detail';
+import CommentGameComponent from './comment-game';
+import UserInfoVerifier     from './user-info-verifier';
+import SearchFilter         from './search-filter';
+import GameCreatorComponent from './game-creator';
+import ScenarioPicker       from './scenario-picker';
+
+export {
+    LoginComponent, 
+    MyGamesComponent, 
+    RegisterComponent, 
+    VerifyCode, 
+    MyProfileComponent, 
+    SearchComponent, 
+    GameDetailComponent, 
+    CommentGameComponent, 
+    UserInfoVerifier, 
+    SearchFilter,
+    GameCreatorComponent,
+    ScenarioPicker,
+};

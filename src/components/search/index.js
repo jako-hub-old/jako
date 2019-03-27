@@ -1,10 +1,10 @@
 import React from 'react';
 import {
     Text,
+    View,
 } from 'react-native';
 import { withSearch } from '../../providers';
 import PropTypes from 'prop-types';
-import Filter from './Filter';
 // import Pager from './Pager';
 import Results from './Results';
 
@@ -46,18 +46,14 @@ class SearchComponent extends React.Component {
         const {
             loading,            
         } = this.state;
-        const {
-            onChangeQuery,
-            searchQuery,
-        } = this.props;
         const results = this.getFilteredList() || [];
         return (
             <>
-                {loading && (<Text>Buscando juegos...</Text>)}                
-                <Filter 
-                    onChange = { text => onChangeQuery(text) }
-                    value    = { searchQuery }
-                />                
+                {loading && (
+                    <View style={{flex : 1, alignItems: "center"}}>
+                        <Text>Buscando juegos...</Text>
+                    </View>
+                )}  
                 <Results 
                     results         = { results }
                     onSelectItem    = { this.onSelectResult.bind(this) }

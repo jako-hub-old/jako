@@ -24,15 +24,16 @@ import MainAppBar from "./MainAppBar";
          }
      }
      render() {
-        const {navigation, allowBack, children, title, header=true} = this.props;
+        const {navigation, allowBack, children, title, header=true, TitleComponent} = this.props;
         return (
             <>
                 {header && (
                     <MainAppBar
-                        allowBack   = {allowBack}
-                        goBack      = {this.goBack.bind(this)}
-                        navigation  = {navigation}
-                        title       = {title}
+                        allowBack       = {allowBack}
+                        goBack          = {this.goBack.bind(this)}
+                        navigation      = {navigation}
+                        title           = {title}
+                        TitleComponent  = {TitleComponent}
                     />
                 )}
                 {children}
@@ -43,8 +44,9 @@ import MainAppBar from "./MainAppBar";
 
 BaseScreen.propTypes = {
     navigation  : PropTypes.object.isRequired,
-    title       : PropTypes.string,
+    title       : PropTypes.any,
     header      : PropTypes.bool,
     allowBack   : PropTypes.bool,
+    TitleComponent : PropTypes.any,
 };
 export default BaseScreen;

@@ -1,8 +1,20 @@
 //export { default as MainDrawer  } from './main-drawer';
-export { default as MainAppBar      } from './MainAppBar';
-export { default as BaseScreen      } from './BaseScreen';
-export { default as MainTabs        } from './main-tabs';
-export { default as ModalLoader     } from './loaders/ModalLoader';
-export { default as SubmitButton    } from './forms/SubmitButton';
-export { default as RoundedButton   } from './forms/RoundedButton';
-export { default as LoadingSpinner  } from './LoadingSpinner';
+import MainAppBar       from './MainAppBar';
+import BaseScreen       from './BaseScreen';
+import MainTabs         from './main-tabs';
+import ModalLoader      from './loaders/ModalLoader';
+import SubmitButton     from './forms/SubmitButton';
+import RoundedButton    from './forms/RoundedButton';
+import LoadingSpinner   from './LoadingSpinner';
+import SimpleModal      from './modals/SimpleModal';
+
+export {
+    MainAppBar,
+    BaseScreen,
+    MainTabs,
+    ModalLoader,
+    SubmitButton,
+    RoundedButton,
+    LoadingSpinner,
+    SimpleModal,
+};

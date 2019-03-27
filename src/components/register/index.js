@@ -55,7 +55,7 @@ class RegisterComponent extends React.Component {
             this.props.startLoading();
             setTimeout(() => {                
                 this.props.stopLoading();
-                this.props.navigation.navigate("Home");
+                this.props.navigation.navigate("Main");
             }, 500)
         }
     }

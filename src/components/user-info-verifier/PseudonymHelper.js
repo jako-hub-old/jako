@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
     Modal,
@@ -11,10 +11,9 @@ import {
     Item,
     Input,
     Label,
-    Toast,
 } from 'native-base';
 import { SubmitButton } from '../commons';
-import { replaceSpaces, consoleError, addMessage } from '../../utils/functions';
+import { replaceSpaces, consoleError, addMessage, isValidEmail } from '../../utils/functions';
 import { withApi } from '../../providers';
 import endpoints from '../../configs/endpoints';
 
@@ -89,7 +88,7 @@ class PseudonymHelper extends React.Component {
     }
 
     isValidEmail(email) {
-        return true;
+        return isValidEmail(email);
     }
 
     onSave() {

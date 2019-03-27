@@ -14,30 +14,50 @@ import {
     Toast,
 } from 'native-base';
 import { SubmitButton } from '../commons';
-import { replaceSpaces, consoleError } from '../../utils/functions';
+import { replaceSpaces, consoleError, addMessage } from '../../utils/functions';
 import { withApi } from '../../providers';
 import endpoints from '../../configs/endpoints';
 
-const PseudoForm = ({onSubmit, loading}) => {
-    const [pseudonym, onChangePseudonym] = useState("");
-    const value = replaceSpaces(pseudonym, '_');
+
+/** 
+ * This component renders the form
+ */
+const PseudoForm = ({onSubmit, loading, isValidForm, onChange, email, name, pseudonym}) => {
+    
     return (
         <Form style={styles.form}>
             <Item floatingLabel>
-                <Label>{"Seudonimo"}</Label>
+                <Label>{"Tu nombre"}</Label>
                 <Input 
-                    disabled = {loading}
-                    value    = {value}
-                    onChangeText = {text => onChangePseudonym(text)}
+                    disabled = { loading }
+                    value    = { name }
+                    onChangeText = { text => onChange("name", text) }
+                />
+            </Item>  
+            <Item floatingLabel>
+                <Label>{"Un alias"}</Label>
+                <Input 
+                    disabled = { loading }
+                    value    = { pseudonym }
+                    onChangeText = { text => onChange("pseudonym", replaceSpaces(text, '_')) }
+                />
+            </Item>  
+            <Item floatingLabel>
+                <Label>{"E-mail"}</Label>
+                <Input 
+                    disabled = { loading }
+                    value    = { email }
+                    keyboardType = {"email-address"}
+                    onChangeText = { text => onChange("email", text) }
                 />
             </Item>  
             <View style={styles.formRow}>
                 <SubmitButton 
-                    onPress = {() => onSubmit(value)}
+                    onPress = {() => onSubmit()}
                     label="Guardar"
                     primary
                     block
-                    disabled={pseudonym === "" || pseudonym.length < 4}
+                    disabled={!isValidForm}
                 />
             </View>
         </Form>
@@ -45,21 +65,55 @@ const PseudoForm = ({onSubmit, loading}) => {
 }
 
 class PseudonymHelper extends React.Component {
-    onSave(pseudonym) {
+    state = {
+        pseudonym   : "",
+        name        : "",
+        email       : "",
+    };
+
+    onChange(key, value) {
+        this.setState({
+            [key] : value
+        });
+    }
+
+    isValidForm() {
+        const {
+            email,
+            pseudonym,
+            name,            
+        } = this.state;        
+        return email        !== "" && this.isValidEmail(email) &&
+                pseudonym   !== "" && 
+                name        !== "";
+    }
+
+    isValidEmail(email) {
+        return true;
+    }
+
+    onSave() {
+        const {
+            pseudonym,
+            name,
+            email,
+        } = this.state;
         this.props.startLoading();
         const {userCode} = this.props;
         this.props.doPost(endpoints.usuarios.guardarPseudonimo, {
-            codigo_usuario  : userCode,
+            usuario         : userCode,
             seudonimo       : pseudonym,
+            correo          : email,
+            nombre_corto    : name,
         })
         .then(response => {
             const {validacion, error, error_controlado} = response;
             if(validacion) {
-                Toast.show({text : validacion});
+                addMessage(validacion);
             } else if(error || error_controlado){
-                Toast.show({text : "Ocurrió un error al guardar el seudonimo"});
+                addMessage("Ocurrió un error al guardar el seudonimo");
             } else {
-                Toast.show({text : "Seudonimo guardado"});
+                addMessage("Información actualizada");
                 this.props.onSave(pseudonym);
             }
             this.props.stopLoading();
@@ -75,6 +129,11 @@ class PseudonymHelper extends React.Component {
             open,
             loading,
         } = this.props;
+        const {
+             name,
+             email,
+             pseudonym,
+        } = this.state;
         return (
             <Modal
                 visible         = {open}
@@ -86,10 +145,15 @@ class PseudonymHelper extends React.Component {
                     <View style={styles.content}>
                         <View style={styles.header}>
                             <Text style={styles.headerText}>
-                                Indica un seudonimo o un alias con el que te reconozcan tus amigos.
+                                Antes de continuar por favor completa tu información.
                             </Text>
                         </View>
                         <PseudoForm 
+                            isValidForm = {this.isValidForm()}
+                            email       = {email}
+                            pseudonym   = {pseudonym}
+                            onChange    = {this.onChange.bind(this)}
+                            name        = {name}
                             loading     = {loading}
                             onSubmit    = {val => this.onSave(val)}
                         />

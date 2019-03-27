@@ -4,7 +4,7 @@ export default {
         validar    : '/v1/usuario/validar',
         verificar  : '/v1/usuario/verificar',
         informacion: '/v1/usuario/informacion',
-        guardarPseudonimo : '/v1/usuario/guardar/pseudonimo',
+        guardarPseudonimo : '/v1/jugador/informacion/complementaria',
     },
     juego : {
         nuevo   : '/v1/juego/nuevo',

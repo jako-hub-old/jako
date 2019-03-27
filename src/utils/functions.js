@@ -1,3 +1,7 @@
+import {
+    Toast,
+} from 'native-base';
+
 export const consoleError = (type, response) => {
     console.group(type);
     console.log(response);
@@ -13,3 +17,5 @@ export const consoleInfo = (type, response) => {
 export const replaceSpaces = (str, replacement) => {
     return str.replace(/ /g, replacement);
 };
+
+export const addMessage = text => Toast.show({text, duration : 3000});

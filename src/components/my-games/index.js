@@ -22,17 +22,24 @@ class MyGamesComponent extends React.Component {
     }
 
     fetchGames() {
-        this.props.fetchMyGames();
+        this.props.fetchMyGames(this.props.userCode);
+    }
+
+    onSelectGame(selectedGame) {
+        const currentRoute = this.props.navigation.state.routeName;
+        this.props.navigation.navigate("GameDetail", {prevRoute : currentRoute, selectedGame});
     }
 
     render() {
-        const { myGames=[] } = this.props;
+        const { myGames=[]} = this.props;
+        console.log(myGames);
         return (
             <Container>
                 <Tabs>
                     <Tab heading={_t('my_games_title_2')} tabStyle={styles.tab} activeTabStyle={styles.tabActive}>
                         <ListComponent
                             games   = { myGames }
+                            onSelectGame = {this.onSelectGame.bind(this)}
                         />
                     </Tab>
                     <Tab heading={_t('my_games_title_3')} tabStyle={styles.tab} activeTabStyle={styles.tabActive}>
@@ -60,6 +67,7 @@ MyGamesComponent.propTypes = {
     navigation      : PropTypes.object.isRequired,
     fetchMyGames    : PropTypes.func,
     myGames         : PropTypes.array,
+    userCode        : PropTypes.any,
 };
 
 export default withGames(MyGamesComponent);

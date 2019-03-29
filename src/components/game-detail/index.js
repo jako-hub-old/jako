@@ -59,8 +59,6 @@ class GameDetailComponent extends React.Component {
                 this.setState({
                     ...response,
                     loadingComments : false,
-                }, () => {
-                    console.log("data: ", this.state);
                 });
             }
         })

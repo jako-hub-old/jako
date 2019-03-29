@@ -6,17 +6,19 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 import GameItem from './GameItem';
+import Item from './item';
 
 class ListComponent extends React.PureComponent {
     render() {
-        const { games=[] } = this.props;
+        const { games=[], onSelectGame} = this.props;
         return (
             <ScrollView>
                 <View style={styles.root}>
-                    {games.map((item, key) => (
-                        <GameItem
+                    {Array.isArray(games) && games.map((item, key) => (
+                        <Item
                             item        = {item}
                             key={`my-games-item-${key}`}
+                            onSelect = {() => onSelectGame? onSelectGame(item) : null}
                         />
                     ))}
                 </View>
@@ -34,6 +36,7 @@ const styles = StyleSheet.create({
 
 ListComponent.propTypes = {
     games : PropTypes.array.isRequired,
+    onSelectGame : PropTypes.func,
 };
 
 export default ListComponent;

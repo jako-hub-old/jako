@@ -8,13 +8,15 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
     fetchMyGames,
 }, dispatch);
 
-const mapStateToProps = ({games={}}) => ({
+const mapStateToProps = ({games={}, session:{userCode}}) => ({
     myGames : games.myGames,
+    userCode,
 });
 
 export const propTypes = {
     fetchMyGames    : PropTypes.func,
     myGames         : PropTypes.array,
+    userCode        : PropTypes.any,
 };
 
 /**

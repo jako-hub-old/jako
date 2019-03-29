@@ -44,8 +44,6 @@ class JoinToGameComponent extends React.Component {
                 this.setState({
                     selectedGame : response,
                     loading : false,
-                }, () => {
-                    console.log("data: ", this.state);
                 });
             }
         })

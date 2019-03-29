@@ -21,6 +21,7 @@ import stylesPalette from '../../utils/stylesPalette';
 import { 
     CommentGameComponent,
 } from '../';
+import TeamsList from './TeamsList';
 
 class GameDetailComponent extends React.Component {
     state = {        
@@ -44,20 +45,39 @@ class GameDetailComponent extends React.Component {
     }
 
     fetchGameInfo() {
-        const {codigo_juego} = this.props.selectedGame;
+        const {codigo_juego} = this.props.selectedGame;        
         this.setState({loadingComments : true});
         this.props.doPost(endpoints.juego.detalle, {
             juego : codigo_juego,
         })
-        .then(response => {        
+        .then(response => {
             if(response.error_controlado || response.error) {
                 Toast.show({text : "Ocurrió un error al obtener la información del juego"});
                 this.setState({
                     loadingComments : false,
                 });
             } else {
+                const {detalles = [], equipos=[]} = response;
+                const teamsBase = {};
+                equipos.forEach(team => {
+                    teamsBase[team.nombre] = [];
+                });
+                /*
+                 * We preproccess the response to build a grouped details by team.
+                 */
+                const newDetails = detalles.reduce((buildingGroup, currentDetail) => {                    
+                    const team = equipos.find(item => item.codigo_juego_equipo === currentDetail.codigo_equipo);
+                    const key = team.nombre;
+                    buildingGroup[key] = buildingGroup[key] || [];
+                    buildingGroup[key].push(currentDetail);
+                    return buildingGroup;
+                }, teamsBase);
+                                
+                response.detalles = newDetails;
+                console.log("Detailes: ", newDetails);
                 this.setState({
                     ...response,
+                    detalles : newDetails,
                     loadingComments : false,
                 });
             }
@@ -92,6 +112,7 @@ class GameDetailComponent extends React.Component {
             comentarios,
             loadingComments,
             openComment,
+            detalles,
         } = this.state;
         return (
             <View style={styles.root}>
@@ -114,7 +135,7 @@ class GameDetailComponent extends React.Component {
                         <Tabs 
                             tabContainerStyle       = { {elevation:0} }
                             tabBarUnderlineStyle    = { styles.tabUnderLine }
-                        >
+                        >                            
                             <Tab 
                                 heading             = "Comentarios" 
                                 tabStyle            = { styles.tabDefault } 
@@ -135,7 +156,9 @@ class GameDetailComponent extends React.Component {
                                 activeTabStyle      = { styles.tabActive }                                
                                 activeTextStyle     = { styles.tabActiveText }
                             >
-                                <Text>Jugadores!</Text>
+                                <TeamsList 
+                                    teams = { detalles }
+                                />
                             </Tab>
                         </Tabs>
                     </View>

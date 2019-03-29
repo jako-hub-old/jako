@@ -11,9 +11,12 @@ import {
     Input,    
     Label,
 } from 'native-base';
-import { NumberPicker } from '../../commons/forms';
+import { 
+    NumberPicker,
+    IconButton,
+ } from '../../commons/forms';
 
-const TeamForm = ({defaultName="Mi equipo", defaultPlayers=1}) => {
+const TeamForm = ({defaultName="Mi equipo", defaultPlayers=1, onSubmit}) => {
     const [teamName, setName] = useState(defaultName);
     const [players, setPlayers] = useState(defaultPlayers);
     return (
@@ -34,10 +37,14 @@ const TeamForm = ({defaultName="Mi equipo", defaultPlayers=1}) => {
                         defaultValue    = { players }
                         onChange        = { number => setPlayers(number) }
                     />
-                </View>
-                <View>
-                    
-                </View>
+                </View>                
+            </View>
+            <View style={{flex : 1, alignItems : "center", paddingVertical: 10, marginTop: 10,}}>
+                <IconButton 
+                    icon     ="plus" 
+                    disabled = {teamName === ""}
+                    onPress  = {() => onSubmit && onSubmit({teamName, players})}
+                />
             </View>
         </Form>
     )

@@ -69,13 +69,13 @@ const styles = StyleSheet.create({
         fontSize : 20,
     },
     button : {
-        borderWidth : 1,
-        borderColor : "#bdbdbd",
-        alignItems : "center",
-        justifyContent : "center",
-        borderRadius : 50,
-        height : 40,
-        width : 40,
+        borderWidth     : 1,
+        borderColor     : "#bdbdbd",
+        alignItems      : "center",
+        justifyContent  : "center",
+        borderRadius    : 50,
+        height          : 40,
+        width           : 40,
     },
 });
 
@@ -85,6 +85,7 @@ NumberPicker.propTypes = {
     min         : PropTypes.number,
     max         : PropTypes.number,
     label       : PropTypes.string,
+    step        : PropTypes.number,
 };
 
 export default NumberPicker;

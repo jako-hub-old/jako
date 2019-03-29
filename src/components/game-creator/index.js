@@ -54,6 +54,9 @@ class GameCreatorComponent extends React.Component {
     }
 
     onAddTeam(team) {
+        const teamsWithSameName = this.state.teams.filter(item => item.nombre === team.nombre);
+        const total = teamsWithSameName.length;
+        if(total > 0) team.nombre = `${team.nombre} (${total + 1})`;
         this.setState(({teams}) => ({
             teams : [...teams, team],
         }));
@@ -103,6 +106,7 @@ class GameCreatorComponent extends React.Component {
             date,
             teams,
         } = this.state;
+        console.log("Teams: ", teams);
         return (
             <ScrollView>                
                 <View style={styles.root}>

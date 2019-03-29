@@ -8,6 +8,7 @@ import {
     GameDetailScreen,
     LoginScreen,
     RegisterScreen,
+    JoinToGameScreen,
 } from "../screens";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
@@ -37,6 +38,9 @@ export const tabRoutes = {
 export const GameRoutes = {
     GameDetail : {
         screen : GameDetailScreen,
+    },
+    JoinToGame : {
+        screen : JoinToGameScreen,
     },
 };
 

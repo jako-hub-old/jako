@@ -6,6 +6,7 @@ import MyProfileScreen  from './my-profile';
 import SearchScreen, {GameDetailScreen}     from './search';
 import LoginScreen      from './login';
 import RegisterScreen   from './register';
+import JoinToGameScreen from './join-to-game';
 
 export {
     HomeScreen,
@@ -17,4 +18,5 @@ export {
     LoginScreen,
     RegisterScreen,
     GameDetailScreen,
+    JoinToGameScreen,
 };

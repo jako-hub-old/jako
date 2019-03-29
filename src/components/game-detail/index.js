@@ -83,6 +83,11 @@ class GameDetailComponent extends React.Component {
         }));
     }
 
+    onJoinToGame(selectedGame) {
+        const currentRoute = this.props.navigation.state.routeName;
+        this.props.navigation.navigate("JoinToGame", {prevRoute : currentRoute, selectedGame});
+    }
+
     render() {
         const {selectedGame} = this.props;
         const {
@@ -94,10 +99,11 @@ class GameDetailComponent extends React.Component {
             <View style={styles.root}>
                 <ScrollView>
                     <ItemCard 
-                        game = {selectedGame}
+                        game = {selectedGame}                    
                     />
                     <Actions 
                         onComment = {() => this.toggleComment()}
+                        onAdd     = {() => this.onJoinToGame(selectedGame)}
                     />
                     {openComment && (
                             <CommentGameComponent 
@@ -168,6 +174,7 @@ const styles = StyleSheet.create({
 });
 
 GameDetailComponent.propTypes = {
+    navigation : PropTypes.any,
     selectedGame : PropTypes.shape({
         "codigo_juego"          : PropTypes.any,
         "nombre"                : PropTypes.string,

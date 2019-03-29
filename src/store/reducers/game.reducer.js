@@ -1,10 +1,12 @@
 import {
     SET_MY_GAMES,
     ADD_TO_MY_GAMES,
+    SET_POSITIONS
 } from '../actions/game.actions';
 
 const defaultState = {
-    myGames : [],
+    myGames     : [],
+    positions   : [],
 };
 
 export default gameReducer = (state=defaultState, action) => {
@@ -16,6 +18,10 @@ export default gameReducer = (state=defaultState, action) => {
         case ADD_TO_MY_GAMES : return ({
             ...state,
             myGames : [...state.myGames, action.game],
+        });
+        case SET_POSITIONS : return ({
+            ...state,
+            positions : action.positions,
         });
         default : return ({
             ...state,

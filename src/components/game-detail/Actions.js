@@ -10,9 +10,9 @@ import {
 } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const Actions = ({onComment}) => (
+const Actions = ({onComment, onAdd}) => (
     <View style={styles.root}>
-        <Button transparent style={styles.button}>
+        <Button transparent style={styles.button} onPress={onAdd}>
             <Icon name="user-plus" size={25} />
         </Button>
         <Button transparent style={styles.button} onPress={onComment}>

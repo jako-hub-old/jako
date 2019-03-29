@@ -15,7 +15,7 @@ class GameDetailScreen extends React.PureComponent {
                 allowBack
                 navigation={navigation} title={selectedGame? selectedGame.nombre : "Nope"}
             >
-                {selectedGame && (<GameDetailComponent selectedGame={selectedGame} />)}
+                {selectedGame && (<GameDetailComponent navigation={navigation} selectedGame={selectedGame} />)}
             </BaseScreen>
         );
     }

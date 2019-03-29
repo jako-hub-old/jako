@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
  * This component renders the Item presentation
  * @param {*} param0 
  */
-const Item = ({item, onSelect}) => (
+const Item = ({item, onSelect, onAdd}) => (
     <View style={styles.root}>
         <TouchableOpacity onPress={onSelect}>
             <View style={styles.wrapper}>
@@ -35,7 +35,7 @@ const Item = ({item, onSelect}) => (
             </View>
         </TouchableOpacity>
         <Footer
-
+            onAdd = { onAdd }
          />
     </View>
     

@@ -3,6 +3,7 @@ import { BaseScreen } from '../../commons';
 import PropTypes from 'prop-types';
 import {
     UserInfoVerifier,
+    JoinToGamecomponent,
 } from '../../components';
 
 
@@ -10,13 +11,17 @@ import {
  * This is the main or home screen for the application.
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
  */
-class HomeScreen extends React.PureComponent {
+class JoinToGameScreen extends React.PureComponent {
     render() {
         const navigation = this.props.navigation;
+        const {selectedGame} = this.props.navigation.state.params;
         return (
             <>
-            <BaseScreen navigation={navigation}>
-                
+            <BaseScreen navigation={navigation} allowBack>
+                <JoinToGamecomponent 
+                    navigation      = { navigation   }
+                    selectedGame    = { selectedGame }
+                />
             </BaseScreen>
             <UserInfoVerifier />
             </>
@@ -24,8 +29,8 @@ class HomeScreen extends React.PureComponent {
     }
 }
 
-HomeScreen.propTypes = {
+JoinToGameScreen.propTypes = {
     navigation : PropTypes.object,
 };
 
-export default HomeScreen;
+export default JoinToGameScreen;

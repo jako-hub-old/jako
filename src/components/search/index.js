@@ -42,6 +42,11 @@ class SearchComponent extends React.Component {
         this.props.navigation.navigate("GameDetail", {prevRoute : currentRoute});
     }
 
+    joinToGame(selectedGame) {
+        const currentRoute = this.props.navigation.state.routeName;
+        this.props.navigation.navigate("JoinToGame", {prevRoute : currentRoute, selectedGame});
+    }
+
     render() {
         const {
             loading,            
@@ -56,7 +61,8 @@ class SearchComponent extends React.Component {
                 )}  
                 <Results 
                     results         = { results }
-                    onSelectItem    = { this.onSelectResult.bind(this) }
+                    onSelectItem    = { this.onSelectResult.bind(this)  }
+                    onJoinToGame    = { this.joinToGame.bind(this)      }
                 />
             </>
         );

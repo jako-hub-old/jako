@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
  * This component renders the Item presentation
  * @param {*} param0 
  */
-const ItemCard = ({game, onAdd}) => (
+const ItemCard = ({game}) => (
     <View style={styles.root}>
         <View style={styles.wrapper}>
             <View style={styles.pictureWrapper}>

@@ -10,6 +10,7 @@ import UserInfoVerifier     from './user-info-verifier';
 import SearchFilter         from './search-filter';
 import GameCreatorComponent from './game-creator';
 import ScenarioPicker       from './scenario-picker';
+import JoinToGamecomponent  from './join-to-game';
 
 export {
     LoginComponent, 
@@ -24,4 +25,5 @@ export {
     SearchFilter,
     GameCreatorComponent,
     ScenarioPicker,
+    JoinToGamecomponent,
 };

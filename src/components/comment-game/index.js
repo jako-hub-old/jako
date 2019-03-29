@@ -14,6 +14,7 @@ import { RoundedButton } from '../../commons';
 import { withSession, withApi } from '../../providers';
 import endpoints from '../../configs/endpoints';
 import { consoleError } from '../../utils/functions';
+import { IconButton } from '../../commons/forms';
 
 
 class CommentGame extends React.Component {
@@ -78,9 +79,13 @@ class CommentGame extends React.Component {
                         />
                     </View>                    
                     <View style={styles.buttonWrapper}>
-                        <RoundedButton primary disabled={comment === ""} onPress={() => this.onSaveComment()}>
-                            <Icon name="send" size={20} />
-                        </RoundedButton>
+                        <View>
+                            <IconButton 
+                                icon        = "paper-plane"
+                                onPress     = { () => this.onSaveComment() }
+                                disabled    = { comment === "" }
+                            />
+                        </View>
                     </View>
                 </View>
             </Form>

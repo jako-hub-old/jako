@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
         flex : 7,
     },
     buttonWrapper : {
-        flex : 1,
+        
     },
 });
 

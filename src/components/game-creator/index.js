@@ -12,7 +12,6 @@ import _ from 'underscore';
 import { withApi } from '../../providers';
 import endpoints from '../../configs/endpoints';
 import { addMessage, consoleError } from '../../utils/functions';
-import { FieldSetTitle } from '../../commons/forms';
 
 class GameCreatorComponent extends React.Component {
     state = {
@@ -52,6 +51,12 @@ class GameCreatorComponent extends React.Component {
                 (!_.isEmpty(scenario)) &&
                     ((!_.isEmpty(date)));
 
+    }
+
+    onAddTeam(team) {
+        this.setState(({teams}) => ({
+            teams : [...teams, team],
+        }));
     }
 
     onSubmitForm() {
@@ -96,25 +101,23 @@ class GameCreatorComponent extends React.Component {
             name,
             scenario,
             date,
+            teams,
         } = this.state;
         return (
-            <ScrollView>
+            <ScrollView>                
                 <View style={styles.root}>
                     <Form 
                         onSelectScenario = { this.onChangeScenario.bind(this)}
                         onChangeDate     = { this.onChangeDate.bind(this)    }
                         onSubmit         = { this.onSubmitForm.bind(this)    }
                         onChange         = { this.onChange.bind(this)        }
+                        teams            = { teams    }
                         gameName         = { name     }
                         scenario         = { scenario }
                         date             = { date     }
-                        isValidForm      = { this.isValidForm() }
-                    />
-                    <View>
-                        <Text>
-                            Teams!
-                        </Text>
-                    </View>
+                        isValidForm      = { this.isValidForm()         }
+                        onAddTeam        = { this.onAddTeam.bind(this)  }                        
+                    />                    
                 </View>
             </ScrollView>
         );

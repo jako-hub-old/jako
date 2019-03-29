@@ -12,9 +12,11 @@ import {
 } from 'native-base';
 import { ScenarioPicker } from '../../components';
 import { 
-    DateTimePicker, 
+    DateTimePicker,
     SubmitButton,
-} from '../../commons';
+    FieldSetTitle,
+} from '../../commons/forms';
+import TeamManager from './TeamManager';
 
 const GameForm = (props) => {
     const {
@@ -25,9 +27,11 @@ const GameForm = (props) => {
         isValidForm,
         date,
         onSubmit,
+        onAddTeam,
+        teams=[],
     } = props;
     return (
-        <View style={styles.root}>
+        <View style={styles.root}>            
             <Form style={styles.form}>
                 <Item floatingLabel>
                     <Label>{"Nombre del juego"}</Label>
@@ -42,6 +46,11 @@ const GameForm = (props) => {
                 />
                 <ScenarioPicker 
                     onSelectScenario = { onSelectScenario }
+                />
+                <FieldSetTitle title={"Añade equipos"} />
+                <TeamManager 
+                    teams       = { teams }
+                    onAddTeam   = { onAddTeam }
                 />
                 <View>
                     <SubmitButton 
@@ -72,7 +81,9 @@ GameForm.propTypes = {
     onChange         : PropTypes.func,
     onChangeDate     : PropTypes.func,
     isValidForm      : PropTypes.bool,
+    onAddTeam        : PropTypes.func,
     onSubmit         : PropTypes.func,
+    teams            : PropTypes.array,
 };
 
 export default GameForm;

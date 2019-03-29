@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import {ScrollView, View} from "react-native";
-import {Button, Form, Input, Item, Label, Text} from "native-base";
+import { Form, Input, Item, Label, Text} from "native-base";
 import { StyleSheet } from 'react-native';
-import SubmitButton from "../commons/forms/SubmitButton";
+import SubmitButton from "../../commons/forms/SubmitButton";
 import PropTypes from 'prop-types';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 
 /**
  * This component renders the login form.

@@ -14,7 +14,7 @@ import {
     Body,
 } from 'native-base';
 import moment from 'moment';
-import { LoadingSpinner, } from '../commons';
+import { LoadingSpinner, } from '../../commons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 

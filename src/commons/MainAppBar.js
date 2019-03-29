@@ -9,8 +9,8 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { StyleSheet, View, } from 'react-native';
 import PropTypes from 'prop-types';
-import { displayName as appName } from '../../../app';
-import stylesPalette from "../../utils/stylesPalette";
+import { displayName as appName } from '../../App';
+import stylesPalette from "../utils/stylesPalette";
 
 
 

@@ -7,9 +7,6 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import {
-    Button
-} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { ScrollView } from 'react-native-gesture-handler';
 

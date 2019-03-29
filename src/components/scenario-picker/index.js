@@ -28,6 +28,8 @@ class ScenarioPicker extends React.Component {
         this.setState({
             openPicker : false,
             selectedScneario : scenario,
+        }, () => {
+            if(this.props.onSelectScenario) this.props.onSelectScenario(scenario);
         });
     }
 

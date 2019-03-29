@@ -12,7 +12,7 @@ import {
     Text,
     Right,
 } from 'native-base';
-import { LoadingSpinner, SimpleModal } from '../commons';
+import { LoadingSpinner, SimpleModal } from '../../commons';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 const Loader = () => (

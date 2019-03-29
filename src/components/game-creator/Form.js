@@ -11,13 +11,20 @@ import {
     Item,    
 } from 'native-base';
 import { ScenarioPicker } from '../../components';
+import { 
+    DateTimePicker, 
+    SubmitButton,
+} from '../../commons';
 
 const GameForm = (props) => {
     const {
         onChange, 
-        onChangeScenario,
+        onSelectScenario,
+        onChangeDate,
         gameName,
-        scenario,
+        isValidForm,
+        date,
+        onSubmit,
     } = props;
     return (
         <View style={styles.root}>
@@ -25,12 +32,26 @@ const GameForm = (props) => {
                 <Item floatingLabel>
                     <Label>{"Nombre del juego"}</Label>
                     <Input 
-                        value = {gameName}
-                        onChangeText = {text => onChange("name", text)}
+                        value        = { gameName                        }
+                        onChangeText = { text => onChange("name", text)  }
                     />
                 </Item>
-                
-                <ScenarioPicker />
+                <DateTimePicker 
+                    value       = { date         }
+                    onChange    = { onChangeDate }
+                />
+                <ScenarioPicker 
+                    onSelectScenario = { onSelectScenario }
+                />
+                <View>
+                    <SubmitButton 
+                        primary
+                        block
+                        disabled = { !isValidForm    }
+                        label    = { "Guardar juego" }
+                        onPress  = { onSubmit        }
+                    />
+                </View>
                 
             </Form>
         </View>
@@ -44,11 +65,14 @@ const styles = StyleSheet.create({
     },
 });
 
-GameForm.propTypes = {
-    onChange : PropTypes.func,
+GameForm.propTypes = {    
     gameName : PropTypes.string,
     scenario : PropTypes.any,
-    onChangeScenario : PropTypes.func,
+    onSelectScenario : PropTypes.func,
+    onChange         : PropTypes.func,
+    onChangeDate     : PropTypes.func,
+    isValidForm      : PropTypes.bool,
+    onSubmit         : PropTypes.func,
 };
 
 export default GameForm;

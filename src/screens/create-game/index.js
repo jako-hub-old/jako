@@ -1,5 +1,5 @@
 import React from 'react';
-import { BaseScreen } from '../../components/commons';
+import { BaseScreen } from '../../commons';
 import { GameCreatorComponent } from '../../components';
 import PropTypes from 'prop-types';
 import {_t} from "../../configs/dictionary";

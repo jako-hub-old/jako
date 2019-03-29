@@ -3,7 +3,7 @@ import {
     Header,
 } from 'native-base';
 import { View, TouchableOpacity } from 'react-native';
-import stylesPalette from "../../../utils/stylesPalette";
+import stylesPalette from "../../utils/stylesPalette";
 import { StyleSheet } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 

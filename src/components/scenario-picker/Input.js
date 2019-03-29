@@ -7,7 +7,7 @@ import {
 import {
     Text,
 } from 'native-base';
-import RoundedButton from '../commons/forms/RoundedButton';
+import RoundedButton from '../../commons/forms/RoundedButton';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -34,9 +34,8 @@ const styles = StyleSheet.create({
         flex : 1, 
         flexDirection : "row",
         justifyContent : "space-between",
-        alignItems : "center",
+        alignItems : "flex-end",
         paddingVertical : 30,
-        paddingHorizontal : 15,
         paddingLeft : 10,
         marginVertical : 10,
         height : 80,
@@ -47,7 +46,6 @@ const styles = StyleSheet.create({
     },
     buttonWrapper : {
         flex : 1,
-        paddingRight : 10,
     },
 });
 

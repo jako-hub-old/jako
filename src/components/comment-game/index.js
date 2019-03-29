@@ -10,7 +10,7 @@ import {
     Toast,
 } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { RoundedButton } from '../commons';
+import { RoundedButton } from '../../commons';
 import { withSession, withApi } from '../../providers';
 import endpoints from '../../configs/endpoints';
 import { consoleError } from '../../utils/functions';

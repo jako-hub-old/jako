@@ -9,7 +9,7 @@ import {
 import Form from './Form';
 import moment from 'moment';
 import _ from 'underscore';
-import { withApi } from '../../providers';
+import { withApi, withSearch } from '../../providers';
 import endpoints from '../../configs/endpoints';
 import { addMessage, consoleError } from '../../utils/functions';
 
@@ -20,6 +20,7 @@ class GameCreatorComponent extends React.Component {
         date     : null,
         codigo_juego : null,
         teams : [],
+        teamNames : {},
     };
 
     onChange(field, name) {
@@ -46,19 +47,24 @@ class GameCreatorComponent extends React.Component {
             name,
             scenario,
             date,
+            teams,
         } = this.state;
         return      (!_.isEmpty(name)) &&
                 (!_.isEmpty(scenario)) &&
-                    ((!_.isEmpty(date)));
+                    ((!_.isEmpty(date))) &&
+                    teams.length > 0;
 
     }
 
     onAddTeam(team) {
-        const teamsWithSameName = this.state.teams.filter(item => item.nombre === team.nombre);
-        const total = teamsWithSameName.length;
-        if(total > 0) team.nombre = `${team.nombre} (${total + 1})`;
         this.setState(({teams}) => ({
             teams : [...teams, team],
+        }));
+    }
+
+    onRemoveTeam(key) {
+        this.setState(({teams}) => ({
+            teams : teams.filter((item, k) => k !== key)
         }));
     }
 
@@ -68,6 +74,7 @@ class GameCreatorComponent extends React.Component {
             date:fecha,
             name:nombre,
             codigo_juego,
+            teams,
         } = this.state;
         const jugador = this.props.userCode;
         const escenario = scenario.codigo_escenario;
@@ -80,13 +87,19 @@ class GameCreatorComponent extends React.Component {
             acceso           : "publico",
             escenario,
             codigo_juego,
+            equipos : teams,
         }).then(response => {
             const {error, error_controlado, codigo_juego} = response;
             if(error || error_controlado) {
                 addMessage("Ocurrió un error al guardar el juego");
             } else {
-                this.setState({codigo_juego});
-                addMessage("Juego guardado");
+                this.props.onChangeQuery(nombre);
+                this.setState({codigo_juego}, () => {
+                    this.clearGame();
+                    this.props.fetchGames();
+                    this.props.navigation.navigate("Search");
+                    addMessage("Juego guardado");
+                });                
             }
             
             this.props.stopLoading();
@@ -99,6 +112,17 @@ class GameCreatorComponent extends React.Component {
 
     }
 
+    clearGame() {
+        this.setState({
+            name     : "",
+            scenario : "",
+            date     : null,
+            codigo_juego : null,
+            teams : [],
+            teamNames : {},
+        });
+    }
+
     render() {
         const {
             name,
@@ -106,7 +130,7 @@ class GameCreatorComponent extends React.Component {
             date,
             teams,
         } = this.state;
-        console.log("Teams: ", teams);
+        console.log("query: ", this.props.searchQuery);
         return (
             <ScrollView>                
                 <View style={styles.root}>
@@ -119,8 +143,9 @@ class GameCreatorComponent extends React.Component {
                         gameName         = { name     }
                         scenario         = { scenario }
                         date             = { date     }
-                        isValidForm      = { this.isValidForm()         }
-                        onAddTeam        = { this.onAddTeam.bind(this)  }                        
+                        isValidForm      = { this.isValidForm()           }
+                        onAddTeam        = { this.onAddTeam.bind(this)    }
+                        onRemoveTeam     = { this.onRemoveTeam.bind(this) }
                     />                    
                 </View>
             </ScrollView>
@@ -134,6 +159,7 @@ GameCreatorComponent.propTypes = {
     doPost          : PropTypes.func,
     startLoading    : PropTypes.func,
     stopLoading     : PropTypes.func,
+    onChangeQuery   : PropTypes.func,
 };
 
 const styles = StyleSheet.create({
@@ -142,4 +168,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default withApi(GameCreatorComponent);
+export default withSearch(withApi(GameCreatorComponent));

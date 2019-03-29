@@ -28,6 +28,7 @@ const GameForm = (props) => {
         date,
         onSubmit,
         onAddTeam,
+        onRemoveTeam,
         teams=[],
     } = props;
     return (
@@ -51,6 +52,7 @@ const GameForm = (props) => {
                 <TeamManager 
                     teams       = { teams }
                     onAddTeam   = { onAddTeam }
+                    onRemoveTeam= { onRemoveTeam }
                 />
                 <View>
                     <SubmitButton 
@@ -82,6 +84,7 @@ GameForm.propTypes = {
     onChangeDate     : PropTypes.func,
     isValidForm      : PropTypes.bool,
     onAddTeam        : PropTypes.func,
+    onRemoveTeam     : PropTypes.func,
     onSubmit         : PropTypes.func,
     teams            : PropTypes.array,
 };

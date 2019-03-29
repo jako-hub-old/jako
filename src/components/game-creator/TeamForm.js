@@ -43,7 +43,7 @@ const TeamForm = ({defaultName="Mi equipo", defaultPlayers=1, onSubmit}) => {
                 <IconButton 
                     icon     ="plus" 
                     disabled = {teamName === ""}
-                    onPress  = {() => onSubmit && onSubmit({teamName, players})}
+                    onPress  = {() => onSubmit && onSubmit({nombre : teamName, jugadores : players})}
                 />
             </View>
         </Form>
@@ -53,7 +53,7 @@ const TeamForm = ({defaultName="Mi equipo", defaultPlayers=1, onSubmit}) => {
 const styles = StyleSheet.create({
     root : {
         flex : 1,
-        marginBottom : 10,
+        marginBottom : 0,
     },
     row : {
         flex : 1,

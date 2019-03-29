@@ -2,16 +2,20 @@ import React from 'react';
 import {
     View,
     StyleSheet,
-    Text,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import TeamForm from './TeamForm';
+import TeamList from './TeamList';
 
-const TeamManager = ({onAddTeam, teams=[]}) => {
+const TeamManager = ({onAddTeam, onRemoveTeam, teams=[]}) => {
     return (
         <View style={styles.root}>
             <TeamForm 
-                onSubmit = {onAddTeam}
+                onSubmit = { onAddTeam }
+            />
+            <TeamList 
+                teams       = { teams }
+                onRemove    = { onRemoveTeam }
             />
         </View>
     );
@@ -20,6 +24,7 @@ const TeamManager = ({onAddTeam, teams=[]}) => {
 TeamManager.propTypes = {
     onAddTeam   : PropTypes.func,
     teams       : PropTypes.array,
+    onRemoveTeam: PropTypes.func,
 };
 
 const styles = StyleSheet.create({

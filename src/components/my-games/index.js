@@ -10,7 +10,7 @@ import {
 import {_t} from "../../configs/dictionary";
 import stylesPalette from "../../utils/stylesPalette";
 import ListComponent from './my-games-list';
-import {withGames} from "../../providers";
+import {withGames, withSearch} from "../../providers";
 
 class MyGamesComponent extends React.Component {
     state = {
@@ -26,8 +26,9 @@ class MyGamesComponent extends React.Component {
     }
 
     onSelectGame(selectedGame) {
+        this.props.selectGame(selectedGame);
         const currentRoute = this.props.navigation.state.routeName;
-        this.props.navigation.navigate("GameDetail", {prevRoute : currentRoute, selectedGame});
+        this.props.navigation.navigate("GameDetail", {prevRoute : currentRoute});
     }
 
     render() {
@@ -70,4 +71,4 @@ MyGamesComponent.propTypes = {
     userCode        : PropTypes.any,
 };
 
-export default withGames(MyGamesComponent);
+export default withGames(withSearch(MyGamesComponent));

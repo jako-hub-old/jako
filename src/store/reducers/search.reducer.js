@@ -9,17 +9,7 @@ import {
 const defaultState = {
     results     : [],
     searchQuery : "",
-    selectedGame: {
-        "codigo_juego": 2,
-        "nombre": "EAFIT",
-        "jugadores": 12,
-        "jugadores_confirmados": 2,
-        "fecha": "2019-03-23T10:00:00-05:00",
-        "acceso": "publico",
-        "escenario_nombre": "CANCHA 2",
-        "negocio_nombre": "EAFIT",
-        "jugador_seudonimo": "wariox3"
-    },
+    selectedGame: {},
     /**
         selectedGame    : null,
     */

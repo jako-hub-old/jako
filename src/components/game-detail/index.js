@@ -114,12 +114,15 @@ class GameDetailComponent extends React.Component {
             openComment,
             detalles,
         } = this.state;
+        console.log(comentarios);
         return (
             <View style={styles.root}>
                 <ScrollView>
-                    <ItemCard 
-                        game = {selectedGame}                    
-                    />
+                    {this.state.nombre && (
+                        <ItemCard 
+                            game = {this.state}
+                        />
+                    )}
                     <Actions 
                         onComment = {() => this.toggleComment()}
                         onAdd     = {() => this.onJoinToGame(selectedGame)}

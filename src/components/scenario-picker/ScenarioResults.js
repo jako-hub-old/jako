@@ -11,6 +11,8 @@ import {
     Body,
     Text,
     Right,
+    Input,
+    Item,
 } from 'native-base';
 import { LoadingSpinner, SimpleModal } from '../../commons';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -30,7 +32,7 @@ const NoScenarios = () => (
     </View>
 );
 
-const ScenarioItem = ({onPress, nombre}) => (
+const ScenarioItem = ({onPress, nombre, negocio_nombre}) => (        
     <ListItem icon button onPress={onPress}>
         <Left>
             <View style={styles.icon}>
@@ -39,6 +41,7 @@ const ScenarioItem = ({onPress, nombre}) => (
         </Left>
         <Body>
             <Text>{nombre}</Text>
+            <Text note>{negocio_nombre}</Text>
         </Body>
         <Right>
             <Icon name="check" size={20} />
@@ -54,6 +57,8 @@ const ScnearioResults = (props) => {
         onSelect,
         open,
         onClose,
+        filter,
+        onChangeFilter,
     } = props;
     let content = null; 
     if(loading) content = (<Loader />);
@@ -61,6 +66,15 @@ const ScnearioResults = (props) => {
     else {
         content = (
             <View style={styles.list}>            
+                <View style={styles.filterBox}>
+                    <Item>
+                        <Input 
+                            placeholder = "Buscar"
+                            value       = {filter}
+                            onChangeText= { text => onChangeFilter(text)}
+                        />
+                    </Item>
+                </View>
                 <List>
                 {results.map((item, key) => (
                     <ScenarioItem 
@@ -90,6 +104,8 @@ ScnearioResults.propTypes = {
     onSelect : PropTypes.func,
     open     : PropTypes.bool,
     onClose : PropTypes.func,
+    onChangeFilter : PropTypes.func,
+    filter          : PropTypes.string,
 };
 
 const styles = StyleSheet.create({
@@ -106,6 +122,9 @@ const styles = StyleSheet.create({
         backgroundColor : "#bdbdbd",
         borderRadius : 30,
         padding : 5,
+    },
+    filterBox : {
+        marginBottom : 10,
     },
 });
 

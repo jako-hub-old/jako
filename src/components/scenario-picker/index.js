@@ -53,13 +53,32 @@ class ScenarioPicker extends React.Component {
             });
     }
 
+    onChangeFilter(filterQuery) {
+        this.setState({
+            filterQuery,
+        });
+    }
+
+    filteredData() {
+        let data = [...this.state.scenarios];
+        const {filterQuery} = this.state;
+        if(filterQuery) {
+            data = data.filter(item => {
+                const regExp = new RegExp(`.*(${filterQuery}).*`, "g");
+                return `${item.nombre.toLowerCase()}`.match(regExp) || `${item.negocio_nombre.toLowerCase()}`.match(regExp);
+            });
+        }
+        return data;
+    }
+
     render() {
         const {
             selectedScneario,
             openPicker,
             loading,
-            scenarios,
+            filterQuery,
         } = this.state;
+        const results = this.filteredData();
         return (
             <>
                 <InputPicker 
@@ -68,11 +87,13 @@ class ScenarioPicker extends React.Component {
                 />
                 {openPicker && (
                     <ScnearioResults
-                        loading ={loading}
-                        results ={scenarios}
-                        onSelect={this.onSelect.bind(this)}
-                        onClose = {() => this.toggleOpen()}
-                        open    = {openPicker}
+                        filter          = { filterQuery }
+                        onChangeFilter  = { this.onChangeFilter.bind(this) }
+                        loading         = { loading }
+                        results         = { results }
+                        onSelect        = { this.onSelect.bind(this) }
+                        onClose         = { () => this.toggleOpen() }
+                        open            = { openPicker }
                      />
                 )}
             </>

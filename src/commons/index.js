@@ -8,6 +8,7 @@ import RoundedButton    from './forms/RoundedButton';
 import LoadingSpinner   from './LoadingSpinner';
 import SimpleModal      from './modals/SimpleModal';
 import DateTimePicker   from './forms/DateTimePicker';
+import FabButton        from './FabButton';
 
 export {
     MainAppBar,
@@ -19,4 +20,5 @@ export {
     LoadingSpinner,
     SimpleModal,
     DateTimePicker,
+    FabButton,
 };

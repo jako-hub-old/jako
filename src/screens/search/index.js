@@ -4,6 +4,7 @@ import { BaseScreen } from '../../commons';
 import PropTypes from 'prop-types';
 import {_t} from "../../configs/dictionary";
 import { SearchComponent, SearchFilter } from '../../components';
+import { FabButton } from '../../commons';
 
 export {default as GameDetailScreen} from './GameDetail';
 
@@ -22,6 +23,10 @@ class MyProfileScreen extends React.PureComponent {
                 <View style={styles.root}>
                     <SearchComponent navigation={navigation} />
                 </View>
+                <FabButton 
+                    icon = "plus"
+                    onPress = {() => navigation.navigate("CreateGame")}
+                />
             </BaseScreen>
         );
     }

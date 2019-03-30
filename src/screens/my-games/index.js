@@ -2,7 +2,8 @@ import React from 'react';
 import { BaseScreen } from '../../commons';
 import PropTypes from 'prop-types';
 import {_t} from "../../configs/dictionary";
-import {MyGamesComponent} from "../../components";
+import { MyGamesComponent } from "../../components";
+import { FabButton } from '../../commons';
 
 /**
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
@@ -13,6 +14,10 @@ class MyGamesScreen extends React.PureComponent {
         return (
             <BaseScreen navigation={navigation} header={false}>
                 <MyGamesComponent navigation={navigation}/>
+                <FabButton 
+                    icon = "plus"
+                    onPress = {() => navigation.navigate("CreateGame")}
+                />
             </BaseScreen>
         );
     }

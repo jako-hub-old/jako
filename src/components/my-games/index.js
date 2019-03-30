@@ -9,9 +9,13 @@ import {
 } from 'native-base';
 import {_t} from "../../configs/dictionary";
 import stylesPalette from "../../utils/stylesPalette";
-import ListComponent from './my-games-list';
+import ListMyGamesComponent from './my-games-list';
 import {withGames, withSearch} from "../../providers";
 
+/**
+ * This component allows to handle the user games
+ * @author Jorge Alejandro Quiroz Serna
+ */
 class MyGamesComponent extends React.Component {
     state = {
         currentTab : 0,
@@ -21,10 +25,19 @@ class MyGamesComponent extends React.Component {
         this.fetchGames();
     }
 
+    /**
+     * This function request the user games to the API.
+     */
     fetchGames() {
         this.props.fetchMyGames(this.props.userCode);
     }
 
+    /**
+     * This function send the user to see a game detail.
+     *
+     * @param {*} selectedGame
+     * @memberof MyGamesComponent
+     */
     onSelectGame(selectedGame) {
         this.props.selectGame(selectedGame);
         const currentRoute = this.props.navigation.state.routeName;
@@ -32,23 +45,13 @@ class MyGamesComponent extends React.Component {
     }
 
     render() {
-        const { myGames=[]} = this.props;
-        console.log(myGames);
+        const { myGames=[] } = this.props;
         return (
             <Container>
-                <Tabs>
-                    <Tab heading={_t('my_games_title_2')} tabStyle={styles.tab} activeTabStyle={styles.tabActive}>
-                        <ListComponent
-                            games   = { myGames }
-                            onSelectGame = {this.onSelectGame.bind(this)}
-                        />
-                    </Tab>
-                    <Tab heading={_t('my_games_title_3')} tabStyle={styles.tab} activeTabStyle={styles.tabActive}>
-                        <Text>
-                            Historico
-                        </Text>
-                    </Tab>
-                </Tabs>
+                <ListMyGamesComponent
+                    games        = { myGames }
+                    onSelectGame = { this.onSelectGame.bind(this) }
+                />
             </Container>
         );
     }

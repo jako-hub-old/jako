@@ -1,7 +1,7 @@
 import React from 'react';
 import { withApi, withSession } from '../../providers';
 import PropTypes from 'prop-types';
-import { consoleInfo, consoleError } from '../../utils/functions';
+import { consoleInfo, consoleError, addMessage } from '../../utils/functions';
 import endpoints from '../../configs/endpoints';
 import {
     Toast,
@@ -30,8 +30,8 @@ class UserInfoVerifier extends React.Component {
             codigo_usuario : userCode,
         })
         .then(response => {
-            const {error_controlado, error} = response;
-            if(!error_controlado && !error) {
+            const {error_controlado, validacion, error} = response;            
+            if(!error_controlado && !error && !validacion) {
                 const {seudonimo} = response;
                 this.props.sessionWrite("user_info", response);
                 if(!seudonimo) {
@@ -39,8 +39,13 @@ class UserInfoVerifier extends React.Component {
                         pseudonymHelper : true
                     });
                 }
+            } else if(validacion) {
+                addMessage("El usuario no exíste");
+                this.props.logout();
+                this.props.navigation.navigate("Auth");
+
             } else {
-                Toast.show({text : "Error al obtener la información del jugador"});
+                addMessage("Error al obtener la información del jugador");
                 consoleError("Fetch user info: ", response);
             }
         })
@@ -80,9 +85,11 @@ class UserInfoVerifier extends React.Component {
 }
 
 UserInfoVerifier.propTypes = {
+    navigation      : PropTypes.any,
     sessionStack    : PropTypes.object,
     sessionWrite    : PropTypes.func,
     doPost          : PropTypes.func,
+    logout          : PropTypes.func,
 };
 
 export default withApi(withSession(UserInfoVerifier));

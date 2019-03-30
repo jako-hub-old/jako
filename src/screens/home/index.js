@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {
     UserInfoVerifier,
 } from '../../components';
-
+import { withNavigationFocus } from 'react-navigation';
 
 /**
  * This is the main or home screen for the application.
@@ -12,13 +12,17 @@ import {
  */
 class HomeScreen extends React.PureComponent {
     render() {
-        const navigation = this.props.navigation;
+        const {
+            isFocused,
+            navigation
+        } = this.props;
+        console.log("Has focus", isFocused);
         return (
             <>
             <BaseScreen navigation={navigation}>
                 
             </BaseScreen>
-            <UserInfoVerifier />
+            {isFocused && (<UserInfoVerifier navigation = {navigation}/>)}
             </>
         );
     }
@@ -28,4 +32,4 @@ HomeScreen.propTypes = {
     navigation : PropTypes.object,
 };
 
-export default HomeScreen;
+export default withNavigationFocus(HomeScreen);

@@ -2,7 +2,7 @@ import {myGamesResults} from "../../utils/fake-api.json";
 import endpoints from "../../configs/endpoints.js";
 import { startLoading, stopLoading, } from "./global.actions";
 import { Api } from "../../services/ApiService.js";
-import { addMessage } from "../../utils/functions.js";
+import { addMessage, consoleError } from "../../utils/functions.js";
 
 export const SET_MY_GAMES       = '[GAME] SET_MY_GAMES';
 export const ADD_TO_MY_GAMES    = '[GAME] ADD_TO_MY_GAMES';
@@ -42,6 +42,7 @@ export const fetchMyGames = (jugador=0) => (dispatch) => (new Promise((resolve, 
         const {error, error_controlado} = response;
         if(error || error_controlado) {
             addMessage("Ocurrió un error al listar los juegos");
+            consoleError("Listing my games", response);
         } else {
             dispatch(setGames(response));
         }        

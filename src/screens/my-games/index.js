@@ -12,7 +12,7 @@ class MyGamesScreen extends React.PureComponent {
     render() {
         const navigation = this.props.navigation;
         return (
-            <BaseScreen navigation={navigation} header={false}>
+            <BaseScreen navigation={navigation} title={"Mis juegos"}>
                 <MyGamesComponent navigation={navigation}/>
                 <FabButton 
                     icon = "plus"

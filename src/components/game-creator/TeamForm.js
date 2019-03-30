@@ -11,6 +11,7 @@ import {
     Input,    
     Label,
 } from 'native-base';
+import {Button} from '../../commons/forms';
 import { 
     NumberPicker,
     IconButton,
@@ -40,11 +41,13 @@ const TeamForm = ({defaultName="Mi equipo", defaultPlayers=1, onSubmit}) => {
                 </View>                
             </View>
             <View style={{flex : 1, alignItems : "center", paddingVertical: 10, marginTop: 10,}}>
-                <IconButton 
-                    icon     ="plus" 
+                <Button
+                    info
                     disabled = {teamName === ""}
-                    onPress  = {() => onSubmit && onSubmit({nombre : teamName, jugadores : players})}
-                />
+                    onPress = {() => onSubmit && onSubmit({nombre : teamName, jugadores : players})}
+                >
+                    Agregar
+                </Button>
             </View>
         </Form>
     )

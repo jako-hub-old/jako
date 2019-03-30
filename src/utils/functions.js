@@ -3,6 +3,7 @@ import {
 } from 'native-base';
 
 export const consoleError = (type, response) => {
+    console.clear();
     console.group(type);
     console.log(response);
     console.groupEnd();

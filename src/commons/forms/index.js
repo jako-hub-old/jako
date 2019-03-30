@@ -4,6 +4,7 @@ import RoundedButton    from './RoundedButton';
 import SubmitButton     from './SubmitButton';
 import NumberPicker     from './NumberPicker';
 import IconButton       from './IconButton';
+import Button           from './Button';
 
 export {
     DateTimePicker, 
@@ -12,4 +13,5 @@ export {
     SubmitButton, 
     NumberPicker,
     IconButton,
+    Button,
 };

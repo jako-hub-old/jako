@@ -1,6 +1,7 @@
 import { startLoading, stopLoading } from './global.actions';
 import { Api } from '../../services/ApiService';
 import endpoints from '../../configs/endpoints';
+import { consoleError } from '../../utils/functions';
 export const SET_RESULTS = '[SEARCH] SET_RESULTS';
 export const SET_QUERY  = '[SEARCH] SET_QUERY';
 export const SET_SELECTED_GAME = '[SEARCH] SET_SELECTED_GAME';
@@ -44,9 +45,15 @@ export const fetchGames = () => (dispatch) => (new Promise((resolve, reject) => 
     dispatch(startLoading());
     Api.doPost(endpoints.juego.buscar, {})
     .then(response => {
-        resolve(true);
-        dispatch(setResults(response));
-        dispatch(stopLoading());
+        const {error, error_controlado} = response;
+        if(error || error_controlado) {
+            reject(response);
+            consoleError("Listing search results");
+        } else {
+            resolve(true);
+            dispatch(setResults(response));            
+        }
+        dispatch(stopLoading());        
     })
     .catch(response => {
         reject(repsonse);

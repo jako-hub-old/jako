@@ -6,11 +6,17 @@ import {
     Text,
     TouchableOpacity,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-import RoundedButton from './RoundedButton';
 import DatePicker from 'react-native-modal-datetime-picker';
+import IconButton from './IconButton';
 
-const DateTimePicker = ({value, onChange}) => {
+const resolveIcon = (mode) => {
+    switch(mode) {
+        case 'time': return 'clock';
+        default: return "calendar-alt";
+    }
+};
+
+const TimeSelector = ({value, onChange, label="Select a date", mode="datetime"}) => {
     const [opened, toggleOpen] = useState(false);
     return (
       <>
@@ -18,12 +24,13 @@ const DateTimePicker = ({value, onChange}) => {
             <TouchableOpacity onPress={() => toggleOpen(!opened)}>
                 <View style={styles.wrapper}>
                     <View style={styles.textWrapper}>
-                        <Text>{!value? "Seleccione una fecha" : value}</Text>
+                        <Text>{!value? label : value}</Text>
                     </View>
-                    <View>
-                        <RoundedButton primary onPress={() => toggleOpen(!opened)}>
-                            <Icon name="calendar-alt" size={20}/>
-                        </RoundedButton>
+                    <View style={{justifyContent : "center"}}>
+                        <IconButton 
+                            icon = {resolveIcon(mode)}
+                            onPress={() => toggleOpen(!opened)}
+                        />
                     </View>
                 </View>
             </TouchableOpacity>
@@ -32,7 +39,7 @@ const DateTimePicker = ({value, onChange}) => {
             isVisible   = { opened      }
             onConfirm   = { newDate => { onChange(newDate); toggleOpen(false) }}
             onCancel    = { () => { toggleOpen(false) }}
-            mode        = { "datetime"  }
+            mode        = { mode }
         />
       </>
     );
@@ -49,7 +56,9 @@ const styles = StyleSheet.create({
         flex : 1,
         flexDirection : "row",
         justifyContent : "space-between",
-        alignItems : "flex-end",
+        alignItems : "center",
+        borderColor : "#bdbdbd",
+        borderBottomWidth : 1,
     },
     textWrapper : {
         flex : 7,
@@ -59,8 +68,8 @@ const styles = StyleSheet.create({
     },
 });
 
-DateTimePicker.propTypes = {
+TimeSelector.propTypes = {
     onChange : PropTypes.func,
 };
 
-export default DateTimePicker;
+export default TimeSelector;

@@ -9,7 +9,7 @@ import {
     Text,
 } from 'native-base';
 
-const ButtonButton = ({children, disabled, light, primary, info, success, warning, danger, dark, styles:otherStyles}) => (
+const ButtonButton = ({onPress, children, disabled, light, primary, info, success, warning, danger, dark, styles:otherStyles}) => (
     <View>
         <Button 
             info     = { info   }
@@ -18,7 +18,7 @@ const ButtonButton = ({children, disabled, light, primary, info, success, warnin
             warning  = { warning    }
             danger   = { danger }
             dark     = { dark }
-            onPress  = {() => onSubmit && onSubmit({nombre : teamName, jugadores : players})}
+            onPress  = { onPress }
             disabled = {disabled}
             style    = {{...styles.root, otherStyles}}
             >

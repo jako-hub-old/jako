@@ -18,6 +18,8 @@ class GameCreatorComponent extends React.Component {
         name     : "",
         scenario : "",
         date     : null,
+        startAt  : null,
+        endsAt   : null,
         codigo_juego : null,
         teams : [],
         teamNames : {},
@@ -36,9 +38,16 @@ class GameCreatorComponent extends React.Component {
     }
 
     onChangeDate(newDate) {
-        const date = moment(newDate).format("YYYY-MM-DD HH:mm");
+        const date = moment(newDate).format("YYYY-MM-DD");
         this.setState({
             date,
+        });
+    }
+
+    onChangeTime(key, time) {
+        const newTime = moment(time).format("HH:mm");
+        this.setState({
+            [key] : newTime,
         });
     }
 
@@ -48,10 +57,22 @@ class GameCreatorComponent extends React.Component {
             scenario,
             date,
             teams,
+            startAt,
+            endsAt,
         } = this.state;
+        console.log(
+            name,
+            scenario,
+            date,
+            teams,
+            startAt,
+            endsAt,
+        );
         return      (!_.isEmpty(name)) &&
-                (!_.isEmpty(scenario)) &&
-                    ((!_.isEmpty(date))) &&
+                    (!_.isEmpty(scenario)) &&
+                    (!_.isEmpty(date)) &&
+                    (!_.isEmpty(startAt)) &&
+                    (!_.isEmpty(endsAt)) &&
                     teams.length > 0;
 
     }
@@ -74,10 +95,15 @@ class GameCreatorComponent extends React.Component {
             date:fecha,
             name:nombre,
             codigo_juego,
+            startAt,
+            endsAt,
             teams,
         } = this.state;
         const jugador = this.props.userCode;
         const escenario = scenario.codigo_escenario;
+        const initialDate = `${fecha} ${startAt}`;
+        const endDate = `${fecha} ${endsAt}`;
+        
         this.props.startLoading();
         this.props.doPost(endpoints.juego.nuevo, {
             jugador,
@@ -88,6 +114,8 @@ class GameCreatorComponent extends React.Component {
             escenario,
             codigo_juego,
             equipos : teams,
+            fecha_desde : initialDate,
+            fecha_hasta : endDate,
         }).then(response => {
             const {error, error_controlado, codigo_juego} = response;
             if(error || error_controlado) {
@@ -122,27 +150,32 @@ class GameCreatorComponent extends React.Component {
             teamNames : {},
         });
     }
+    
 
     render() {
         const {
             name,
             scenario,
             date,
+            startAt,
+            endsAt,
             teams,
         } = this.state;
-        console.log("query: ", this.props.searchQuery);
         return (
             <ScrollView>                
                 <View style={styles.root}>
                     <Form 
                         onSelectScenario = { this.onChangeScenario.bind(this)}
                         onChangeDate     = { this.onChangeDate.bind(this)    }
+                        onChangeTime     = { this.onChangeTime.bind(this)    }
                         onSubmit         = { this.onSubmitForm.bind(this)    }
                         onChange         = { this.onChange.bind(this)        }
                         teams            = { teams    }
                         gameName         = { name     }
                         scenario         = { scenario }
                         date             = { date     }
+                        startHour        = { startAt  }
+                        endHour          = { endsAt   }
                         isValidForm      = { this.isValidForm()           }
                         onAddTeam        = { this.onAddTeam.bind(this)    }
                         onRemoveTeam     = { this.onRemoveTeam.bind(this) }

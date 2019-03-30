@@ -14,7 +14,6 @@ import {
 import {Button} from '../../commons/forms';
 import { 
     NumberPicker,
-    IconButton,
  } from '../../commons/forms';
 
 const TeamForm = ({defaultName="Mi equipo", defaultPlayers=1, onSubmit}) => {

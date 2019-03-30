@@ -16,6 +16,10 @@ import {
     SubmitButton,
     FieldSetTitle,
 } from '../../commons/forms';
+import {
+    Row,
+    Col,
+} from '../../commons/forms/Layout';
 import TeamManager from './TeamManager';
 
 const GameForm = (props) => {
@@ -30,6 +34,9 @@ const GameForm = (props) => {
         onAddTeam,
         onRemoveTeam,
         teams=[],
+        startHour,
+        endHour,
+        onChangeTime,
     } = props;
     return (
         <View style={styles.root}>            
@@ -44,7 +51,27 @@ const GameForm = (props) => {
                 <DateTimePicker 
                     value       = { date         }
                     onChange    = { onChangeDate }
+                    label       = { "Seleccione el día" }
+                    mode        = "date"
                 />
+                <Row>
+                    <Col>
+                        <DateTimePicker 
+                            value       = { startHour         }
+                            onChange    = { date => onChangeTime('startAt', date) }
+                            label       = { "Hora inicio" }
+                            mode        = "time"
+                        />
+                    </Col>
+                    <Col>
+                        <DateTimePicker 
+                            value       = { endHour         }
+                            onChange    = { date => onChangeTime('endsAt', date) }
+                            label       = { "Hora Fin" }
+                            mode        = "time"
+                        />
+                    </Col>
+                </Row>
                 <ScenarioPicker 
                     onSelectScenario = { onSelectScenario }
                 />
@@ -87,6 +114,9 @@ GameForm.propTypes = {
     onRemoveTeam     : PropTypes.func,
     onSubmit         : PropTypes.func,
     teams            : PropTypes.array,
+    startHour        : PropTypes.string,      
+    endHour          : PropTypes.string,
+    onChangeTime     : PropTypes.func,
 };
 
 export default GameForm;

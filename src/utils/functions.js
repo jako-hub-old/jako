@@ -26,3 +26,11 @@ export const isValidEmail = (email) => {
     if(email === '') return true;
     return re.test(email);
 };
+
+
+export const upcfirst = (str) => {
+    if(str.length <= 1) return str.toUpperCase();
+    const firstLetter = str.charAt(0).toUpperCase();
+    const rest = str.slice(1).toLowerCase();
+    return `${firstLetter}${rest}`;
+};

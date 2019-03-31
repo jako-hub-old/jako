@@ -16,6 +16,10 @@ import {
     NumberPicker,
  } from '../../commons/forms';
 
+/**
+ * This component only renders the Teams form
+ * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
+ */
 const TeamForm = ({defaultName="Mi equipo", defaultPlayers=1, onSubmit}) => {
     const [teamName, setName] = useState(defaultName);
     const [players, setPlayers] = useState(defaultPlayers);
@@ -45,7 +49,7 @@ const TeamForm = ({defaultName="Mi equipo", defaultPlayers=1, onSubmit}) => {
                     disabled = {teamName === ""}
                     onPress = {() => onSubmit && onSubmit({nombre : teamName, jugadores : players})}
                 >
-                    Agregar
+                    Agregar Equipo
                 </Button>
             </View>
         </Form>

@@ -54,7 +54,6 @@ const RenderTeam = ({teamName, team=[]}) => (
 
 const TeamsList = ({teams={}}) => {
     const teamNames = Object.keys(teams);
-    console.log("names", teamNames);
     return (
         <View style={styles.root}>
             <List>

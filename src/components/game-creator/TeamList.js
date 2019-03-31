@@ -12,10 +12,14 @@ import {
 } from 'native-base';
 import { IconButton } from '../../commons/forms';
 
+/**
+ * This component renders the team list.
+ * @author Jorge Alejanro Quiroz Serna <jakop.box@gmail.com>
+ */
 const TeamList = ({teams=[], onRemove}) => (
     <View>
         {teams.length === 0 && (
-            <Text style={{textAlign : "center", marginBottom: 20,}} note>{"Añade al menos un equipo"}</Text>
+            <Text style={{textAlign : "center", marginBottom: 20, paddingVertical : 20}} note>{"Añade al menos un equipo"}</Text>
         )}
         <List>
             {teams.map((item, key) => (

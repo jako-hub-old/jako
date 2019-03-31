@@ -31,15 +31,15 @@ const InputSelector = ({onOpen, selected}) => {
 
 const styles = StyleSheet.create({
     container : {
-        flex : 1, 
-        flexDirection : "row",
-        justifyContent : "space-between",
-        alignItems : "flex-end",
+        flex            : 1, 
+        flexDirection   : "row",
+        justifyContent  : "space-between",
+        alignItems      : "flex-end",
         paddingVertical : 30,
-        paddingLeft : 10,
-        marginVertical : 10,
-        height : 80,
-        paddingLeft : 15,
+        paddingLeft     : 10,
+        marginVertical  : 10,
+        height          : 80,
+        paddingLeft     : 15,
     },
     textWrapper : {
         flex : 7,

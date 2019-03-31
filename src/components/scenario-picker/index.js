@@ -64,7 +64,7 @@ class ScenarioPicker extends React.Component {
         const {filterQuery} = this.state;
         if(filterQuery) {
             data = data.filter(item => {
-                const regExp = new RegExp(`.*(${filterQuery}).*`, "g");
+                const regExp = new RegExp(`.*(${filterQuery.toLowerCase()}).*`, "g");
                 return `${item.nombre.toLowerCase()}`.match(regExp) || `${item.negocio_nombre.toLowerCase()}`.match(regExp);
             });
         }

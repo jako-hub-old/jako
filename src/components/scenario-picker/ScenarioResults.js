@@ -16,6 +16,7 @@ import {
 } from 'native-base';
 import { LoadingSpinner, SimpleModal } from '../../commons';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import { upcfirst } from '../../utils/functions';
 
 const Loader = () => (
     <View style={styles.loading}>
@@ -40,8 +41,8 @@ const ScenarioItem = ({onPress, nombre, negocio_nombre}) => (
             </View>
         </Left>
         <Body>
-            <Text>{nombre}</Text>
-            <Text note>{negocio_nombre}</Text>
+            <Text style={styles.primaryText}>{upcfirst(nombre)}</Text>
+            <Text note style={styles.secondaryText}>{negocio_nombre}</Text>
         </Body>
         <Right>
             <Icon name="check" size={20} />
@@ -65,16 +66,7 @@ const ScnearioResults = (props) => {
     else if(!loading && results.length === 0 ) content = (<NoScenarios />);
     else {
         content = (
-            <View style={styles.list}>            
-                <View style={styles.filterBox}>
-                    <Item>
-                        <Input 
-                            placeholder = "Buscar"
-                            value       = {filter}
-                            onChangeText= { text => onChangeFilter(text)}
-                        />
-                    </Item>
-                </View>
+            <View style={styles.list}>                            
                 <List>
                 {results.map((item, key) => (
                     <ScenarioItem 
@@ -93,18 +85,27 @@ const ScnearioResults = (props) => {
             onClose = {onClose}
             open    = {open}
         >        
+            <View style={styles.filterBox}>
+                <Item>
+                    <Input 
+                        placeholder = "Buscar"
+                        value       = {filter}
+                        onChangeText= { text => onChangeFilter(text)}
+                    />
+                </Item>
+            </View>
             {content}
         </SimpleModal>        
     );
 };
 
 ScnearioResults.propTypes = {
-    loading : PropTypes.bool,
-    results : PropTypes.array,
-    onSelect : PropTypes.func,
-    open     : PropTypes.bool,
-    onClose : PropTypes.func,
-    onChangeFilter : PropTypes.func,
+    loading     : PropTypes.bool,
+    results     : PropTypes.array,
+    onSelect    : PropTypes.func,
+    open        : PropTypes.bool,
+    onClose     : PropTypes.func,
+    onChangeFilter  : PropTypes.func,
     filter          : PropTypes.string,
 };
 
@@ -118,13 +119,18 @@ const styles = StyleSheet.create({
 
     },
     icon : {
-        //backgroundColor : "#e0e0e0",
-        backgroundColor : "#bdbdbd",
+        backgroundColor : "#e0e0e0",
         borderRadius : 30,
         padding : 5,
     },
     filterBox : {
         marginBottom : 10,
+    },
+    primaryText : {
+        fontSize : 15,
+    },
+    secondaryText : {
+        fontSize : 10,
     },
 });
 

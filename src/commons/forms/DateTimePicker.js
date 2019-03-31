@@ -16,7 +16,14 @@ const resolveIcon = (mode) => {
     }
 };
 
-const TimeSelector = ({value, onChange, label="Select a date", mode="datetime"}) => {
+const TimeSelector = (props) => {
+    const {
+        value, 
+        onChange, 
+        label="Select a date", 
+        mode="datetime",
+        minuteInterval=15,
+    } = props;
     const [opened, toggleOpen] = useState(false);
     return (
       <>
@@ -36,10 +43,12 @@ const TimeSelector = ({value, onChange, label="Select a date", mode="datetime"})
             </TouchableOpacity>
         </View>
         <DatePicker
-            isVisible   = { opened      }
-            onConfirm   = { newDate => { onChange(newDate); toggleOpen(false) }}
-            onCancel    = { () => { toggleOpen(false) }}
-            mode        = { mode }
+            is24Hour        = { false }
+            minuteInterval  = { 5 }
+            isVisible       = { opened         }
+            mode            = { mode           }
+            onConfirm       = { newDate => { onChange(newDate); toggleOpen(false) }}
+            onCancel        = { () => { toggleOpen(false) }}
         />
       </>
     );
@@ -69,7 +78,12 @@ const styles = StyleSheet.create({
 });
 
 TimeSelector.propTypes = {
-    onChange : PropTypes.func,
+    onChange        : PropTypes.func,
+    minuteInterval  : PropTypes.number,
+    value           : PropTypes.string, 
+    onChange        : PropTypes.func, 
+    label           : PropTypes.string, 
+    mode            : PropTypes.oneOf(['date', 'datetime', 'time']),
 };
 
 export default TimeSelector;

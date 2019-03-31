@@ -38,7 +38,7 @@ class GameCreatorComponent extends React.Component {
     }
 
     onChangeDate(newDate) {
-        const date = moment(newDate).format("YYYY-MM-DD");
+        const date = moment(newDate).format("YYYY/MM/DD");
         this.setState({
             date,
         });
@@ -60,14 +60,6 @@ class GameCreatorComponent extends React.Component {
             startAt,
             endsAt,
         } = this.state;
-        console.log(
-            name,
-            scenario,
-            date,
-            teams,
-            startAt,
-            endsAt,
-        );
         return      (!_.isEmpty(name)) &&
                     (!_.isEmpty(scenario)) &&
                     (!_.isEmpty(date)) &&
@@ -102,10 +94,9 @@ class GameCreatorComponent extends React.Component {
         const jugador = this.props.userCode;
         const escenario = scenario.codigo_escenario;
         const initialDate = `${fecha} ${startAt}`;
-        const endDate = `${fecha} ${endsAt}`;
-        
+        const endDate = `${fecha} ${endsAt}`;        
         this.props.startLoading();
-        this.props.doPost(endpoints.juego.nuevo, {
+        const data = {
             jugador,
             nombre,
             fecha,
@@ -116,9 +107,12 @@ class GameCreatorComponent extends React.Component {
             equipos : teams,
             fecha_desde : initialDate,
             fecha_hasta : endDate,
-        }).then(response => {
+        };
+        this.props.doPost(endpoints.juego.nuevo, data).then(response => {
             const {error, error_controlado, codigo_juego} = response;
             if(error || error_controlado) {
+                consoleError("Saving the game controlled", response);
+                console.log("data", JSON.stringify(data));
                 addMessage("Ocurrió un error al guardar el juego");
             } else {
                 this.props.onChangeQuery(nombre);
@@ -151,7 +145,6 @@ class GameCreatorComponent extends React.Component {
         });
     }
     
-
     render() {
         const {
             name,

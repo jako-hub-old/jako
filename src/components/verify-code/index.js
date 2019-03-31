@@ -40,7 +40,6 @@ class VerifyCode extends React.Component {
                 this.props.stopLoading();
                 const {verificado, codigo_usuario} = response;
                 if(verificado) {
-                    console.log(codigo_usuario);
                     this.props.onCodeVerified(codigo_usuario);
                 } else {
                     showMessage('Código inválido');

@@ -23,6 +23,13 @@ import {
 } from '../';
 import TeamsList from './TeamsList';
 
+/**
+ * This component handles the game detail display.
+ * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
+ *
+ * @class GameDetailComponent
+ * @extends {React.Component}
+ */
 class GameDetailComponent extends React.Component {
     state = {        
         codigo_juego    : null,
@@ -44,6 +51,11 @@ class GameDetailComponent extends React.Component {
         this.fetchGameInfo();
     }
 
+    /**
+     * This funcion fetch the game information
+     *
+     * @memberof GameDetailComponent
+     */
     fetchGameInfo() {
         const {codigo_juego} = this.props.selectedGame;        
         this.setState({loadingComments : true});
@@ -72,12 +84,10 @@ class GameDetailComponent extends React.Component {
                     buildingGroup[key].push(currentDetail);
                     return buildingGroup;
                 }, teamsBase);
-                                
                 response.detalles = newDetails;
-                console.log("Detailes: ", newDetails);
                 this.setState({
                     ...response,
-                    detalles : newDetails,
+                    detalles        : newDetails,
                     loadingComments : false,
                 });
             }
@@ -88,12 +98,23 @@ class GameDetailComponent extends React.Component {
         });            
     }
 
+    /**
+     * This function toggles the comment visualization.
+     *
+     * @memberof GameDetailComponent
+     */
     toggleComment() {
         this.setState({
             openComment : !this.state.openComment,
         });
     }
 
+    /**
+     * This function is triggered when a comment is saved.
+     *
+     * @param {*} comment
+     * @memberof GameDetailComponent
+     */
     onSaveComment(comment) {
         this.setState(({comentarios}) => ({
             comentarios        : [...comentarios, comment],
@@ -101,6 +122,12 @@ class GameDetailComponent extends React.Component {
         }));
     }
 
+    /**
+     * This function sends to the Join game screen.
+     *
+     * @param {*} selectedGame
+     * @memberof GameDetailComponent
+     */
     onJoinToGame(selectedGame) {
         const currentRoute = this.props.navigation.state.routeName;
         this.props.navigation.navigate("JoinToGame", {prevRoute : currentRoute, selectedGame});
@@ -114,7 +141,6 @@ class GameDetailComponent extends React.Component {
             openComment,
             detalles,
         } = this.state;
-        console.log(comentarios);
         return (
             <View style={styles.root}>
                 <ScrollView>

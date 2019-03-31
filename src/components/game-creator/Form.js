@@ -59,7 +59,7 @@ const GameForm = (props) => {
                         <DateTimePicker 
                             value       = { startHour         }
                             onChange    = { date => onChangeTime('startAt', date) }
-                            label       = { "Hora inicio" }
+                            label       = { "Inicio" }
                             mode        = "time"
                         />
                     </Col>
@@ -67,7 +67,7 @@ const GameForm = (props) => {
                         <DateTimePicker 
                             value       = { endHour         }
                             onChange    = { date => onChangeTime('endsAt', date) }
-                            label       = { "Hora Fin" }
+                            label       = { "Fin" }
                             mode        = "time"
                         />
                     </Col>
@@ -75,10 +75,10 @@ const GameForm = (props) => {
                 <ScenarioPicker 
                     onSelectScenario = { onSelectScenario }
                 />
-                <FieldSetTitle title={"Añade equipos"} />
+                <FieldSetTitle title={"Equipos del juego"} />
                 <TeamManager 
-                    teams       = { teams }
-                    onAddTeam   = { onAddTeam }
+                    teams       = { teams        }
+                    onAddTeam   = { onAddTeam    }
                     onRemoveTeam= { onRemoveTeam }
                 />
                 <View>

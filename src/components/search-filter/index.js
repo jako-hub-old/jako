@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
     StyleSheet,
+    TouchableOpacity,
+    View,
 } from 'react-native';
 import {
     Input,
@@ -11,25 +13,57 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { withSearch } from '../../providers';
 
-const SearchFilter = ({onChangeQuery, searchQuery}) => {
+
+const RenderForm = ({onChangeQuery, searchQuery, clearText, focusInput, setInputRef}) => {
+    const isEmpty = searchQuery === "";
     return (
         <Form style={styles.form}>
             <Item rounded style={styles.inputContainer}>
                 <Input
-                    placeholder="Busca en jako"
+                    ref         = {ref => setInputRef(ref)}
+                    placeholder = "Busca en jako"
                     value       = { searchQuery }
                     onChangeText= { text => onChangeQuery(text) }
                     style       = {styles.input}
                 />
-                <Icon 
-                    style={styles.icon} 
-                    name="search" 
-                    size={30}                 
-                />
+                <TouchableOpacity onPress={() => !isEmpty? clearText : focusInput}>
+                    <View>
+                        <Icon 
+                            style   = { styles.icon } 
+                            size    = { 30 }
+                            name    = {isEmpty? "search" : 'times'}
+                        />
+                    </View>
+                </TouchableOpacity>                
             </Item>
         </Form>
     );
 };
+
+class SearchFilter extends React.Component {
+    inputRef = null;
+
+    clearText() {
+        this.props.onChangeQuery("");
+    }
+
+    focusInput() {
+        this.inputRef._root.focus();
+    }
+
+    render () {
+        const {onChangeQuery, searchQuery} = this.props;
+        return (
+            <RenderForm 
+                onChangeQuery   = { onChangeQuery } 
+                searchQuery     = { searchQuery   } 
+                setInputRef     = { ref => this.inputRef = ref }
+                clearText       = { () => this.clearText()     }
+                focusInput      = { () => this.focusInput()    }
+            />
+        );
+    }
+}
 
 const styles = StyleSheet.create({
     root : {

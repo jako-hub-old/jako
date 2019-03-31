@@ -21,33 +21,38 @@ import endpoints from '../../configs/endpoints';
 /** 
  * This component renders the form
  */
-const PseudoForm = ({onSubmit, loading, isValidForm, onChange, email, name, pseudonym}) => {
-    
+const PseudoForm = ({onSubmit, loading, isValidForm, onChange, email, name, pseudonym, setInputRef, goToNext,}) => {
     return (
         <Form style={styles.form}>
-            <Item floatingLabel>
-                <Label>{"Tu nombre"}</Label>
+            <Item>
                 <Input 
-                    disabled = { loading }
-                    value    = { name }
-                    onChangeText = { text => onChange("name", text) }
+                    placeholder     = "Tu nombre"
+                    ref             = { ref => setInputRef('name', ref) }
+                    onSubmitEditing = { () => goToNext('name')                  }
+                    disabled        = { loading }
+                    value           = { name    }
+                    onChangeText    = { text => onChange("name", text) }
                 />
             </Item>  
-            <Item floatingLabel>
-                <Label>{"Un alias"}</Label>
+            <Item>
                 <Input 
-                    disabled = { loading }
-                    value    = { pseudonym }
-                    onChangeText = { text => onChange("pseudonym", replaceSpaces(text, '_')) }
+                    placeholder     = "Un alias"
+                    ref             = { ref => setInputRef('pseudonym', ref)   }
+                    onSubmitEditing = { () => goToNext('pseudonym')            }
+                    disabled        = { loading }
+                    value           = { pseudonym }
+                    onChangeText    = { text => onChange("pseudonym", replaceSpaces(text, '_')) }
                 />
             </Item>  
-            <Item floatingLabel>
-                <Label>{"E-mail"}</Label>
+            <Item>
                 <Input 
-                    disabled = { loading }
-                    value    = { email }
-                    keyboardType = {"email-address"}
-                    onChangeText = { text => onChange("email", text) }
+                    placeholder     = "E-mail"
+                    ref             = { ref => setInputRef('email', ref)   }
+                    onSubmitEditing = { () => goToNext('email')            }
+                    disabled        = { loading }
+                    value           = { email   }
+                    keyboardType    = {"email-address"}
+                    onChangeText    = { text => onChange("email", text) }
                 />
             </Item>  
             <View style={styles.formRow}>
@@ -69,6 +74,29 @@ class PseudonymHelper extends React.Component {
         name        : "",
         email       : "",
     };
+
+    formRefs = [];
+
+    registerRef(key, ref) {
+        const existsRef = this.formRefs.find(item => item.key === key);        
+        if(existsRef) return false;
+        this.formRefs.push({
+            key,
+            ref,
+        });
+    }
+
+    goToNext(key) {        
+        const index = this.formRefs.findIndex(item => item.key === key);
+        const nextIndex = index + 1;
+        const totalRefs = this.formRefs.length;
+        if((nextIndex === totalRefs) && this.isValidForm()) {
+            this.onSave();
+        } else if(nextIndex < totalRefs) {
+            const item = this.formRefs[nextIndex];
+            item.ref._root.focus();
+        }
+    }
 
     onChange(key, value) {
         this.setState({
@@ -148,13 +176,15 @@ class PseudonymHelper extends React.Component {
                             </Text>
                         </View>
                         <PseudoForm 
-                            isValidForm = {this.isValidForm()}
-                            email       = {email}
-                            pseudonym   = {pseudonym}
-                            onChange    = {this.onChange.bind(this)}
-                            name        = {name}
-                            loading     = {loading}
-                            onSubmit    = {val => this.onSave(val)}
+                            setInputRef = { (k, r) => this.registerRef(k, r) }
+                            goToNext    = { this.goToNext.bind(this)    }
+                            isValidForm = { this.isValidForm()          }
+                            onSubmit    = { val => this.onSave(val)     }
+                            onChange    = { this.onChange.bind(this)    }
+                            email       = { email     }
+                            pseudonym   = { pseudonym }
+                            name        = { name    }
+                            loading     = { loading }
                         />
                     </View>
                 </View>

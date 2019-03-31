@@ -42,7 +42,7 @@ export const clearSelectedGame = () => ({
  * @returns {function(*): (Promise<any> | Promise<*>)}
  */
 export const fetchGames = () => (dispatch) => (new Promise((resolve, reject) => {
-    dispatch(startLoading());
+    //dispatch(startLoading());
     Api.doPost(endpoints.juego.buscar, {})
     .then(response => {
         const {error, error_controlado} = response;
@@ -53,11 +53,11 @@ export const fetchGames = () => (dispatch) => (new Promise((resolve, reject) => 
             resolve(true);
             dispatch(setResults(response));            
         }
-        dispatch(stopLoading());        
+        //dispatch(stopLoading());        
     })
     .catch(response => {
         reject(repsonse);
-        dispatch(stopLoading());
+        //dispatch(stopLoading());
     }); 
 }));
 

@@ -7,6 +7,7 @@ import { withSearch } from '../../providers';
 import PropTypes from 'prop-types';
 // import Pager from './Pager';
 import Results from './Results';
+import { LoadingSpinner } from '../../commons';
 
 /**
  * This component handles the items search.
@@ -16,6 +17,11 @@ class SearchComponent extends React.Component {
         loading : true,
     };
     componentDidMount() {
+        this.fetchGames();
+    }
+
+    fetchGames() {
+        this.setState({loading : true});
         this.props.fetchGames()
             .then(() => this.setState({loading : false,}))
             .catch(() => this.setState({loading : false}));
@@ -47,25 +53,36 @@ class SearchComponent extends React.Component {
         this.props.navigation.navigate("JoinToGame", {prevRoute : currentRoute, selectedGame});
     }
 
+    refreshGames() {
+        this.fetchGames();
+    }
+
+    goToCreate() {
+        const currentRoute = this.props.navigation.state.routeName;
+        this.props.navigation.navigate("CreateGame", {prevRoute : currentRoute});
+    }
+
     render() {
         const {
             loading,            
         } = this.state;
         const results = this.getFilteredList() || [];
-        console.clear();
-        console.log("Games : ", results);
         return (
             <>
                 {loading && (
                     <View style={{flex : 1, alignItems: "center"}}>
-                        <Text>Buscando juegos...</Text>
+                        <LoadingSpinner/>
                     </View>
                 )}  
-                <Results 
-                    results         = { results }
-                    onSelectItem    = { this.onSelectResult.bind(this)  }
-                    onJoinToGame    = { this.joinToGame.bind(this)      }
-                />
+                {!loading && (
+                    <Results 
+                        results         = { results }
+                        onSelectItem    = { this.onSelectResult.bind(this)  }
+                        onJoinToGame    = { this.joinToGame.bind(this)      }
+                        onRefresh       = { () => this.refreshGames()       }
+                        goToCreate      = { () => this.goToCreate()         }
+                    />
+                )}
             </>
         );
     }

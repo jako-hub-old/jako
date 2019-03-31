@@ -103,6 +103,7 @@ class JoinToGameComponent extends React.Component {
         if(loading) {
             return null;
         }
+        console.log("Selected: ", selectedGame);
         return (
             <View style={styles.root}>
                 <ScrollView>

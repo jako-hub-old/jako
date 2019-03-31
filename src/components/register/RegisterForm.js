@@ -34,8 +34,9 @@ const RegisterForm = ({form, onChange, error, onSubmit, goToLogin}) => {
                         <Label>Número de teléfono</Label>
                         <Input
                             keyboardType    = "numeric"
-                            value           = {form.phoneNumber}
-                            onChangeText    = {text => onChange('phoneNumber', text)}
+                            value           = { form.phoneNumber }
+                            onChangeText    = { text => onChange('phoneNumber', text) }
+                            onSubmitEditing = { onSubmit }
                         />
                     </Item>
                     <View style={styles.buttonRow}>

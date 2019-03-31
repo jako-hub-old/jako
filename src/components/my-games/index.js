@@ -45,6 +45,10 @@ class MyGamesComponent extends React.Component {
         this.props.navigation.navigate("GameDetail", {prevRoute : currentRoute, disallowJoin : true});
     }
 
+    goToSearch() {
+        this.props.navigation.navigate("Search");
+    }
+
     render() {
         const { myGames=[] } = this.props;        
         return (
@@ -52,6 +56,7 @@ class MyGamesComponent extends React.Component {
                 <ListMyGamesComponent
                     games        = { myGames }
                     onSelectGame = { this.onSelectGame.bind(this) }
+                    goToSearch   = { this.goToSearch.bind(this)   }
                 />
             </Container>
         );

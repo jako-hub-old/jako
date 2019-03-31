@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MainAppBar from "./MainAppBar";
-import {BackHandler,} from 'react-native';
+import { BackHandler, } from 'react-native';
+import { UserInfoVerifier } from '../components';
+import { withNavigationFocus } from 'react-navigation';
 /**
  * This component allows to use the same structure or layout for every that uses.
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
@@ -52,7 +54,8 @@ import {BackHandler,} from 'react-native';
          }
      }
      render() {
-        const {navigation, allowBack, children, title, header=true, TitleComponent} = this.props;
+        const {navigation, allowBack, children, title, header=true, TitleComponent, isFocused} = this.props;
+        
         return (
             <>
                 {header && (
@@ -65,6 +68,7 @@ import {BackHandler,} from 'react-native';
                     />
                 )}
                 {children}
+                {isFocused && (<UserInfoVerifier navigation = {navigation}/>)}
             </>
         )
      }
@@ -76,5 +80,6 @@ BaseScreen.propTypes = {
     header      : PropTypes.bool,
     allowBack   : PropTypes.bool,
     TitleComponent : PropTypes.any,
+    isFocused     : PropTypes.bool,
 };
-export default BaseScreen;
+export default withNavigationFocus(BaseScreen);

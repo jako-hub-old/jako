@@ -21,7 +21,7 @@ const ItemCard = ({game}) => (
             <View style={styles.infoWrapper}>
                 <Header
                     title = {game.nombre}
-                    date  = {game.fecha}
+                    date  = {game.fecha_desde}
                     totalPlayers = {game.jugadores}
                     confirmedPlayers = {game.jugadores_confirmados}
                 />

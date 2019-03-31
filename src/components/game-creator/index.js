@@ -21,8 +21,8 @@ class GameCreatorComponent extends React.Component {
         startAt  : null,
         endsAt   : null,
         codigo_juego : null,
-        teams : [],
-        teamNames : {},
+        teams        : [],
+        teamNames    : {},
     };
 
     onChange(field, name) {
@@ -60,11 +60,11 @@ class GameCreatorComponent extends React.Component {
             startAt,
             endsAt,
         } = this.state;
-        return      (!_.isEmpty(name)) &&
-                    (!_.isEmpty(scenario)) &&
-                    (!_.isEmpty(date)) &&
-                    (!_.isEmpty(startAt)) &&
-                    (!_.isEmpty(endsAt)) &&
+        return      (!_.isEmpty(name))      &&
+                    (!_.isEmpty(scenario))  &&
+                    (!_.isEmpty(date))      &&
+                    (!_.isEmpty(startAt))   &&
+                    (!_.isEmpty(endsAt))    &&
                     teams.length > 0;
 
     }

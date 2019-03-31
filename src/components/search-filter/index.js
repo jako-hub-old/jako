@@ -26,7 +26,7 @@ const RenderForm = ({onChangeQuery, searchQuery, clearText, focusInput, setInput
                     onChangeText= { text => onChangeQuery(text) }
                     style       = {styles.input}
                 />
-                <TouchableOpacity onPress={() => !isEmpty? clearText : focusInput}>
+                <TouchableOpacity onPress={() => !isEmpty? clearText() : focusInput()}>
                     <View>
                         <Icon 
                             style   = { styles.icon } 

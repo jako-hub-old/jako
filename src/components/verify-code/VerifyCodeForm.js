@@ -28,10 +28,11 @@ const VerifyCodeForm = ({code, isValid, onSubmit, error, onChange}) => (
                     >
                         <Label>Ingresa el código de verificación</Label>
                         <Input                             
-                            keyboardType = "numeric"
-                            value        = { code                   }
-                            onChangeText = { text => onChange(text) }
-                            maxLength    = { 4 }
+                            keyboardType    = "numeric"
+                            value           = { code                   }
+                            onChangeText    = { text => onChange(text) }
+                            maxLength       = { 4 }
+                            onSubmitEditing = { onSubmit }
                         />
                         
                     </Item>

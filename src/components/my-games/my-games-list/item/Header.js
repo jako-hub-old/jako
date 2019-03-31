@@ -11,7 +11,7 @@ import moment from 'moment';
  * @param {*} param0 
  */
 const Header = ({title="", totalPlayers=0, confirmedPlayers=0, date="00-00-00 00:00"}) => {
-    const formattedDate = moment(date).format("YYYY-MM-DD HH:MM");
+    const formattedDate = moment(date).format("YYYY-MM-DD");
     return (
         <View style={styles.root}>
             <View style={styles.row}>

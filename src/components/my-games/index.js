@@ -21,6 +21,7 @@ class MyGamesComponent extends React.Component {
         currentTab : 0,
         games : [],
     };
+
     componentDidMount() {
         this.fetchGames();
     }
@@ -41,11 +42,11 @@ class MyGamesComponent extends React.Component {
     onSelectGame(selectedGame) {
         this.props.selectGame(selectedGame);
         const currentRoute = this.props.navigation.state.routeName;
-        this.props.navigation.navigate("GameDetail", {prevRoute : currentRoute});
+        this.props.navigation.navigate("GameDetail", {prevRoute : currentRoute, disallowJoin : true});
     }
 
     render() {
-        const { myGames=[] } = this.props;
+        const { myGames=[] } = this.props;        
         return (
             <Container>
                 <ListMyGamesComponent

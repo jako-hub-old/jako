@@ -52,6 +52,8 @@ class SearchComponent extends React.Component {
             loading,            
         } = this.state;
         const results = this.getFilteredList() || [];
+        console.clear();
+        console.log("Games : ", results);
         return (
             <>
                 {loading && (

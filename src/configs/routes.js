@@ -24,11 +24,7 @@ export const tabRoutes = {
     Search : {
         screen : SearchScreen,
         navigationOptions : { tabBarIcon : ({tintColor}) => (<Icon color={tintColor} name={"search"} size={24} />) },
-    },
-    CreateGame : {
-        screen : CreateGameScreen,
-        navigationOptions : { tabBarIcon : ({tintColor}) => (<Icon color={tintColor} name={"plus-circle"} size={24} />) },
-    },
+    },    
     Profile : {
         screen : MyProfileScreen,
         navigationOptions : { tabBarIcon : ({tintColor}) => (<Icon color={tintColor} name={"user"} size={24} />) },
@@ -36,12 +32,15 @@ export const tabRoutes = {
 };
 
 export const GameRoutes = {
-    GameDetail : {
-        screen : GameDetailScreen,
+    CreateGame : {
+        screen : CreateGameScreen,        
     },
     JoinToGame : {
         screen : JoinToGameScreen,
-    },
+    },    
+    GameDetail : {
+        screen : GameDetailScreen,
+    },    
 };
 
 export const AuthRoutes = {

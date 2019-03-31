@@ -8,9 +8,9 @@ import {
     Form,
     Textarea,
     Toast,
+    Input,
+    Item,
 } from 'native-base';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { RoundedButton } from '../../commons';
 import { withSession, withApi } from '../../providers';
 import endpoints from '../../configs/endpoints';
 import { consoleError } from '../../utils/functions';
@@ -67,16 +67,24 @@ class CommentGame extends React.Component {
         const {
             comment,
         } = this.state;
+        const {
+            setCommentRef,
+        } = this.props;
         return (
             <Form style={styles.root}>
                 <View style={styles.mainWrapper}>
                     <View style={styles.textWrapper}>
-                        <Textarea 
-                            rowSpan={3} 
-                            placeholder={"Escribe tu opinión..."} 
-                            value={comment}
-                            onChangeText={text => this.onChange(text)}
-                        />
+                        <Item>
+                            <Input
+                                autoFocus 
+                                ref             = { node => setCommentRef(node) }
+                                placeholder     = { "Haz una pregunta o escribe tu opinión sobre el juego" } 
+                                value           = { comment }
+                                onChangeText    = { text => this.onChange(text) }
+                                onSubmitEditing = { () => this.onSaveComment()  }
+                                keyboardType    = {"default"} 
+                            />
+                        </Item>
                     </View>                    
                     <View style={styles.buttonWrapper}>
                         <View>
@@ -127,6 +135,7 @@ CommentGame.propTypes = {
     doPost          : PropTypes.func,
     doGet           : PropTypes.func,
     onSaveComment   : PropTypes.func,
+    setCommentRef   : PropTypes.func,
 };
 
 export default withSession(withApi(CommentGame));

@@ -24,7 +24,7 @@ const Item = ({item, onSelect, onAdd}) => (
                 <View style={styles.infoWrapper}>
                     <Header
                         title = {item.nombre}
-                        date  = {item.fecha}
+                        date  = {item.fecha_desde}
                         totalPlayers = {item.jugadores}
                         confirmedPlayers = {item.jugadores_confirmados}
                     />

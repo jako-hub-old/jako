@@ -34,21 +34,34 @@ class GameDetailComponent extends React.Component {
     state = {        
         codigo_juego    : null,
         nombre          : null,
-        jugadores : 0,
+        jugadores       : 0,
         jugadores_confirmados : 0,
-        fecha : "",
-        acceso : "",
-        escenario_nombre : "",
-        negocio_nombre   : "",
-        jugador_seudonimo : "",
+        fecha       : "",
+        acceso      : "",
+        escenario_nombre    : "",
+        negocio_nombre      : "",
+        jugador_seudonimo   : "",
         comentarios : [],
         detalles    : [],
         loadingComments : false,
-        openComment     : true,
+        openComment     : false,
+        allowJoin       : true,
+        currentTab      : 0,
     };
+
+    constructor(props) {
+        super(props);
+        if(this.props.navigation.state.params.disallowJoin) {
+            this.state.allowJoin = false;
+        }
+    }
 
     componentDidMount() {
         this.fetchGameInfo();
+    }
+
+    setCommentRef(node) {
+        this.commentRef = node;
     }
 
     /**
@@ -64,7 +77,7 @@ class GameDetailComponent extends React.Component {
         })
         .then(response => {
             if(response.error_controlado || response.error) {
-                Toast.show({text : "Ocurrió un error al obtener la información del juego"});
+                Toast.show({text : "Ocurrió un error al obtener la información del juego (Detalle)"});
                 this.setState({
                     loadingComments : false,
                 });
@@ -104,9 +117,25 @@ class GameDetailComponent extends React.Component {
      * @memberof GameDetailComponent
      */
     toggleComment() {
-        this.setState({
-            openComment : !this.state.openComment,
-        });
+        const focusOnInput = () => {
+            setTimeout(() => {
+                this.commentRef._root.focus();
+            }, 200);
+        };
+        if(this.currentTab === 1) {
+            this.setState({
+                openComment : !openComment,
+            }, () => {
+                if(this.state.openComment) focusOnInput();
+            });
+        } else {
+            this.setState(({openComment, currentTab}) => ({
+                openComment : true,
+                currentTab  : !openComment? 1 : currentTab,
+            }), () => {
+                if(this.state.openComment) focusOnInput();
+            });
+        }
     }
 
     /**
@@ -140,6 +169,8 @@ class GameDetailComponent extends React.Component {
             loadingComments,
             openComment,
             detalles,
+            allowJoin,
+            currentTab,
         } = this.state;
         return (
             <View style={styles.root}>
@@ -152,32 +183,15 @@ class GameDetailComponent extends React.Component {
                     <Actions 
                         onComment = {() => this.toggleComment()}
                         onAdd     = {() => this.onJoinToGame(selectedGame)}
-                    />
-                    {openComment && (
-                            <CommentGameComponent 
-                                onClose       = { () => this.toggleComment() }
-                                gameCode      = { selectedGame.codigo_juego }
-                                onSaveComment = { this.onSaveComment.bind(this) }
-                            />
-                        )}
+                        canJoin   = { allowJoin }
+                    />                    
                     <View>
                         <Tabs 
                             tabContainerStyle       = { {elevation:0} }
                             tabBarUnderlineStyle    = { styles.tabUnderLine }
-                        >                            
-                            <Tab 
-                                heading             = "Comentarios" 
-                                tabStyle            = { styles.tabDefault } 
-                                textStyle           = { styles.tabText }
-                                activeTabStyle      = { styles.tabActive }                                
-                                activeTextStyle     = { styles.tabActiveText }
-                            >
-                                
-                                <CommentsList 
-                                    comments = { comentarios }
-                                    loading  = { loadingComments }
-                                />
-                            </Tab>
+                            page                    = { currentTab }
+                            onChangeTab             = { tab => this.setState({currentTab : tab.i}) }
+                        >                                                        
                             <Tab 
                                 heading             = "Jugadores" 
                                 tabStyle            = { styles.tabDefault } 
@@ -187,6 +201,26 @@ class GameDetailComponent extends React.Component {
                             >
                                 <TeamsList 
                                     teams = { detalles }
+                                />
+                            </Tab>
+                            <Tab 
+                                heading             = "Comentarios" 
+                                tabStyle            = { styles.tabDefault } 
+                                textStyle           = { styles.tabText }
+                                activeTabStyle      = { styles.tabActive }                                
+                                activeTextStyle     = { styles.tabActiveText }
+                            >
+                                {openComment && (
+                                    <CommentGameComponent 
+                                        setCommentRef = { this.setCommentRef.bind(this) }
+                                        onClose       = { () => this.toggleComment()    }
+                                        gameCode      = { selectedGame.codigo_juego     }
+                                        onSaveComment = { this.onSaveComment.bind(this) }
+                                    />
+                                )}
+                                <CommentsList 
+                                    comments = { comentarios }
+                                    loading  = { loadingComments }
                                 />
                             </Tab>
                         </Tabs>
@@ -237,6 +271,7 @@ GameDetailComponent.propTypes = {
         "jugador_seudonimo"     : PropTypes.string,
     }),
     doPost          : PropTypes.func,
+    canJoin         : PropTypes.bool,
 };
 
 export default withApi(GameDetailComponent);

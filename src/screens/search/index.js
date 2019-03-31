@@ -25,7 +25,7 @@ class MyProfileScreen extends React.PureComponent {
                 </View>
                 <FabButton 
                     icon = "plus"
-                    onPress = {() => navigation.navigate("CreateGame")}
+                    onPress = {() => navigation.navigate("CreateGame", {prevRoute : "Search"})}
                 />
             </BaseScreen>
         );

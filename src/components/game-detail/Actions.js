@@ -10,11 +10,13 @@ import {
 } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const Actions = ({onComment, onAdd}) => (
+const Actions = ({onComment, onAdd, canJoin=true}) => (
     <View style={styles.root}>
-        <Button transparent style={styles.button} onPress={onAdd}>
-            <Icon name="user-plus" size={25} />
-        </Button>
+        {canJoin && (
+            <Button transparent style={styles.button} onPress={onAdd}>
+                <Icon name="user-plus" size={25} />
+            </Button>
+        )}
         <Button transparent style={styles.button} onPress={onComment}>
             <Icon name="comment" size={25} />
         </Button>

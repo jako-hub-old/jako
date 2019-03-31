@@ -12,27 +12,29 @@ import PropTypes from 'prop-types';
  * This component renders the Item presentation
  * @param {*} param0 
  */
-const ItemCard = ({game, onAdd}) => (
-    <View style={styles.root}>
-        <View style={styles.wrapper}>
-            <View style={styles.pictureWrapper}>
-                <ImagePreview />
-            </View>
-            <View style={styles.infoWrapper}>
-                <Header
-                    title = {game.nombre}
-                    date  = {game.fecha}
-                    totalPlayers = {game.jugadores}
-                    confirmedPlayers = {game.jugadores_confirmados}
-                />
-                <Content 
-                    game={game}
-                />                    
+const ItemCard = ({game, onAdd}) => {
+    return (
+        <View style={styles.root}>
+            <View style={styles.wrapper}>
+                <View style={styles.pictureWrapper}>
+                    <ImagePreview />
+                </View>
+                <View style={styles.infoWrapper}>
+                    <Header
+                        title = {game.nombre}
+                        date  = {game.fecha_desde || game.juego_fecha_desde}
+                        totalPlayers = {game.jugadores}
+                        confirmedPlayers = {game.jugadores_confirmados}
+                    />
+                    <Content 
+                        game={game}
+                    />                    
+                </View>
             </View>
         </View>
-    </View>
-    
-);
+        
+    )
+};
 
 const styles = StyleSheet.create({
     root : {

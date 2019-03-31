@@ -16,7 +16,7 @@ class MyGamesScreen extends React.PureComponent {
                 <MyGamesComponent navigation={navigation}/>
                 <FabButton 
                     icon = "plus"
-                    onPress = {() => navigation.navigate("CreateGame")}
+                    onPress = {() => navigation.navigate("CreateGame", {prevRoute : "MyGames"})}
                 />
             </BaseScreen>
         );

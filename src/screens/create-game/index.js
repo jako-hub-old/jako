@@ -11,7 +11,11 @@ class CreateGameScreen extends React.PureComponent {
     render() {
         const navigation = this.props.navigation;
         return (
-            <BaseScreen navigation={navigation} title={_t('create_game_title_1')}>
+            <BaseScreen 
+                navigation  = { navigation } 
+                title       = { _t('create_game_title_1') } 
+                allowBack
+            >
                 <GameCreatorComponent 
                     navigation = { navigation }
                 />

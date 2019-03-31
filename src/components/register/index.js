@@ -144,14 +144,14 @@ class RegisterComponent extends React.Component {
 
         this.props.doPost(endpoints.usuarios.validar, data)
             .then(response => {
-                const {error_controlado, validacion, verificado, codigo_usuario} = response;
+                const {error_controlado, validacion, verificado, codigo_usuario, crear_juego} = response;
                 if(error_controlado) {
                     showMessage('Error inesperado, contacte al administrador');
                 } else if(validacion) {
 
                 } else {
                     if(verificado) {                        
-                        this.onVerifyCode(codigo_usuario);
+                        this.onVerifyCode(codigo_usuario, crear_juego);
                     } else {
                         showMessage('Hemos enviado un mesaje de texto con el código');
                         this.setState({
@@ -174,20 +174,21 @@ class RegisterComponent extends React.Component {
         this.requestPhonePermissions();
     }
 
-    onVerifyCode(userCode) {
+    onVerifyCode(userCode, crearJuego) {
         const {form:{phoneNumber}, imei} = this.state;
-        this.props.login({            
+        this.props.login({
             imei,
             user : phoneNumber,
             userCode,
+            crearJuego,
         })
         .then(() => {
-            this.props.navigation.navigate("Home");
+            this.props.navigation.navigate("Main");
         })
         .catch(response => {
             consoleError("Login: ", response);
             Toast.show({ text : "Error inesperado al iniciar sesión" });
-        });3178
+        });
     }
 
     render() {

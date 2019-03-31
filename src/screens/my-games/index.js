@@ -4,20 +4,23 @@ import PropTypes from 'prop-types';
 import {_t} from "../../configs/dictionary";
 import { MyGamesComponent } from "../../components";
 import { FabButton } from '../../commons';
+import { withSession } from '../../providers';
 
 /**
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
  */
 class MyGamesScreen extends React.PureComponent {
     render() {
-        const navigation = this.props.navigation;
+        const {sessionStack, navigation} = this.props;    
         return (
             <BaseScreen navigation={navigation} title={"Mis juegos"}>
                 <MyGamesComponent navigation={navigation}/>
-                <FabButton 
-                    icon = "plus"
-                    onPress = {() => navigation.navigate("CreateGame", {prevRoute : "MyGames"})}
-                />
+                {sessionStack.crearJuego && (
+                    <FabButton 
+                        icon = "plus"
+                        onPress = {() => navigation.navigate("CreateGame", {prevRoute : "MyGames"})}
+                    />
+                )}          
             </BaseScreen>
         );
     }
@@ -25,6 +28,7 @@ class MyGamesScreen extends React.PureComponent {
 
 MyGamesScreen.propTypes = {
     navigation : PropTypes.object,
+    sessionStack : PropTypes.object,
 };
 
-export default MyGamesScreen;
+export default withSession(MyGamesScreen);

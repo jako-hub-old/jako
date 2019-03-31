@@ -147,9 +147,9 @@ export const logout = (navigation) => {
     };
 };
 
-export const login = ({user, imei, userCode}) => dispatch => (new Promise((resolve, reject) => {
+export const login = ({user, imei, userCode, crearJuego}) => dispatch => (new Promise((resolve, reject) => {
     writeAllInSession({
-        user, imei, logged : true, userCode,
+        user, imei, logged : true, userCode, crearJuego
     })
         .then((saved) => {
             if(saved) {
@@ -157,6 +157,7 @@ export const login = ({user, imei, userCode}) => dispatch => (new Promise((resol
                     user,
                     imei,
                     userCode,
+                    crearJuego,
                 }));
                 resolve();
             } else {

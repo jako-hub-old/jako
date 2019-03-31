@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import {_t} from "../../configs/dictionary";
 import { SearchComponent, SearchFilter } from '../../components';
 import { FabButton } from '../../commons';
+import { withSession } from '../../providers';
 
 export {default as GameDetailScreen} from './GameDetail';
 
@@ -14,6 +15,7 @@ export {default as GameDetailScreen} from './GameDetail';
 class MyProfileScreen extends React.PureComponent {
     render() {
         const navigation = this.props.navigation;
+        const {crearJuego} = this.props.sessionStack;
         return (
             <BaseScreen 
                 navigation      = {navigation} 
@@ -23,10 +25,12 @@ class MyProfileScreen extends React.PureComponent {
                 <View style={styles.root}>
                     <SearchComponent navigation={navigation} />
                 </View>
-                <FabButton 
-                    icon = "plus"
-                    onPress = {() => navigation.navigate("CreateGame", {prevRoute : "Search"})}
-                />
+                {crearJuego && (
+                    <FabButton 
+                        icon = "plus"
+                        onPress = {() => navigation.navigate("CreateGame", {prevRoute : "Search"})}
+                    />
+                )}                
             </BaseScreen>
         );
     }
@@ -44,6 +48,7 @@ const styles = StyleSheet.create({
 
 MyProfileScreen.propTypes = {
     navigation : PropTypes.object,
+    sessionStack : PropTypes.object,
 };
 
-export default MyProfileScreen;
+export default withSession(MyProfileScreen);

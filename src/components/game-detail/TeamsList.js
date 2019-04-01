@@ -15,6 +15,7 @@ import {
     Thumbnail,
 } from 'native-base';
 import {DEFAULT_USER_IMG} from 'react-native-dotenv';
+import stylesPalette from '../../utils/stylesPalette';
 
 const RenderTeam = ({teamName, team=[]}) => (
     <>
@@ -40,8 +41,8 @@ const RenderTeam = ({teamName, team=[]}) => (
                     <Body>
                         <Text>{player.jugador_nombre_corto}</Text>
                         <View style={{flex: 1, flexDirection : "row"}}>
-                            <Text note>Pos:</Text><Badge primary><Text>{player.posicion_nombre}</Text></Badge>
-                        </View>                        
+                            <Text note>Pos:</Text><View style={styles.badge} primary><Text style={styles.textBadge}>{player.posicion_nombre}</Text></View>
+                        </View>        
                     </Body>
                     <Right>
                         <Text note>{`#${playerNumber < 9? '0' : ''}${player.numero}`}</Text>
@@ -70,9 +71,26 @@ const TeamsList = ({teams={}}) => {
     );
 };
 
+const palette = stylesPalette();
+
 const styles = StyleSheet.create({
     root : {
 
+    },
+    badge : {
+        padding : 2,
+        paddingHorizontal   : 10,
+        paddingVertical     : 2,
+        backgroundColor     : palette.primary.color,
+        borderRadius        : 10,
+        justifyContent      : "center",
+        alignItems          : "center",
+        alignSelf           : "baseline",
+    },
+    textBadge : {
+        fontSize    : 12,
+        textAlign   : "center",
+        color       : "#fff",
     },
 });
 

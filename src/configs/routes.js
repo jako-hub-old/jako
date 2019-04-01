@@ -9,6 +9,7 @@ import {
     LoginScreen,
     RegisterScreen,
     JoinToGameScreen,
+    ContactScreen,
 } from "../screens";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
@@ -28,6 +29,10 @@ export const tabRoutes = {
     Profile : {
         screen : MyProfileScreen,
         navigationOptions : { tabBarIcon : ({tintColor}) => (<Icon color={tintColor} name={"user"} size={24} />) },
+    },
+    Contact : {
+        screen : ContactScreen,
+        navigationOptions : { tabBarIcon : ({tintColor}) => (<Icon color={tintColor} name={"question-circle"} size={24} />) },
     },
 };
 

@@ -7,6 +7,7 @@ import SearchScreen, {GameDetailScreen}     from './search';
 import LoginScreen      from './login';
 import RegisterScreen   from './register';
 import JoinToGameScreen from './join-to-game';
+import ContactScreen    from './contact';
 
 export {
     HomeScreen,
@@ -19,4 +20,5 @@ export {
     RegisterScreen,
     GameDetailScreen,
     JoinToGameScreen,
+    ContactScreen,
 };

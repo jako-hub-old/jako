@@ -1,0 +1,56 @@
+import React from 'react';
+import { BaseScreen } from '../../commons';
+import PropTypes from 'prop-types';
+import {
+    StyleSheet,
+    View,
+    Text
+} from 'react-native';
+import { Button } from '../../commons/forms';
+
+const EmptySet = () => (
+    <View style={styles.EmptySet}>
+        <View>
+            <Text note>Si tienes alguna inquietud no dudes en contactarnos</Text>
+            <View style={{flex : 1, alignItems : "center", marginTop: 15}}>
+                <Button info>
+                    +57 3205015059
+                </Button>
+            </View>
+        </View>
+    </View>
+);
+
+/**
+ * This is the main or home screen for the application.
+ * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
+ */
+class ContactScreen extends React.PureComponent {
+    render() {
+        const {
+            navigation
+        } = this.props;
+        return (
+            <>
+                <BaseScreen navigation={navigation} title="Contacto">
+                    <EmptySet />
+                </BaseScreen>
+            </>
+        );
+    }
+}
+
+const styles = StyleSheet.create({
+    EmptySet : {
+        flex : 1,
+        flexDirection   : "row",
+        justifyContent  : "center",
+        paddingVertical : 30,
+    },
+});
+
+ContactScreen.propTypes = {
+    navigation : PropTypes.object,
+};
+
+export default ContactScreen;

@@ -22,7 +22,7 @@ const TimeSelector = (props) => {
         onChange, 
         label="Select a date", 
         mode="datetime",
-        minuteInterval=15,
+        date,
     } = props;
     const [opened, toggleOpen] = useState(false);
     return (
@@ -43,8 +43,9 @@ const TimeSelector = (props) => {
             </TouchableOpacity>
         </View>
         <DatePicker
+            date            = { date  }
             is24Hour        = { false }
-            minuteInterval  = { 5 }
+            minuteInterval  = { 5     }
             isVisible       = { opened         }
             mode            = { mode           }
             onConfirm       = { newDate => { onChange(newDate); toggleOpen(false) }}

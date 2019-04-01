@@ -35,7 +35,12 @@ class SearchComponent extends React.Component {
         const {searchQuery} = this.props;
         if(searchQuery !== "") {
             elements = elements.filter(item => {
-                const regExp = new RegExp(`.*(${searchQuery.toLowerCase()}).*`, "g");
+                const searchStr = 
+                                searchQuery
+                                    .toLowerCase()
+                                    .replace(/\(/g, '\\(')
+                                    .replace(/\)/g, '\\)');
+                const regExp = new RegExp(`.*(${searchStr}).*`, "g");
                 return `${item.nombre.toLowerCase()}`.match(regExp);
             });
         }

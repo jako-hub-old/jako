@@ -10,8 +10,13 @@ import moment from 'moment';
  * This component only renders the item header
  * @param {*} param0 
  */
-const Header = ({title="", totalPlayers=0, confirmedPlayers=0, date="00-00-00 00:00"}) => {
-    const formattedDate = moment(date).format("YYYY-MM-DD");
+const Header = ({title="", totalPlayers=0, confirmedPlayers=0, date="00-00-00 00:00", dateTo="00-00-00 00:00"}) => {
+    const gameDate = moment(date);
+    const gameDateTo = moment(dateTo);
+    const formattedDate = gameDate.format("YYYY-MM-DD");
+    const timeFrom = gameDate.format("HH:mm");
+    const timeTo = gameDateTo.format("HH:mm");
+    const time = `(${timeFrom} - ${timeTo})`;
     return (
         <View style={styles.root}>
             <View style={styles.row}>
@@ -23,7 +28,7 @@ const Header = ({title="", totalPlayers=0, confirmedPlayers=0, date="00-00-00 00
                 </View>
             </View>
             <View style={styles.date}>
-                <Text note style={styles.textDate}>{formattedDate}</Text>
+                <Text note style={styles.textDate}>{`${formattedDate} ${time}`}</Text>
             </View>
         </View>
     );
@@ -60,6 +65,7 @@ Header.propTypes = {
     totalPlayers        : PropTypes.number,
     confirmedPlayers    : PropTypes.number,
     date                : PropTypes.string,
+    dateTo              : PropTypes.string,
 };
 
 export default Header;

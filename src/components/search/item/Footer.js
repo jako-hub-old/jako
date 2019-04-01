@@ -24,7 +24,7 @@ const RenderIcon = ({iconName}) => (
  * This component renders the footer of an item
  * @param {*} param0 
  */
-const Footer = ({totalComments=0, onAdd, onToggleComments, onLike, liked}) => {
+const Footer = ({onAdd, onLike, liked}) => {
     const likeButtonStyles = {
         ...styles.defaultIcon,
         ...(liked? styles.buttonLikePressed : {}),
@@ -33,12 +33,6 @@ const Footer = ({totalComments=0, onAdd, onToggleComments, onLike, liked}) => {
         <View style={styles.root}>
             <Button style={styles.button} transparent onPress={onAdd}>
                 <RenderIcon iconName={"user-plus"} />
-            </Button>
-            <Button style={styles.button} transparent onPress={onToggleComments}>
-                <RenderIcon iconName={"comment"} />
-                <View style={styles.commentsCount}>
-                    <Text style={styles.commentsCountText}>{totalComments}</Text>
-                </View>
             </Button>
             <Button style={styles.button} transparent onPress={onLike}>
                 <Icon 
@@ -84,9 +78,7 @@ const styles = StyleSheet.create({
 });
 
 Footer.propTypes = {
-    totalComments       : PropTypes.number,
     onAdd               : PropTypes.func,
-    onToggleComments    : PropTypes.func,
     onLike              : PropTypes.func, 
     liked               : PropTypes.bool,
 };

@@ -7,10 +7,10 @@ import {
 import PropTypes from 'prop-types';
 import moment from 'moment';
 /**
- * This component only renders the item header
+ * This component only renders the item GameItemHeader
  * @param {*} param0 
  */
-const Header = ({title="", totalPlayers=0, confirmedPlayers=0, date="00-00-00 00:00", dateTo="00-00-00 00:00"}) => {
+const GameItemHeader = ({title="", totalPlayers=0, confirmedPlayers=0, date="00-00-00 00:00", dateTo="00-00-00 00:00"}) => {
     const gameDate = moment(date);
     const gameDateTo = moment(dateTo);
     const formattedDate = gameDate.format("YYYY-MM-DD");
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     },
 });
 
-Header.propTypes = {
+GameItemHeader.propTypes = {
     title               : PropTypes.string.isRequired,
     totalPlayers        : PropTypes.number,
     confirmedPlayers    : PropTypes.number,
@@ -68,4 +68,4 @@ Header.propTypes = {
     dateTo              : PropTypes.string,
 };
 
-export default Header;
+export default GameItemHeader;

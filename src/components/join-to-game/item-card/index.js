@@ -3,7 +3,7 @@ import {
     View,
     StyleSheet,
 } from 'react-native';
-import Header from './Header';
+import Header from '../../game-item-header';
 import Content from './Content';
 import ImagePreview from './ImagePreview';
 import PropTypes from 'prop-types';
@@ -20,9 +20,10 @@ const ItemCard = ({game}) => (
             </View>
             <View style={styles.infoWrapper}>
                 <Header
-                    title = {game.nombre}
-                    date  = {game.fecha_desde}
-                    totalPlayers = {game.jugadores}
+                    title            = {game.nombre}
+                    date             = {game.fecha_desde}
+                    dateTo           = {game.fecha_hasta}
+                    totalPlayers     = {game.jugadores}
                     confirmedPlayers = {game.jugadores_confirmados}
                 />
                 <Content 

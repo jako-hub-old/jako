@@ -11,21 +11,24 @@ import {
 } from 'native-base';
 import { Button } from '../../commons/forms';
 import Item from './item';
+import { withSession } from '../../providers';
 
-const EmptySet = ({goToCreate}) => (
+const EmptySet = ({goToCreate, crearJuego}) => (
     <View style={styles.EmptySet}>
         <View>
             <Text style={{textAlign : "center"}} note>Al parecer no hay juegos cercanos</Text>
-            <View style={{flex : 1, alignItems : "center", marginTop: 15}}>
-                <Button info onPress={goToCreate}>
-                    Crea un juego e invita tus amigos
-                </Button>
-            </View>
+            {crearJuego && (
+                <View style={{flex : 1, alignItems : "center", marginTop: 15}}>
+                    <Button info onPress={goToCreate}>
+                        Crea un juego e invita tus amigos
+                    </Button>
+                </View>
+            )}
         </View>
     </View>
 );
 
-const Results = ({results=[], onSelectItem, onJoinToGame, loading=false, onRefresh, goToCreate, }) => (
+const Results = ({sessionStack:{crearJuego}, results=[], onSelectItem, onJoinToGame, loading=false, onRefresh, goToCreate, }) => (
     <ScrollView 
         style           = { {marginTop : 15, flex : 1, flexDirection: "column"} }
         refreshControl  = {(
@@ -36,7 +39,7 @@ const Results = ({results=[], onSelectItem, onJoinToGame, loading=false, onRefre
         )}
     >   
         {results.length === 0 && (
-            <EmptySet goToCreate={ goToCreate } />
+            <EmptySet goToCreate={ goToCreate } crearJuego={crearJuego} />
         )}
         {results.map((item, key) => (
             <Item 
@@ -67,4 +70,4 @@ Results.propTypes = {
     goToCreate   : PropTypes.func,
 };
 
-export default Results;
+export default withSession(Results);

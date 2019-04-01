@@ -39,7 +39,8 @@ class NumberPicker extends React.Component {
     addValue = () => {
         const {numberVal} = this.state;
         const {onChange, step=1, max} = this.props;
-        let newValue = numberVal + step;
+        console.log("The value:", numberVal);
+        let newValue = parseInt(numberVal) + step;
         if(max !== false && newValue > max) newValue = max;
         this.setState({
             numberVal   : newValue,
@@ -50,9 +51,8 @@ class NumberPicker extends React.Component {
 
     substractValue = () => {
         const {numberVal} = this.state;
-        const {onChange, step=1, min} = this.props;
-        
-        let newValue = numberVal - step;
+        const {onChange, step=1, min} = this.props;        
+        let newValue = parseInt(numberVal) - step;
         if(min !== false && newValue < min) newValue = min;
         this.setState({
             numberVal   : newValue,
@@ -84,7 +84,9 @@ class NumberPicker extends React.Component {
         if((max && numberVal > max) || (min && numberVal < min)) return false;
         this.setState({
             inputValue : text,
-            numberVal  : parseInt(text),
+            numberVal  : numberVal,
+        }, () => {
+            if(this.props.onChange) this.props.onChange(parseInt(text));
         });
     }
 
@@ -116,14 +118,14 @@ class NumberPicker extends React.Component {
                     <View style={styles.inputWrapper}>                    
                         <Item style={styles.inputText}>                        
                             <Input 
-                                ref = {node => this.inputRef = node}
-                                value={inputValue.toString()}
-                                keyboardType = "numeric"
-                                style= {{textAlign : "center", marginLeft : 0, paddingLeft : 0}}
-                                onChangeText = { text => this.onChangText(text) }
+                                ref                 = {node => this.inputRef = node}
+                                value               = {inputValue.toString()}
+                                keyboardType        = "numeric"
+                                style               = {{textAlign : "center", marginLeft : 0, paddingLeft : 0}}
+                                onChangeText        = { text => this.onChangText(text) }
                                 selectTextOnFocus
-                                onSubmitEditing = { this.onSubmitNumber.bind(this) }
-                                onBlur = {this.onSubmitNumber.bind(this)}
+                                onSubmitEditing     = { this.onSubmitNumber.bind(this) }
+                                onBlur              = {this.onSubmitNumber.bind(this)}
                             />
                         </Item>
                     </View>

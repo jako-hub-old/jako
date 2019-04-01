@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
     View,
-    Text,
     StyleSheet,
     ScrollView,
 } from 'react-native';
@@ -11,19 +10,29 @@ import moment from 'moment';
 import _ from 'underscore';
 import { withApi, withSearch } from '../../providers';
 import endpoints from '../../configs/endpoints';
-import { addMessage, consoleError } from '../../utils/functions';
+import { addMessage, consoleError, upcfirst } from '../../utils/functions';
 
 class GameCreatorComponent extends React.Component {
     state = {
-        name     : "",
-        scenario : "",
-        date     : null,
-        startAt  : null,
-        endsAt   : null,
+        name         : "",
+        scenario     : "",
+        date         : null,
+        defDate      : null,
+        startAt      : null,
+        defStartat   : null,
+        endsAt       : null,
+        defEndsat    : null,
         codigo_juego : null,
         teams        : [],
         teamNames    : {},
     };
+
+    constructor(props) {
+        super(props);
+        this.state.defDate        = new Date();
+        this.state.defStartat     = new Date();
+        this.state.defEndsat      = new Date();
+    }
 
     onChange(field, name) {
         this.setState({
@@ -38,16 +47,18 @@ class GameCreatorComponent extends React.Component {
     }
 
     onChangeDate(newDate) {
-        const date = moment(newDate).format("YYYY/MM/DD");
+        const date =  moment(newDate);
         this.setState({
-            date,
+            date        : date.format("YYYY/MM/DD"),
+            defDate     : date.toDate(),
         });
     }
 
     onChangeTime(key, time) {
-        const newTime = moment(time).format("HH:mm");
+        const date = moment(time)
         this.setState({
-            [key] : newTime,
+            [key]                   : date.format("HH:mm"),
+            [`def${upcfirst(key)}`] : date.toDate(),
         });
     }
 
@@ -57,7 +68,7 @@ class GameCreatorComponent extends React.Component {
             scenario,
             date,
             teams,
-            startAt,
+            startAt,            
             endsAt,
         } = this.state;
         return      (!_.isEmpty(name))      &&
@@ -136,12 +147,15 @@ class GameCreatorComponent extends React.Component {
 
     clearGame() {
         this.setState({
-            name     : "",
-            scenario : "",
-            date     : null,
+            name         : "",
+            scenario     : "",
+            date         : null,
             codigo_juego : null,
-            teams : [],
-            teamNames : {},
+            teams        : [],
+            teamNames    : {},
+            defDate      : null,
+            defStartAt   : null,
+            defEndsAt    : null,
         });
     }
     
@@ -153,6 +167,9 @@ class GameCreatorComponent extends React.Component {
             startAt,
             endsAt,
             teams,
+            defDate,
+            defStartat,
+            defEndsat,
         } = this.state;
         return (
             <ScrollView>                
@@ -163,12 +180,15 @@ class GameCreatorComponent extends React.Component {
                         onChangeTime     = { this.onChangeTime.bind(this)    }
                         onSubmit         = { this.onSubmitForm.bind(this)    }
                         onChange         = { this.onChange.bind(this)        }
-                        teams            = { teams    }
-                        gameName         = { name     }
-                        scenario         = { scenario }
-                        date             = { date     }
-                        startHour        = { startAt  }
-                        endHour          = { endsAt   }
+                        teams            = { teams      }
+                        gameName         = { name       }
+                        scenario         = { scenario   }
+                        date             = { date       }
+                        startHour        = { startAt    }
+                        endHour          = { endsAt     }
+                        defDate          = { defDate    }
+                        defStartAt       = { defStartat }
+                        defEndsAt        = { defEndsat  }
                         isValidForm      = { this.isValidForm()           }
                         onAddTeam        = { this.onAddTeam.bind(this)    }
                         onRemoveTeam     = { this.onRemoveTeam.bind(this) }

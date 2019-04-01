@@ -4,7 +4,7 @@ import {
     StyleSheet,
     TouchableOpacity,
 } from 'react-native';
-import Header from './Header';
+import Header from '../../game-item-header';
 import Content from './Content';
 import Footer from './Footer';
 import ImagePreview from './ImagePreview';
@@ -23,10 +23,11 @@ const Item = ({item, onSelect, onAdd}) => (
                 </View>
                 <View style={styles.infoWrapper}>
                     <Header
-                        title = {item.nombre}
-                        date  = {item.fecha_desde}
-                        totalPlayers = {item.jugadores}
-                        confirmedPlayers = {item.jugadores_confirmados}
+                        title            = { item.nombre                }
+                        date             = { item.fecha_desde           }
+                        dateTo           = { item.fecha_hasta           }
+                        totalPlayers     = { item.jugadores             }
+                        confirmedPlayers = { item.jugadores_confirmados }
                     />
                     <Content 
                         item={item}

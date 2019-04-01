@@ -37,6 +37,9 @@ const GameForm = (props) => {
         startHour,
         endHour,
         onChangeTime,
+        defDate,
+        defStartAt,
+        defEndsAt,      
     } = props;
     return (
         <View style={styles.root}>            
@@ -48,7 +51,8 @@ const GameForm = (props) => {
                         onChangeText = { text => onChange("name", text)  }
                     />
                 </Item>
-                <DateTimePicker 
+                <DateTimePicker
+                    date        = { defDate      } 
                     value       = { date         }
                     onChange    = { onChangeDate }
                     label       = { "Seleccione el día" }
@@ -57,6 +61,7 @@ const GameForm = (props) => {
                 <Row>
                     <Col>
                         <DateTimePicker 
+                            date        = { defStartAt        }
                             value       = { startHour         }
                             onChange    = { date => onChangeTime('startAt', date) }
                             label       = { "Inicio" }
@@ -65,6 +70,7 @@ const GameForm = (props) => {
                     </Col>
                     <Col>
                         <DateTimePicker 
+                            date        = { defEndsAt       }
                             value       = { endHour         }
                             onChange    = { date => onChangeTime('endsAt', date) }
                             label       = { "Fin" }
@@ -89,8 +95,7 @@ const GameForm = (props) => {
                         label    = { "Guardar juego" }
                         onPress  = { onSubmit        }
                     />
-                </View>
-                
+                </View>                
             </Form>
         </View>
     );
@@ -117,6 +122,9 @@ GameForm.propTypes = {
     startHour        : PropTypes.string,      
     endHour          : PropTypes.string,
     onChangeTime     : PropTypes.func,
+    defDate          : PropTypes.any,
+    defStartAt       : PropTypes.any,
+    defEndsAt        : PropTypes.any,
 };
 
 export default GameForm;

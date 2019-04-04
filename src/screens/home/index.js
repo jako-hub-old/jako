@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
  */
 class HomeScreen extends React.PureComponent {
+
     render() {
         const {
             navigation

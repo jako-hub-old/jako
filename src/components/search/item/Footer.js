@@ -10,6 +10,9 @@ import {
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import stylesPalette from "../../../utils/stylesPalette";
+import {
+    ShareGameButton,
+} from '../../../commons';
 
 
 const RenderIcon = ({iconName}) => (
@@ -41,6 +44,7 @@ const Footer = ({onAdd, onLike, liked}) => {
                     style={likeButtonStyles}
                 />
             </Button>
+            <ShareGameButton />
         </View>
     );
 };

@@ -9,7 +9,7 @@ import LoadingSpinner   from './LoadingSpinner';
 import SimpleModal      from './modals/SimpleModal';
 import DateTimePicker   from './forms/DateTimePicker';
 import FabButton        from './FabButton';
-
+import ShareGameButton  from './ShareGameButton';
 export {
     MainAppBar,
     BaseScreen,
@@ -21,4 +21,5 @@ export {
     SimpleModal,
     DateTimePicker,
     FabButton,
+    ShareGameButton,
 };

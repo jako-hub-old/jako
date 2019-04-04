@@ -5,7 +5,6 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import Header, { GameItemBody } from '../../../game-item-header';
-import Content from './Content';
 import Footer from './Footer';
 import ImagePreview from './ImagePreview';
 import PropTypes from 'prop-types';
@@ -31,11 +30,12 @@ const Item = ({item, onSelect}) => (
                     />
                     <GameItemBody 
                         game={item}
-                    />                    
+                    />
                 </View>
             </View>
         </TouchableOpacity>
         <Footer
+            gameCode = {item.codigo_juego}
          />
     </View>
     

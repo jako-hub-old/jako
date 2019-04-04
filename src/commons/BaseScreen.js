@@ -4,6 +4,7 @@ import MainAppBar from "./MainAppBar";
 import { BackHandler, } from 'react-native';
 import { UserInfoVerifier } from '../components';
 import { withNavigationFocus } from 'react-navigation';
+import { Linking } from 'react-native';
 /**
  * This component allows to use the same structure or layout for every that uses.
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
@@ -21,12 +22,6 @@ import { withNavigationFocus } from 'react-navigation';
  ];
 
  class BaseScreen extends React.PureComponent {
-     componentDidMount() {
-        this.backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
-            this.goBack();
-            return this.isMainScreen();
-        });
-     }
 
      isMainScreen() {
         const currentRoute = this.props.navigation.state.routeName;
@@ -37,7 +32,9 @@ import { withNavigationFocus } from 'react-navigation';
      }
 
      componentWillUnmount() {
-        this.backHandler.remove();
+        if(this.backHandler) {
+            this.backHandler.remove();
+        }        
      }
 
      handlerBack() {
@@ -46,8 +43,11 @@ import { withNavigationFocus } from 'react-navigation';
 
      goBack() {
          const {navigation} = this.props;
-         const {prevRoute} = navigation.state.params||{};
-         if(prevRoute) {
+         const {prevRoute, goToHome} = navigation.state.params||{};
+
+         if(goToHome) {
+             Linking.openURL("jakoapp://home");
+         } else if(prevRoute) {
             navigation.navigate(prevRoute);
          } else {
              navigation.goBack();

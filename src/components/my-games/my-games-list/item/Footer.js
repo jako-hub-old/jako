@@ -10,6 +10,9 @@ import {
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import stylesPalette from '../../../../utils/stylesPalette';
+import {
+    ShareGameButton,
+} from '../../../../commons';
 
 
 const RenderIcon = ({iconName}) => (
@@ -24,7 +27,7 @@ const RenderIcon = ({iconName}) => (
  * This component renders the footer of an item
  * @param {*} param0 
  */
-const Footer = ({onLike, liked}) => {
+const Footer = ({onLike, liked, gameCode}) => {
     const likeButtonStyles = {
         ...styles.defaultIcon,
         ...(liked? styles.buttonLikePressed : {}),
@@ -38,6 +41,7 @@ const Footer = ({onLike, liked}) => {
                     style={likeButtonStyles}
                 />
             </Button>
+            <ShareGameButton gameCode = { gameCode }/>
         </View>
     );
 };
@@ -77,6 +81,7 @@ const styles = StyleSheet.create({
 Footer.propTypes = {
     onLike              : PropTypes.func, 
     liked               : PropTypes.bool,
+    gameCode            : PropTypes.any,
 };
 
 export default Footer;

@@ -34,3 +34,9 @@ export const upcfirst = (str) => {
     const rest = str.slice(1).toLowerCase();
     return `${firstLetter}${rest}`;
 };
+
+export const resolveUrl = (url="") => {
+    const [schema, path] = url.split("//");
+    const [action, value] = path.split("/")
+    return {schema, action, value};
+};

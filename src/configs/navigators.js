@@ -5,44 +5,73 @@
 import {
     createSwitchNavigator,
     createStackNavigator,
+    createBottomTabNavigator,
 } from 'react-navigation';
-import { tabRoutes, GameRoutes, AuthRoutes } from "./routes";
+import { 
+    myGameRoutes,
+    searchRoutes,
+    profileRoutes,
+    contactRoutes,
+    GameRoutes, 
+    AuthRoutes, 
+    homeRoutes,
+    createTabOptions,
+ } from "./routes";
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
-//
-const BottomNavigator = createMaterialBottomTabNavigator(tabRoutes, {
+
+const AuthNavigator = createSwitchNavigator(AuthRoutes, {
+    initialRouteName : "Register",
+});
+
+const HomeNavigator = createStackNavigator(homeRoutes, {
+    initialRouteName : 'Posts',
+    headerMode       : 'none',
+});
+
+const MyGameNavigator = createStackNavigator(myGameRoutes, {
+    initialRouteName : 'MyGames',
+    headerMode       : 'none',
+});
+
+const SearchNavigator = createStackNavigator(searchRoutes, {
+    initialRouteName : 'Search',
+    headerMode        : 'none',
+});
+
+const ProfileNavigator = createStackNavigator(profileRoutes, {
+    initialRouteName : 'Profile',
+    headerMode       : 'none',
+});
+
+const ContactNavigator = createStackNavigator(contactRoutes, {
+    initialRouteName : 'Contact',
+    headerMode       : 'none',
+});
+
+const MainNavigator = createBottomTabNavigator({
+    HomeTab     : createTabOptions(HomeNavigator, 'home'),
+    MyGamesTab  : createTabOptions(MyGameNavigator, 'futbol'),
+    SearchTab   : createTabOptions(SearchNavigator, 'search'),
+    ProfileTab  : createTabOptions(ProfileNavigator, 'user'),
+    ContactTab  : createTabOptions(ContactNavigator, 'question-circle'),
+}, {
     shifting            : true,
-    initialRouteName    : "MyGames",
+    initialRouteName    : "MyGamesTab",
     activeColor         : "white",
     labeled             : false,
     barStyle : {
         backgroundColor: '#42a5f5',
     },
-});
-
-const AuthNavigator = createStackNavigator(AuthRoutes, {
-    initialRouteName : "Register",
-    headerMode: 'none',
-    navigationOptions: {
-        headerVisible: false,
+    style: {
+        backgroundColor: '#42a5f5',
     }
-});
-
-const GeneralNavigator = createStackNavigator({
-    ...GameRoutes,
-}, {
-    initialRouteName : "CreateGame",
-    headerMode: 'none',
-    navigationOptions: {
-        headerVisible: false,
-    }
-});
+}); 
 
 const AppNavigator = createSwitchNavigator({
-    Auth    : AuthNavigator,
-    Main    : BottomNavigator,
-    General : GeneralNavigator,
+    Auth : AuthNavigator,
+    Main : MainNavigator,
 }, {
-    initialRouteName: "Auth",
+    initialRouteName : "Auth"
 });
 
 export default AppNavigator;

@@ -13,28 +13,34 @@ import {
 } from "../screens";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-export const tabRoutes = {
-    Home : {
-        screen : HomeScreen,
-        navigationOptions : { tabBarIcon : ({tintColor}) => (<Icon color={tintColor} name={"home"} size={24} />)},
-    },
-    MyGames : {
-        screen : MyGamesScreen,
-        navigationOptions : { tabBarIcon : ({tintColor}) => (<Icon color={tintColor} name={"futbol"} size={24} />) },
-    },
+export const homeRoutes = {
+    Posts : { screen : HomeScreen },
+}
+
+export const myGameRoutes = {
+    MyGames : {screen : MyGamesScreen},
+};
+
+export const searchRoutes = {
     Search : {
         screen : SearchScreen,
         navigationOptions : { tabBarIcon : ({tintColor}) => (<Icon color={tintColor} name={"search"} size={24} />) },
-    },    
+    },
+};
+
+export const profileRoutes = {
     Profile : {
         screen : MyProfileScreen,
         navigationOptions : { tabBarIcon : ({tintColor}) => (<Icon color={tintColor} name={"user"} size={24} />) },
     },
+};
+
+export const contactRoutes = {
     Contact : {
         screen : ContactScreen,
         navigationOptions : { tabBarIcon : ({tintColor}) => (<Icon color={tintColor} name={"question-circle"} size={24} />) },
     },
-};
+}
 
 export const GameRoutes = {
     CreateGame : {
@@ -45,16 +51,10 @@ export const GameRoutes = {
     },    
     GameDetail : {
         screen : GameDetailScreen,
-    },    
+    },
 };
 
 export const AuthRoutes = {
-    Login : {
-        screen : LoginScreen,
-        navigationOptions: {
-            headerVisible: false
-        }
-    },
     Register : {
         screen : RegisterScreen,
         navigationOptions: {
@@ -62,3 +62,17 @@ export const AuthRoutes = {
         }
     },
 };
+
+export const createTabOptions = (screen, name) => ({ 
+    screen,
+    navigationOptions: {
+        tabBarIcon : ({tintColor}) => (<Icon color={tintColor} name={ name } size={24} />),
+        tabBarOptions : {
+            inactiveTintColor : "#bdbdbd",
+            showLabel : false,
+            activeTintColor : "#FFF",
+            activeBackgroundColor : "#42a5f5",
+            inactiveBackgroundColor : "#42a5f5",
+        },
+    }
+});

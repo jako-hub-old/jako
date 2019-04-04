@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MainAppBar from "./MainAppBar";
-import { BackHandler, } from 'react-native';
+import MainAppBar from "../commons/MainAppBar";
 import { UserInfoVerifier } from '../components';
 import { withNavigationFocus } from 'react-navigation';
 import { Linking } from 'react-native';

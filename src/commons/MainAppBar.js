@@ -9,7 +9,6 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { StyleSheet, View, } from 'react-native';
 import PropTypes from 'prop-types';
-import { displayName as appName } from '../../App';
 import stylesPalette from "../utils/stylesPalette";
 
 
@@ -23,7 +22,7 @@ import stylesPalette from "../utils/stylesPalette";
  * @returns {*}
  * @constructor
  */
-const MainAppBar = ({allowBack, title=appName, goBack, TitleComponent=false}) => (
+const MainAppBar = ({allowBack, title="Jako", goBack, TitleComponent=false}) => (
     <Header
         style={styles.root}
         androidStatusBarColor={palette.primary.variant}

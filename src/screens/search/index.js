@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { BaseScreen } from '../../commons';
+import BaseScreen from '../BaseScreen';
 import PropTypes from 'prop-types';
 import {_t} from "../../configs/dictionary";
 import { SearchComponent, SearchFilter } from '../../components';
-import { FabButton } from '../../commons';
+import { FabButton } from '../../commons/buttons';
 import { withSession } from '../../providers';
 
 export {default as GameDetailScreen} from './GameDetail';

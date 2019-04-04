@@ -1,9 +1,9 @@
 import React from 'react';
-import { BaseScreen } from '../../commons';
+import BaseScreen from '../BaseScreen';
 import PropTypes from 'prop-types';
 import {_t} from "../../configs/dictionary";
 import { MyGamesComponent } from "../../components";
-import { FabButton } from '../../commons';
+import { FabButton }  from '../../commons/buttons';
 import { withSession, withSearch } from '../../providers';
 import { Linking } from 'react-native';
 import { consoleError, resolveUrl } from '../../utils/functions';

@@ -2,7 +2,7 @@ import React from 'react';
 import {
     Spinner,
 } from 'native-base';
-import stylesPalette from '../utils/stylesPalette';
+import stylesPalette from '../../utils/stylesPalette';
 
 const palette = stylesPalette();
 

@@ -11,7 +11,7 @@ import {
     Input,
  } from 'native-base';
 import PropTypes from 'prop-types';
-import { SubmitButton } from '../../commons';
+import { SubmitButton } from '../../commons/buttons';
 
 /**
  * This component renders the verification code form only

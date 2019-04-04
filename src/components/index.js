@@ -9,7 +9,6 @@ import CommentGameComponent from './comment-game';
 import UserInfoVerifier     from './user-info-verifier';
 import SearchFilter         from './search-filter';
 import GameCreatorComponent from './game-creator';
-import ScenarioPicker       from './scenario-picker';
 import JoinToGamecomponent  from './join-to-game';
 
 export {
@@ -24,6 +23,5 @@ export {
     UserInfoVerifier, 
     SearchFilter,
     GameCreatorComponent,
-    ScenarioPicker,
     JoinToGamecomponent,
 };

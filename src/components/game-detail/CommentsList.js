@@ -14,8 +14,7 @@ import {
     Body,
 } from 'native-base';
 import moment from 'moment';
-import { LoadingSpinner, } from '../../commons';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { LoadingSpinner, } from '../../commons/loaders';
 import {DEFAULT_USER_IMG} from 'react-native-dotenv';
 
 const Comment = ({jugador_seudonimo, foto_usuario, comentario, fecha}) => {

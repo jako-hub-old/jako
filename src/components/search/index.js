@@ -1,13 +1,12 @@
 import React from 'react';
 import {
-    Text,
     View,
 } from 'react-native';
 import { withSearch } from '../../providers';
 import PropTypes from 'prop-types';
 // import Pager from './Pager';
 import Results from './Results';
-import { LoadingSpinner } from '../../commons';
+import { LoadingSpinner } from '../../commons/loaders';
 
 /**
  * This component handles the items search.

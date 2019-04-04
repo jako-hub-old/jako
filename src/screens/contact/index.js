@@ -1,5 +1,5 @@
 import React from 'react';
-import { BaseScreen } from '../../commons';
+import BaseScreen from '../BaseScreen';
 import PropTypes from 'prop-types';
 import {
     StyleSheet,

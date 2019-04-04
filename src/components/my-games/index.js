@@ -3,9 +3,6 @@ import PropTypes from 'prop-types';
 import {StyleSheet} from 'react-native';
 import {
     Container,
-    Text,
-    Tab,
-    Tabs,
 } from 'native-base';
 import {_t} from "../../configs/dictionary";
 import stylesPalette from "../../utils/stylesPalette";

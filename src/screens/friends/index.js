@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
-import { BaseScreen } from '../../commons';
+import BaseScreen from '../BaseScreen';
 import PropTypes from 'prop-types';
 
 /**

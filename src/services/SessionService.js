@@ -1,5 +1,9 @@
 import AsyncStorageService, { SESSION } from "./AsyncStorageService";
-import { defaultState } from '../store/reducers/session.reducer';
+const defaultState = {
+    logged          : false,
+    reading         : true,
+    data            : null,
+};
 const SESSION_CODE = 'user-session';
 /**
  * This function allows to read the entire session stack from the async storage

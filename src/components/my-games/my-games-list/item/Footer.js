@@ -2,7 +2,6 @@ import React from 'react';
 import {
     StyleSheet,
     View,
-    Text,
 } from 'react-native';
 import {
     Button,
@@ -12,16 +11,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import stylesPalette from '../../../../utils/stylesPalette';
 import {
     ShareGameButton,
-} from '../../../../commons';
-
-
-const RenderIcon = ({iconName}) => (
-    <Icon 
-        name    = {iconName}
-        size    = {20}
-        style   = {styles.defaultIcon}
-    />
-);
+} from '../../../../commons/buttons';
 
 /**
  * This component renders the footer of an item

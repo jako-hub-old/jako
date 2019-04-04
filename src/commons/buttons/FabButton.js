@@ -7,7 +7,7 @@ import {
     Fab,    
 } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import stylesPalette from '../utils/stylesPalette';
+import stylesPalette from '../../utils/stylesPalette';
 
 const FabButton = ({onPress, icon}) => (
     <Fab 
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
 });
 
 FabButton.propTypes = {
-
+    onPress : PropTypes.func,
 };
 
 export default FabButton;

@@ -4,7 +4,6 @@ import {
     View,
     StyleSheet,
     ScrollView,
-    Text,
 } from 'react-native';
 import {
     Toast,
@@ -18,9 +17,7 @@ import endpoints from '../../configs/endpoints';
 import { consoleError } from '../../utils/functions';
 import Actions from './Actions';
 import stylesPalette from '../../utils/stylesPalette';
-import { 
-    CommentGameComponent,
-} from '../';
+import CommentGameComponent from '../comment-game';
 import TeamsList from './TeamsList';
 
 /**

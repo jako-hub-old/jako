@@ -1,7 +1,7 @@
 import React from 'react';
 import { withApi, withSession } from '../../providers';
 import PropTypes from 'prop-types';
-import { consoleInfo, consoleError, addMessage } from '../../utils/functions';
+import { consoleError, addMessage } from '../../utils/functions';
 import endpoints from '../../configs/endpoints';
 import {
     Toast,

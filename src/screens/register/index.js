@@ -4,7 +4,7 @@ import {
     View,
     StyleSheet,
 } from 'react-native';
-import {RegisterComponent} from "../../components";
+import { RegisterComponent } from "../../components";
 
 /**
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>

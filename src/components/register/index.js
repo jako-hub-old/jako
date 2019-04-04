@@ -8,7 +8,7 @@ import { consoleError, consoleInfo } from '../../utils/functions';
 import { IMEI } from '../../utils/constants';
 import { PermissionsAndroid } from 'react-native';
 import NoPermission from '../login/NoPermission';
-import { VerifyCode } from '../';
+import VerifyCode  from '../verify-code';
 
 /**
  * This component allows to handle the user register

@@ -10,7 +10,7 @@ import {
     Label,
     Item,    
 } from 'native-base';
-import { ScenarioPicker } from '../../components';
+import ScenarioPicker from '../../components/scenario-picker';
 import { 
     DateTimePicker,
     SubmitButton,

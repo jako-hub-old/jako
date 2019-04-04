@@ -6,7 +6,7 @@ import { Root } from 'native-base';
 import AppNavigator from './src/configs/navigators';
 const AppContainer = createAppContainer(AppNavigator);
 import { connect } from 'react-redux';
-import { ModalLoader } from './src/commons';
+import ModalLoader from './src/commons/loaders/ModalLoader';
 import { initializeSession } from './src/store/actions/session.actions';
 
 const mapStateToProps = ({global}) => ({

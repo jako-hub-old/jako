@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import stylesPalette from "../../../utils/stylesPalette";
 import {
     ShareGameButton,
-} from '../../../commons';
+} from '../../../commons/buttons';
 
 
 const RenderIcon = ({iconName}) => (

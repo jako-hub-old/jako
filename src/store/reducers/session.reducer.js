@@ -6,7 +6,7 @@ import {
     CLEAR_SESSION,
 } from '../actions/session.actions';
 
-export const defaultState = {
+const defaultState = {
     logged          : false,
     reading         : true,
     data            : null,

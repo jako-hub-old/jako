@@ -14,7 +14,8 @@ import {
     Input,
     Item,
 } from 'native-base';
-import { LoadingSpinner, SimpleModal } from '../../commons';
+import { LoadingSpinner } from '../../commons/loaders';
+import { SimpleModal } from '../../commons/modals';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { upcfirst } from '../../utils/functions';
 

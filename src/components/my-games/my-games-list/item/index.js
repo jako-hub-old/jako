@@ -4,7 +4,7 @@ import {
     StyleSheet,
     TouchableOpacity,
 } from 'react-native';
-import Header from '../../../game-item-header';
+import Header, { GameItemBody } from '../../../game-item-header';
 import Content from './Content';
 import Footer from './Footer';
 import ImagePreview from './ImagePreview';
@@ -29,8 +29,8 @@ const Item = ({item, onSelect}) => (
                         totalPlayers        = { item.juego_jugadores             }
                         confirmedPlayers    = { item.juego_jugadores_confirmados }
                     />
-                    <Content 
-                        item={item}
+                    <GameItemBody 
+                        game={item}
                     />                    
                 </View>
             </View>

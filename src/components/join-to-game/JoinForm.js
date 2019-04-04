@@ -20,16 +20,16 @@ import _ from 'underscore';
 
 const JoinForm = ({positions=[], teams=[], onSubmit}) => {
     const [form, setForm] = useState({
-        number : 1,
-        position : null,
-        team : null,
+        number      : null,
+        position    : null,
+        team        : null,
     });
 
     const onChange = (key, value) => setForm({...form, [key] : value});
     const isValid = () => (
-        (form.number !== "" && form.number !== null) && 
-        (form.position !== "" && form.position !== null) && 
-        (form.team !== "" && form.team !== null)
+        (form.number    !== "" && form.number   !== null) && 
+        (form.position  !== "" && form.position !== null) && 
+        (form.team      !== "" && form.team     !== null)
     );
     return (
         <Form style={styles.root}>            
@@ -77,7 +77,7 @@ const JoinForm = ({positions=[], teams=[], onSubmit}) => {
             <Item floatingLabel>
                 <Label>{"Tu número de jugador"}</Label>
                 <Input 
-                    value           = {form.number.toString()}
+                    value           = {form.number? form.number.toString() : ''}
                     onChangeText    = {text => onChange("number", text)}
                     keyboardType    = "numeric"
                     maxLength       = {4}

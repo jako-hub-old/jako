@@ -6,17 +6,23 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+
+export const MAX_CHARS_HEADER = 20;
+
+export { default as GameItemBody } from './GameItemBody';
+
 /**
  * This component only renders the item GameItemHeader
  * @param {*} param0 
  */
 const GameItemHeader = ({title="", totalPlayers=0, confirmedPlayers=0, date="00-00-00 00:00", dateTo="00-00-00 00:00"}) => {
-    const gameDate = moment(date);
-    const gameDateTo = moment(dateTo);
+    const gameDate      = moment(date);
+    const gameDateTo    = moment(dateTo);
     const formattedDate = gameDate.format("YYYY-MM-DD");
-    const timeFrom = gameDate.format("HH:mm");
-    const timeTo = gameDateTo.format("HH:mm");
-    const time = `(${timeFrom} - ${timeTo})`;
+    const timeFrom      = gameDate.format("HH:mm");
+    const timeTo        = gameDateTo.format("HH:mm");
+    const time          = `(${timeFrom} - ${timeTo})`;
+    if(title.length > MAX_CHARS_HEADER) title = `${title.substring(0, MAX_CHARS_HEADER)}...`;
     return (
         <View style={styles.root}>
             <View style={styles.row}>

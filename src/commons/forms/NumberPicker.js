@@ -39,7 +39,6 @@ class NumberPicker extends React.Component {
     addValue = () => {
         const {numberVal} = this.state;
         const {onChange, step=1, max} = this.props;
-        console.log("The value:", numberVal);
         let newValue = parseInt(numberVal) + step;
         if(max !== false && newValue > max) newValue = max;
         this.setState({

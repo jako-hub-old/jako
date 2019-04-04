@@ -20,9 +20,13 @@ import {
  * This component only renders the Teams form
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
  */
-const TeamForm = ({defaultName="Mi equipo", defaultPlayers=1, onSubmit}) => {
+const TeamForm = ({defaultName="", defaultPlayers=1, onSubmit}) => {
     const [teamName, setName] = useState(defaultName);
     const [players, setPlayers] = useState(defaultPlayers);
+    const onAddTeam = () => {
+        setName("");
+        return onSubmit && onSubmit({nombre : teamName, jugadores : players});
+    };
     return (
         <Form style={styles.root}>
             <View style={styles.row}>
@@ -31,6 +35,7 @@ const TeamForm = ({defaultName="Mi equipo", defaultPlayers=1, onSubmit}) => {
                     <Input 
                         value           = { teamName }
                         onChangeText    = { text => setName(text) }
+
                     />
                 </Item>
                 <View style={styles.col}>
@@ -46,8 +51,8 @@ const TeamForm = ({defaultName="Mi equipo", defaultPlayers=1, onSubmit}) => {
             <View style={{flex : 1, alignItems : "center", paddingVertical: 10, marginTop: 10,}}>
                 <Button
                     info
-                    disabled = {teamName === ""}
-                    onPress = {() => onSubmit && onSubmit({nombre : teamName, jugadores : players})}
+                    disabled    = { teamName === ""   }
+                    onPress     = { () => onAddTeam() }
                 >
                     Agregar Equipo
                 </Button>

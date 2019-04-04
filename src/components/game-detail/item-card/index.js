@@ -3,7 +3,7 @@ import {
     View,
     StyleSheet,
 } from 'react-native';
-import Header from '../../game-item-header';
+import Header, { GameItemBody } from '../../game-item-header';
 import Content from './Content';
 import ImagePreview from './ImagePreview';
 import PropTypes from 'prop-types';
@@ -27,7 +27,8 @@ const ItemCard = ({game, onAdd}) => {
                         totalPlayers     = { game.jugadores                 }
                         confirmedPlayers = { game.jugadores_confirmados     }
                     />
-                    <Content 
+                    <GameItemBody 
+                        noLimitChars
                         game={ game}
                     />                    
                 </View>

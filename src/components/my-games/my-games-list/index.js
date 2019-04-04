@@ -30,8 +30,7 @@ const ListComponent = (props) => {
         return (<EmptySet goToSearch={goToSearch} />);
     }
     return (
-        <ScrollView>
-            
+        <ScrollView>            
             <View style={styles.root}>
                 {Array.isArray(games) && games.map((item, key) => (
                     <Item

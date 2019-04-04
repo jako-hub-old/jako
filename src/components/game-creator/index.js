@@ -57,7 +57,7 @@ class GameCreatorComponent extends React.Component {
     onChangeTime(key, time) {
         const date = moment(time)
         this.setState({
-            [key]                   : date.format("HH:mm"),
+            [key]                   : date.format("HH:00"),
             [`def${upcfirst(key)}`] : date.toDate(),
         });
     }

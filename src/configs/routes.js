@@ -6,21 +6,29 @@ import {
     MyProfileScreen,
     SearchScreen,
     GameDetailScreen,
-    LoginScreen,
     RegisterScreen,
     JoinToGameScreen,
     ContactScreen,
 } from "../screens";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
+/**
+ * Home tab view routes.
+ */
 export const homeRoutes = {
     Posts : { screen : HomeScreen },
 }
 
+/**
+ * My Games tab view routes.
+ */
 export const myGameRoutes = {
     MyGames : {screen : MyGamesScreen},
 };
 
+/**
+ * Search tab view routes.
+ */
 export const searchRoutes = {
     Search : {
         screen : SearchScreen,
@@ -28,6 +36,9 @@ export const searchRoutes = {
     },
 };
 
+/**
+ * Profile tab view routes.
+ */
 export const profileRoutes = {
     Profile : {
         screen : MyProfileScreen,
@@ -35,23 +46,22 @@ export const profileRoutes = {
     },
 };
 
+/**
+ * Contact tab view routes.
+ */
 export const contactRoutes = {
     Contact : {
         screen : ContactScreen,
         navigationOptions : { tabBarIcon : ({tintColor}) => (<Icon color={tintColor} name={"question-circle"} size={24} />) },
     },
 }
-
-export const GameRoutes = {
-    CreateGame : {
-        screen : CreateGameScreen,        
-    },
-    JoinToGame : {
-        screen : JoinToGameScreen,
-    },    
-    GameDetail : {
-        screen : GameDetailScreen,
-    },
+/**
+ * Games tab view routes.
+ */
+export const gameRoutes = {
+    CreateGame : { screen : CreateGameScreen },
+    JoinToGame : { screen : JoinToGameScreen },    
+    GameDetail : { screen : GameDetailScreen },
 };
 
 export const AuthRoutes = {

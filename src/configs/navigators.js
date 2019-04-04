@@ -12,12 +12,11 @@ import {
     searchRoutes,
     profileRoutes,
     contactRoutes,
-    GameRoutes, 
+    gameRoutes,
     AuthRoutes, 
     homeRoutes,
     createTabOptions,
  } from "./routes";
-import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 
 const AuthNavigator = createSwitchNavigator(AuthRoutes, {
     initialRouteName : "Register",
@@ -48,6 +47,11 @@ const ContactNavigator = createStackNavigator(contactRoutes, {
     headerMode       : 'none',
 });
 
+const GamesNavigator = createStackNavigator(gameRoutes, {
+    initialRouteName : 'CreateGame',
+    headerMode       : 'none',
+});
+
 const MainNavigator = createBottomTabNavigator({
     HomeTab     : createTabOptions(HomeNavigator, 'home'),
     MyGamesTab  : createTabOptions(MyGameNavigator, 'futbol'),
@@ -67,11 +71,19 @@ const MainNavigator = createBottomTabNavigator({
     }
 }); 
 
-const AppNavigator = createSwitchNavigator({
-    Auth : AuthNavigator,
+const AppNavigator = createStackNavigator({
     Main : MainNavigator,
+    Games: GamesNavigator,
+}, {
+    initialRouteName : "Main",
+    headerMode       : 'none',
+});
+
+const AppNavigatorContainer = createSwitchNavigator({
+    Auth : AuthNavigator,
+    App  : AppNavigator,
 }, {
     initialRouteName : "Auth"
 });
 
-export default AppNavigator;
+export default AppNavigatorContainer;

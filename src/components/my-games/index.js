@@ -46,6 +46,10 @@ class MyGamesComponent extends React.Component {
         this.props.navigation.navigate("Search");
     }
 
+    onViewProfile({juego_codigo_jugador=0, jugador_seudonimo=""}) {
+        this.props.navigation.navigate("PlayerProfile", {playerCode : juego_codigo_jugador, playerAlias : jugador_seudonimo});
+    }
+
     render() {
         const { myGames=[] } = this.props;        
         return (
@@ -54,6 +58,7 @@ class MyGamesComponent extends React.Component {
                     games        = { myGames }
                     onSelectGame = { this.onSelectGame.bind(this) }
                     goToSearch   = { this.goToSearch.bind(this)   }
+                    onViewProfile= { this.onViewProfile.bind(this)}
                 />
             </Container>
         );

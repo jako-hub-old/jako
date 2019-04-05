@@ -25,7 +25,7 @@ const EmptySet = ({goToSearch}) => (
 );
 
 const ListComponent = (props) => {
-    const { games=[], onSelectGame, goToSearch,} = props;
+    const { games=[], onSelectGame, goToSearch, onViewProfile} = props;
     if(games.length === 0) {
         return (<EmptySet goToSearch={goToSearch} />);
     }
@@ -34,9 +34,10 @@ const ListComponent = (props) => {
             <View style={styles.root}>
                 {Array.isArray(games) && games.map((item, key) => (
                     <Item
-                        item        = {item}
-                        key={`my-games-item-${key}`}
-                        onSelect = {() => onSelectGame? onSelectGame(item) : null}
+                        item            = { item                   }
+                        key             = { `my-games-item-${key}` }
+                        onSelect        = { () => onSelectGame? onSelectGame(item) : null   }
+                        onViewProfile   = { () => onViewProfile? onViewProfile(item) : null }
                     />
                 ))}
             </View>
@@ -77,6 +78,7 @@ ListComponent.propTypes = {
     games : PropTypes.array.isRequired,
     onSelectGame : PropTypes.func,
     goToSearch   : PropTypes.func.isRequired,
+    onViewProfile: PropTypes.func,
 };
 
 export default ListComponent;

@@ -16,6 +16,7 @@ import {
     AuthRoutes, 
     homeRoutes,
     createTabOptions,
+    playerRoutes,
  } from "./routes";
 
 const AuthNavigator = createSwitchNavigator(AuthRoutes, {
@@ -52,6 +53,11 @@ const GamesNavigator = createStackNavigator(gameRoutes, {
     headerMode       : 'none',
 });
 
+const PlayerNavigator = createStackNavigator(playerRoutes, {
+    initialRouteName : 'PlayerProfile',
+    headerMode       : 'none',
+});
+
 const MainNavigator = createBottomTabNavigator({
     HomeTab     : createTabOptions(HomeNavigator, 'home'),
     MyGamesTab  : createTabOptions(MyGameNavigator, 'futbol'),
@@ -72,8 +78,9 @@ const MainNavigator = createBottomTabNavigator({
 }); 
 
 const AppNavigator = createStackNavigator({
-    Main : MainNavigator,
-    Games: GamesNavigator,
+    Main    : MainNavigator,
+    Games   : GamesNavigator,
+    Player  : PlayerNavigator,
 }, {
     initialRouteName : "Main",
     headerMode       : 'none',

@@ -36,10 +36,6 @@ import { Linking } from 'react-native';
         }        
      }
 
-     handlerBack() {
-
-     }
-
      goBack() {
          const {navigation} = this.props;
          const {prevRoute, goToHome} = navigation.state.params||{};
@@ -49,7 +45,7 @@ import { Linking } from 'react-native';
          } else if(prevRoute) {
             navigation.navigate(prevRoute);
          } else {
-             navigation.goBack();
+             navigation.goBack(null);
          }
      }
      render() {

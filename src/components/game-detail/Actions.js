@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {
     View,
     StyleSheet,
+    TouchableHighlight,
 } from 'react-native';
 import { 
     Text,
@@ -10,27 +11,48 @@ import {
 } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const Actions = ({onComment, onAdd, canJoin=true}) => (
+const Actions = ({onComment, onAdd, canJoin=true, user, onViewProfile}) => (
     <View style={styles.root}>
-        {canJoin && (
-            <Button transparent style={styles.button} onPress={onAdd}>
-                <Icon name="user-plus" size={25} />
+        <View style = {styles.profileButton}>
+            <Text note style = {{marginRight : 10}}>
+                Anfitrión:
+            </Text>
+            <TouchableHighlight style={styles.buttonLink} transparent onPress={onViewProfile}>
+                <Text>{user}</Text>
+            </TouchableHighlight>
+        </View>
+        <View style = {styles.buttonsWrapper}>
+            {canJoin && (
+                <Button transparent style={styles.button} onPress={onAdd}>
+                    <Icon name="user-plus" size={25} />
+                </Button>
+            )}
+            <Button transparent style={styles.button} onPress={onComment}>
+                <Icon name="comment" size={25} />
             </Button>
-        )}
-        <Button transparent style={styles.button} onPress={onComment}>
-            <Icon name="comment" size={25} />
-        </Button>
-        <Button transparent style={styles.button}>
-            <Icon name="heart" size={25} />
-        </Button>
+            <Button transparent style={styles.button}>
+                <Icon name="heart" size={25} />
+            </Button>
+        </View>
     </View>
 );
 
 const styles = StyleSheet.create({
     root : {
+        flex : 1,
+        flexDirection : "row",
+        justifyContent : "space-between",
+    },
+    buttonsWrapper : {
         flexDirection : "row",
         justifyContent : "flex-end",
         paddingHorizontal : 10,
+    },
+    profileButton : {
+        flex : 2,
+        flexDirection : "row",
+        alignItems : "center",
+        justifyContent : "flex-end",
     },
     button : {
         width : 45,
@@ -41,9 +63,11 @@ const styles = StyleSheet.create({
 });
 
 Actions.propTypes = {
-    onAdd       : PropTypes.func,
-    onLike      : PropTypes.func,
-    onComment   : PropTypes.func,
+    onAdd           : PropTypes.func,
+    onLike          : PropTypes.func,
+    onComment       : PropTypes.func,
+    onViewProfile   : PropTypes.func,
+    user            : PropTypes.string,
 };
 
 export default Actions;

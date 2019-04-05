@@ -15,8 +15,9 @@ import {withGames, withSearch} from "../../providers";
  */
 class MyGamesComponent extends React.Component {
     state = {
-        currentTab : 0,
-        games : [],
+        currentTab  : 0,
+        games       : [],
+        loading     : false,
     };
 
     componentDidMount() {
@@ -27,7 +28,10 @@ class MyGamesComponent extends React.Component {
      * This function request the user games to the API.
      */
     fetchGames() {
-        this.props.fetchMyGames(this.props.userCode);
+        this.setState({loading : true});
+        this.props.fetchMyGames(this.props.userCode)
+            .then(() => this.setState({loading : false}))
+            .catch(() => this.setState({loading : false}));
     }
 
     /**
@@ -50,8 +54,13 @@ class MyGamesComponent extends React.Component {
         this.props.navigation.navigate("PlayerProfile", {playerCode : juego_codigo_jugador, playerAlias : jugador_seudonimo});
     }
 
+    onRefresh() {
+        this.fetchGames();
+    }
+
     render() {
-        const { myGames=[] } = this.props;        
+        const { myGames=[] } = this.props;   
+        console.log("games: ", myGames);
         return (
             <Container>
                 <ListMyGamesComponent
@@ -59,6 +68,8 @@ class MyGamesComponent extends React.Component {
                     onSelectGame = { this.onSelectGame.bind(this) }
                     goToSearch   = { this.goToSearch.bind(this)   }
                     onViewProfile= { this.onViewProfile.bind(this)}
+                    onRefresh    = { () => this.onRefresh() }
+                    loading      = { this.state.loading     }
                 />
             </Container>
         );

@@ -159,6 +159,11 @@ class GameDetailComponent extends React.Component {
         this.props.navigation.navigate("JoinToGame", {prevRoute : currentRoute, selectedGame});
     }
 
+    onViewProfile() {
+        const {codigo_jugador, jugador_seudonimo} = this.state;
+        this.props.navigation.navigate("PlayerProfile", {playerCode : codigo_jugador, playerAlias : jugador_seudonimo});
+    }
+
     render() {
         const {selectedGame} = this.props;
         const {
@@ -168,7 +173,10 @@ class GameDetailComponent extends React.Component {
             detalles,
             allowJoin,
             currentTab,
+            jugador_seudonimo,
+            codigo_jugador,
         } = this.state;
+        console.log("state. ", this.state);
         return (
             <View style={styles.root}>
                 <ScrollView>
@@ -181,6 +189,8 @@ class GameDetailComponent extends React.Component {
                         onComment = {() => this.toggleComment()}
                         onAdd     = {() => this.onJoinToGame(selectedGame)}
                         canJoin   = { allowJoin }
+                        user      = { jugador_seudonimo }
+                        onViewProfile = {() => this.onViewProfile(codigo_jugador)}
                     />                    
                     <View>
                         <Tabs 
@@ -269,6 +279,7 @@ GameDetailComponent.propTypes = {
     }),
     doPost          : PropTypes.func,
     canJoin         : PropTypes.bool,
+    onRefresh       : PropTypes.func,
 };
 
 export default withApi(GameDetailComponent);

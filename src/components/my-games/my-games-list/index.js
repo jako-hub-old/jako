@@ -3,6 +3,7 @@ import {
     ScrollView,
     StyleSheet,
     View,
+    RefreshControl,
 } from 'react-native';
 import {
     Text,
@@ -25,12 +26,26 @@ const EmptySet = ({goToSearch}) => (
 );
 
 const ListComponent = (props) => {
-    const { games=[], onSelectGame, goToSearch, onViewProfile} = props;
+    const { 
+        games=[], 
+        onSelectGame, 
+        goToSearch, 
+        onViewProfile,
+        onRefresh,
+        loading,
+    } = props;
     if(games.length === 0) {
         return (<EmptySet goToSearch={goToSearch} />);
     }
     return (
-        <ScrollView>            
+        <ScrollView
+            refreshControl  = {(
+                <RefreshControl 
+                    refreshing = { loading   }
+                    onRefresh  = { onRefresh }
+                />
+            )}
+        >            
             <View style={styles.root}>
                 {Array.isArray(games) && games.map((item, key) => (
                     <Item

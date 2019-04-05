@@ -20,7 +20,8 @@ export default {
     },
     jugador : {
         buscar : '/v1/jugador/buscar',
-        amigos : '/v1/jugador/amigos',        
+        amigos : '/v1/jugador/amigos',
+        detalle : '/v1/jugador/detalle',
     },
     jugaor_solicitud : {
         pendiente   : '/v1/jugador/solicitud/pendiente',

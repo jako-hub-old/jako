@@ -11,10 +11,10 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
  * This component renders a simple icon button.
  * @param {*} param0 
  */
-const IconButton = ({icon, size=25, disabled, onPress}) => {
+const IconButton = ({icon, size=25, disabled, onPress, small=false, color=null}) => {
     const button = (    
-        <View style={{...styles.root, ...(disabled? styles.disabled : {})}}>
-            <Icon name={icon} size={size} />
+        <View style={{...styles.root, ...(disabled? styles.disabled : {}), ...(small? styles.small : {})}}>
+            <Icon style = {{color : color}} name={icon} size={small? 18 : size} />
         </View>
     );
     if(disabled) return button;
@@ -32,6 +32,10 @@ const styles = StyleSheet.create({
         borderRadius    : 50,
         height          : 60,
         width           : 60,
+    },
+    small : {
+        height          : 40,
+        width           : 40,
     },
     disabled : {
         opacity : 0.3,

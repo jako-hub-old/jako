@@ -1,5 +1,4 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
 import BaseScreen from '../BaseScreen';
 import PropTypes from 'prop-types';
 import {_t} from "../../configs/dictionary";
@@ -13,21 +12,11 @@ class MyProfileScreen extends React.PureComponent {
         const navigation = this.props.navigation;
         return (
             <BaseScreen navigation={navigation} title={_t('my_profile_title_1')}>
-                <View style={styles.root}>
-                    <MyProfileComponent navigation = { navigation } />
-                </View>
+                <MyProfileComponent navigation = { navigation } />
             </BaseScreen>
         );
     }
 }
-
-const styles = StyleSheet.create({
-    root : {
-        paddingHorizontal   : 10,
-        paddingVertical     : 10,
-        alignItems          : "center",
-    },
-});
 
 MyProfileScreen.propTypes = {
     navigation : PropTypes.object,

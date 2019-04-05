@@ -21,14 +21,13 @@ const Content = (props={}) => {
     const {
         negocio_nombre,
         escenario_nombre,
-        jugador_seudonimo,
         acceso,
     } = props.item||{};
     return (
         <View style={styles.root}>
             <Body style={styles.body}>
                 <RenderRow title={escenario_nombre} value={negocio_nombre}/>
-                <RenderRow icon={"user"} title={jugador_seudonimo} value={acceso}/>
+                <RenderRow title={"Acceso"} value={acceso}/>
             </Body>
         </View>
     );

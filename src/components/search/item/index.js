@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import Header from '../../game-item-header';
 import Content from './Content';
+import { GameItemBody, } from '../../game-item-header';
 import Footer from './Footer';
 import ImagePreview from './ImagePreview';
 import PropTypes from 'prop-types';
@@ -14,7 +15,7 @@ import PropTypes from 'prop-types';
  * This component renders the Item presentation
  * @param {*} param0 
  */
-const Item = ({item, onSelect, onAdd}) => (
+const Item = ({item, onSelect, onAdd, onViewProfile,}) => (
     <View style={styles.root}>
         <TouchableOpacity onPress={onSelect}>
             <View style={styles.wrapper}>
@@ -29,14 +30,16 @@ const Item = ({item, onSelect, onAdd}) => (
                         totalPlayers     = { item.jugadores             }
                         confirmedPlayers = { item.jugadores_confirmados }
                     />
-                    <Content 
-                        item={item}
+                    <GameItemBody 
+                        game={item}
                     />                    
                 </View>
             </View>
         </TouchableOpacity>
         <Footer
             onAdd = { onAdd }
+            user  = { item.jugador_seudonimo }
+            onViewProfile = {onViewProfile}
          />
     </View>
     
@@ -45,7 +48,7 @@ const Item = ({item, onSelect, onAdd}) => (
 const styles = StyleSheet.create({
     root : {
         flex : 1,
-        marginVertical : 15,
+        marginVertical : 5,
     },
     wrapper : {
         flex : 1,
@@ -67,6 +70,8 @@ Item.propTypes = {
     onSelect    : PropTypes.func,
     onAdd       : PropTypes.func,
     onComment   : PropTypes.func,
+    user        : PropTypes.string,
+    onViewProfile : PropTypes.func,
 };
 
 export default Item;

@@ -3,6 +3,7 @@ import {
     StyleSheet,
     View,
     Text,
+    TouchableOpacity,
 } from 'react-native';
 import {
     Button,
@@ -27,24 +28,31 @@ const RenderIcon = ({iconName}) => (
  * This component renders the footer of an item
  * @param {*} param0 
  */
-const Footer = ({onAdd, onLike, liked}) => {
+const Footer = ({onLike, onViewProfile, liked, user, gameCode}) => {
     const likeButtonStyles = {
         ...styles.defaultIcon,
         ...(liked? styles.buttonLikePressed : {}),
     };
     return (
         <View style={styles.root}>
-            <Button style={styles.button} transparent onPress={onAdd}>
-                <RenderIcon iconName={"user-plus"} />
-            </Button>
-            <Button style={styles.button} transparent onPress={onLike}>
-                <Icon 
-                    name="heart" 
-                    size={20}
-                    style={likeButtonStyles}
-                />
-            </Button>
-            <ShareGameButton />
+            <View style = {styles.profileButton}>
+                <Text note style = {{marginRight : 10}}>
+                    Anfitrión:
+                </Text>
+                <TouchableOpacity style={styles.buttonLink} transparent onPress={onViewProfile}>
+                    <Text>{user}</Text>
+                </TouchableOpacity>
+            </View>
+            <View style = {styles.buttonsWrapper}>
+                <Button style={styles.button} transparent onPress={onLike}>
+                    <Icon 
+                        name="heart" 
+                        size={20}
+                        style={likeButtonStyles}
+                    />
+                </Button>
+                <ShareGameButton gameCode = { gameCode }/>
+            </View>
         </View>
     );
 };
@@ -53,6 +61,11 @@ const palette = stylesPalette();
 
 const styles = StyleSheet.create({
     root : {
+        flex : 1,
+        flexDirection : "row",
+        justifyContent : "space-between",
+    },
+    buttonsWrapper : {
         flex            : 1,
         flexDirection   : 'row',
         justifyContent  : 'flex-end',
@@ -61,6 +74,12 @@ const styles = StyleSheet.create({
         width               : 40,
         justifyContent      : "center",
         marginHorizontal    : 5,
+    },
+    profileButton : {
+        flex : 2,
+        flexDirection : "row",
+        alignItems : "center",
+        justifyContent : "flex-end",
     },
     defaultIcon : {
         color : '#bdbdbd',
@@ -85,6 +104,8 @@ Footer.propTypes = {
     onAdd               : PropTypes.func,
     onLike              : PropTypes.func, 
     liked               : PropTypes.bool,
+    onViewProfile       : PropTypes.func,
+    user                : PropTypes.string,
 };
 
 export default Footer;

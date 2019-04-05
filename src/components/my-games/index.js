@@ -60,7 +60,6 @@ class MyGamesComponent extends React.Component {
 
     render() {
         const { myGames=[] } = this.props;   
-        console.log("games: ", myGames);
         return (
             <Container>
                 <ListMyGamesComponent

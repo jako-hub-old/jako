@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {
     View,
     StyleSheet,
-    TouchableHighlight,
+    TouchableOpacity,
 } from 'react-native';
 import { 
     Text,
@@ -17,9 +17,9 @@ const Actions = ({onComment, onAdd, canJoin=true, user, onViewProfile}) => (
             <Text note style = {{marginRight : 10}}>
                 Anfitrión:
             </Text>
-            <TouchableHighlight style={styles.buttonLink} transparent onPress={onViewProfile}>
+            <TouchableOpacity style={styles.buttonLink} transparent onPress={onViewProfile}>
                 <Text>{user}</Text>
-            </TouchableHighlight>
+            </TouchableOpacity>
         </View>
         <View style = {styles.buttonsWrapper}>
             {canJoin && (

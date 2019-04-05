@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import {
     View,
     StyleSheet,
+    TouchableOpacity,
 } from 'react-native';
 import {
     List,
     ListItem,
     Body,
-    Badge,
     Left,
     Right,
     Text,
@@ -17,7 +17,7 @@ import {
 import {DEFAULT_USER_IMG} from 'react-native-dotenv';
 import stylesPalette from '../../utils/stylesPalette';
 
-const RenderTeam = ({teamName, team=[]}) => (
+const RenderTeam = ({teamName, team=[], onViewProfile}) => (
     <>
         <ListItem itemDivider>
             <Text>{teamName}</Text>
@@ -39,7 +39,9 @@ const RenderTeam = ({teamName, team=[]}) => (
                         <Thumbnail source={{uri : DEFAULT_USER_IMG}} />
                     </Left>
                     <Body>
-                        <Text>{player.jugador_nombre_corto}</Text>
+                        <TouchableOpacity onPress = { () => onViewProfile(player.codigo_jugador, player.jugador_nombre_corto) }>
+                            <Text>{player.jugador_nombre_corto}</Text>
+                        </TouchableOpacity>                        
                         <View style={{flex: 1, flexDirection : "row"}}>
                             <Text note>Pos:</Text><View style={styles.badge} primary><Text style={styles.textBadge}>{player.posicion_nombre}</Text></View>
                         </View>        
@@ -53,16 +55,17 @@ const RenderTeam = ({teamName, team=[]}) => (
     </>
 );
 
-const TeamsList = ({teams={}}) => {
+const TeamsList = ({teams={}, onViewProfile}) => {
     const teamNames = Object.keys(teams);
     return (
         <View style={styles.root}>
             <List>
                 {teamNames.map((teamName, key) => (
                     <RenderTeam 
-                        key     = { `team-list-item-${teamName}-${key}` } 
-                        team    = { teams[teamName] }
-                        teamName= { teamName }
+                        key             = { `team-list-item-${teamName}-${key}` } 
+                        team            = { teams[teamName] }
+                        teamName        = { teamName        }
+                        onViewProfile   = { onViewProfile   }
                     />
                 ))}
                 
@@ -95,7 +98,8 @@ const styles = StyleSheet.create({
 });
 
 TeamsList.propTypes = {
-    teams : PropTypes.any,
+    teams           : PropTypes.any,
+    onViewProfile   : PropTypes.func,
 };
 
 export default TeamsList;

@@ -27,6 +27,7 @@ const GameItemBody = (props={}) => {
     const {
         negocio_nombre,
         escenario_nombre,
+        juego_acceso,
     } = game;
     let scenario = (escenario_nombre.length > MAX_CHARS_SCENARIO && !noLimitChars)
                     ? `${escenario_nombre.substring(0, MAX_CHARS_SCENARIO)}...` 
@@ -35,6 +36,7 @@ const GameItemBody = (props={}) => {
         <View style={styles.root}>
             <Body style={styles.body}>
                 <RenderRow title={scenario} value={negocio_nombre}/>
+                <RenderRow title={"Acceso"} value={juego_acceso}/>
             </Body>
         </View>
     );

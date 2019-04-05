@@ -66,6 +66,10 @@ class SearchComponent extends React.Component {
         this.props.navigation.navigate("CreateGame", {prevRoute : currentRoute});
     }
 
+    onViewProfile(playerCode=0, playerAlias="") {
+        this.props.navigation.navigate("PlayerProfile", {playerCode, playerAlias});
+    }
+
     render() {
         const {
             loading,            
@@ -85,6 +89,7 @@ class SearchComponent extends React.Component {
                         onJoinToGame    = { this.joinToGame.bind(this)      }
                         onRefresh       = { () => this.refreshGames()       }
                         goToCreate      = { () => this.goToCreate()         }
+                        onViewProfile   = { this.onViewProfile.bind(this) }
                     />
                 )}
             </>

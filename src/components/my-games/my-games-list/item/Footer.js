@@ -2,7 +2,7 @@ import React from 'react';
 import {
     StyleSheet,
     View,
-    TouchableHighlight,
+    TouchableOpacity,
 } from 'react-native';
 import {
     Button,
@@ -29,9 +29,9 @@ const Footer = ({onLike, onViewProfile, liked, user, gameCode}) => {
                 <Text note style = {{marginRight : 10}}>
                     Anfitrión:
                 </Text>
-                <TouchableHighlight style={styles.buttonLink} transparent onPress={onViewProfile}>
+                <TouchableOpacity style={styles.buttonLink} transparent onPress={onViewProfile}>
                     <Text>{user}</Text>
-                </TouchableHighlight>
+                </TouchableOpacity>
             </View>
             <View style = {styles.buttonsWrapper}>
                 <Button style={styles.button} transparent onPress={onLike}>
@@ -95,6 +95,7 @@ Footer.propTypes = {
     onViewProfile       : PropTypes.func,
     liked               : PropTypes.bool,
     gameCode            : PropTypes.any,
+    user                : PropTypes.string,
 };
 
 export default Footer;

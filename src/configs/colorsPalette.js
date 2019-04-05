@@ -15,5 +15,10 @@ export default {
             variant    : '#00b2cc',
             contrast   : '#000',
         },
+        danger : {
+            color       : '#e53935',
+            variant     : '#ef5350',
+            contrast    : '#FFF',
+        },
     }
 };

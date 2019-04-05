@@ -1,15 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types'
+import React        from 'react';
+import PropTypes    from 'prop-types'
+import endpoints    from '../../configs/endpoints';
+import Header       from './Header';
+import GameResume   from './GamesResume';
+import { withApi        } from '../../providers';
+import { LoadingSpinner } from '../../commons/loaders';
+import { consoleError   } from '../../utils/functions';
 import { 
     View, 
     Text, 
     StyleSheet,
 } from 'react-native';
-import { withApi } from '../../providers';
-import { LoadingSpinner } from '../../commons/loaders';
-import endpoints from '../../configs/endpoints';
-import { consoleError } from '../../utils/functions';
-import Header from './Header';
 
 const ErrorMessage = ({message}) => (
     <View style = { styles.error }>
@@ -71,6 +72,7 @@ class UserProfileCard extends React.Component {
                     fullName    = { nombre_corto }
                     alias       = { seudonimo }
                 />
+                <GameResume />
             </>
         );
     }

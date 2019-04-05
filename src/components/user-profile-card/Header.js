@@ -37,7 +37,10 @@ const Header = ({photo, fullName, alias}) => (
 
 const styles = StyleSheet.create({
     root : {
-        flexDirection   : "row",        
+        flexDirection       : "row",        
+        borderBottomWidth   : 1,
+        borderBottomColor   : "#f2f2f2",
+        paddingBottom       : 15,
     },
     contentWrapper : {
         flex            : 1,
@@ -50,7 +53,7 @@ const styles = StyleSheet.create({
     },
     thumbWrapper : {
         padding         : 10,
-        backgroundColor : "#e0e0e0",
+        backgroundColor : "#f2f2f2",
         borderRadius    : 50,
     },    
     buttonTip : {

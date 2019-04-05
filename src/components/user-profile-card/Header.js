@@ -16,15 +16,17 @@ const palette = stylesPalette();
  * This component only renders the profile view.
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
  */
-const Header = ({photo, fullName, alias}) => (
+const Header = ({photo, fullName, alias, disableUpload}) => (
     <View style = { styles.root }>
         <View style = { styles.contentWrapper}>
             <View style = {styles.picWrapper}>
                 <View style = { styles.thumbWrapper }>
                     <Thumbnail source={{uri : photo || DEFAULT_USER_IMG}} />
-                    <View style={styles.buttonTip}>
-                        <IconButton icon = "camera" small color = { "#FFF" } />
-                    </View>
+                    {!disableUpload && (
+                        <View style={styles.buttonTip}>
+                            <IconButton icon = "camera" small color = { "#FFF" } />
+                        </View>
+                    )}
                 </View>
             </View>
             <View style = { styles.userInfo }>
@@ -75,9 +77,10 @@ const styles = StyleSheet.create({
 });
 
 Header.propTypes = {
-    photo    : PropTypes.string,
-    fullName : PropTypes.string,
-    alias    : PropTypes.string,
+    photo           : PropTypes.string,
+    fullName        : PropTypes.string,
+    alias           : PropTypes.string,
+    disableUpload   : PropTypes.bool,
 };
 
 export default Header;

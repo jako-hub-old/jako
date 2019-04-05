@@ -75,11 +75,13 @@ class UserProfileCard extends React.Component {
             asistencia,
             inasistencia,
          } = this.state.userInfo;
+         const { disableUpload } = this.props;
         return (
             <>
                 <Header 
-                    fullName    = { nombre_corto }
-                    alias       = { seudonimo    }
+                    fullName        = { nombre_corto }
+                    alias           = { seudonimo    }
+                    disableUpload   = {disableUpload}
                 />
                 <GameResume 
                     assists     = { asistencia   }
@@ -121,6 +123,7 @@ UserProfileCard.propTypes = {
     doGet           : PropTypes.func,
     playerCode      : PropTypes.any,
     navigation      : PropTypes.any,
+    disableUpload   : PropTypes.bool,
 };
 
 export default withApi(UserProfileCard);

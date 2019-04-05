@@ -13,7 +13,7 @@ class PlayerProfile extends React.Component {
         } = this.props;
         return (
             <View style = { styles.root }>
-                <UserProfileCard playerCode = { playerCode } />
+                <UserProfileCard disableUpload playerCode = { playerCode } />
             </View>
         );
     }

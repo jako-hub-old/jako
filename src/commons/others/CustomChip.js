@@ -37,21 +37,22 @@ const palette = stylesPalette();
 
 const styles = StyleSheet.create({
     root : {
-        flexDirection : "row"
+        flexDirection    : "row",
+        marginHorizontal : 10,
     },
     wrapper : {
-        flexDirection : "row",
-        alignItems : "center",
-        borderWidth : 1,
-        borderRadius : 50,
+        flexDirection   : "row",
+        alignItems      : "center",
+        borderWidth     : 1,
+        borderRadius    : 50,
         backgroundColor : "#FFF"
     },
     iconWrapper : {
-        borderWidth : 1,
-        padding : 5,
-        width : 35,
-        height : 35,
-        borderRadius : 50,
+        borderWidth     : 1,
+        padding         : 5,
+        width           : 35,
+        height          : 35,
+        borderRadius    : 50,
     },
     primary : {
         borderColor : palette.primary.color,        

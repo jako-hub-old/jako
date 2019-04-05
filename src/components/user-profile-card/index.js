@@ -18,6 +18,13 @@ const ErrorMessage = ({message}) => (
     </View>
 );
 
+/**
+ * This component displays any user personal information.
+ * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
+ *
+ * @class UserProfileCard
+ * @extends {React.Component}
+ */
 class UserProfileCard extends React.Component {
     state = {
         loading : true,
@@ -65,14 +72,19 @@ class UserProfileCard extends React.Component {
         const { 
             nombre_corto,
             seudonimo,
+            asistencia,
+            inasistencia,
          } = this.state.userInfo;
         return (
             <>
                 <Header 
                     fullName    = { nombre_corto }
-                    alias       = { seudonimo }
+                    alias       = { seudonimo    }
                 />
-                <GameResume />
+                <GameResume 
+                    assists     = { asistencia   }
+                    absences    = { inasistencia }
+                />
             </>
         );
     }

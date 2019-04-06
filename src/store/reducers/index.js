@@ -4,16 +4,18 @@
  */
 
 import {combineReducers} from 'redux';
-import global from './global.reducer';
-import games from './game.reducer';
-import session from './session.reducer';
-import search from './search.reducer';
+import global   from './global.reducer';
+import games    from './game.reducer';
+import session  from './session.reducer';
+import search   from './search.reducer';
+import userData from './userData.reducer';
 
 const createReducer = () => combineReducers({
     global,
     games,
     session,
     search,
+    userData,
 });
 
 export default createReducer;

@@ -28,6 +28,7 @@ class RegisterComponent extends React.Component {
         requesting  : true,
         imei        : null,
         openVerify  : false,
+        verifying   : false,
     };
 
     /**
@@ -52,9 +53,8 @@ class RegisterComponent extends React.Component {
         const {reading, logged} = propProps.sessionStack;
         if(!reading && logged && this._isMounted) {
             this._isMounted = false;
-            this.props.startLoading();
+            this.setState({verifying : true});
             setTimeout(() => {                
-                this.props.stopLoading();
                 this.props.navigation.navigate("Main");
             }, 500)
         }
@@ -199,8 +199,9 @@ class RegisterComponent extends React.Component {
             requesting,
             openVerify,
             imei,
+            verifying,
         } = this.state;
-
+        if(verifying) return null; // todo: Add loading splash!
         if(openVerify && imei) {
            return (
             <VerifyCode 

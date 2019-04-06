@@ -1,14 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React            from 'react';
+import PropTypes        from 'prop-types';
+import stylesPalette    from '../../utils/stylesPalette';
 import {
     View,
     Text,
     Thumbnail,
 } from 'native-base';
-import { StyleSheet } from 'react-native';
-import {DEFAULT_USER_IMG} from 'react-native-dotenv';
-import { IconButton, } from '../../commons/forms';
-import stylesPalette from '../../utils/stylesPalette';
+import { StyleSheet       }       from 'react-native';
+import { DEFAULT_USER_IMG }   from 'react-native-dotenv';
+import { IconButton       }      from '../../commons/forms';
 
 const palette = stylesPalette();
 

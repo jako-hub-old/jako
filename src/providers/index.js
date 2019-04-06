@@ -4,6 +4,7 @@ import withApi          from './withApi';
 import withSession      from './withSession';
 import withSearch       from './withSearch';
 import withPositions    from './withPositions';
+import withUserData     from './withUserData';
 
 export {
     withGames,
@@ -12,4 +13,5 @@ export {
     withSession,
     withSearch,
     withPositions,
+    withUserData,
 };

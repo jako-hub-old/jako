@@ -10,10 +10,15 @@ class PlayerProfile extends React.Component {
     render() {
         const {        
             playerCode=50,
+            navigation
         } = this.props;
         return (
             <View style = { styles.root }>
-                <UserProfileCard disableUpload playerCode = { playerCode } />
+                <UserProfileCard 
+                    disableUpload 
+                    playerCode  = { playerCode } 
+                    navigation  = { navigation }
+                />
             </View>
         );
     }

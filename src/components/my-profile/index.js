@@ -22,13 +22,18 @@ class MyProfileComponent extends React.Component {
     }
 
     render() {
-        const { sessionStack:{userCode} } = this.props;
+        const { sessionStack:{userCode}, navigation } = this.props;
         return (
             <View style = { styles.root }>
-                <UserProfileCard playerCode = { userCode } />
-                <UserOptions 
-                    onLogout = { () => this.onLogout() }
-                 />
+                <UserProfileCard 
+                    playerCode          = { userCode   } 
+                    navigation          = { navigation }
+                    optionsComponent    = { (
+                        <UserOptions 
+                            onLogout = { () => this.onLogout() }
+                        />
+                    ) }
+                />                
             </View>
         );
     }

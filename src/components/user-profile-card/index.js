@@ -3,7 +3,8 @@ import PropTypes    from 'prop-types'
 import endpoints    from '../../configs/endpoints';
 import Header       from './Header';
 import GameResume   from './GamesResume';
-import { withApi        } from '../../providers';
+import FriendsList  from './FriendsList';
+import { withApi, withUserData        } from '../../providers';
 import { LoadingSpinner } from '../../commons/loaders';
 import { consoleError   } from '../../utils/functions';
 import { 
@@ -11,6 +12,7 @@ import {
     Text, 
     StyleSheet,
 } from 'react-native';
+import { CommonTabs } from '../../commons/others';
 
 const ErrorMessage = ({message}) => (
     <View style = { styles.error }>
@@ -26,8 +28,13 @@ const ErrorMessage = ({message}) => (
  * @extends {React.Component}
  */
 class UserProfileCard extends React.Component {
+    tabOptions = [
+
+    ];
+
     state = {
-        loading : true,
+        loading         : true,
+        loadingFriends  : true,
         error   : null,
         userInfo: {
             codigo_jugador  : null,
@@ -38,7 +45,16 @@ class UserProfileCard extends React.Component {
             asistencia      : null,
             inasistencia    : null,
         },
+        friends : [],
     };
+
+    constructor(props) {
+        super(props);
+        tabOptions = [
+            {label : "Información", component : this.renderUserInfo() },
+            {label : "Amigos",      component : null },
+        ];
+    }
 
     componentDidMount() {
         this.props.doPost(endpoints.jugador.detalle, {
@@ -68,24 +84,73 @@ class UserProfileCard extends React.Component {
         });
     }
 
-    renderCard() {
-        const { 
-            nombre_corto,
-            seudonimo,
+    fetchMyFriends() {
+        this.setState({loadingFriends : true});
+        const {playerCode, fromOtherUser} = this.props;
+        this.props.fetchMyFriends(playerCode, fromOtherUser)
+            .then( response => {
+                this.setState({loadingFriends : false, friends : response});
+            })
+            .catch(() => {
+                this.setState({loadingFriends : false});
+            });
+    }
+
+    onViewProfile({codigo_jugador_amigo:playerCode, seudonimo:playerAlias}) {
+        this.props.navigation.navigate("PlayerProfile", {playerCode, playerAlias});
+    }
+
+    renderUserInfo() {
+        const {optionsComponent} = this.props;
+        const {
             asistencia,
             inasistencia,
-         } = this.state.userInfo;
-         const { disableUpload } = this.props;
+        } = this.state.userInfo;
+        return (
+            <>
+                <GameResume 
+                    assists     = { asistencia   }
+                    absences    = { inasistencia }
+                />
+                { optionsComponent }
+            </>
+        );
+    }
+
+    renderCard() {
+         const {
+             userInfo : { 
+                nombre_corto,
+                seudonimo,
+             },
+             loadingFriends,
+             friends=[],
+         } = this.state;
+        const { disableUpload } = this.props;        
+        const userInfo = this.renderUserInfo();
         return (
             <>
                 <Header 
                     fullName        = { nombre_corto }
                     alias           = { seudonimo    }
-                    disableUpload   = {disableUpload}
+                    disableUpload   = { disableUpload }
                 />
-                <GameResume 
-                    assists     = { asistencia   }
-                    absences    = { inasistencia }
+                <CommonTabs 
+                    id      = "user-tabs"
+                    tabs    = { [
+                        {
+                            label : "Amigos", 
+                            component : (
+                                <FriendsList 
+                                    fetchFriends    = { () => { this.fetchMyFriends() } } 
+                                    friends         = { friends }
+                                    loading         = { loadingFriends }
+                                    onViewProfile   = { this.onViewProfile.bind(this)   }
+                                />
+                            )
+                        },
+                        {label : "Información", component : userInfo},                        
+                    ] }
                 />
             </>
         );
@@ -109,7 +174,7 @@ class UserProfileCard extends React.Component {
 const styles = StyleSheet.create({
     root : {
         width : "100%",
-        padding : 10,
+        flex : 1,
     },
     error : {
         flex            : 1,
@@ -122,8 +187,12 @@ UserProfileCard.propTypes = {
     doPost          : PropTypes.func,
     doGet           : PropTypes.func,
     playerCode      : PropTypes.any,
-    navigation      : PropTypes.any,
+    navigation      : PropTypes.any.isRequired,
     disableUpload   : PropTypes.bool,
+    optionsComponent: PropTypes.any,
+    fetchMyFriends  : PropTypes.func,
+    friends         : PropTypes.array,
+    fromOtherUser   : PropTypes.bool,
 };
 
-export default withApi(UserProfileCard);
+export default withApi(withUserData(UserProfileCard));

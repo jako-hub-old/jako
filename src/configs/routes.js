@@ -25,6 +25,7 @@ export const homeRoutes = {
  */
 export const myGameRoutes = {
     MyGames : {screen : MyGamesScreen},
+    GameDetail      : { screen : GameDetailScreen },
 };
 
 /**
@@ -35,6 +36,7 @@ export const searchRoutes = {
         screen : SearchScreen,
         navigationOptions : { tabBarIcon : ({tintColor}) => (<Icon color={tintColor} name={"search"} size={24} />) },
     },
+    GameDetail      : { screen : GameDetailScreen },
 };
 
 /**
@@ -59,10 +61,9 @@ export const contactRoutes = {
 /**
  * Games tab view routes.
  */
-export const gameRoutes = {
+export const gameRoutes = {    
     CreateGame      : { screen : CreateGameScreen },
     JoinToGame      : { screen : JoinToGameScreen },    
-    GameDetail      : { screen : GameDetailScreen },    
 };
 
 export const playerRoutes = {

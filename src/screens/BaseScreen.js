@@ -38,12 +38,10 @@ import { Linking } from 'react-native';
 
      goBack() {
          const {navigation} = this.props;
-         const {prevRoute, goToHome} = navigation.state.params||{};
+         const {goToHome} = navigation.state.params||{};
 
          if(goToHome) {
              Linking.openURL("jakoapp://home");
-         } else if(prevRoute) {
-            navigation.navigate(prevRoute);
          } else {
              navigation.goBack(null);
          }

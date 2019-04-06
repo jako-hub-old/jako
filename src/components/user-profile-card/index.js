@@ -139,7 +139,7 @@ class UserProfileCard extends React.Component {
                     id      = "user-tabs"
                     tabs    = { [
                         {
-                            label : "Amigos", 
+                            label : `Amigos (${friends.length})`, 
                             component : (
                                 <FriendsList 
                                     fetchFriends    = { () => { this.fetchMyFriends() } } 

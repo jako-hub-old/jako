@@ -32,6 +32,16 @@ class FriendsList extends React.PureComponent {
             </View>
         );
     }
+
+    renderEmpty() {
+        return (            
+            <View style = { styles.root }>
+                <Text note style = { { textAlign : "center", marginTop: 15 } }>
+                    {"Aún no tiene contactos"}
+                </Text>
+            </View>
+        );
+    }
     
     render() {
         const { 
@@ -41,9 +51,9 @@ class FriendsList extends React.PureComponent {
         } = this.props;
 
         if(loading) return this.renderLoader();
-        
+        if(friends.length === 0) return this.renderEmpty();
         return (
-            <View style = { styles.root }>
+            <View style = { styles.root }>                
                 <List>
                     {friends.map((friend, key) => (
                         <ListItem 

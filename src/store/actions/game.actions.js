@@ -32,8 +32,7 @@ export const setPositions = (positions=[]) => ({
  * @param code
  * @returns {function(*): (Promise<any> | Promise<*>)}
  */
-export const fetchMyGames = (jugador=0) => (dispatch) => (new Promise((resolve, reject) => {
-    dispatch(startLoading());
+export const fetchMyGames = (jugador=0) => () => (new Promise((resolve, reject) => {
     Api.doPost(endpoints.juego.jugador, {
         jugador,
     })
@@ -44,13 +43,10 @@ export const fetchMyGames = (jugador=0) => (dispatch) => (new Promise((resolve, 
             addMessage("Ocurrió un error al listar los juegos");
             consoleError("Listing my games", response);
         } else {
-            dispatch(setGames(response));
         }        
-        dispatch(stopLoading());
     })
     .catch(response => {
         reject(response);
-        dispatch(stopLoading());
     }); 
 }));
 

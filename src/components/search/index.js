@@ -77,21 +77,15 @@ class SearchComponent extends React.Component {
         const results = this.getFilteredList() || [];
         return (
             <>
-                {loading && (
-                    <View style={{flex : 1, alignItems: "center"}}>
-                        <LoadingSpinner/>
-                    </View>
-                )}  
-                {!loading && (
-                    <Results 
-                        results         = { results }
-                        onSelectItem    = { this.onSelectResult.bind(this)  }
-                        onJoinToGame    = { this.joinToGame.bind(this)      }
-                        onRefresh       = { () => this.refreshGames()       }
-                        goToCreate      = { () => this.goToCreate()         }
-                        onViewProfile   = { this.onViewProfile.bind(this) }
-                    />
-                )}
+                <Results
+                    loading         = { loading } 
+                    results         = { results }
+                    onSelectItem    = { this.onSelectResult.bind(this)  }
+                    onJoinToGame    = { this.joinToGame.bind(this)      }
+                    onRefresh       = { () => this.refreshGames()       }
+                    goToCreate      = { () => this.goToCreate()         }
+                    onViewProfile   = { this.onViewProfile.bind(this) }
+                />
             </>
         );
     }

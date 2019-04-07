@@ -13,7 +13,7 @@ import {
     StyleSheet,
     TouchableOpacity,
 } from 'react-native';
-import { DEFAULT_USER_IMG }   from 'react-native-dotenv';
+import { DEFAULT_USER_IMG, IMAGES_SERVER }   from 'react-native-dotenv';
 import { LoadingSpinner } from '../../commons/loaders';
 
 class FriendsList extends React.PureComponent {
@@ -64,7 +64,7 @@ class FriendsList extends React.PureComponent {
                             avatar
                         >
                             <Left>
-                                <Thumbnail source = { {uri : friend.foto || DEFAULT_USER_IMG} }/>
+                                <Thumbnail source = { {uri : friend.foto? `${IMAGES_SERVER}${friend.foto}` : DEFAULT_USER_IMG} }/>
                             </Left>
                             <Body>
                                 <TouchableOpacity onPress = { () => onViewProfile(friend)}>

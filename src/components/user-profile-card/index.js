@@ -11,6 +11,8 @@ import {
     View, 
     Text, 
     StyleSheet,
+    ScrollView,
+    RefreshControl,
 } from 'react-native';
 import { CommonTabs } from '../../commons/others';
 import { IMAGES_SERVER, DEFAULT_USER_IMG } from 'react-native-dotenv';
@@ -59,6 +61,10 @@ class UserProfileCard extends React.Component {
     }
 
     componentDidMount() {
+        this.fetchUserInfo();
+    }
+
+    fetchUserInfo() {
         this.props.doPost(endpoints.jugador.detalle, {
             jugador : this.props.playerCode,
         })
@@ -70,7 +76,6 @@ class UserProfileCard extends React.Component {
                 error = "Ocurrió un error al obtener la información del usuario";
             } else {
                 userInfo = response[0];
-                console.log(response);
             }
             this.setState({
                 userInfo,
@@ -120,6 +125,11 @@ class UserProfileCard extends React.Component {
         );
     }
 
+    onRefresh() {
+        this.fetchUserInfo();
+        this.fetchMyFriends();
+    }
+
     renderCard() {
          const {
              userInfo : { 
@@ -137,7 +147,6 @@ class UserProfileCard extends React.Component {
             me,
         } = this.props;        
         const userInfo = this.renderUserInfo();
-        console.log(IMAGES_SERVER, foto);
         return (
             <>
                 <Header 
@@ -174,11 +183,19 @@ class UserProfileCard extends React.Component {
             error,
         } = this.state;
         return (
-            <View style = { styles.root }>
-                {loading && (<LoadingSpinner />)}
-                {error && (<ErrorMessage message={error} />)}
-                {!loading && !error && (this.renderCard())}
-            </View>
+            <ScrollView
+                refreshControl  = {(
+                    <RefreshControl 
+                        refreshing = { loading   }
+                        onRefresh  = { () => this.onRefresh() }
+                    />
+                )}
+            >        
+                <View style = { styles.root }>
+                    {error && (<ErrorMessage message={error} />)}
+                    {!loading && !error && (this.renderCard())}
+                </View>
+            </ScrollView>
         );
     }
 }

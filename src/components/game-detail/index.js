@@ -41,7 +41,7 @@ class GameDetailComponent extends React.Component {
         comentarios : [],
         detalles    : [],
         loadingComments : false,
-        openComment     : false,
+        openComment     : true,
         allowJoin       : true,
         currentTab      : 0,
     };
@@ -169,7 +169,7 @@ class GameDetailComponent extends React.Component {
     }
 
     render() {
-        const {selectedGame} = this.props;
+        const {selectedGame, userCode} = this.props;
         const {
             comentarios,
             loadingComments,
@@ -211,6 +211,7 @@ class GameDetailComponent extends React.Component {
                                 <TeamsList 
                                     onViewProfile   = { this.onViewProfile.bind(this) }
                                     teams           = { detalles }
+                                    playerCode      = { userCode }
                                 />
                             </Tab>
                             <Tab 
@@ -283,6 +284,7 @@ GameDetailComponent.propTypes = {
     doPost          : PropTypes.func,
     canJoin         : PropTypes.bool,
     onRefresh       : PropTypes.func,
+    userCode        : PropTypes.any,
 };
 
 export default withApi(GameDetailComponent);

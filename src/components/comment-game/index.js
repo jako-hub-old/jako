@@ -74,11 +74,11 @@ class CommentGame extends React.Component {
             <Form style={styles.root}>
                 <View style={styles.mainWrapper}>
                     <View style={styles.textWrapper}>
-                        <Item>
+                        <Item >
                             <Input
                                 autoFocus 
                                 ref             = { node => setCommentRef(node) }
-                                placeholder     = { "Haz una pregunta o escribe tu opinión sobre el juego" } 
+                                placeholder     = { "Comentar sobre este juego..." } 
                                 value           = { comment }
                                 onChangeText    = { text => this.onChange(text) }
                                 onSubmitEditing = { () => this.onSaveComment()  }

@@ -11,7 +11,7 @@ import {
 } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const Actions = ({onComment, onAdd, canJoin=true, user, onViewProfile}) => (
+const Actions = ({onAdd, canJoin=true, user, onViewProfile}) => (
     <View style={styles.root}>
         <View style = {styles.profileButton}>
             <Text note style = {{marginRight : 10}}>
@@ -27,9 +27,6 @@ const Actions = ({onComment, onAdd, canJoin=true, user, onViewProfile}) => (
                     <Icon name="user-plus" size={25} />
                 </Button>
             )}
-            <Button transparent style={styles.button} onPress={onComment}>
-                <Icon name="comment" size={25} />
-            </Button>
             <Button transparent style={styles.button}>
                 <Icon name="heart" size={25} />
             </Button>

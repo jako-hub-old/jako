@@ -14,10 +14,11 @@ import {
     Text,
     Thumbnail,
 } from 'native-base';
-import {DEFAULT_USER_IMG} from 'react-native-dotenv';
+import { DEFAULT_USER_IMG, IMAGES_SERVER } from 'react-native-dotenv';
 import stylesPalette from '../../utils/stylesPalette';
 
-const RenderTeam = ({teamName, team=[], onViewProfile}) => (
+
+const RenderTeam = ({teamName, team=[], onViewProfile, playerCode}) => (
     <>
         <ListItem itemDivider>
             <Text>{teamName}</Text>
@@ -31,17 +32,24 @@ const RenderTeam = ({teamName, team=[], onViewProfile}) => (
             const playerNumber = parseInt(player.numero);
             return (
                 <ListItem 
-                    key={`player-item-list-${player.codigo_jugador}-$key`}
+                    key={`player-item-list-${player.codigo_jugador}-${key}`}
                     noIndent
                     avatar
                 >
                     <Left>
-                        <Thumbnail source={{uri : DEFAULT_USER_IMG}} />
+                        <Thumbnail source={{uri : player.foto? `${IMAGES_SERVER}${player.foto}` : DEFAULT_USER_IMG}} />
                     </Left>
                     <Body>
                         <TouchableOpacity onPress = { () => onViewProfile(player.codigo_jugador, player.jugador_nombre_corto) }>
-                            <Text>{player.jugador_nombre_corto}</Text>
-                        </TouchableOpacity>                        
+                            <View style = {{flexDirection : "row", justifyContent : "flex-start"}}>
+                                <Text note>
+                                    ({player.seudonimo})
+                                </Text>
+                                <Text>
+                                    {playerCode === player.codigo_jugador? "Tú" : player.jugador_nombre_corto}
+                                </Text>                                
+                            </View>
+                        </TouchableOpacity>                                                
                         <View style={{flex: 1, flexDirection : "row"}}>
                             <Text note>Pos:</Text><View style={styles.badge} primary><Text style={styles.textBadge}>{player.posicion_nombre}</Text></View>
                         </View>        
@@ -55,7 +63,7 @@ const RenderTeam = ({teamName, team=[], onViewProfile}) => (
     </>
 );
 
-const TeamsList = ({teams={}, onViewProfile}) => {
+const TeamsList = ({teams={}, onViewProfile, playerCode}) => {
     const teamNames = Object.keys(teams);
     return (
         <View style={styles.root}>
@@ -66,6 +74,7 @@ const TeamsList = ({teams={}, onViewProfile}) => {
                         team            = { teams[teamName] }
                         teamName        = { teamName        }
                         onViewProfile   = { onViewProfile   }
+                        playerCode      = { playerCode      }
                     />
                 ))}
                 
@@ -100,6 +109,7 @@ const styles = StyleSheet.create({
 TeamsList.propTypes = {
     teams           : PropTypes.any,
     onViewProfile   : PropTypes.func,
+    playerCode      : PropTypes.any
 };
 
 export default TeamsList;

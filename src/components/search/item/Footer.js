@@ -28,7 +28,7 @@ const RenderIcon = ({iconName}) => (
  * This component renders the footer of an item
  * @param {*} param0 
  */
-const Footer = ({onLike, onViewProfile, liked, user, onAdd, gameCode}) => {
+const Footer = ({onLike, isInGame, onViewProfile, liked, user, onAdd, gameCode}) => {
     const likeButtonStyles = {
         ...styles.defaultIcon,
         ...(liked? styles.buttonLikePressed : {}),
@@ -44,9 +44,11 @@ const Footer = ({onLike, onViewProfile, liked, user, onAdd, gameCode}) => {
                 </TouchableOpacity>
             </View>            
             <View style = {styles.buttonsWrapper}>
-                <Button style={styles.button} transparent onPress={onAdd}>
-                    <Icon name="user-plus" size={20}/>
-                </Button>
+                {!isInGame && (
+                    <Button style={styles.button} transparent onPress={onAdd}>
+                        <Icon name="user-plus" size={20}/>
+                    </Button>
+                )}
                 <Button style={styles.button} transparent onPress={onLike}>
                     <Icon 
                         name="heart" 
@@ -109,6 +111,7 @@ Footer.propTypes = {
     liked               : PropTypes.bool,
     onViewProfile       : PropTypes.func,
     user                : PropTypes.string,
+    isInGame            : PropTypes.bool,
 };
 
 export default Footer;

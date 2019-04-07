@@ -11,7 +11,7 @@ const SubmitButton = ({label, disabled, primary, ...otherProps}) => {
     };
     
     return (
-        <Button style={theStyles} {...otherProps} rounded disabled  = { disabled } >
+        <Button style={theStyles} {...otherProps} rounded disabled  = { disabled } block >
             <Text style={((primary) && !disabled)? {color : "#FFF"} : {}}>
                 {label}
             </Text>

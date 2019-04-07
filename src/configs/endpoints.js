@@ -14,6 +14,7 @@ export default {
         jugador : '/v1/juego/jugador',
         retirar : '/v1/juego/retirar',
         invitar : '/v1/juego/invitar',
+        cerrar : '/v1/juego/cerrar',
     },
     escenarios : {
         lista : '/v1/escenario/lista',        

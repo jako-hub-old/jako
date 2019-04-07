@@ -10,20 +10,30 @@ import { GameItemBody, } from '../../game-item-header';
 import Footer from './Footer';
 import ImagePreview from './ImagePreview';
 import PropTypes from 'prop-types';
+import {
+    Text,
+} from 'native-base';
+import stylesPalette from '../../../utils/stylesPalette';
 
 /**
  * This component renders the Item presentation
  * @param {*} param0 
  */
-const Item = ({item, onSelect, onAdd, onViewProfile,}) => (
+const Item = ({item, isInGame=true, organizer, onSelect, onAdd, onViewProfile,}) => (
     <View style={styles.root}>
         <TouchableOpacity onPress={onSelect}>
             <View style={styles.wrapper}>
                 <View style={styles.pictureWrapper}>
                     <ImagePreview />
+                    {isInGame && (
+                        <View style = { styles.isInGame }>
+                            <Text style={ {color : "#FFF"} }>Participas</Text>
+                        </View>
+                    )}
                 </View>
                 <View style={styles.infoWrapper}>
                     <Header
+                        isInGame         = { isInGame                   }
                         title            = { item.nombre                }
                         date             = { item.fecha_desde           }
                         dateTo           = { item.fecha_hasta           }
@@ -37,14 +47,15 @@ const Item = ({item, onSelect, onAdd, onViewProfile,}) => (
             </View>
         </TouchableOpacity>
         <Footer
-            onAdd = { onAdd }
-            user  = { item.jugador_seudonimo }
+            isInGame    = { isInGame }
+            onAdd       = { onAdd    }
+            user        = { organizer? "Tú" : item.jugador_seudonimo }
             onViewProfile = {onViewProfile}
          />
     </View>
     
 );
-
+const palette = stylesPalette();
 const styles = StyleSheet.create({
     root : {
         flex : 1,
@@ -64,6 +75,12 @@ const styles = StyleSheet.create({
     infoWrapper : {
         flex : 7,
     },
+    isInGame : {
+      backgroundColor : palette.primary.color,
+      paddingHorizontal : 10,
+      marginTop : 5,
+      borderRadius : 10,
+    },
 });
 
 Item.propTypes = {
@@ -72,6 +89,7 @@ Item.propTypes = {
     onComment   : PropTypes.func,
     user        : PropTypes.string,
     onViewProfile : PropTypes.func,
+    isInGame    : PropTypes.bool,
 };
 
 export default Item;

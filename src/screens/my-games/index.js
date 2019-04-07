@@ -35,12 +35,10 @@ class MyGamesScreen extends React.PureComponent {
         return (
             <BaseScreen navigation={navigation} title={"Mis juegos"}>
                 <MyGamesComponent navigation={navigation}/>
-                {sessionStack.crearJuego && (
-                    <FabButton 
-                        icon = "plus"
-                        onPress = {() => navigation.navigate("CreateGame", {prevRoute : "MyGames"})}
-                    />
-                )}          
+                <FabButton 
+                    icon = "plus"
+                    onPress = {() => navigation.navigate("CreateGame", {prevRoute : "MyGames"})}
+                />
             </BaseScreen>
         );
     }

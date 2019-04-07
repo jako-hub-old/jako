@@ -28,7 +28,7 @@ const EmptySet = ({goToCreate, crearJuego}) => (
     </View>
 );
 
-const Results = ({sessionStack:{crearJuego}, onViewProfile, results=[], onSelectItem, onJoinToGame, loading=false, onRefresh, goToCreate, }) => (
+const Results = ({isInGame, userCode, sessionStack:{crearJuego}, onViewProfile, results=[], onSelectItem, onJoinToGame, loading=false, onRefresh, goToCreate, }) => (
     <ScrollView 
         style           = { {marginTop : 15, flex : 1, flexDirection: "column"} }
         refreshControl  = {(
@@ -46,6 +46,8 @@ const Results = ({sessionStack:{crearJuego}, onViewProfile, results=[], onSelect
                 key         = { `${item.code}-${key}` } 
                 onSelect    = { () => onSelectItem(item) }
                 item        = { item }
+                organizer   = { userCode === item.codigo_jugador }
+                isInGame    = { isInGame(item) }
                 onAdd       = { () => onJoinToGame? onJoinToGame(item) : null }
                 onViewProfile = {() => onViewProfile(item.codigo_jugador, item.jugador_seudonimo)}
             />
@@ -70,6 +72,8 @@ Results.propTypes = {
     onRefresh    : PropTypes.func,
     goToCreate   : PropTypes.func,
     onViewProfile: PropTypes.func,
+    userCode     : PropTypes.any,
+    isInGame     : PropTypes.func,
 };
 
 export default withSession(Results);

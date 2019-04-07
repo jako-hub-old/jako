@@ -72,6 +72,7 @@ GameItemHeader.propTypes = {
     confirmedPlayers    : PropTypes.number,
     date                : PropTypes.string,
     dateTo              : PropTypes.string,
+    isInGame            : PropTypes.bool,
 };
 
 export default GameItemHeader;

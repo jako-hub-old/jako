@@ -12,13 +12,14 @@ import {
 } from 'native-base';
 import ItemCard from './item-card';
 import CommentsList from './CommentsList';
-import { withApi } from '../../providers';
+import { withApi, withGames } from '../../providers';
 import endpoints from '../../configs/endpoints';
 import { consoleError } from '../../utils/functions';
 import Actions from './Actions';
 import stylesPalette from '../../utils/stylesPalette';
 import CommentGameComponent from '../comment-game';
 import TeamsList from './TeamsList';
+import TerminateGame from '../terminate-game';
 
 /**
  * This component handles the game detail display.
@@ -143,7 +144,7 @@ class GameDetailComponent extends React.Component {
      */
     onSaveComment(comment) {
         this.setState(({comentarios}) => ({
-            comentarios        : [...comentarios, comment],
+            comentarios        : [ comment, ...comentarios ],
             openComment     : false,
         }));
     }
@@ -168,9 +169,14 @@ class GameDetailComponent extends React.Component {
         this.props.navigation.navigate("PlayerProfile", {playerCode : codigo_jugador, playerAlias : jugador_seudonimo});
     }
 
+    isInGame() {
+        return this.props.userCode === this.state.codigo_jugador;
+    }
+
     render() {
         const {selectedGame, userCode} = this.props;
         const {
+            codigo_juego,
             comentarios,
             loadingComments,
             openComment,
@@ -194,7 +200,13 @@ class GameDetailComponent extends React.Component {
                         user      = { jugador_seudonimo }
                         onViewProfile = {() => this.onViewHostProfile()}
                     />                    
-                    <View>
+                    <View styles = { {flex : 1,} }>
+                        {this.isInGame() && (
+                            <TerminateGame 
+                                gameCode = { codigo_juego }
+                                teams    = { detalles     }
+                            />
+                        )}
                         <Tabs 
                             tabContainerStyle       = { {elevation:0} }
                             tabBarUnderlineStyle    = { styles.tabUnderLine }
@@ -285,6 +297,7 @@ GameDetailComponent.propTypes = {
     canJoin         : PropTypes.bool,
     onRefresh       : PropTypes.func,
     userCode        : PropTypes.any,
+    myGames         : PropTypes.array,
 };
 
-export default withApi(GameDetailComponent);
+export default withApi(withGames(GameDetailComponent));

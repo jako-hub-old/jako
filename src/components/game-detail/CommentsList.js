@@ -18,7 +18,7 @@ import { LoadingSpinner, } from '../../commons/loaders';
 import {DEFAULT_USER_IMG, IMAGES_SERVER} from 'react-native-dotenv';
 
 const Comment = ({jugador_seudonimo, foto, comentario, fecha}) => {
-    const formattedDate = moment(fecha).format("YY/MM/DD HH:MM");
+    const formattedDate = moment(fecha).format("YY/MM/DD HH:mm");
     return (
         <ListItem avatar style={styles.comment} noBorder> 
             <Left>

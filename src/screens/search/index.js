@@ -25,12 +25,12 @@ class MyProfileScreen extends React.PureComponent {
                 <View style={styles.root}>
                     <SearchComponent navigation={navigation} />
                 </View>
-                {crearJuego && (
-                    <FabButton 
-                        icon = "plus"
-                        onPress = {() => navigation.navigate("CreateGame", {prevRoute : "Search"})}
-                    />
-                )}                
+                
+                <FabButton 
+                    icon = "plus"
+                    onPress = {() => navigation.navigate("CreateGame", {prevRoute : "Search"})}
+                />
+                
             </BaseScreen>
         );
     }

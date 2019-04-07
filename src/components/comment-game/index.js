@@ -41,7 +41,7 @@ class CommentGame extends React.Component {
             comentario  : comment,
         })
         .then(response => {
-            const {guardado, fecha, codigo_comentario, jugador, codigo_jugador, foto_usuario} = response;
+            const {guardado, fecha, codigo_comentario, jugador, codigo_jugador, foto} = response;
             if(guardado) {
                 this.props.onSaveComment({
                     comentario: comment,
@@ -49,7 +49,7 @@ class CommentGame extends React.Component {
                     codigo_comentario,
                     jugador_seudonimo : jugador,
                     codigo_jugador,
-                    foto_usuario,
+                    foto,
                 });
             } else {
                 consoleError("Guardar comentario", response);

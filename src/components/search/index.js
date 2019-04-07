@@ -2,7 +2,7 @@ import React from 'react';
 import {
     View,
 } from 'react-native';
-import { withSearch } from '../../providers';
+import { withSearch, withGames } from '../../providers';
 import PropTypes from 'prop-types';
 // import Pager from './Pager';
 import Results from './Results';
@@ -17,6 +17,8 @@ class SearchComponent extends React.Component {
     };
     componentDidMount() {
         this.fetchGames();
+        if(this.props.myGames.length === 0)
+            this.props.fetchMyGames(this.props.userCode); 
     }
 
     fetchGames() {
@@ -70,16 +72,26 @@ class SearchComponent extends React.Component {
         this.props.navigation.navigate("PlayerProfile", {playerCode, playerAlias});
     }
 
+    isInGame({codigo_juego}) {
+        const gameFound = this.props.myGames.find(item => item.codigo_juego === codigo_juego);    
+        return gameFound !== undefined;
+    }
+
     render() {
         const {
             loading,            
         } = this.state;
+        const { 
+            userCode,
+        } = this.props;
         const results = this.getFilteredList() || [];
         return (
             <>
                 <Results
-                    loading         = { loading } 
-                    results         = { results }
+                    userCode        = { userCode }
+                    loading         = { loading  } 
+                    results         = { results  }
+                    isInGame        = { this.isInGame.bind(this)        }
                     onSelectItem    = { this.onSelectResult.bind(this)  }
                     onJoinToGame    = { this.joinToGame.bind(this)      }
                     onRefresh       = { () => this.refreshGames()       }
@@ -102,6 +114,9 @@ SearchComponent.propTypes = {
     selectGame          : PropTypes.func,
     setSelectedGame     : PropTypes.func,
     navigation          : PropTypes.object.isRequired,
+    myGames             : PropTypes.array,
+    userCode            : PropTypes.any,
+
 };
 
-export default withSearch(SearchComponent);
+export default withSearch(withGames(SearchComponent));

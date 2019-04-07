@@ -15,16 +15,16 @@ import {
 } from 'native-base';
 import moment from 'moment';
 import { LoadingSpinner, } from '../../commons/loaders';
-import {DEFAULT_USER_IMG} from 'react-native-dotenv';
+import {DEFAULT_USER_IMG, IMAGES_SERVER} from 'react-native-dotenv';
 
-const Comment = ({jugador_seudonimo, foto_usuario, comentario, fecha}) => {
+const Comment = ({jugador_seudonimo, foto, comentario, fecha}) => {
     const formattedDate = moment(fecha).format("YY/MM/DD HH:MM");
     return (
         <ListItem avatar style={styles.comment} noBorder> 
             <Left>
                 {/* foto_usuario && (<Thumbnail style={{width : 35, height :35}} source={{uri : foto_usuario}}/>) */}
                 {/* !foto_usuario && <View style={styles.iconUser}><Icon name="user" size={20}/></View> */}
-                <Thumbnail source={{uri : DEFAULT_USER_IMG}} />
+                <Thumbnail source={{uri : foto? `${IMAGES_SERVER}${foto}` : DEFAULT_USER_IMG}} />
             </Left>
             <Body>
                 <Text style={styles.userName}>{jugador_seudonimo}</Text>

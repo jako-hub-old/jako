@@ -74,9 +74,9 @@ class CommentGame extends React.Component {
             <Form style={styles.root}>
                 <View style={styles.mainWrapper}>
                     <View style={styles.textWrapper}>
-                        <Item >
+                        <Item style = { {underline : "transparent", borderColor : "transparent"} }>
                             <Input
-                                autoFocus 
+                                borderBottomColor = "transparent"
                                 ref             = { node => setCommentRef(node) }
                                 placeholder     = { "Comentar sobre este juego..." } 
                                 value           = { comment }

@@ -66,7 +66,7 @@ const MainNavigator = createBottomTabNavigator({
     ContactTab  : createTabOptions(ContactNavigator, 'question-circle'),
 }, {
     shifting            : true,
-    initialRouteName    : "SearchTab",
+    initialRouteName    : "MyGamesTab",
     activeColor         : "white",
     labeled             : false,
     barStyle : {

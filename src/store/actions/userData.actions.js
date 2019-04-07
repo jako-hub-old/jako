@@ -3,11 +3,17 @@ import endpoints from "../../configs/endpoints";
 import { addMessage, consoleError } from "../../utils/functions";
 
 export const SET_MY_FRIENDS = '[USER_DATA] SET_MY_FRIENDS';
+export const SET_USER_DATA  = '[USER_DATA] SET_USER_DATA';
 
 export const setMyFriends = (friends=[]) => ({
     type : SET_MY_FRIENDS,
     friends,
-})
+});
+
+export const setUserData = (userData) => ({
+    type : SET_USER_DATA,
+    userData,
+});
 
 /***************************
  ***** Async functions *****

@@ -22,6 +22,7 @@ export default {
         buscar : '/v1/jugador/buscar',
         amigos : '/v1/jugador/amigos',
         detalle : '/v1/jugador/detalle',
+        guardarFoto : '/v1/jugador/guardar/foto',
     },
     jugaor_solicitud : {
         pendiente   : '/v1/jugador/solicitud/pendiente',

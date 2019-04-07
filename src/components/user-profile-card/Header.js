@@ -16,15 +16,20 @@ const palette = stylesPalette();
  * This component only renders the profile view.
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
  */
-const Header = ({photo, fullName, alias, disableUpload}) => (
+const Header = ({photo, fullName, alias, disableUpload, onSelectImage}) => (
     <View style = { styles.root }>
         <View style = { styles.contentWrapper}>
             <View style = {styles.picWrapper}>
                 <View style = { styles.thumbWrapper }>
-                    <Thumbnail source={{uri : photo || DEFAULT_USER_IMG}} />
+                    <Thumbnail style = { {width : "100%", height : "100%", borderRadius : 50} } source={{uri : photo || DEFAULT_USER_IMG}} />
                     {!disableUpload && (
                         <View style={styles.buttonTip}>
-                            <IconButton icon = "camera" small color = { "#FFF" } />
+                            <IconButton 
+                                onPress = { onSelectImage } 
+                                icon    = "camera" 
+                                color   = { "#FFF" } 
+                                small 
+                            />
                         </View>
                     )}
                 </View>
@@ -54,14 +59,18 @@ const styles = StyleSheet.create({
         justifyContent  : "center",
     },
     thumbWrapper : {
-        padding         : 10,
+        height : 80,
+        width : 80,
+        margin : 15,
+        justifyContent : "center",
+        alignItems : "center",
         backgroundColor : "#f2f2f2",
         borderRadius    : 50,
     },    
     buttonTip : {
         position : "absolute",
-        left     : "80%",
-        top      : "80%",
+        left     : "60%",
+        top      : "60%",
         backgroundColor : palette.primary.color,
         borderRadius : 50,
     },
@@ -81,6 +90,8 @@ Header.propTypes = {
     fullName        : PropTypes.string,
     alias           : PropTypes.string,
     disableUpload   : PropTypes.bool,
+    onSelectImage   : PropTypes.func,
+    photo           : PropTypes.string,
 };
 
 export default Header;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { withApi, withSession } from '../../providers';
+import { withApi, withSession, withUserData } from '../../providers';
 import PropTypes from 'prop-types';
 import { consoleError, addMessage } from '../../utils/functions';
 import endpoints from '../../configs/endpoints';
@@ -32,11 +32,16 @@ class UserInfoVerifier extends React.Component {
         .then(response => {
             const {error_controlado, validacion, error} = response;            
             if(!error_controlado && !error && !validacion) {
-                const {seudonimo} = response;
+                const {seudonimo, foto} = response;
                 this.props.sessionWrite("user_info", response);
                 if(!seudonimo) {
                     this.setState({
                         pseudonymHelper : true
+                    });
+                } 
+                if(foto) {
+                    this.props.setUserData({
+                        photo : foto,
                     });
                 }
             } else if(validacion) {
@@ -92,4 +97,4 @@ UserInfoVerifier.propTypes = {
     logout          : PropTypes.func,
 };
 
-export default withApi(withSession(UserInfoVerifier));
+export default withApi(withSession(withUserData(UserInfoVerifier)));

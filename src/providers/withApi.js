@@ -22,6 +22,7 @@ export const propTypes = {
     doPost          : PropTypes.func,
     doGet           : PropTypes.func,
     userCode        : PropTypes.any,
+    upload          : PropTypes.func,
 };
 /**
  * This Wrapper provides the functions to execute ajax requests.
@@ -32,6 +33,10 @@ export default WrappedComponent => (connect(mapStateToProps, mapDispatchToProps)
 
         doPost(path, data={}) {
             return Api.doPost(path, data);
+        }
+
+        uploadFile(path, formData) {
+            return Api.uploadFile(path, formData);
         }
     
         doGet(path) {
@@ -44,6 +49,7 @@ export default WrappedComponent => (connect(mapStateToProps, mapDispatchToProps)
                     {...this.props}
                     doPost = {  (p, d) => this.doPost(p, d)     }
                     doGet  = {  p => this.doGet(p)              }
+                    upload = { (p, d) => this.uploadFile(p, d) }
                 />
             )
         }

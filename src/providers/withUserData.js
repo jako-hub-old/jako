@@ -2,21 +2,24 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchMyFriends } from '../store/actions/userData.actions';
+import { fetchMyFriends, setUserData, } from '../store/actions/userData.actions';
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
     fetchMyFriends,
+    setUserData,
 }, dispatch);
 
-const mapStateToProps = ({session:{userCode}, userData:{friends}}) => ({
+const mapStateToProps = ({session:{userCode}, userData}) => ({
     userCode,
-    friends,
+    ...userData,
 });
 
 export const propTypes = {
     fetchMyFriends  : PropTypes.func,
     userCode        : PropTypes.any,
+    setUserData     : PropTypes.func,
     friends         : PropTypes.array,
+    photo           : PropTypes.string,
 };
 
 /**

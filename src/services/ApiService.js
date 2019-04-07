@@ -69,6 +69,19 @@ class ApiService {
             });
         });
     }
+
+    uploadFile(path, formData) {
+        return new Promise((resolve, reject) => {
+            const url = `${ API_SERVER }${path}`;
+            fetch(url, {
+                method : "POST",
+                body : formData,
+            })
+            .then(response => response.json())
+            .then(response => resolve(response))
+            .catch(response => reject(response));
+        });
+    }
 };
 
 export const Api = new ApiService();

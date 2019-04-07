@@ -1,8 +1,11 @@
 package com.jakoapp;
 
+import android.Manifest;
 import android.app.Application;
+import android.support.v4.app.ActivityCompat;
 
 import com.facebook.react.ReactApplication;
+import com.imagepicker.ImagePickerPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import cl.json.RNSharePackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
@@ -32,6 +35,7 @@ public class MainApplication extends Application implements ReactApplication, Sh
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ImagePickerPackage(),
             new LinearGradientPackage(),
             new RNSharePackage(),
             new AsyncStoragePackage(),

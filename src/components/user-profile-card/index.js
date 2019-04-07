@@ -68,6 +68,7 @@ class UserProfileCard extends React.Component {
                 error = "Ocurrió un error al obtener la información del usuario";
             } else {
                 userInfo = response[0];
+                console.log(response);
             }
             this.setState({
                 userInfo,
@@ -122,18 +123,27 @@ class UserProfileCard extends React.Component {
              userInfo : { 
                 nombre_corto,
                 seudonimo,
+                foto,
              },
              loadingFriends,
-             friends=[],
+             friends=[],             
          } = this.state;
-        const { disableUpload } = this.props;        
+        const { 
+            disableUpload, 
+            openImagePicker,
+            userPhoto,
+            me,
+        } = this.props;        
         const userInfo = this.renderUserInfo();
+        console.log("foto: ", foto);
         return (
             <>
                 <Header 
-                    fullName        = { nombre_corto }
-                    alias           = { seudonimo    }
-                    disableUpload   = { disableUpload }
+                    photo           = { me? userPhoto :  foto }
+                    fullName        = { nombre_corto    }
+                    alias           = { seudonimo       }
+                    disableUpload   = { disableUpload   }
+                    onSelectImage   = { openImagePicker }
                 />
                 <CommonTabs 
                     id      = "user-tabs"
@@ -193,6 +203,9 @@ UserProfileCard.propTypes = {
     fetchMyFriends  : PropTypes.func,
     friends         : PropTypes.array,
     fromOtherUser   : PropTypes.bool,
+    openImagePicker : PropTypes.func,
+    userPhoto       : PropTypes.string,
+    me              : PropTypes.bool,
 };
 
 export default withApi(withUserData(UserProfileCard));

@@ -13,6 +13,8 @@ import {
     StyleSheet,
 } from 'react-native';
 import { CommonTabs } from '../../commons/others';
+import { IMAGES_SERVER, DEFAULT_USER_IMG } from 'react-native-dotenv';
+
 
 const ErrorMessage = ({message}) => (
     <View style = { styles.error }>
@@ -135,11 +137,11 @@ class UserProfileCard extends React.Component {
             me,
         } = this.props;        
         const userInfo = this.renderUserInfo();
-        console.log("foto: ", foto);
+        console.log(IMAGES_SERVER, foto);
         return (
             <>
                 <Header 
-                    photo           = { me? userPhoto :  foto }
+                    photo           = { me? userPhoto :  (foto? `${IMAGES_SERVER}${foto}` :  DEFAULT_USER_IMG) }
                     fullName        = { nombre_corto    }
                     alias           = { seudonimo       }
                     disableUpload   = { disableUpload   }
@@ -148,8 +150,9 @@ class UserProfileCard extends React.Component {
                 <CommonTabs 
                     id      = "user-tabs"
                     tabs    = { [
+                        {label : "Información", component : userInfo},                        
                         {
-                            label : `Amigos (${friends.length})`, 
+                            label : "Amigos", 
                             component : (
                                 <FriendsList 
                                     fetchFriends    = { () => { this.fetchMyFriends() } } 
@@ -159,7 +162,6 @@ class UserProfileCard extends React.Component {
                                 />
                             )
                         },
-                        {label : "Información", component : userInfo},                        
                     ] }
                 />
             </>

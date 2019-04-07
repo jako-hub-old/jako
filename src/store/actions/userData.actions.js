@@ -4,6 +4,7 @@ import { addMessage, consoleError } from "../../utils/functions";
 
 export const SET_MY_FRIENDS = '[USER_DATA] SET_MY_FRIENDS';
 export const SET_USER_DATA  = '[USER_DATA] SET_USER_DATA';
+export const SET_USER_VERIFIED = '[USER_DATA] SET_USER_VERIFIED';
 
 export const setMyFriends = (friends=[]) => ({
     type : SET_MY_FRIENDS,
@@ -13,6 +14,11 @@ export const setMyFriends = (friends=[]) => ({
 export const setUserData = (userData) => ({
     type : SET_USER_DATA,
     userData,
+});
+
+export const setVerified = (verified) => ({
+    type : SET_USER_VERIFIED,
+    verified,
 });
 
 /***************************

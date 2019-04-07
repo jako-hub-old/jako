@@ -11,7 +11,7 @@ import { PermissionsAndroid } from 'react-native';
 import { withSession, withApi, withUserData } from '../../providers';
 import { consoleError, addMessage } from '../../utils/functions';
 import endpoints from '../../configs/endpoints';
-
+import { IMAGES_SERVER } from 'react-native-dotenv';
 /**
  * This component handles the user profile actions.
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
@@ -84,7 +84,7 @@ class MyProfileComponent extends React.Component {
                     addMessage("Ocurrió un error al guardar la imagen");
                 } else if(response !== false){
                     this.props.setUserData({
-                        photo : response + '?t=' + (new Date()).getTime(),
+                        photo : `${IMAGES_SERVER}${response}`,
                     });
                 } else {
                     addMessage("Ocurrió un error al guardar la imagen");

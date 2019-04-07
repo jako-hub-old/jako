@@ -34,9 +34,35 @@ const ListComponent = (props) => {
         onRefresh,
         loading,
     } = props;
+    let content = null;
     if(games.length === 0) {
-        return (<EmptySet goToSearch={goToSearch} />);
+        content = (<EmptySet goToSearch={goToSearch} />);
+    } else {
+        content = (
+            <>
+                <View style={styles.root}>
+                    {Array.isArray(games) && games.map((item, key) => (
+                        <Item
+                            item            = { item                   }
+                            key             = { `my-games-item-${key}` }
+                            onSelect        = { () => onSelectGame? onSelectGame(item) : null   }
+                            onViewProfile   = { () => onViewProfile? onViewProfile(item) : null }
+                        />
+                    ))}
+                </View>
+                <View style={styles.inviteToSearch}>
+                    <View style={{flex :1, alignItems :"center"}}>
+                        <Text note>También puedes buscar juegos y unirte</Text>                
+                        <IconButton
+                            icon="search"
+                            onPress = {() => goToSearch()}
+                        />
+                    </View>
+                </View>
+            </>
+        );
     }
+
     return (
         <ScrollView
             refreshControl  = {(
@@ -46,25 +72,7 @@ const ListComponent = (props) => {
                 />
             )}
         >            
-            <View style={styles.root}>
-                {Array.isArray(games) && games.map((item, key) => (
-                    <Item
-                        item            = { item                   }
-                        key             = { `my-games-item-${key}` }
-                        onSelect        = { () => onSelectGame? onSelectGame(item) : null   }
-                        onViewProfile   = { () => onViewProfile? onViewProfile(item) : null }
-                    />
-                ))}
-            </View>
-            <View style={styles.inviteToSearch}>
-                <View style={{flex :1, alignItems :"center"}}>
-                    <Text note>También puedes buscar juegos y unirte</Text>                
-                    <IconButton
-                        icon="search"
-                        onPress = {() => goToSearch()}
-                    />
-                </View>
-            </View>
+            { content }
         </ScrollView>
     );
 }

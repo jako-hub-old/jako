@@ -7,7 +7,7 @@ import {
     Toast,
 } from 'native-base';
 import PseudonymHelper from './PseudonymHelper';
-
+import { IMAGES_SERVER } from 'react-native-dotenv';
 
 class UserInfoVerifier extends React.Component {
     state = {
@@ -25,7 +25,8 @@ class UserInfoVerifier extends React.Component {
     }
 
     getUserInfo() {
-        const {userCode} = this.props.sessionStack;
+        const {userCode} = this.props.sessionStack; 
+        if(this.props.verified) { return false; }
         this.props.doPost(endpoints.usuarios.informacion, {
             codigo_usuario : userCode,
         })
@@ -41,7 +42,7 @@ class UserInfoVerifier extends React.Component {
                 } 
                 if(foto) {
                     this.props.setUserData({
-                        photo : foto,
+                        photo : `${IMAGES_SERVER}${foto}`,
                     });
                 }
             } else if(validacion) {

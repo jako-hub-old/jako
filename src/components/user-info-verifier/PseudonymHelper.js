@@ -12,7 +12,7 @@ import {
     Input,
     Label,
 } from 'native-base';
-import { SubmitButton } from '../../commons/buttons';
+import { SubmitButton } from '../../commons/forms';
 import { replaceSpaces, consoleError, addMessage, isValidEmail } from '../../utils/functions';
 import { withApi } from '../../providers';
 import endpoints from '../../configs/endpoints';

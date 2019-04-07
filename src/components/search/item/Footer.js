@@ -28,7 +28,7 @@ const RenderIcon = ({iconName}) => (
  * This component renders the footer of an item
  * @param {*} param0 
  */
-const Footer = ({onLike, onViewProfile, liked, user, gameCode}) => {
+const Footer = ({onLike, onViewProfile, liked, user, onAdd, gameCode}) => {
     const likeButtonStyles = {
         ...styles.defaultIcon,
         ...(liked? styles.buttonLikePressed : {}),
@@ -42,8 +42,11 @@ const Footer = ({onLike, onViewProfile, liked, user, gameCode}) => {
                 <TouchableOpacity style={styles.buttonLink} transparent onPress={onViewProfile}>
                     <Text>{user}</Text>
                 </TouchableOpacity>
-            </View>
+            </View>            
             <View style = {styles.buttonsWrapper}>
+                <Button style={styles.button} transparent onPress={onAdd}>
+                    <Icon name="user-plus" size={20}/>
+                </Button>
                 <Button style={styles.button} transparent onPress={onLike}>
                     <Icon 
                         name="heart" 
@@ -76,7 +79,7 @@ const styles = StyleSheet.create({
         marginHorizontal    : 5,
     },
     profileButton : {
-        flex : 2,
+        flex : 1,
         flexDirection : "row",
         alignItems : "center",
         justifyContent : "flex-end",

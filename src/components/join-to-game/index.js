@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import ItemCard from './item-card';
 import JoinForm from './JoinForm';
-import { withApi, withPositions } from '../../providers';
+import { withApi, withPositions, withGames } from '../../providers';
 import { consoleError, addMessage, consoleInfo } from '../../utils/functions';
 import endpoints from '../../configs/endpoints';
 
@@ -85,7 +85,11 @@ class JoinToGameComponent extends React.Component {
                 addMessage(validacion);
             } else {
                 addMessage(`Te haz unido a ${nombre}`);
-                this.props.navigation.navigate("MyGames");
+                this.props.fetchMyGames(jugador);
+                this.props.navigation.goBack(null);
+                setTimeout(() => {
+                    this.props.navigation.navigate("MyGames");
+                }, 100);
             }
             this.props.stopLoading();
         })
@@ -137,8 +141,9 @@ JoinToGameComponent.propTypes = {
     doPost          : PropTypes.func,
     doGet           : PropTypes.func,
     userCode        : PropTypes.any,
-    fetchPositions    : PropTypes.func,
-    positions         : PropTypes.array,
+    fetchPositions  : PropTypes.func,
+    positions       : PropTypes.array,
+    fetchMyGames    : PropTypes.func,
 };
 
-export default withApi(withPositions(JoinToGameComponent));
+export default withApi(withPositions(withGames(JoinToGameComponent)));

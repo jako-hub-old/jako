@@ -117,7 +117,7 @@ class GameDetailComponent extends React.Component {
         const focusOnInput = () => {
             setTimeout(() => {
                 this.commentRef._root.focus();            
-            }, 500);
+            }, 1200);
         };
         if(this.currentTab === 1) {
             this.setState({

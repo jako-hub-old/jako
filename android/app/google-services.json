@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "336191337246",
+    "firebase_url": "https://jakoapp-5a1b4.firebaseio.com",
+    "project_id": "jakoapp-5a1b4",
+    "storage_bucket": "jakoapp-5a1b4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:336191337246:android:636094c9830c3cbb",
+        "android_client_info": {
+          "package_name": "com.jakoapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "336191337246-ekdp78qf5932h42ml8ur04526lnqn4t3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqFgNAxknUM7Phjz6oJRTE_jGxIPULTlc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "336191337246-ekdp78qf5932h42ml8ur04526lnqn4t3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

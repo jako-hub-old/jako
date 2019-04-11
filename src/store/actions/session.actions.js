@@ -156,6 +156,7 @@ export const login = ({user, imei, userCode, crearJuego}) => dispatch => (new Pr
         .then((saved) => {
             if(saved) {
                 dispatch(setAllSessionVars({
+                    logged : true,
                     user,
                     imei,
                     userCode,

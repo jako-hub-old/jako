@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withSession } from '../providers';
+import { withSession, withApi } from '../providers';
 import firebase from 'react-native-firebase';
 import { addMessage } from '../utils/functions';
+import endpoints from '../configs/endpoints';
 
 class FirebaseManager extends React.PureComponent {
 
@@ -92,12 +93,34 @@ class FirebaseManager extends React.PureComponent {
             if(fcmToken) {
                 this.props.sessionWrite("firebaseData", {...firebaseData, fcmToken});
                 this.printMessage("Token stored!");
+                this.saveToken(fcmToken);
             } else {
                 this.printMessage("Cannot get the token");
             }
         } else {
             this.printMessage("Token available");
         }
+        console.log(fcmToken);        
+    }
+
+    saveToken(token) {
+        const {userCode:usuario} = this.props;
+        this.props.doPost(endpoints.usuarios.guardarTokenFCM, {
+            usuario,
+            token,
+        })
+        .then(response => {
+            const {error, error_controlado} = response;
+            if(error || error_controlado) {
+                addMessage("Ocurrió un error inesperado");
+                console.log(response);
+            } else {
+                console.log("Se almacenó correctamente el token de fb");
+            }
+        })
+        .catch(() => {
+            addMessage("Ocurrió un error inesperado");
+        });
     }
 
     /**
@@ -115,12 +138,7 @@ class FirebaseManager extends React.PureComponent {
     }
 
     render () {
-        const {children} = this.props;
-        return (
-            <>
-                {children}
-            </>
-        );
+        return null;
     }
 }
 
@@ -128,6 +146,8 @@ FirebaseManager.propTypes = {
     sessionWrite        : PropTypes.func,
     sessionWriteAll     : PropTypes.func,
     sessionStack        : PropTypes.object,
+    userCode        : PropTypes.any,
+    doPost          : PropTypes.func,
 };
 
-export default withSession(FirebaseManager);
+export default withSession(withApi(FirebaseManager));

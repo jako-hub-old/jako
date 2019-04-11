@@ -14,26 +14,20 @@ const AppContainer = createAppContainer(AppNavigator);
 const mapStateToProps = ({global, session}) => ({
     loading : global.loadingState,
     reading : session.reading,
+    logged  : session.logged,
 });
 
-class AppComponent extends React.Component {
-
+class AppComponent extends React.PureComponent {
     componentDidMount() {
         store.dispatch(initializeSession());
-    }
-    
+    }    
     render() {
-        const {loading, reading} = this.props;
+        const {loading, reading, logged} = this.props;
+        if(reading) return (<AppSplash />);
         return (
             <>
-            {!reading && (
-                <FirebaseManager>
-                    <AppContainer/>
-                </FirebaseManager>
-            )}      
-            {reading && (
-                <AppSplash />
-            )}
+                <AppContainer/>
+                { (!reading && logged) && (<FirebaseManager />) }
                 {loading && (<ModalLoader />)}
             </>
         );

@@ -8,6 +8,7 @@ import com.facebook.react.ReactApplication;
 import io.invertase.firebase.RNFirebasePackage;
 import io.invertase.firebase.messaging.RNFirebaseMessagingPackage; // <-- Add this line
 import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage; // <-- Add this line
+import io.invertase.firebase.functions.RNFirebaseFunctionsPackage; // <-- Add this line
 import com.imagepicker.ImagePickerPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import cl.json.RNSharePackage;
@@ -41,6 +42,7 @@ public class MainApplication extends Application implements ReactApplication, Sh
             new RNFirebasePackage(),
             new RNFirebaseMessagingPackage(), // <-- Add this line
             new RNFirebaseNotificationsPackage(), // <-- Add this line
+            new RNFirebaseFunctionsPackage(), // <-- Add this line
             new ImagePickerPackage(),
             new LinearGradientPackage(),
             new RNSharePackage(),

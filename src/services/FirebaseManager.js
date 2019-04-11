@@ -2,14 +2,61 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withSession } from '../providers';
 import firebase from 'react-native-firebase';
+import { addMessage } from '../utils/functions';
 
 class FirebaseManager extends React.PureComponent {
 
     componentDidMount() {
         this.checkpermission();
+        this.createNotificationListeners();
     }
 
     componentWillUnmount() {
+    }
+
+    //Remove listeners allocated in createNotificationListeners()
+    componentWillUnmount() {
+        this.notificationListener();
+        this.notificationOpenedListener();
+    }
+
+    async createNotificationListeners() {
+        /**
+         * This function triggers a simple notification in the application in foreground.
+         */
+        this.notificationListener = firebase.notifications().onNotification(notification => {
+            const {title, body} = notification;
+            this.showAlert(title, body);
+        });
+
+        /**
+         * If your application is in background you can listen for when a notification is tapped.
+         */
+        this.notificationOpenedListener = firebase.notifications().onNotificationOpened(notificationOpen => {
+            const { title, body } = notificationOpen.notification;
+            this.showAlert(title, body);
+        });
+
+        /**
+         * if the application is closed, you can check if it was opened by a notification.
+         */
+        const notificationOpen = await firebase.notifications().getInitialNotification();
+        if (notificationOpen) {
+            const { title, body } = notificationOpen.notification;
+            //this.showAlert(title, body);
+        }
+
+       /*
+        * Triggered for data only payload in foreground
+        * */
+        this.messagelistener = firebase.messaging().onMessage((message) => {
+            console.log("Backgroun message: ", message);
+        });
+    }
+
+
+    showAlert(title, body) {
+        addMessage(`${title} : ${body}`);
     }
     
     /**

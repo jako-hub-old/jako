@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import { createAppContainer } from 'react-navigation';
-import { Provider as ReduxProvider } from 'react-redux';
 import store from './src/store/store';
-import { Root } from 'native-base';
 import AppNavigator from './src/configs/navigators';
-const AppContainer = createAppContainer(AppNavigator);
+import { Provider as ReduxProvider } from 'react-redux';
+import { Root } from 'native-base';
 import { connect } from 'react-redux';
-import ModalLoader from './src/commons/loaders/ModalLoader';
 import { initializeSession } from './src/store/actions/session.actions';
+import { FirebaseManager } from './src/services';
+import { AppSplash, ModalLoader } from './src/commons/loaders';
 
-const mapStateToProps = ({global}) => ({
+const AppContainer = createAppContainer(AppNavigator);
+
+const mapStateToProps = ({global, session}) => ({
     loading : global.loadingState,
+    reading : session.reading,
 });
 
 class AppComponent extends React.Component {
@@ -20,10 +23,17 @@ class AppComponent extends React.Component {
     }
     
     render() {
-        const {loading} = this.props;
+        const {loading, reading} = this.props;
         return (
             <>
-                <AppContainer/>
+            {!reading && (
+                <FirebaseManager>
+                    <AppContainer/>
+                </FirebaseManager>
+            )}      
+            {reading && (
+                <AppSplash />
+            )}
                 {loading && (<ModalLoader />)}
             </>
         );
@@ -41,7 +51,7 @@ export default class App extends Component {
     render() {
         return (
             <ReduxProvider store={store}>
-                <Root>
+                <Root>                    
                     <AppWrapper/>
                 </Root>
             </ReduxProvider>

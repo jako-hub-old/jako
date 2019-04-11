@@ -10,6 +10,7 @@ const defaultState = {
     logged          : false,
     reading         : true,
     data            : null,
+    firebaseData    : {},
 };
 
 /**

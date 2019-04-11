@@ -10,15 +10,21 @@ class FirebaseManager extends React.PureComponent {
     componentDidMount() {
         this.checkpermission();
         this.createNotificationListeners();
+        this.onTokenRefreshListener = firebase.messaging().onTokenRefresh(token => this.refreshToken(token));
     }
 
-    componentWillUnmount() {
-    }
 
     //Remove listeners allocated in createNotificationListeners()
     componentWillUnmount() {
         this.notificationListener();
         this.notificationOpenedListener();
+        this.onTokenRefreshListener();
+    }
+
+    refreshToken(fcmToken) {
+        const {firebaseData} = this.props.sessionStack;
+        this.props.sessionWrite("firebaseData", {...firebaseData, fcmToken});
+        this.saveToken(fcmToken);
     }
 
     async createNotificationListeners() {

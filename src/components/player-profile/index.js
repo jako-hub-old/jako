@@ -18,6 +18,7 @@ class PlayerProfile extends React.Component {
                     disableUpload 
                     playerCode  = { playerCode } 
                     navigation  = { navigation }
+                    isPlayer
                 />
             </View>
         );

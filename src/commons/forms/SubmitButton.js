@@ -4,7 +4,7 @@ import { Button } from 'native-base';
 import stylesPalette from "../../utils/stylesPalette";
 import PropTypes from 'prop-types';
 
-const SubmitButton = ({label, disabled, primary, ...otherProps}) => {
+const SubmitButton = ({label, disabled, primary, children, ...otherProps}) => {
     const theStyles = {
         ...styles.btnRoot,
         ...(disabled? styles.disabled : {}),
@@ -13,7 +13,7 @@ const SubmitButton = ({label, disabled, primary, ...otherProps}) => {
     return (
         <Button style={theStyles} {...otherProps} rounded disabled  = { disabled } block >
             <Text style={((primary) && !disabled)? {color : "#FFF"} : {}}>
-                {label}
+                {label||children}
             </Text>
         </Button>
     );

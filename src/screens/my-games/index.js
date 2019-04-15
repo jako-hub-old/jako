@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {_t} from "../../configs/dictionary";
 import { MyGamesComponent } from "../../components";
 import { FabButton }  from '../../commons/buttons';
-import { withSession, withSearch } from '../../providers';
+import { withSession, withSearch, withUserData } from '../../providers';
 import { Linking } from 'react-native';
 import { consoleError, resolveUrl } from '../../utils/functions';
 
@@ -13,6 +13,10 @@ import { consoleError, resolveUrl } from '../../utils/functions';
  */
 class MyGamesScreen extends React.PureComponent {
     componentDidMount() {
+        // Fetch the user friends
+        const {userCode, fetchMyFriends,} = this.props;
+        fetchMyFriends(userCode).then(() => null).catch(() => null);
+
         Linking.getInitialURL().then(url => {
             if(url) {
                 setTimeout(() => {
@@ -50,4 +54,4 @@ MyGamesScreen.propTypes = {
     selectGame      : PropTypes.func,
 };
 
-export default withSession(withSearch(MyGamesScreen));
+export default withSession(withSearch(withUserData(MyGamesScreen)));

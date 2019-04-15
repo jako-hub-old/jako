@@ -9,6 +9,7 @@ import {
 import { StyleSheet       }       from 'react-native';
 import { DEFAULT_USER_IMG }   from 'react-native-dotenv';
 import { IconButton       }      from '../../commons/forms';
+import { CancelFriendshipButton } from '../../commons/buttons';
 
 const palette = stylesPalette();
 
@@ -16,7 +17,7 @@ const palette = stylesPalette();
  * This component only renders the profile view.
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
  */
-const Header = ({photo, fullName, alias, disableUpload, onSelectImage}) => (
+const Header = ({photo, fullName, alias, isFriend, isPlayer, playerCode, disableUpload, onSelectImage, userFriends}) => (
     <View style = { styles.root }>
         <View style = { styles.contentWrapper}>
             <View style = {styles.picWrapper}>
@@ -33,11 +34,16 @@ const Header = ({photo, fullName, alias, disableUpload, onSelectImage}) => (
                         </View>
                     )}
                 </View>
-            </View>
+            </View>            
             <View style = { styles.userInfo }>
                 <Text>{fullName}</Text>
                 {alias && (<Text style = { styles.alias }>({alias})</Text>)}
             </View>
+            {isPlayer && isFriend && (
+                <View styles = { styles.firendshipButton }>
+                    <CancelFriendshipButton playerCode = { playerCode } />
+                </View>
+            )}
         </View>
     </View>
 );
@@ -48,6 +54,11 @@ const styles = StyleSheet.create({
         borderBottomWidth   : 1,
         borderBottomColor   : "#f2f2f2",
         paddingBottom       : 15,
+    },
+    firendshipButton : {
+        flexDirection   : "row", 
+        justifyContent : "center", 
+        alignItems : "center",
     },
     contentWrapper : {
         flex            : 1,
@@ -92,6 +103,9 @@ Header.propTypes = {
     disableUpload   : PropTypes.bool,
     onSelectImage   : PropTypes.func,
     photo           : PropTypes.string,
+    isPlayer        : PropTypes.bool,
+    isFriend        : PropTypes.bool,
+    playerCode      : PropTypes.any,
 };
 
 export default Header;

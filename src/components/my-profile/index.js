@@ -97,7 +97,7 @@ class MyProfileComponent extends React.Component {
     }
 
     render() {
-        const { sessionStack:{userCode}, navigation, photo } = this.props;
+        const { userCode, navigation, photo } = this.props;
         return (
             <View style = { styles.root }>
                 <UserProfileCard 

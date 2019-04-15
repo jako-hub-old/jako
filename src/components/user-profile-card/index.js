@@ -62,6 +62,9 @@ class UserProfileCard extends React.Component {
 
     componentDidMount() {
         this.fetchUserInfo();
+        if(this.props.isPlayer) {
+            this.fetchMyFriends();
+        }
     }
 
     fetchUserInfo() {
@@ -94,8 +97,8 @@ class UserProfileCard extends React.Component {
 
     fetchMyFriends() {
         this.setState({loadingFriends : true});
-        const {playerCode, fromOtherUser} = this.props;
-        this.props.fetchMyFriends(playerCode, fromOtherUser)
+        const {playerCode, isPlayer} = this.props;
+        this.props.fetchMyFriends(playerCode, isPlayer)
             .then( response => {
                 this.setState({loadingFriends : false, friends : response});
             })
@@ -130,6 +133,15 @@ class UserProfileCard extends React.Component {
         this.fetchMyFriends();
     }
 
+    isFriend() {
+        const { 
+            friends,
+            playerCode,
+        } = this.props;
+        const friend = friends.find(friend => friend.codigo_jugador_amigo === playerCode);
+        return Boolean(friend);
+    }
+
     renderCard() {
          const {
              userInfo : { 
@@ -145,6 +157,7 @@ class UserProfileCard extends React.Component {
             openImagePicker,
             userPhoto,
             me,
+            playerCode,
         } = this.props;        
         const userInfo = this.renderUserInfo();
         return (
@@ -155,6 +168,9 @@ class UserProfileCard extends React.Component {
                     alias           = { seudonimo       }
                     disableUpload   = { disableUpload   }
                     onSelectImage   = { openImagePicker }
+                    isPlayer
+                    isFriend        = { this.isFriend() }
+                    playerCode      = { playerCode      }
                 />
                 <CommonTabs 
                     id      = "user-tabs"
@@ -225,6 +241,7 @@ UserProfileCard.propTypes = {
     openImagePicker : PropTypes.func,
     userPhoto       : PropTypes.string,
     me              : PropTypes.bool,
+    isPlayer        : PropTypes.bool,
 };
 
 export default withApi(withUserData(UserProfileCard));

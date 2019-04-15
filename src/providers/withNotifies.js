@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { addNotify, removeNotify, popNotify, viewNotify} from '../store/actions/global.actions';
+import { selectGame } from '../store/actions/search.actions';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import uuid from 'react-native-uuid';
@@ -10,6 +11,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     removeNotify,
     popNotify,
     viewNotify,
+    selectGame,
 }, dispatch);
 
 const mapStateToProps = ({global:{notifications=[]}}) => ({
@@ -26,6 +28,7 @@ export const propTypes = {
         body        : PropTypes.string,
     })),
     viewNotify      : PropTypes.func,
+    selectGame      : PropTypes.func,
 };
 
 export default WrappedComponent => (connect(mapStateToProps, mapDispatchToProps)(

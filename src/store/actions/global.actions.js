@@ -25,9 +25,10 @@ export const popNotify = () => ({
     type : POP_NOTIFY,
 });
 
-export const removeNotify = (id) => ({
+export const removeNotify = (id, read=false) => ({
     type : REMOVE_NOTIFY,
     id,
+    read,
 });
 
 export const viewNotify = ({ id }) => ({

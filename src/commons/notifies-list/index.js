@@ -17,7 +17,7 @@ import { withNotifies, withSearch } from '../../providers';
 import { ModalTop } from '../modals';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-const TYPE_NEW_GAME = 'new-game';
+export const TYPE_NEW_GAME = 'new-game';
 
 const NotifyItem = ({item, isButton, viewNotify, onPress}) => (
     <ListItem 

@@ -9,7 +9,7 @@ const defaultState = {
     someState       : false,
     loadingState    : false,
     notifications   : [
-        //{id : 1, title : "my notify", message : "Hello world!", removed : true, action : true, type : 'new-game', path_data : 50, path : "GameDetail"},
+        {id : 1, title : "my notify", message : "Hello world!", action : true, type : 'new-game', path_data : 50, path : "GameDetail"},
     ],
 };
 
@@ -30,7 +30,10 @@ export default globalReducer = (state = defaultState, action) => {
         case REMOVE_NOTIFY : return ({
             ...state,
             notifications : state.notifications.map((item) => {
-                if(item.id === action.id) item.removed = true;
+                if(item.id === action.id) {
+                    item.removed = true
+                    if(action.read) item.read = true;
+                };
                 return item;
             }),
         });

@@ -8,6 +8,7 @@ import {
 } from 'native-base';
 import Notify from './Notify';
 import { withNotifies } from '../../providers';
+import { TYPE_NEW_GAME } from '../notifies-list';
 
 class NotificationBar extends React.Component {
     state = {
@@ -23,6 +24,25 @@ class NotificationBar extends React.Component {
     getNotifies() {
         return this.props.notifications.filter(item => !item.removed);
     }
+
+    resolveNotify(notify) {
+        const {type="nothing", path_data} = notify;
+        const { navigation } = this.props;
+        onClose = () => {
+            this.props.removeNotify(notify.id, true);
+        };
+        switch(type) {
+            case TYPE_NEW_GAME : {
+                this.props.selectGame({codigo_juego : path_data});
+                navigation.navigate('GameDetail', {});
+                onClose();
+                break;
+            };
+            default : {
+                console.log("Nothing to do with the notification: ", type, notify);
+            };
+        }
+    }
     
     render() {
         const notifications = this.getNotifies();
@@ -34,6 +54,7 @@ class NotificationBar extends React.Component {
                         message     = { notificationToShow.message  }
                         title       = { notificationToShow.title    }
                         onClose     = { () => this.onCloseNotify(notificationToShow) }
+                        onResolve   = { () => this.resolveNotify(notificationToShow) }
                     />
                 )}
             </View>
@@ -51,6 +72,7 @@ const styles = StyleSheet.create({
 });
 
 NotificationBar.propTypes = {
+    navigation      : PropTypes.any,
     notifications   : PropTypes.array, 
     notify          : PropTypes.func,
     removeNotify    : PropTypes.func,

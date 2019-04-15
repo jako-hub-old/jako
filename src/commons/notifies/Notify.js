@@ -8,6 +8,7 @@ import {
 import { 
     StyleSheet,    
     Animated,
+    TouchableOpacity,
 } from 'react-native';
 import { IconButton } from '../forms';
 
@@ -30,7 +31,7 @@ class Notify extends React.PureComponent {
     }
 
     render() {
-        const { title, message, onClose, } = this.props;
+        const { title, message, onClose, onResolve, } = this.props;
         const notifyStyles = [
             styles.notify,
             {
@@ -52,7 +53,7 @@ class Notify extends React.PureComponent {
                         </Text>
                         <Text note>
                             {message}
-                        </Text>
+                        </Text>                        
                     </View>
                     <View style = { styles.actionWrapper }>
                         <IconButton 
@@ -60,7 +61,19 @@ class Notify extends React.PureComponent {
                             size = { 20 }
                             onPress = { onClose }
                         />
-                    </View>
+                    </View>                    
+                </View>
+                <View style = {styles.callToAction}>
+                    <TouchableOpacity 
+                        style = {styles.callToActionButton}
+                        onPress = { onResolve }
+                    >
+                        <View style = {styles.callToActionButton}>
+                            <Text style = { styles.callToActionText }>
+                                Ver
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
             </Animated.View>
         );
@@ -69,7 +82,7 @@ class Notify extends React.PureComponent {
 
 const styles = StyleSheet.create({
     notify : {
-        height : 60,
+        height : 80,
         backgroundColor : "#FFF",
         elevation:4,
         shadowOffset: { width: 5, height: 5 },
@@ -77,6 +90,22 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.5,
         shadowRadius: 10,
         marginHorizontal : 5,
+        borderRadius : 10,
+    },
+    callToAction : {
+        justifyContent : "center",
+        alignItems : "center",
+        flex : 1,
+    },  
+    callToActionButton : {
+        flex : 1,
+        flexDirection : "row",
+        width : "100%",
+        justifyContent : "center",
+    },
+    callToActionText : {
+        textAlign : "center",
+        fontSize : 15,
     },
     iconWrapper : {
         flex : 1,
@@ -110,6 +139,7 @@ Notify.propTypes = {
     message : PropTypes.string,
     title   : PropTypes.string,
     onClose : PropTypes.func,
+    onResolve : PropTypes.func,
 };
 
 export default Notify;

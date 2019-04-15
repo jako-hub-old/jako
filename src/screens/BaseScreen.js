@@ -64,7 +64,7 @@ import { NotificationBar } from '../commons/notifies';
                 )}
                 {children}
                 {isFocused && (<UserInfoVerifier navigation = {navigation}/>)}
-                <NotificationBar />
+                <NotificationBar navigation = { navigation } />
             </>
         )
      }

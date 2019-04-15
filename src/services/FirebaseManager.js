@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withSession, withApi } from '../providers';
+import { withSession, withApi, withNotifies } from '../providers';
 import firebase from 'react-native-firebase';
 import { addMessage } from '../utils/functions';
 import endpoints from '../configs/endpoints';
@@ -33,17 +33,34 @@ class FirebaseManager extends React.PureComponent {
          */
         this.notificationListener = firebase.notifications().onNotification(notification => {
             const {title, body, data} = notification;
-            this.showAlert(title, body);
-            console.log("simple notify", data);
+            this.props.notify({
+                title,
+                message : body,
+                action  : data.action === "yes",
+                type    : data.type,
+                path    : data.path,
+                path_data : data.path_data,
+                property_name : data.property_name,
+            });
         });
 
         /**
          * If your application is in background you can listen for when a notification is tapped.
          */
         this.notificationOpenedListener = firebase.notifications().onNotificationOpened(notificationOpen => {
-            const { title, body, data } = notificationOpen.notification;
-            this.showAlert(title, body);
-            console.log("From background", data, notificationOpen.notification);
+            const data  = notificationOpen.notification.data;
+            const { title, body} = data;
+            setTimeout(() => {
+                this.props.notify({
+                    title,
+                    message : body,
+                    action  : data.action === "yes",
+                    type    : data.type,
+                    path    : data.path,
+                    path_data : data.path_data,
+                    property_name : data.property_name,
+                });
+            }, 1000);
         });
 
         /**
@@ -51,9 +68,18 @@ class FirebaseManager extends React.PureComponent {
          */
         const notificationOpen = await firebase.notifications().getInitialNotification();
         if (notificationOpen) {
-            const { data } = notificationOpen.notification;
-            //this.showAlert(title, body);
-            console.log("it was closed!", data);
+            const { title, body } = notificationOpen.notification.data;
+            setTimeout(() => {
+                this.props.notify({
+                    title,
+                    message : body,
+                    action  : data.action === "yes",
+                    path    : data.path,
+                    type    : data.type,
+                    path_data : data.path_data,
+                    property_name : data.property_name,
+                });
+            }, 1000);
         }
 
        /*
@@ -152,11 +178,20 @@ class FirebaseManager extends React.PureComponent {
 }
 
 FirebaseManager.propTypes = {
+    Navigator           : PropTypes.any,
     sessionWrite        : PropTypes.func,
     sessionWriteAll     : PropTypes.func,
     sessionStack        : PropTypes.object,
     userCode        : PropTypes.any,
     doPost          : PropTypes.func,
+    notify          : PropTypes.func,
+    removeNotify    : PropTypes.func,
+    popNotify       : PropTypes.func,
+    notifies        : PropTypes.arrayOf(PropTypes.shape({
+        id          : PropTypes.any,
+        title       : PropTypes.string,
+        body        : PropTypes.string,
+    })),
 };
 
-export default withSession(withApi(FirebaseManager));
+export default withSession(withApi(withNotifies(FirebaseManager)));

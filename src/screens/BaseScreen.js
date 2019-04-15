@@ -48,7 +48,7 @@ import { NotificationBar } from '../commons/notifies';
          }
      }
      render() {
-        const {navigation, allowBack, children, title, header=true, TitleComponent, isFocused} = this.props;
+        const {navigation, disableNotify, allowBack, children, title, header=true, TitleComponent, isFocused} = this.props;
         
         return (
             <>
@@ -59,6 +59,7 @@ import { NotificationBar } from '../commons/notifies';
                         navigation      = {navigation}
                         title           = {title}
                         TitleComponent  = {TitleComponent}
+                        disableNotify   = { disableNotify }
                     />
                 )}
                 {children}
@@ -76,5 +77,6 @@ BaseScreen.propTypes = {
     allowBack   : PropTypes.bool,
     TitleComponent : PropTypes.any,
     isFocused     : PropTypes.bool,
+    disableNotify : PropTypes.bool
 };
 export default withNavigationFocus(BaseScreen);

@@ -8,6 +8,7 @@ export const SET_LOADING    = '[SET_LOADING] SET_LOADING';
 export const ADD_NOTIFY     = '[GLOBAL] ADD_NOTIFY';
 export const POP_NOTIFY     = '[GLOBAL] POP_NOTIFY';
 export const REMOVE_NOTIFY  = '[GLOBAL] REMOVE_NOTIFY';
+export const VIEW_NOTIFY    = '[GLOBAL] VIEW_NOTIFY';
 
 export const setVar = (key, value) => ({
     type : SET_VAR,
@@ -26,6 +27,11 @@ export const popNotify = () => ({
 
 export const removeNotify = (id) => ({
     type : REMOVE_NOTIFY,
+    id,
+});
+
+export const viewNotify = ({ id }) => ({
+    type : VIEW_NOTIFY,
     id,
 });
 

@@ -21,6 +21,7 @@ class MyProfileScreen extends React.PureComponent {
                 navigation      = {navigation} 
                 title           = {false} 
                 TitleComponent  = {(<SearchFilter />)}
+                disableNotify
             >
                 <View style={styles.root}>
                     <SearchComponent navigation={navigation} />

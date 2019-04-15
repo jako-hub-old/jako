@@ -9,12 +9,13 @@ class GameDetailScreen extends React.PureComponent {
     render() {
         const {
             navigation,
-            selectedGame=this.theGame,
+            selectedGame={},
         } = this.props;
         return (
             <BaseScreen 
                 allowBack
-                navigation={navigation} title={selectedGame? selectedGame.nombre : "Nope"}
+                navigation={navigation} title={selectedGame? (selectedGame.nombre||"Detalle de juego") : "Nope"}
+                disableNotify
             >
                 {selectedGame && (<GameDetailComponent navigation={navigation} selectedGame={selectedGame} />)}
             </BaseScreen>

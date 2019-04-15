@@ -4,12 +4,14 @@ import {
     Body,
     Button,
     Left,
+    Right,
     Title,
 } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { StyleSheet, View, } from 'react-native';
 import PropTypes from 'prop-types';
 import stylesPalette from "../utils/stylesPalette";
+import NotifiesList from './notifies-list';
 
 
 
@@ -22,7 +24,7 @@ import stylesPalette from "../utils/stylesPalette";
  * @returns {*}
  * @constructor
  */
-const MainAppBar = ({allowBack, title="Jako", goBack, TitleComponent=false}) => (
+const MainAppBar = ({allowBack, disableNotify, navigation, title="Jako", goBack, TitleComponent=false}) => (
     <Header
         style={styles.root}
         androidStatusBarColor={palette.primary.variant}
@@ -44,6 +46,11 @@ const MainAppBar = ({allowBack, title="Jako", goBack, TitleComponent=false}) => 
                 {title && (<Title>{title}</Title>)}                
             </Body>
         )}
+        {!disableNotify && (
+            <Right style = { styles.right }>
+                <NotifiesList navigation = { navigation } />
+            </Right>
+        )}
     </Header>
 );
 MainAppBar.propTypes = {
@@ -63,7 +70,11 @@ const styles = StyleSheet.create({
         paddingVertical : 4,
     },
     body : {
+        flex : 5,
         alignItems : "center",
+    },
+    right : {
+        flex : 1,
     },
 });
 

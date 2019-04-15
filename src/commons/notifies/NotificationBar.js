@@ -16,20 +16,16 @@ class NotificationBar extends React.Component {
         ],
     };
 
-    componentDidMount() {
-        /**/
-        setTimeout(() => {
-            this.props.notify({title : "hello", message : "hello"});            
-        }, 1000);
-        
-    }
-
     onCloseNotify({id}) {
         this.props.removeNotify(id);
     }
+
+    getNotifies() {
+        return this.props.notifications.filter(item => !item.removed);
+    }
     
     render() {
-        const {notifications=[]} = this.props;
+        const notifications = this.getNotifies();
         const [notificationToShow] = notifications;
         return (
             <View style = { styles.root }>

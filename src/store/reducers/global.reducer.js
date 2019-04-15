@@ -3,11 +3,14 @@ import {
     SET_LOADING,
     ADD_NOTIFY,
     REMOVE_NOTIFY,
+    VIEW_NOTIFY,
 } from '../actions/global.actions';
 const defaultState = {
     someState       : false,
     loadingState    : false,
-    notifications   : [],
+    notifications   : [
+        //{id : 1, title : "my notify", message : "Hello world!", removed : true, action : true, type : 'new-game', path_data : 50, path : "GameDetail"},
+    ],
 };
 
 export default globalReducer = (state = defaultState, action) => {
@@ -26,8 +29,18 @@ export default globalReducer = (state = defaultState, action) => {
         });
         case REMOVE_NOTIFY : return ({
             ...state,
-            notifications : state.notifications.filter(item => item.id !== action.id),
-        })
+            notifications : state.notifications.map((item) => {
+                if(item.id === action.id) item.removed = true;
+                return item;
+            }),
+        });
+        case VIEW_NOTIFY : return ({
+            ...state,
+            notifications : state.notifications.map((item) => {
+                if(item.id === action.id) item.read = true;
+                return item;
+            }),
+        });
         default : return ({
             ...state,
         });

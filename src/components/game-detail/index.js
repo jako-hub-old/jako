@@ -185,6 +185,7 @@ class GameDetailComponent extends React.Component {
             currentTab,
             jugador_seudonimo,
         } = this.state;
+        const isInGame = this.isInGame();
         return (
             <View style={styles.root}>
                 <ScrollView>
@@ -199,9 +200,11 @@ class GameDetailComponent extends React.Component {
                         canJoin   = { allowJoin }
                         user      = { jugador_seudonimo }
                         onViewProfile = {() => this.onViewHostProfile()}
+                        gameCode    = { codigo_juego }
+                        isInGame    = { isInGame }
                     />                    
                     <View styles = { {flex : 1,} }>
-                        {this.isInGame() && (
+                        {isInGame && (
                             <TerminateGame 
                                 gameCode = { codigo_juego }
                                 teams    = { detalles     }

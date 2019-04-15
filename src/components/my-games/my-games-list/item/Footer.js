@@ -41,7 +41,7 @@ const Footer = ({onLike, onViewProfile, liked, user, gameCode}) => {
                         style={likeButtonStyles}
                     />
                 </Button>
-                <ShareGameButton gameCode = { gameCode }/>
+                {/* <ShareGameButton gameCode = { gameCode }/> */}
             </View>
         </View>
     );

@@ -32,16 +32,18 @@ class FirebaseManager extends React.PureComponent {
          * This function triggers a simple notification in the application in foreground.
          */
         this.notificationListener = firebase.notifications().onNotification(notification => {
-            const {title, body} = notification;
+            const {title, body, data} = notification;
             this.showAlert(title, body);
+            console.log("simple notify", data);
         });
 
         /**
          * If your application is in background you can listen for when a notification is tapped.
          */
         this.notificationOpenedListener = firebase.notifications().onNotificationOpened(notificationOpen => {
-            const { title, body } = notificationOpen.notification;
+            const { title, body, data } = notificationOpen.notification;
             this.showAlert(title, body);
+            console.log("From background", data, notificationOpen.notification);
         });
 
         /**
@@ -49,8 +51,9 @@ class FirebaseManager extends React.PureComponent {
          */
         const notificationOpen = await firebase.notifications().getInitialNotification();
         if (notificationOpen) {
-            const { title, body } = notificationOpen.notification;
+            const { data } = notificationOpen.notification;
             //this.showAlert(title, body);
+            console.log("it was closed!", data);
         }
 
        /*
@@ -63,7 +66,7 @@ class FirebaseManager extends React.PureComponent {
 
 
     showAlert(title, body) {
-        addMessage(`${title} : ${body}`);
+        addMessage(`${title} ${body}`);
     }
     
     /**

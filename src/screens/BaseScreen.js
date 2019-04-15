@@ -4,6 +4,7 @@ import MainAppBar from "../commons/MainAppBar";
 import { UserInfoVerifier } from '../components';
 import { withNavigationFocus } from 'react-navigation';
 import { Linking } from 'react-native';
+import { NotificationBar } from '../commons/notifies';
 /**
  * This component allows to use the same structure or layout for every that uses.
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
@@ -62,6 +63,7 @@ import { Linking } from 'react-native';
                 )}
                 {children}
                 {isFocused && (<UserInfoVerifier navigation = {navigation}/>)}
+                <NotificationBar />
             </>
         )
      }

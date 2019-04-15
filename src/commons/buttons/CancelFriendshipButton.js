@@ -5,10 +5,18 @@ import {
     View,
     Text,
  } from 'native-base';
-import { Button, PrettyButton,} from '../forms';
+import { PrettyButton,} from '../forms';
 import { withApi } from '../../providers';
+import endpoints from '../../configs/endpoints';
 
 class CancelFriendshipButton extends React.PureComponent {
+
+    onCancelFriendship() {
+        const {userCode, playerCode, startLoading, stopLoading, doPost} = this.props;
+        startLoading();
+        doPost(endpoints.jugador);
+    }
+
     render() {
         return (
             <View style = { styles.root }>

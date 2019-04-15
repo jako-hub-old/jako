@@ -27,9 +27,9 @@ export default {
         detalle : '/v1/jugador/detalle',
         guardarFoto : '/v1/jugador/guardar/foto',
     },
-    jugaor_solicitud : {
+    jugador_solicitud : {
         pendiente   : '/v1/jugador/solicitud/pendiente',
-        nuevo       : '/v1/jugador/solicitud/',
+        nuevo       : '/v1/jugador/solicitud/nuevo',
         respuesta   : '/v1/jugador/solicitud/',
     },
     comentario : {

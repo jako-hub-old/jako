@@ -9,7 +9,7 @@ import {
 import { StyleSheet       }       from 'react-native';
 import { DEFAULT_USER_IMG }   from 'react-native-dotenv';
 import { IconButton       }      from '../../commons/forms';
-import { CancelFriendshipButton } from '../../commons/buttons';
+import { CancelFriendshipButton, FriendshipButton, } from '../../commons/buttons';
 
 const palette = stylesPalette();
 
@@ -42,6 +42,11 @@ const Header = ({photo, fullName, alias, isFriend, isPlayer, playerCode, disable
             {isPlayer && isFriend && (
                 <View styles = { styles.firendshipButton }>
                     <CancelFriendshipButton playerCode = { playerCode } />
+                </View>
+            )}
+            {isPlayer && !isFriend && (
+                <View styles = { styles.firendshipButton }>
+                    <FriendshipButton playerCode = { playerCode } />
                 </View>
             )}
         </View>

@@ -15,6 +15,7 @@ class CreateGameScreen extends React.PureComponent {
                 navigation  = { navigation } 
                 title       = { _t('create_game_title_1') } 
                 allowBack
+                disableNotify
             >
                 <GameCreatorComponent 
                     navigation = { navigation }

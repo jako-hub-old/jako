@@ -17,7 +17,7 @@ class JoinToGameScreen extends React.PureComponent {
         const {selectedGame} = this.props.navigation.state.params;
         return (
             <>
-            <BaseScreen navigation={navigation} allowBack>
+            <BaseScreen navigation={navigation} allowBack disableNotify>
                 <JoinToGamecomponent 
                     navigation      = { navigation   }
                     selectedGame    = { selectedGame }

@@ -15,7 +15,11 @@ class PlayerProfileScreen extends React.PureComponent {
             playerAlias     = "",
         } = navigation.state.params;
         return (
-            <BaseScreen navigation={navigation} title={`Ver pefil de ${playerAlias}`} allowBack>
+            <BaseScreen 
+                navigation={navigation} title={`Ver pefil de ${playerAlias}`} 
+                allowBack
+                disableNotify
+            >
                 <PlayerProfile navigation = { navigation } playerCode = {playerCode} />
             </BaseScreen>
         );

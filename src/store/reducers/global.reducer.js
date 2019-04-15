@@ -9,7 +9,7 @@ const defaultState = {
     someState       : false,
     loadingState    : false,
     notifications   : [
-        {id : 1, title : "my notify", message : "Hello world!", action : true, type : 'new-game', path_data : 50, path : "GameDetail"},
+        //{id : 1, title : "my notify", message : "Hello world!", action : true, type : 'new-game', path_data : 50, path : "GameDetail"},
     ],
 };
 

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withSession, withApi, withNotifies } from '../providers';
 import firebase from 'react-native-firebase';
-import { addMessage } from '../utils/functions';
+import { addMessage, consoleError } from '../utils/functions';
 import endpoints from '../configs/endpoints';
 
 class FirebaseManager extends React.PureComponent {
@@ -121,21 +121,25 @@ class FirebaseManager extends React.PureComponent {
      * @memberof FirebaseManager
      */
     async getToken() {    
-        const {firebaseData} = this.props.sessionStack;
-        let fcmToken = firebaseData.fcmToken;
-        if(!fcmToken) {
-            fcmToken = await firebase.messaging().getToken();
-            if(fcmToken) {
-                this.props.sessionWrite("firebaseData", {...firebaseData, fcmToken});
-                this.printMessage("Token stored!");
-                this.saveToken(fcmToken);
+        try {
+            const {firebaseData={}} = this.props.sessionStack;
+            let fcmToken = firebaseData.fcmToken;
+            if(!fcmToken) {
+                fcmToken = await firebase.messaging().getToken();
+                if(fcmToken) {                
+                    this.saveToken(fcmToken);
+                    this.props.sessionWrite("firebaseData", {...firebaseData, fcmToken});                
+                    this.printMessage("Token stored!");
+                } else {
+                    this.printMessage("Cannot get the token");
+                }
             } else {
-                this.printMessage("Cannot get the token");
+                this.printMessage("Token available");
             }
-        } else {
-            this.printMessage("Token available");
+        } catch (error) {
+            addMessage("Ocurrió un error al almacenar el token");
+            consoleError(error);
         }
-        console.log(fcmToken);        
     }
 
     saveToken(token) {
@@ -153,8 +157,9 @@ class FirebaseManager extends React.PureComponent {
                 console.log("Se almacenó correctamente el token de fb");
             }
         })
-        .catch(() => {
+        .catch(err => {
             addMessage("Ocurrió un error inesperado");
+            console.log("error: ", error);
         });
     }
 

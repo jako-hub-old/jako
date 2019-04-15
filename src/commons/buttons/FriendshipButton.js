@@ -27,10 +27,12 @@ class FriendshipButton extends React.Component {
             jugador_destino : playerCode,
         })
         .then((response) => {
-            const {error, error_controlado} = response;
+            const {error, error_controlado, validacion} = response;
             if(error || error_controlado) {
                 addMessage("Ocurrió un error al enviar la solicitud");
                 consoleError(error);
+            } else if(validacion){
+                addMessage(validacion);
             } else {
                 addMessage("Se ha enviado tu solicitud de amistad");
                 this.setState({loading : false});

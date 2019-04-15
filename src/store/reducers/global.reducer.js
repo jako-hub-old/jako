@@ -1,10 +1,13 @@
 import {
     SET_VAR,
     SET_LOADING,
+    ADD_NOTIFY,
+    REMOVE_NOTIFY,
 } from '../actions/global.actions';
 const defaultState = {
     someState       : false,
     loadingState    : false,
+    notifications   : [],
 };
 
 export default globalReducer = (state = defaultState, action) => {
@@ -17,6 +20,14 @@ export default globalReducer = (state = defaultState, action) => {
             ...state,
             loadingState : action.loading,
         });
+        case ADD_NOTIFY : return ({
+            ...state,
+            notifications : [action.notify, ...state.notifications],
+        });
+        case REMOVE_NOTIFY : return ({
+            ...state,
+            notifications : state.notifications.filter(item => item.id !== action.id),
+        })
         default : return ({
             ...state,
         });

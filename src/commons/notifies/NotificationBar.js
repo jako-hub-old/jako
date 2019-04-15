@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { 
     StyleSheet,    
 } from 'react-native';
@@ -6,6 +7,7 @@ import {
     View,
 } from 'native-base';
 import Notify from './Notify';
+import { withNotifies } from '../../providers';
 
 class NotificationBar extends React.Component {
     state = {
@@ -15,28 +17,19 @@ class NotificationBar extends React.Component {
     };
 
     componentDidMount() {
+        /**/
         setTimeout(() => {
-            this.addNotify();
+            this.props.notify({title : "hello", message : "hello"});            
         }, 1000);
+        
     }
 
-    addNotify() {
-        const newNotify = {id : "hello", title : "hello", message : "hello"};
-        this.setState(({notifications}) => ({
-            notifications : [newNotify, ...notifications],
-        }));
-    }
-
-    onCloseNotify() {
-        const notifications = [...this.state.notifications];
-        notifications.splice(0);
-        this.setState({
-            notifications,
-        });
+    onCloseNotify({id}) {
+        this.props.removeNotify(id);
     }
     
     render() {
-        const {notifications} = this.state;
+        const {notifications=[]} = this.props;
         const [notificationToShow] = notifications;
         return (
             <View style = { styles.root }>
@@ -44,7 +37,7 @@ class NotificationBar extends React.Component {
                     <Notify 
                         message     = { notificationToShow.message  }
                         title       = { notificationToShow.title    }
-                        onClose     = { this.onCloseNotify.bind(this) }
+                        onClose     = { () => this.onCloseNotify(notificationToShow) }
                     />
                 )}
             </View>
@@ -61,4 +54,16 @@ const styles = StyleSheet.create({
     },    
 });
 
-export default NotificationBar;
+NotificationBar.propTypes = {
+    notifications   : PropTypes.array, 
+    notify          : PropTypes.func,
+    removeNotify    : PropTypes.func,
+    popNotify       : PropTypes.func,
+    notifies        : PropTypes.arrayOf(PropTypes.shape({
+        id          : PropTypes.any,
+        title       : PropTypes.string,
+        body        : PropTypes.string,
+    })),
+};
+
+export default withNotifies(NotificationBar);

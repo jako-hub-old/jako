@@ -9,7 +9,7 @@ import {
 import { StyleSheet       }       from 'react-native';
 import { DEFAULT_USER_IMG }   from 'react-native-dotenv';
 import { IconButton       }      from '../../commons/forms';
-import { CancelFriendshipButton, FriendshipButton, } from '../../commons/buttons';
+import { CancelFriendshipButton, FriendshipButton, ConfirmFriendshipButton, } from '../../commons/buttons';
 import { FriendshipRequests } from '..';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
@@ -43,7 +43,7 @@ const Header = ({photo, onViewProfile, requestSended, fullName, me, alias, isFri
             </View>
             {isPlayer && isFriend && (
                 <View styles = { styles.firendshipButton }>
-                    <Text>Amigos <Icon name="thumbs-up"/></Text>
+                    <Text style = { {textAlign : "center"} }>Amigos <Icon name="thumbs-up" size = { 20 } /></Text>
                 </View>
             )}
             {!requestSended  && isPlayer && !isFriend && !me && (
@@ -57,8 +57,12 @@ const Header = ({photo, onViewProfile, requestSended, fullName, me, alias, isFri
                 </View>
             )}
             {!me && requestSended && (
-                <View styles = { styles.firendshipButton }>
-                    <CancelFriendshipButton playerCode = { playerCode } />
+                <View style = { styles.firendshipButtonHorizontal }>
+                    <Text note>Este usuario quiere ser tu amigo</Text>
+                    <View style = { styles.horizontalButton }>
+                        <ConfirmFriendshipButton playerCode = { playerCode } />
+                        <CancelFriendshipButton playerCode = { playerCode } />
+                    </View>
                 </View>
             )}
         </View>
@@ -75,6 +79,14 @@ const styles = StyleSheet.create({
     firendshipButton : {
         flexDirection   : "row", 
         justifyContent : "center", 
+        alignItems : "center",
+    },
+    horizontalButton : {
+        flex : 1,
+        flexDirection : "row",
+    },
+    firendshipButtonHorizontal : { 
+        flex : 1,
         alignItems : "center",
     },
     contentWrapper : {

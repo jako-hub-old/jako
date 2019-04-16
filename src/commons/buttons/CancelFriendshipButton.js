@@ -51,7 +51,6 @@ class CancelFriendshipButton extends React.Component {
         const {loading} = this.state;
         return (
             <View style = { styles.root }>
-                <View>
                 <PrettyButton 
                     icon = {(<Icon name = "times" size = {20} />)}
                     primary
@@ -59,9 +58,8 @@ class CancelFriendshipButton extends React.Component {
                     loading = { loading }
                     onPress = { () => this.onCancelFriendship() }
                     >
-                        Solicitud enviada 
+                        Rechazar
                 </PrettyButton>
-                </View>
             </View>
         );
     }
@@ -70,6 +68,7 @@ class CancelFriendshipButton extends React.Component {
 const styles = StyleSheet.create({
     root : {
         marginTop : 10,
+        marginHorizontal : 10,
         alignItems : "center"
     },
 });

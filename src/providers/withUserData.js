@@ -2,12 +2,20 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchMyFriends, setUserData, setVerified,} from '../store/actions/userData.actions';
+import { 
+    fetchMyFriends, 
+    fetchFriendshipRequest, 
+    setUserData, 
+    setVerified,
+    removeFriendshipRequest,
+} from '../store/actions/userData.actions';
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
     fetchMyFriends,
     setUserData,
-    setVerified
+    setVerified,
+    fetchFriendshipRequest,
+    removeFriendshipRequest
 }, dispatch);
 
 const mapStateToProps = ({session:{userCode}, userData}) => ({
@@ -16,13 +24,16 @@ const mapStateToProps = ({session:{userCode}, userData}) => ({
 });
 
 export const propTypes = {
-    fetchMyFriends  : PropTypes.func,
-    userCode        : PropTypes.any,
-    setUserData     : PropTypes.func,
-    friends         : PropTypes.array,
-    photo           : PropTypes.string,
-    verified        : PropTypes.bool,
-    setVerified     : PropTypes.func,
+    fetchMyFriends      : PropTypes.func,
+    userCode            : PropTypes.any,
+    setUserData         : PropTypes.func,
+    friends             : PropTypes.array,
+    photo               : PropTypes.string,
+    verified            : PropTypes.bool,
+    setVerified         : PropTypes.func,
+    friendshipRequests  : PropTypes.array,
+    fetchFriendshipRequest : PropTypes.func,
+    removeFriendshipRequest: PropTypes.func,
 };
 
 /**

@@ -11,7 +11,8 @@ import SearchFilter         from './search-filter';
 import GameCreatorComponent from './game-creator';
 import JoinToGamecomponent  from './join-to-game';
 import PlayerProfile        from './player-profile';
-import TerminateGame from "./terminate-game";
+import TerminateGame        from "./terminate-game";
+import FriendshipRequests   from "./friendship-requests";
 
 export {
     LoginComponent, 
@@ -28,4 +29,5 @@ export {
     JoinToGamecomponent,
     PlayerProfile,
     TerminateGame,
+    FriendshipRequests,
 };

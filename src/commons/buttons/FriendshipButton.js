@@ -6,7 +6,7 @@ import {
     Text,
  } from 'native-base';
 import { PrettyButton,} from '../forms';
-import { withApi } from '../../providers';
+import { withApi, withUserData } from '../../providers';
 import endpoints from '../../configs/endpoints';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { addMessage, consoleError } from '../../utils/functions';
@@ -36,7 +36,7 @@ class FriendshipButton extends React.Component {
             } else {
                 addMessage("Se ha enviado tu solicitud de amistad");
                 this.setState({loading : false});
-                // Todo: add to pending requests.
+                this.props.fetchFriendshipRequest();
             }
             this.setState({
                 loading : false,
@@ -88,6 +88,7 @@ FriendshipButton.propTypes = {
     doGet           : PropTypes.func,
     userCode        : PropTypes.any,
     upload          : PropTypes.func,
+    fetchFriendshipRequest : PropTypes.func,
 };
 
-export default withApi(FriendshipButton);
+export default withApi(withUserData(FriendshipButton));

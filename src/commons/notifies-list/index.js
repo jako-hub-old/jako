@@ -17,7 +17,8 @@ import { withNotifies, withSearch } from '../../providers';
 import { ModalTop } from '../modals';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-export const TYPE_NEW_GAME = 'new-game';
+export const TYPE_NEW_GAME              = 'new-game';
+export const TYPE_FRIENDSHIP_REQUEST    = 'friend-request';
 
 const NotifyItem = ({item, isButton, viewNotify, onPress}) => (
     <ListItem 
@@ -82,6 +83,10 @@ class NotifiesList extends React.Component {
                 this.props.selectGame({codigo_juego : path_data});
                 navigation.navigate('GameDetail', {});
                 onClose();
+                break;
+            };
+            case TYPE_FRIENDSHIP_REQUEST : {
+                navigation.navigate('ProfileTab', {});
                 break;
             };
             default : {

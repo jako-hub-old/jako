@@ -142,6 +142,13 @@ class UserProfileCard extends React.Component {
         return Boolean(friend);
     }
 
+    requestSended() {
+        const {me, playerCode, friendshipRequests=[]} = this.props;
+        if(me) return false;
+        const player = friendshipRequests.find(item => item.codigo_jugador === playerCode);
+        return Boolean(player);
+    }
+
     renderCard() {
          const {
              userInfo : { 
@@ -160,6 +167,7 @@ class UserProfileCard extends React.Component {
             playerCode,
         } = this.props;        
         const userInfo = this.renderUserInfo();
+        const requestSended = this.requestSended();
         return (
             <>
                 <Header 
@@ -171,6 +179,9 @@ class UserProfileCard extends React.Component {
                     isPlayer
                     isFriend        = { this.isFriend() }
                     playerCode      = { playerCode      }
+                    me              = {me               }
+                    onViewProfile   = { this.onViewProfile.bind(this) }
+                    requestSended   = { requestSended }
                 />
                 <CommonTabs 
                     id      = "user-tabs"
@@ -242,6 +253,7 @@ UserProfileCard.propTypes = {
     userPhoto       : PropTypes.string,
     me              : PropTypes.bool,
     isPlayer        : PropTypes.bool,
+    friendshipRequests  : PropTypes.array,
 };
 
 export default withApi(withUserData(UserProfileCard));

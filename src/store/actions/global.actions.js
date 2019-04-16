@@ -1,3 +1,6 @@
+import { TYPE_FRIENDSHIP_REQUEST } from "../../commons/notifies-list";
+import { fetchFriendshipRequest } from './userData.actions';
+
 /**
  * This file contains the global actions for global reducer.
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
@@ -52,6 +55,6 @@ export const stopLoading = () => ({
     loading : false,
 });
 
-export const notify = notify => dispatch => {
+export const notify = notify => dispatch => {    
     dispatch(addNotify(notify));
 };

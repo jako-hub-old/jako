@@ -8,7 +8,7 @@ import {
 } from 'native-base';
 import Notify from './Notify';
 import { withNotifies } from '../../providers';
-import { TYPE_NEW_GAME } from '../notifies-list';
+import { TYPE_NEW_GAME, TYPE_FRIENDSHIP_REQUEST } from '../notifies-list';
 
 class NotificationBar extends React.Component {
     state = {
@@ -36,6 +36,10 @@ class NotificationBar extends React.Component {
                 this.props.selectGame({codigo_juego : path_data});
                 navigation.navigate('GameDetail', {});
                 onClose();
+                break;
+            };
+            case TYPE_FRIENDSHIP_REQUEST : {
+                navigation.navigate('ProfileTab', {});
                 break;
             };
             default : {

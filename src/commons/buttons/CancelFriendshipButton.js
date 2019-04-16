@@ -6,22 +6,61 @@ import {
     Text,
  } from 'native-base';
 import { PrettyButton,} from '../forms';
-import { withApi } from '../../providers';
+import { withApi, withUserData } from '../../providers';
 import endpoints from '../../configs/endpoints';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import { consoleError, addMessage } from '../../utils/functions';
 
-class CancelFriendshipButton extends React.PureComponent {
-
+class CancelFriendshipButton extends React.Component {
+    state = {
+        loading : false,
+    };
     onCancelFriendship() {
-        const {userCode, playerCode, startLoading, stopLoading, doPost} = this.props;
-        startLoading();
-        doPost(endpoints.jugador);
+        const {playerCode, startLoading, stopLoading, doPost, friendshipRequests=[]} = this.props;
+        const request = friendshipRequests.find(item => item.codigo_jugador === playerCode);
+        
+        this.setState({loading : true});        
+        doPost(endpoints.jugador_solicitud.respuesta, {
+            solicitud : request.codigo_jugador_solicitud,
+            respuesta : "n",
+        })
+        .then(response => {
+            const { error, error_controlado } = response;
+            if(error || error_controlado) {
+                addMessage("Ocurrió un error al cancelar la solicitud");
+                consoleError("Cancel request", response);
+                this.setState({loading : false});
+            } else {
+                // Todo refresh the requests.
+                addMessage("Se canceló la solicitud");
+                setTimeout(() => {
+                    this.props.removeFriendshipRequest(request.codigo_jugador_solicitud);                    
+                }, 500);
+                this.setState({loading : false});
+            }
+            
+        })
+        .catch(response => {
+            consoleError("Cancel request", response);
+            addMessage("Ocurrió un error al cancelar la solicitud");
+            this.setState({loading : false});
+        });
     }
 
     render() {
+        const {loading} = this.state;
         return (
             <View style = { styles.root }>
                 <View>
-                <PrettyButton primary>Amigos (Remover)</PrettyButton>
+                <PrettyButton 
+                    icon = {(<Icon name = "times" size = {20} />)}
+                    primary
+                    disabled = { loading }
+                    loading = { loading }
+                    onPress = { () => this.onCancelFriendship() }
+                    >
+                        Solicitud enviada 
+                </PrettyButton>
                 </View>
             </View>
         );
@@ -44,6 +83,8 @@ CancelFriendshipButton.propTypes = {
     doGet           : PropTypes.func,
     userCode        : PropTypes.any,
     upload          : PropTypes.func,
+    friendshipRequests  : PropTypes.array,
+    removeFriendshipRequest : PropTypes.func,
 };
 
-export default withApi(CancelFriendshipButton);
+export default withApi(withUserData(CancelFriendshipButton));

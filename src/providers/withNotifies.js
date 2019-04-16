@@ -1,10 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { addNotify, removeNotify, popNotify, viewNotify} from '../store/actions/global.actions';
+import { fetchFriendshipRequest } from '../store/actions/userData.actions';
 import { selectGame } from '../store/actions/search.actions';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import uuid from 'react-native-uuid';
+import { TYPE_FRIENDSHIP_REQUEST } from '../commons/notifies-list';
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     addNotify,
@@ -12,6 +14,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     popNotify,
     viewNotify,
     selectGame,
+    fetchFriendshipRequest,
 }, dispatch);
 
 const mapStateToProps = ({global:{notifications=[]}}) => ({
@@ -36,6 +39,9 @@ export default WrappedComponent => (connect(mapStateToProps, mapDispatchToProps)
         addNotify(notify) {
             notify.id = uuid.v1();
             this.props.addNotify(notify);
+            if(notify.type === TYPE_FRIENDSHIP_REQUEST) {
+                this.props.fetchFriendshipRequest();
+            }
         }
         render() {
             return (

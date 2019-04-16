@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { addNotify, removeNotify, popNotify, viewNotify} from '../store/actions/global.actions';
-import { fetchFriendshipRequest } from '../store/actions/userData.actions';
+import { fetchFriendshipRequest, fetchMyFriends } from '../store/actions/userData.actions';
 import { selectGame } from '../store/actions/search.actions';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
@@ -15,6 +15,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     viewNotify,
     selectGame,
     fetchFriendshipRequest,
+    fetchMyFriends,
 }, dispatch);
 
 const mapStateToProps = ({global:{notifications=[]}}) => ({
@@ -41,6 +42,7 @@ export default WrappedComponent => (connect(mapStateToProps, mapDispatchToProps)
             this.props.addNotify(notify);
             if(notify.type === TYPE_FRIENDSHIP_REQUEST) {
                 this.props.fetchFriendshipRequest();
+                this.props.fetchMyFriends();
             }
         }
         render() {

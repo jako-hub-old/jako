@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addNotify, removeNotify, popNotify, viewNotify} from '../store/actions/global.actions';
+import { addNotify, removeNotify, popNotify, viewNotify, fetchNews} from '../store/actions/global.actions';
 import { fetchFriendshipRequest, fetchMyFriends } from '../store/actions/userData.actions';
 import { selectGame } from '../store/actions/search.actions';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import uuid from 'react-native-uuid';
-import { TYPE_FRIENDSHIP_REQUEST } from '../commons/notifies-list';
+import { TYPE_FRIENDSHIP_REQUEST, TYPE_NEW_GAME } from '../commons/notifies-list';
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     addNotify,
@@ -16,9 +16,10 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     selectGame,
     fetchFriendshipRequest,
     fetchMyFriends,
+    fetchNews,
 }, dispatch);
 
-const mapStateToProps = ({global:{notifications=[]}}) => ({
+const mapStateToProps = ({global:{notifications=[]}, session:{userCode}}) => ({
     notifications,
 });
 
@@ -42,7 +43,10 @@ export default WrappedComponent => (connect(mapStateToProps, mapDispatchToProps)
             this.props.addNotify(notify);
             if(notify.type === TYPE_FRIENDSHIP_REQUEST) {
                 this.props.fetchFriendshipRequest();
-                this.props.fetchMyFriends();
+                this.props.fetchMyFriends(this.props.userCode);
+            }
+            if(notify.type === TYPE_NEW_GAME) {
+                this.props.fetchNews();
             }
         }
         render() {

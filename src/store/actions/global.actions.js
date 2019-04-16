@@ -1,5 +1,5 @@
-import { TYPE_FRIENDSHIP_REQUEST } from "../../commons/notifies-list";
-import { fetchFriendshipRequest } from './userData.actions';
+import endpoints from "../../configs/endpoints";
+import { Api } from "../../services/ApiService";
 
 /**
  * This file contains the global actions for global reducer.
@@ -12,6 +12,7 @@ export const ADD_NOTIFY     = '[GLOBAL] ADD_NOTIFY';
 export const POP_NOTIFY     = '[GLOBAL] POP_NOTIFY';
 export const REMOVE_NOTIFY  = '[GLOBAL] REMOVE_NOTIFY';
 export const VIEW_NOTIFY    = '[GLOBAL] VIEW_NOTIFY';
+export const SET_NEWS       = '[GLOBAL] SET_NEWS';
 
 export const setVar = (key, value) => ({
     type : SET_VAR,
@@ -39,6 +40,11 @@ export const viewNotify = ({ id }) => ({
     id,
 });
 
+export const setNews = (news=[]) => ({
+    type : SET_NEWS,
+    news,
+});
+
 /**
  * This function activates the loading process.
  */
@@ -58,3 +64,23 @@ export const stopLoading = () => ({
 export const notify = notify => dispatch => {    
     dispatch(addNotify(notify));
 };
+
+export const fetchNews = () => (dispatch) => (new Promise((resolve, reject) => {
+    
+    Api.doPost(endpoints.publicacion.lista, {})
+        .then(response => {
+            const { error, error_controlado } = response;            
+            if(error || error_controlado) {
+                addMessage("Error al consultar noticias");                
+                reject(false);
+            } else {
+                dispatch(setNews(response));
+                console.log(response);
+                resolve(true);                
+            }
+        })
+        .catch(response => {
+            addMessage("Error al consultar noticias");                
+            consoleError("List my friend requests", response);
+        });
+}));

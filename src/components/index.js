@@ -13,6 +13,7 @@ import JoinToGamecomponent  from './join-to-game';
 import PlayerProfile        from './player-profile';
 import TerminateGame        from "./terminate-game";
 import FriendshipRequests   from "./friendship-requests";
+import NewsComponent        from './news';
 
 export {
     LoginComponent, 
@@ -30,4 +31,5 @@ export {
     PlayerProfile,
     TerminateGame,
     FriendshipRequests,
+    NewsComponent,
 };

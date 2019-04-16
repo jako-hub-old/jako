@@ -6,6 +6,7 @@ import withSearch       from './withSearch';
 import withPositions    from './withPositions';
 import withUserData     from './withUserData';
 import withNotifies     from './withNotifies';
+import withPosts        from './withPosts';
 
 export {
     withGames,
@@ -16,4 +17,5 @@ export {
     withPositions,
     withUserData,
     withNotifies,
+    withPosts,
 };

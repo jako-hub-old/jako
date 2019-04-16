@@ -4,12 +4,16 @@ import {
     ADD_NOTIFY,
     REMOVE_NOTIFY,
     VIEW_NOTIFY,
+    SET_NEWS,
 } from '../actions/global.actions';
 const defaultState = {
     someState       : false,
     loadingState    : false,
     notifications   : [
         //{id : 1, title : "my notify", message : "Hello world!", action : true, type : 'new-game', path_data : 50, path : "GameDetail"},
+    ],
+    news : [
+
     ],
 };
 
@@ -36,6 +40,10 @@ export default globalReducer = (state = defaultState, action) => {
                 };
                 return item;
             }),
+        });
+        case SET_NEWS : return ({
+            ...state,
+            news : action.news,
         });
         case VIEW_NOTIFY : return ({
             ...state,

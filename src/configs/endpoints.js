@@ -39,4 +39,7 @@ export default {
     posicion : {
         lista : '/v1/posicion/lista',
     },
+    publicacion : {
+        lista : '/v1/publicacion/lista',
+    }
 };

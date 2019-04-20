@@ -9,6 +9,7 @@ import { IMEI } from '../../utils/constants';
 import { PermissionsAndroid } from 'react-native';
 import NoPermission from '../login/NoPermission';
 import VerifyCode  from '../verify-code';
+import DeviceInfo from 'react-native-device-info';
 
 /**
  * This component allows to handle the user register
@@ -84,6 +85,7 @@ class RegisterComponent extends React.Component {
                     requesting : false,
                 }, () => {
                     this.getPhoneImei();
+                    this.getPhoneNumber();
                 });
             } if(granted === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN) {
                 console.log("No preguntar de nuevo");
@@ -94,6 +96,20 @@ class RegisterComponent extends React.Component {
             
         } catch(err) {
             consoleError('Error al solicitar el permiso', granted);
+        }
+    }
+
+
+    async getPhoneNumber() {
+        const phone = DeviceInfo.getPhoneNumber();
+        try {
+            // Operador : DeviceInfo.getCarrier()
+            // Codigo pais(CO) : DeviceInfo.getDeviceCountry()
+            // Get device locale (es-CO) :DeviceInfo.getDeviceLocale() 
+            const info = await DeviceInfo.getDeviceId();
+            console.log("battery leve: ", info);
+        } catch (err) {
+            console.log("err: ", err);
         }
     }
 

@@ -32,7 +32,7 @@ class ContactScreen extends React.PureComponent {
         } = this.props;
         return (
             <>
-                <BaseScreen navigation={navigation} title="Contacto">
+                <BaseScreen navigation={navigation} title="Contacto" enableFriendSuggester>
                     <EmptySet />
                 </BaseScreen>
             </>

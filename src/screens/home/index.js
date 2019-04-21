@@ -14,7 +14,7 @@ class HomeScreen extends React.PureComponent {
         } = this.props;
         return (
             <>
-                <BaseScreen navigation={navigation}>
+                <BaseScreen navigation={navigation} enableFriendSuggester>
                     <NewsComponent navigation = { navigation } />
                 </BaseScreen>
             </>

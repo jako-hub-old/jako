@@ -4,10 +4,12 @@ import {
     CLEAR_SELECTED_GAME,
     SET_SELECTED_GAME,
     SELECT_GAME,
+    SET_RESULTS_FRIENDS,
 } from '../actions/search.actions';
 
 const defaultState = {
     results     : [],
+    resultsFriends     : [],
     searchQuery : "",
     selectedGame: {},
     /**
@@ -39,6 +41,10 @@ export default gameReducer = (state=defaultState, action) => {
             ...state,
             selectedGame    : null,
             viewGameDetail  : false,
+        });
+        case SET_RESULTS_FRIENDS : return ({
+            ...state,
+            resultsFriends : action.results,
         });
         default : return ({
             ...state,

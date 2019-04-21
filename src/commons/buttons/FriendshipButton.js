@@ -5,7 +5,7 @@ import {
     View,
     Text,
  } from 'native-base';
-import { PrettyButton,} from '../forms';
+import { PrettyButton, IconButton,} from '../forms';
 import { withApi, withUserData } from '../../providers';
 import endpoints from '../../configs/endpoints';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -55,17 +55,29 @@ class FriendshipButton extends React.Component {
         const {
             loading,
         } = this.state;
+        const { asIcon } = this.props;
         return (
             <View style = { styles.root }>
                 <View>
-                    <PrettyButton 
-                        primary 
-                        loading = {loading} 
-                        icon = {(<Icon name = "telegram-plane" size={18}  />)}
-                        onPress = { () => this.onRequestFriendship() }
-                    >
-                        Solicitar amistad 
-                    </PrettyButton>
+                    {!asIcon && (
+                        <PrettyButton 
+                            primary 
+                            loading = {loading} 
+                            icon = {(<Icon name = "telegram-plane" size={18}  />)}
+                            onPress = { () => this.onRequestFriendship() }
+                        >
+                            Solicitar amistad 
+                        </PrettyButton>
+                    )}
+                    {asIcon && !loading && (
+                        <IconButton 
+                            onPress = { () => this.onRequestFriendship() }
+                            icon = "user-plus"  
+                        />
+                    )}
+                    {asIcon && loading && (
+                        <LoadingSpinner />
+                    )}
                 </View>
             </View>
         );
@@ -89,6 +101,7 @@ FriendshipButton.propTypes = {
     userCode        : PropTypes.any,
     upload          : PropTypes.func,
     fetchFriendshipRequest : PropTypes.func,
+    asIcon : PropTypes.bool,
 };
 
 export default withApi(withUserData(FriendshipButton));

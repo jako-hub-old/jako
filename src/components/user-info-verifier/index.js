@@ -92,6 +92,10 @@ class UserInfoVerifier extends React.Component {
             pseudonymHelper,
             displayFriendSuggester,
         } = this.state;
+        const {
+            enableFriendSuggester,
+            navigation,
+        } = this.props;
         return (
             <>
                 {true && (
@@ -100,7 +104,7 @@ class UserInfoVerifier extends React.Component {
                         onSave  = {this.onSavePseudonym.bind(this)}
                     />
                 )}
-                { displayFriendSuggester && (<FriendsSearchSuggester />) }
+                { enableFriendSuggester && displayFriendSuggester && (<FriendsSearchSuggester navigation = {navigation} />) }
             </>
         );
     }
@@ -113,6 +117,7 @@ UserInfoVerifier.propTypes = {
     doPost          : PropTypes.func,
     logout          : PropTypes.func,
     fetchMyFriends      : PropTypes.func,
+    enableFriendSuggester : PropTypes.bool,
 };
 
 export default withApi(withSession(withUserData(UserInfoVerifier)));

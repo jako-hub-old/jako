@@ -35,6 +35,11 @@ class FriendSearchSuggester extends React.Component {
         }).start();
     }
 
+    goToSearch() {
+        const {navigation} = this.props;
+        navigation.navigate("Search", {goToFriends : true});
+    }
+
     render() {
         const { friends=[] } = this.props;
         const { openInvite } = this.state;
@@ -52,7 +57,7 @@ class FriendSearchSuggester extends React.Component {
                         Empieza búscando amigos en JAKO
                     </Text>
                     <View style = { styles.action }>
-                        <PrettyButton primary >
+                        <PrettyButton primary onPress = {() => this.goToSearch()}>
                             Buscar en JAKO
                         </PrettyButton>
                         <PrettyButton onPress = { () => this.toggleInvite() }>
@@ -110,6 +115,7 @@ FriendSearchSuggester.propTypes = {
     friendshipRequests  : PropTypes.array,
     fetchFriendshipRequest : PropTypes.func,
     removeFriendshipRequest: PropTypes.func,
+    navigation : PropTypes.any,
 };
 
 export default withUserData(FriendSearchSuggester);

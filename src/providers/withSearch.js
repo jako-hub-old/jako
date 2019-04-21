@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { 
     fetchGames, 
+    fetchFriends,
     onChangeQueryString, 
     clearSelectedGame,
     selectGame,
@@ -19,10 +20,14 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
     startLoading,
     stopLoading,
     onChangeQuery : onChangeQueryString,
+    fetchFriends,
 }, dispatch);
 
-const mapStateToProps = ({search:{results=[], searchQuery="", viewGameDetail, selectedGame}}) => ({
+const mapStateToProps = ({
+    search:{results=[], resultsFriends, searchQuery="", viewGameDetail, selectedGame}
+}) => ({
     results,
+    resultsFriends,
     searchQuery,
     viewGameDetail,
     selectedGame,
@@ -40,6 +45,8 @@ export const propTypes = {
     clearSelectedGame   : PropTypes.func,
     selectGame          : PropTypes.func,
     setSelectedGame     : PropTypes.func,
+    fetchFriends        : PropTypes.func,
+    resultsFriends      : PropTypes.array,
 };
 
 /**

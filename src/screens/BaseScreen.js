@@ -48,7 +48,17 @@ import { NotificationBar } from '../commons/notifies';
          }
      }
      render() {
-        const {navigation, disableNotify, allowBack, children, title, header=true, TitleComponent, isFocused} = this.props;
+        const {
+            navigation, 
+            disableNotify, 
+            allowBack, 
+            children, 
+            title, 
+            header=true, 
+            TitleComponent, 
+            isFocused,
+            enableFriendSuggester,
+        } = this.props;
         
         return (
             <>
@@ -63,7 +73,7 @@ import { NotificationBar } from '../commons/notifies';
                     />
                 )}
                 {children}
-                {isFocused && (<UserInfoVerifier navigation = {navigation}/>)}
+                {isFocused && (<UserInfoVerifier enableFriendSuggester={enableFriendSuggester} navigation = {navigation}/>)}
                 <NotificationBar navigation = { navigation } />
             </>
         )
@@ -77,6 +87,7 @@ BaseScreen.propTypes = {
     allowBack   : PropTypes.bool,
     TitleComponent : PropTypes.any,
     isFocused     : PropTypes.bool,
-    disableNotify : PropTypes.bool
+    disableNotify : PropTypes.bool,
+    enableFriendSuggester : PropTypes.bool,
 };
 export default withNavigationFocus(BaseScreen);

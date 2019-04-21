@@ -6,14 +6,18 @@ import PropTypes from 'prop-types';
 import { LoadingSpinner } from '../loaders';
 
 const PrettyButton = ({children, disabled, primary, icon, loading, ...otherProps}) => {
-    const theStyles = {
-        ...styles.btnRoot,
-        ...(disabled? styles.disabled : {}),
-    };
-    
+    const buttonStyles = [
+        styles.btnRoot, 
+        (disabled? styles.disabled : {}),
+        (primary? styles.btnPrimary : {}),
+    ];
+    const textStyles = [
+        styles.btnText,
+        (primary? styles.btnPrimaryText : {}),
+    ];
     return (
-        <Button style={theStyles} {...otherProps} rounded disabled  = { disabled } >
-            <Text style={ styles.btnText }>
+        <Button style={buttonStyles} {...otherProps} rounded disabled  = { disabled } >
+            <Text style={ textStyles }>
                 {children} {!loading && (icon)}
             </Text>
             {loading && (<LoadingSpinner />)}
@@ -32,6 +36,13 @@ const styles = StyleSheet.create({
         justifyContent : "center",
         alignItems : "center",
         paddingHorizontal : 20,
+        marginHorizontal : 5,
+    },
+    btnPrimary : {
+        backgroundColor : palette.primary.color,
+    },
+    btnPrimaryText : {
+        color : "#fff",
     },
     btnText : {
         color : palette.primary.color,

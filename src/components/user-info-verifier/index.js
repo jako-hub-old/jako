@@ -8,10 +8,12 @@ import {
 } from 'native-base';
 import PseudonymHelper from './PseudonymHelper';
 import { IMAGES_SERVER } from 'react-native-dotenv';
+import FriendsSearchSuggester from '../friends-search-suggester';
 
 class UserInfoVerifier extends React.Component {
     state = {
         pseudonymHelper : false,
+        displayFriendSuggester : false,
     }
 
     componentDidMount() {
@@ -24,13 +26,23 @@ class UserInfoVerifier extends React.Component {
         });
     }
 
-    getUserInfo() {
+    async getUserInfo() {
+        await this.getPersonalInfo();
+        this.props.fetchMyFriends(this.props.userCode)
+        .then(() => {
+            this.setState({
+                displayFriendSuggester : true,
+            });
+        });
+    }
+
+    async getPersonalInfo() {
         const {userCode} = this.props.sessionStack; 
         if(this.props.verified) { return false; }
-        this.props.doPost(endpoints.usuarios.informacion, {
-            codigo_usuario : userCode,
-        })
-        .then(response => {
+        let fetched = false;
+        await this.props.doPost(endpoints.usuarios.informacion, {
+                codigo_usuario : userCode,
+        }).then(response => {
             const {error_controlado, validacion, error} = response;            
             if(!error_controlado && !error && !validacion) {
                 const {seudonimo, foto} = response;
@@ -54,11 +66,13 @@ class UserInfoVerifier extends React.Component {
                 addMessage("Error al obtener la información del jugador");
                 consoleError("Fetch user info: ", response);
             }
-        })
-        .catch(response => {
+            fetched = true;
+        }).catch(response => {
             Toast.show({text : "Error al obtener la información del jugador"});
             consoleError("Fetch user info: ", response);
+            fetched = false;
         });
+        return fetched;
     }
 
     onSavePseudonym(pseudonym) {
@@ -75,7 +89,8 @@ class UserInfoVerifier extends React.Component {
 
     render() {
         const {
-            pseudonymHelper
+            pseudonymHelper,
+            displayFriendSuggester,
         } = this.state;
         return (
             <>
@@ -85,6 +100,7 @@ class UserInfoVerifier extends React.Component {
                         onSave  = {this.onSavePseudonym.bind(this)}
                     />
                 )}
+                { displayFriendSuggester && (<FriendsSearchSuggester />) }
             </>
         );
     }
@@ -96,6 +112,7 @@ UserInfoVerifier.propTypes = {
     sessionWrite    : PropTypes.func,
     doPost          : PropTypes.func,
     logout          : PropTypes.func,
+    fetchMyFriends      : PropTypes.func,
 };
 
 export default withApi(withSession(withUserData(UserInfoVerifier)));

@@ -10,34 +10,48 @@ import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { ScrollView } from 'react-native-gesture-handler';
 
-const SimpleModal = ({open, onClose, animation="fade", children, title}) => (
-    <Modal
-        visible         = {open}
-        onRequestClose  = {onClose}
-        animationType   = {animation}
-        transparent
-    >
-        <View style={styles.backDrop}>
-            <View style={styles.content}>
-                <View style={styles.header}>
-                    <Text style={styles.headerText}>
-                        {title}
-                    </Text>                                        
-                </View>                
-                <ScrollView>
-                    {children}
-                </ScrollView>                    
-                <View style={{justifyContent : "center", alignItems : "center"}}>
-                    <TouchableOpacity onPress={onClose}>
-                        <View style={styles.button}>
-                            <Icon name="times" size={25}/>
+class SimpleModal extends React.PureComponent {
+    
+    componentWillUnmount() {
+        this.props.onClose();
+    }
+
+    render() {
+        const {open, onClose, disableScroll, animation="fade", children, title} = this.props;
+        return (
+            <Modal
+                visible         = {open}
+                onRequestClose  = {onClose}
+                animationType   = {animation}
+                transparent
+            >
+                <View style={styles.backDrop}>
+                    <View style={[styles.content, (disableScroll? styles.noScroll : {})]}>
+                        <View style={styles.header}>
+                            <Text style={styles.headerText}>
+                                {title}
+                            </Text>                                        
+                        </View>                
+                        {!disableScroll && (
+                            <ScrollView>
+                                {children}
+                            </ScrollView>
+                        )}
+                        {disableScroll && (children)}
+                        <View style={{justifyContent : "center", alignItems : "center"}}>
+                            <TouchableOpacity onPress={onClose}>
+                                <View style={styles.button}>
+                                    <Icon name="times" size={25}/>
+                                </View>
+                            </TouchableOpacity>
                         </View>
-                    </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
-        </View>
-    </Modal>
-);
+            </Modal>
+        );
+    }
+}
+
 
 const styles = StyleSheet.create({
     backDrop : {
@@ -71,12 +85,16 @@ const styles = StyleSheet.create({
         alignItems : "center",
         backgroundColor : "#FFF",
     },
+    noScroll : {
+        minHeight : "90%"
+    },
 });
 
 SimpleModal.propTypes = {
     open    : PropTypes.bool,
     onClose : PropTypes.func,
     animation : PropTypes.string,
+    disableScroll : PropTypes.bool,
 };
 
 export default SimpleModal;

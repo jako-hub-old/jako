@@ -5,6 +5,8 @@ import android.app.Application;
 import android.support.v4.app.ActivityCompat;
 
 import com.facebook.react.ReactApplication;
+import com.rt2zz.reactnativecontacts.ReactNativeContacts;
+import eu.sigrlami.rnsimdata.RNSimDataReactPackage;
 import io.invertase.firebase.RNFirebasePackage;
 import io.invertase.firebase.messaging.RNFirebaseMessagingPackage; // <-- Add this line
 import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage; // <-- Add this line
@@ -39,6 +41,8 @@ public class MainApplication extends Application implements ReactApplication, Sh
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ReactNativeContacts(),
+            new RNSimDataReactPackage(),
             new RNFirebasePackage(),
             new RNFirebaseMessagingPackage(), // <-- Add this line
             new RNFirebaseNotificationsPackage(), // <-- Add this line

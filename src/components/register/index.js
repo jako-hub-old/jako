@@ -10,6 +10,7 @@ import { PermissionsAndroid } from 'react-native';
 import NoPermission from '../login/NoPermission';
 import VerifyCode  from '../verify-code';
 import DeviceInfo from 'react-native-device-info';
+//import RNSimData from 'react-native-sim-data'
 
 /**
  * This component allows to handle the user register
@@ -102,12 +103,18 @@ class RegisterComponent extends React.Component {
 
     async getPhoneNumber() {
         const phone = DeviceInfo.getPhoneNumber();
+        
         try {
             // Operador : DeviceInfo.getCarrier()
             // Codigo pais(CO) : DeviceInfo.getDeviceCountry()
             // Get device locale (es-CO) :DeviceInfo.getDeviceLocale() 
-            const info = await DeviceInfo.getDeviceId();
-            console.log("battery leve: ", info);
+            const phone = await DeviceInfo.getPhoneNumber();
+            this.setState(({form}) => ({
+                form : {
+                    ...form,
+                    phoneNumber : phone,
+                },
+            }));
         } catch (err) {
             console.log("err: ", err);
         }

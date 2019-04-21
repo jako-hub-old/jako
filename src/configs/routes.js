@@ -10,6 +10,7 @@ import {
     JoinToGameScreen,
     ContactScreen,
     PlayerProfileScreen,
+    TestAreaScreen,
 } from "../screens";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
@@ -78,6 +79,10 @@ export const AuthRoutes = {
             headerVisible: false
         }
     },
+};
+
+export const generalRoutes = {
+    TestArea : { screen : TestAreaScreen },
 };
 
 export const createTabOptions = (screen, name) => ({ 

@@ -147,6 +147,8 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-contacts')
+    implementation project(':react-native-sim-data')
     implementation project(':react-native-firebase')
     implementation project(':react-native-image-picker')
     implementation project(':react-native-linear-gradient')

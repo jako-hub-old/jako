@@ -27,13 +27,12 @@ class UserInfoVerifier extends React.Component {
     }
 
     async getUserInfo() {
+        // The first thing we do is bring the user information
         await this.getPersonalInfo();
-        this.props.fetchMyFriends(this.props.userCode)
-        .then(() => {
-            this.setState({
-                displayFriendSuggester : true,
-            });
-        });
+        // Then we fetch the user friends
+        await this.props.fetchMyFriends(this.props.userCode);
+        await this.props.fetchUserSendedRequests();
+        this.setState({displayFriendSuggester : true});
     }
 
     async getPersonalInfo() {
@@ -118,6 +117,7 @@ UserInfoVerifier.propTypes = {
     logout          : PropTypes.func,
     fetchMyFriends      : PropTypes.func,
     enableFriendSuggester : PropTypes.bool,
+    fetchUserSendedRequests : PropTypes.func,
 };
 
 export default withApi(withSession(withUserData(UserInfoVerifier)));

@@ -72,8 +72,6 @@ const Header = ({photo, onViewProfile, requestSended, fullName, me, alias, isFri
 const styles = StyleSheet.create({
     root : {
         flexDirection       : "row",        
-        borderBottomWidth   : 1,
-        borderBottomColor   : "#f2f2f2",
         paddingBottom       : 15,
     },
     firendshipButton : {

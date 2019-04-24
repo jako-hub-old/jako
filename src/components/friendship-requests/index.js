@@ -69,10 +69,9 @@ class FriendShipRequests extends React.Component {
             <>
             <View style = { styles.root }>
                 <View style = { styles.wrapper }>
-                    <Text note>{`Tienes ${total} ${total > 1? "solicitudes" : "solicitud de amistad"}`}</Text>                    
                     <View style = {{ marginTop: 10, }}>
                         <PrettyButton onPress = { () => this.toggleModal() }>
-                            Ver
+                            Ver {`${total} ${total > 1? "solicitudes" : "solicitud"}`}
                         </PrettyButton>
                     </View>
                 </View>

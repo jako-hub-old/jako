@@ -8,6 +8,7 @@ import {
     setUserData, 
     setVerified,
     removeFriendshipRequest,
+    fetchUserSendedRequests,
 } from '../store/actions/userData.actions';
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
@@ -15,7 +16,8 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
     setUserData,
     setVerified,
     fetchFriendshipRequest,
-    removeFriendshipRequest
+    fetchUserSendedRequests,
+    removeFriendshipRequest,
 }, dispatch);
 
 const mapStateToProps = ({session:{userCode}, userData}) => ({
@@ -32,6 +34,8 @@ export const propTypes = {
     verified            : PropTypes.bool,
     setVerified         : PropTypes.func,
     friendshipRequests  : PropTypes.array,
+    friendshipRequestsSended : PropTypes.array,
+    fetchUserSendedRequests: PropTypes.func,
     fetchFriendshipRequest : PropTypes.func,
     removeFriendshipRequest: PropTypes.func,
 };

@@ -67,7 +67,7 @@ const MainNavigator = createBottomTabNavigator({
     ContactTab  : createTabOptions(ContactNavigator, 'question-circle'),
 }, {
     shifting            : true,
-    initialRouteName    : "HomeTab",
+    initialRouteName    : "ProfileTab",
     activeColor         : "white",
     labeled             : false,
     barStyle : {

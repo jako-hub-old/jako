@@ -11,7 +11,6 @@ import { CustomChip } from '../../commons/others';
 const GamesResume = ({ assists=0, absences=0 }) => (
     <View style = {styles.root}>
         <View>
-            <Text note style = { { textAlign : "center" } }>Asistencias e inasistencias</Text>
             <View style = {styles.chipWrapper}>
                 <CustomChip icon={"thumbs-up"} label = { assists }    />
                 <CustomChip icon={"thumbs-down"} label = { absences }  type="danger" />
@@ -24,10 +23,9 @@ const styles = StyleSheet.create({
     root : {
         justifyContent      : "center",
         flexDirection       : "row",
-        marginVertical      : 10,
+        marginBottom        : 10,
     },
     chipWrapper : {
-        marginTop           : 10,
         justifyContent      : "center",
         flexDirection       : "row",
     },

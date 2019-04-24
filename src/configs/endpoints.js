@@ -31,6 +31,8 @@ export default {
         pendiente   : '/v1/jugador/solicitud/pendiente',
         nuevo       : '/v1/jugador/solicitud/nuevo',
         respuesta   : '/v1/jugador/solicitud/respuesta',
+        envaidas    : '/v1/jugador/solicitud/enviadas',
+        cancelar    : '/v1/jugador/solicitud/cancelar',
     },
     comentario : {
         nuevo : '/v1/comentario/nuevo',

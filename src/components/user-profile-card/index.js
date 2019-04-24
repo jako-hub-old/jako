@@ -16,6 +16,7 @@ import {
 } from 'react-native';
 import { CommonTabs } from '../../commons/others';
 import { IMAGES_SERVER, DEFAULT_USER_IMG } from 'react-native-dotenv';
+import FriendshipRequestButtons from '../friendship-requests-buttons';
 
 
 const ErrorMessage = ({message}) => (
@@ -113,16 +114,8 @@ class UserProfileCard extends React.Component {
 
     renderUserInfo() {
         const {optionsComponent} = this.props;
-        const {
-            asistencia,
-            inasistencia,
-        } = this.state.userInfo;
         return (
-            <>
-                <GameResume 
-                    assists     = { asistencia   }
-                    absences    = { inasistencia }
-                />
+            <>                
                 { optionsComponent }
             </>
         );
@@ -155,6 +148,8 @@ class UserProfileCard extends React.Component {
                 nombre_corto,
                 seudonimo,
                 foto,
+                asistencia,
+                inasistencia,
              },
              loadingFriends,
              friends=[],             
@@ -165,6 +160,7 @@ class UserProfileCard extends React.Component {
             userPhoto,
             me,
             playerCode,
+            navigation,
         } = this.props;        
         const userInfo = this.renderUserInfo();
         const requestSended = this.requestSended();
@@ -183,21 +179,28 @@ class UserProfileCard extends React.Component {
                     onViewProfile   = { this.onViewProfile.bind(this) }
                     requestSended   = { requestSended }
                 />
+                <GameResume 
+                    assists     = { asistencia   }
+                    absences    = { inasistencia }
+                />
                 <CommonTabs 
                     id      = "user-tabs"
-                    tabs    = { [
-                        {label : "Información", component : userInfo},                        
+                    tabs    = { [                        
                         {
                             label : "Amigos", 
                             component : (
-                                <FriendsList 
-                                    fetchFriends    = { () => { this.fetchMyFriends() } } 
-                                    friends         = { friends }
-                                    loading         = { loadingFriends }
-                                    onViewProfile   = { this.onViewProfile.bind(this)   }
-                                />
+                                <>
+                                    <FriendshipRequestButtons navigation = { navigation } />
+                                    <FriendsList 
+                                        fetchFriends    = { () => { this.fetchMyFriends() } } 
+                                        friends         = { friends }
+                                        loading         = { loadingFriends }
+                                        onViewProfile   = { this.onViewProfile.bind(this)   }
+                                    />
+                                </>
                             )
                         },
+                        {label : "Información", component : userInfo},
                     ] }
                 />
             </>

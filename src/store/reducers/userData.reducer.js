@@ -4,11 +4,13 @@ import {
     SET_USER_VERIFIED,
     SET_FRIENDSHIP_REQUESTS,
     REMOVE_FRIENDSHIP_REQUEST,
+    SET_USER_FRIENDSHIP_REQUESTS_SENDED,
 } from '../actions/userData.actions';
 
 const defaultState = {
     friends  : [],
     friendshipRequests : [],
+    friendshipRequestsSended : [],
     photo    : null,
     verified : false,
 };
@@ -34,6 +36,10 @@ export default gameReducer = (state=defaultState, action) => {
         case REMOVE_FRIENDSHIP_REQUEST : return ({
             ...state,
             friendshipRequests : state.friendshipRequests.filter(item => item.codigo_jugador_solicitud !== action.id),
+        });
+        case SET_USER_FRIENDSHIP_REQUESTS_SENDED : return ({
+            ...state,
+            friendshipRequestsSended : action.requests,
         });
         default : return ({
             ...state,

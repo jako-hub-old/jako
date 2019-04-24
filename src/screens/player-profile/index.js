@@ -19,7 +19,6 @@ class PlayerProfileScreen extends React.PureComponent {
                 navigation={navigation} title={`Ver pefil de ${playerAlias}`} 
                 allowBack
                 disableNotify
-                enableFriendSuggester
             >
                 <PlayerProfile navigation = { navigation } playerCode = {playerCode} />
             </BaseScreen>

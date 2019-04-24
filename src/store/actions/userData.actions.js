@@ -7,6 +7,7 @@ export const SET_USER_DATA  = '[USER_DATA] SET_USER_DATA';
 export const SET_USER_VERIFIED = '[USER_DATA] SET_USER_VERIFIED';
 export const SET_FRIENDSHIP_REQUESTS = '[USER_DATA] SET_FRIENDSHIP_REQUESTS';
 export const REMOVE_FRIENDSHIP_REQUEST = '[USER_DATA] REMOVE_FRIENDSHIP_REQUEST';
+export const SET_USER_FRIENDSHIP_REQUESTS_SENDED = '[USER_DATA] SET_USER_FRIENDSHIP_REQUESTS_SENDED';
 
 export const setMyFriends = (friends=[]) => ({
     type : SET_MY_FRIENDS,
@@ -31,6 +32,11 @@ export const setUserData = (userData) => ({
 export const setVerified = (verified) => ({
     type : SET_USER_VERIFIED,
     verified,
+});
+
+export const setUserFriendshipRequestsSended = (requests=[]) => ({
+    type : SET_USER_FRIENDSHIP_REQUESTS_SENDED,
+    requests,
 });
 
 /***************************
@@ -80,3 +86,26 @@ export const fetchFriendshipRequest = () => (dispatch, getState) => (new Promise
             consoleError("List my friend requests", response);
         });
 }));
+
+export const fetchUserSendedRequests = () => async (dispatch, getState) => {
+    const {session:{userCode}} = getState();
+    const fetchData = async () => {
+        try {
+            const response = await Api.doPost(endpoints.jugador_solicitud.envaidas, {
+                jugador : userCode,
+            });
+            const {error, error_controlado} = response;
+            if(error || error_controlado) {
+                addMessage("Error al consultar sus solicitudes de amistad");
+            } else {
+                dispatch(setUserFriendshipRequestsSended(response));
+                return response;
+            }
+        } catch (error) {
+            addMessage("Error al consultar sus solicitudes de amistad");
+            return false;
+        }
+
+    };
+    return await fetchData();
+};

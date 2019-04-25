@@ -136,9 +136,9 @@ class UserProfileCard extends React.Component {
     }
 
     requestSended() {
-        const {me, playerCode, friendshipRequests=[]} = this.props;
+        const {me, playerCode, friendshipRequestsSended=[]} = this.props;
         if(me) return false;
-        const player = friendshipRequests.find(item => item.codigo_jugador === playerCode);
+        const player = friendshipRequestsSended.find(item => item.codigo_jugador === playerCode);
         return Boolean(player);
     }
 
@@ -257,6 +257,7 @@ UserProfileCard.propTypes = {
     me              : PropTypes.bool,
     isPlayer        : PropTypes.bool,
     friendshipRequests  : PropTypes.array,
+    friendshipRequestsSended : PropTypes.array,
 };
 
 export default withApi(withUserData(UserProfileCard));

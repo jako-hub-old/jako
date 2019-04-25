@@ -9,7 +9,7 @@ import {
     Text,
     Thumbnail,
 } from 'native-base';
-import { DEFAULT_USER_IMG } from 'react-native-dotenv';
+import { DEFAULT_USER_IMG, IMAGES_SERVER } from 'react-native-dotenv';
 import { IconButton } from '../../commons/forms';
 import { FriendshipButton } from '../../commons/buttons';
 
@@ -19,7 +19,7 @@ const FriendCard = ({friend, onViewProfile, onRequest, sended, onCancel}) => (
             <TouchableOpacity onPress = {onViewProfile}>
                 <Thumbnail
                     style = {styles.thumbnail}
-                    source = {{uri : friend.foto? friend.foto : DEFAULT_USER_IMG}}
+                    source = {{uri : friend.foto? `${IMAGES_SERVER}${friend.foto}` : DEFAULT_USER_IMG}}
                 />
             </TouchableOpacity>            
         </View>

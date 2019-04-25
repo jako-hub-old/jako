@@ -11,10 +11,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { ScrollView } from 'react-native-gesture-handler';
 
 class SimpleModal extends React.PureComponent {
-    
-    componentWillUnmount() {
-        this.props.onClose();
-    }
 
     render() {
         const {open, onClose, disableScroll, animation="fade", children, title} = this.props;

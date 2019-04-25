@@ -65,9 +65,11 @@ export const notify = notify => dispatch => {
     dispatch(addNotify(notify));
 };
 
-export const fetchNews = () => (dispatch) => (new Promise((resolve, reject) => {
-    
-    Api.doPost(endpoints.publicacion.lista, {})
+export const fetchNews = () => (dispatch, getState) => (new Promise((resolve, reject) => {
+    const {session:{userCode}} = getState();
+    Api.doPost(endpoints.publicacion.lista, {
+        jugador : userCode,
+    })
         .then(response => {
             const { error, error_controlado } = response;            
             if(error || error_controlado) {

@@ -47,9 +47,11 @@ export const clearSelectedGame = () => ({
  * @param code
  * @returns {function(*): (Promise<any> | Promise<*>)}
  */
-export const fetchGames = () => (dispatch) => (new Promise((resolve, reject) => {
-    //dispatch(startLoading());
-    Api.doPost(endpoints.juego.buscar, {})
+export const fetchGames = () => (dispatch, getState) => (new Promise((resolve, reject) => {
+    const {session:{userCode}} = getState();
+    Api.doPost(endpoints.juego.buscar, {
+        jugador : userCode,
+    })
     .then(response => {
         const {error, error_controlado} = response;
         if(error || error_controlado) {

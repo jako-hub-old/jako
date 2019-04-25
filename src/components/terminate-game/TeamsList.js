@@ -18,8 +18,8 @@ import {
 import { DEFAULT_USER_IMG, IMAGES_SERVER } from 'react-native-dotenv';
 import stylesPalette from '../../utils/stylesPalette';
 
-
-const RenderTeam = ({teamName, players=[], onValueChange, team=[], playerCode}) => (
+const MAX_CHARS = 15;
+const RenderTeam = ({players=[], onValueChange, playerCode}) => (
     <>
         {players.length === 0 && (
             <ListItem>
@@ -41,16 +41,16 @@ const RenderTeam = ({teamName, players=[], onValueChange, team=[], playerCode}) 
                         />
                     </Left>
                     <Body>
-                        <View style = {{flexDirection : "row", justifyContent : "flex-start"}}>
+                        <View style = {{justifyContent : "flex-start"}}>
                             <Text note>
-                                ({player.seudonimo})
+                            #{playerNumber} {player.seudonimo} 
                             </Text>
                             <Text>
                                 {playerCode === player.codigo_jugador? "Tú" : player.jugador_nombre_corto}
                             </Text>                                
                         </View>                                            
                     </Body>
-                    <Right>
+                    <Right style = { { justifyContent : "center" } }>
                         <Switch 
                             value = {player.attended}
                             onValueChange = { () => onValueChange? onValueChange(player) : null }
@@ -67,18 +67,12 @@ const TeamsList = ({teams={}, players, onValueChange, onViewProfile, playerCode}
     return (
         <View style={styles.root}>
             <List>
-                {teamNames.map((teamName, key) => (
-                    <RenderTeam 
-                        key             = { `team-list-item-${teamName}-${key}` } 
-                        team            = { teams[teamName] }
-                        players         = {players}
-                        teamName        = { teamName        }
-                        onViewProfile   = { onViewProfile   }
-                        playerCode      = { playerCode      }
-                        onValueChange   = { onValueChange }
-                    />
-                ))}
-                
+                <RenderTeam 
+                    players         = {players}
+                    onViewProfile   = { onViewProfile   }
+                    playerCode      = { playerCode      }
+                    onValueChange   = { onValueChange }
+                />                
             </List>
         </View>
     );

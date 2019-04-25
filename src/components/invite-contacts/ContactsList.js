@@ -33,7 +33,7 @@ class ContactsList extends React.Component {
     ];
 
     componentDidMount() {
-        this.getContacts();
+        //this.getContacts();
     }
 
     getContacts() {
@@ -54,6 +54,10 @@ class ContactsList extends React.Component {
                 <Text note style = { styles.emptyText }>No hay contactos que mostrar</Text>
             </View>
         );
+    }
+
+    onValidatePermissions() {
+        this.getContacts();
     }
 
     onSelectContact({recordID, selected}) {
@@ -145,27 +149,29 @@ class ContactsList extends React.Component {
         const addedContacts = selectedContacts.length;        
         const rootStyles = [styles.root, (addedContacts > 0? styles.rootPadding : {})];
         return (
-            <PermissionsManager permissions = { this.permissions } >
+            <PermissionsManager  
+                permissions = { this.permissions } 
+                onValidatePermissions = { () => this.onValidatePermissions() }
+            >
                 <>
-                <View style = { rootStyles } >
-                    <View style = { styles.header }>
-                        <Text>Tus contactos</Text>
-                    </View>
-                    <Filter 
-                        value = { filter } 
-                        onChange = { this.onChangeFilter.bind(this) } 
-                        onClear = { () => this.onClear() }
-                    />
-                    { totalContacts === 0 && (this.emptyContacts())     }
-                    { totalContacts > 0 && (this.renderList(contacts))  }
-                    { addedContacts > 0 && 
-                    (<SelectButton 
-                        selected = {addedContacts} 
-                        onSelect = { () => this.onSelectContacts() }
-                        />) 
-                    }
-                </View>
-                
+                    <View style = { rootStyles } >
+                        <View style = { styles.header }>
+                            <Text>Tus contactos</Text>
+                        </View>
+                        <Filter 
+                            value = { filter } 
+                            onChange = { this.onChangeFilter.bind(this) } 
+                            onClear = { () => this.onClear() }
+                        />
+                        { totalContacts === 0 && (this.emptyContacts())     }
+                        { totalContacts > 0 && (this.renderList(contacts))  }
+                        { addedContacts > 0 && 
+                        (<SelectButton 
+                            selected = {addedContacts} 
+                            onSelect = { () => this.onSelectContacts() }
+                            />) 
+                        }
+                    </View>                    
                 </>
             </PermissionsManager>
         );

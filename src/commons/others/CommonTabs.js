@@ -15,11 +15,13 @@ import stylesPalette from '../../utils/stylesPalette';
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
  * @param {*} param0 
  */
-const CommonTabs = ({id, tabs=[] }) => {
+const CommonTabs = ({id, tabs=[], onChangeTab, tab}) => {
     return (
         <Tabs
             tabContainerStyle       = { {elevation:0} }
             tabBarUnderlineStyle    = { styles.tabUnderLine }
+            onChangeTab             = { onChangeTab }
+            page                    = { tab         }
         >
             {tabs.map((tab, key) => (
                 <Tab 
@@ -64,6 +66,8 @@ CommonTabs.propTypes = {
         label       : PropTypes.string,
         component   : PropTypes.component,
     })),
+    onChangeTab : PropTypes.func,
+    tab : PropTypes.number,
 };
 
 export default CommonTabs;

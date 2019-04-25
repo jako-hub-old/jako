@@ -31,7 +31,7 @@ class FriendSearchSuggester extends React.Component {
     animate() {
         Animated.timing(this.animVal, {
             toValue     : 0,
-            duration    : 800,
+            duration    : 300,
         }).start();
     }
 
@@ -68,7 +68,7 @@ class FriendSearchSuggester extends React.Component {
                 <InviteContacts 
                     open = { openInvite }
                     onClose = { () => this.toggleInvite() }
-                />
+                /> 
             </>
         );
     }

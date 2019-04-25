@@ -10,6 +10,7 @@ import {
     Tabs,
     Tab,
 } from 'native-base';
+import { CommonTabs } from '../../commons/others';
 
 export {default as GameDetailScreen} from './GameDetail';
 
@@ -26,6 +27,7 @@ class MyProfileScreen extends React.Component {
         const {state} = props.navigation;
         if(state.params && state.params.goToFriends) {
             this.state.currentTab = 1;
+            alert("here!");
         }
     }
 
@@ -51,21 +53,21 @@ class MyProfileScreen extends React.Component {
                 disableNotify
                 enableFriendSuggester
             >
-                <Tabs
-                    onChangeTab = { this.onChangeTab.bind(this) }
-                    page        = {currentTab}
-                >
-                    <Tab heading = { "Juegos" }>
-                        {currentTab === 0 && (
-                            <View style={styles.root}>
-                                <SearchComponent navigation={navigation} />
-                            </View>
-                        )}
-                    </Tab>
-                    <Tab heading = {"Amigos"}>
-                        {currentTab === 1 && (<SearchFriends navigation = {navigation} />)}
-                    </Tab>
-                </Tabs>
+                <CommonTabs 
+                    id = "id-search-tabs"
+                    onChangeTab = {this.onChangeTab.bind(this)}
+                    tab = {currentTab}
+                    tabs = {[
+                        {
+                            label : "Juegos",
+                            component : (currentTab === 0 && ( <View style={styles.root}><SearchComponent navigation={navigation} /></View>)),
+                        },
+                        {
+                            label : "Amigos",
+                            component : (currentTab === 1 && (<SearchFriends navigation = {navigation} />)),
+                        },
+                    ]}
+                />
                 
                 
                 <FabButton 

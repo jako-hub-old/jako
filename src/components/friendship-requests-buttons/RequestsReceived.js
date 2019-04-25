@@ -22,11 +22,13 @@ import { DEFAULT_USER_IMG, IMAGES_SERVER } from 'react-native-dotenv';
 const PlayerItem = ({ item, onViewProfile, onAccept, onReject }) => (
     <ListItem avatar>
         <Left>
-            <Thumbnail source = { {uri : (item.foto? `${IMAGES_SERVER}${item.foto}` : DEFAULT_USER_IMG)} } />
+            <TouchableOpacity onPress = { onViewProfile }>
+                <Thumbnail source = { {uri : (item.foto? `${IMAGES_SERVER}${item.foto}` : DEFAULT_USER_IMG)} } />
+            </TouchableOpacity>
         </Left>
         <Body>
-            <Text>{item.jugador_nombre_corto}</Text>
             <TouchableOpacity onPress = { onViewProfile }>
+                <Text>{item.jugador_nombre_corto}</Text>
                 <Text note>{item.jugador_seudonimo}</Text>
             </TouchableOpacity>
         </Body>

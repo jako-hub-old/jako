@@ -33,6 +33,9 @@ class PermissionsManager extends React.Component {
             if(hasPermission) {
                 this.setState({
                     withPermission : true,
+                }, () => {
+                    if(this.props.onValidatePermissions) 
+                        this.props.onValidatePermissions();
                 });
             }
         } catch (err) {
@@ -55,6 +58,7 @@ class PermissionsManager extends React.Component {
 
 PermissionsManager.propTypes = {
     permissions : PropTypes.array,
+    onValidatePermissions : PropTypes.func,
 };
 
 export default PermissionsManager;

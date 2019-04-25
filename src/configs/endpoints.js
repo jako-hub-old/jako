@@ -6,6 +6,7 @@ export default {
         informacion: '/v1/usuario/informacion',
         guardarPseudonimo : '/v1/jugador/informacion/complementaria',
         guardarTokenFCM : '/v1/usuario/guardar/fcm-token',
+        invitarAJako : '/v1/usuario/invitar',
     },
     juego : {
         nuevo   : '/v1/juego/nuevo',

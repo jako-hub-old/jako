@@ -5,6 +5,7 @@ import { UserInfoVerifier } from '../components';
 import { withNavigationFocus } from 'react-navigation';
 import { Linking } from 'react-native';
 import { NotificationBar } from '../commons/notifies';
+import FriendsSearchSuggester from '../components/friends-search-suggester';
 /**
  * This component allows to use the same structure or layout for every that uses.
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
@@ -74,6 +75,7 @@ import { NotificationBar } from '../commons/notifies';
                 )}
                 {children}
                 {isFocused && (<UserInfoVerifier enableFriendSuggester={enableFriendSuggester} navigation = {navigation}/>)}
+                {/*enableFriendSuggester && <FriendsSearchSuggester navigation = {navigation} />*/}
                 <NotificationBar navigation = { navigation } />
             </>
         )

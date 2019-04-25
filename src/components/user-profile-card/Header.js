@@ -10,7 +10,6 @@ import { StyleSheet       }       from 'react-native';
 import { DEFAULT_USER_IMG }   from 'react-native-dotenv';
 import { IconButton       }      from '../../commons/forms';
 import { CancelFriendshipButton, FriendshipButton, ConfirmFriendshipButton, } from '../../commons/buttons';
-import { FriendshipRequests } from '..';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 const palette = stylesPalette();
@@ -19,7 +18,7 @@ const palette = stylesPalette();
  * This component only renders the profile view.
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
  */
-const Header = ({photo, onViewProfile, requestSended, fullName, me, alias, isFriend, isPlayer, playerCode, disableUpload, onSelectImage, userFriends}) => (
+const Header = ({photo, requestSended, fullName, me, alias, isFriend, isPlayer, playerCode, disableUpload, onSelectImage, userFriends}) => (
     <View style = { styles.root }>
         <View style = { styles.contentWrapper}>
             <View style = {styles.picWrapper}>
@@ -49,11 +48,6 @@ const Header = ({photo, onViewProfile, requestSended, fullName, me, alias, isFri
             {!requestSended  && isPlayer && !isFriend && !me && (
                 <View styles = { styles.firendshipButton }>
                     <FriendshipButton playerCode = { playerCode } />
-                </View>
-            )}
-            {me && (
-                <View styles = { styles.firendshipButton }>
-                    <FriendshipRequests onViewProfile = { onViewProfile } />
                 </View>
             )}
             {!me && requestSended && (

@@ -9,8 +9,10 @@ import {
     View,
     Text,
 } from 'native-base';
-import { withSearch } from '../../providers';
+import { withSearch, withUserData, withApi } from '../../providers';
 import FriendsList from './FriendsList';
+import { consoleError, addMessage } from '../../utils/functions';
+import endpoints from '../../configs/endpoints';
 
 class SearchFriends extends Component {
     state = {
@@ -46,8 +48,10 @@ class SearchFriends extends Component {
     }
 
     getFilteredFriends() {
-        const {resultsFriends, searchQuery} = this.props;
+        const {resultsFriends, searchQuery, userCode} = this.props;
         let filteredData = [...resultsFriends];
+        filteredData = filteredData.filter(item => item.codigo_jugador !== userCode );
+        filteredData = filteredData.filter(item => !this.isInFriends(item.codigo_jugador));
         if(searchQuery) {
             filteredData = filteredData.filter(item => {
                 const regExp = new RegExp(`.*(${searchQuery.toLowerCase()}).*`, "g");
@@ -57,6 +61,16 @@ class SearchFriends extends Component {
         return filteredData;
     }
 
+    isInFriends(userCode) {
+        const friend = this.props.friends.find(item => item.codigo_jugador_amigo === userCode);
+        return Boolean(friend);
+    }
+
+    sendedRequest(userCode) {
+        const request = this.props.friendshipRequestsSended.find(item => item.codigo_jugador === userCode);
+        return request;
+    }
+
     onRequestFriendship(friend) {
         alert("request!");
     }
@@ -64,6 +78,30 @@ class SearchFriends extends Component {
     onViewProfile({seudonimo:playerAlias, codigo_jugador:playerCode}) {
         const {navigation} = this.props;
         navigation.navigate("PlayerProfile", {playerCode, playerAlias});
+    }
+
+    async onCancelRequest({codigo_jugador}) {
+        const request = this.props.friendshipRequestsSended.find(item => item.codigo_jugador === codigo_jugador);
+        const {startLoading, stopLoading} = this.props;
+        startLoading();
+        try {
+            const response = await this.props.doPost(endpoints.jugador_solicitud.cancelar, {
+                solicitud : request.codigo_jugador_solicitud
+            });
+            const {error, error_controlador} = response;
+            if(error || error_controlador) {
+                addMessage("Error al cancelar la solicitud");
+            } else {
+                await this.props.fetchUserSendedRequests();
+                addMessage("Se canceló la solicitud de amistad.");
+            }
+        } catch (err) {
+            consoleError("Cancel friendship request", err);
+            addMessage("Error al cancelar la solicitud");
+            
+        } finally {
+            stopLoading();
+        }
     }
 
     render() {
@@ -85,6 +123,8 @@ class SearchFriends extends Component {
                         friends = {resultsFriends}
                         onViewProfile = {this.onViewProfile.bind(this)}
                         onRequestFriendship = {this.onRequestFriendship.bind(this)}
+                        sendedRequest = {this.sendedRequest.bind(this)}
+                        onCancel = {this.onCancelRequest.bind(this)}
                     />
                 )}
             </ScrollView>
@@ -104,6 +144,9 @@ SearchFriends.propTypes = {
     resultsFriends      : PropTypes.array,
     searchQuery         : PropTypes.string,
     navigation          : PropTypes.any,
+    userCode            : PropTypes.any,
+    friends             : PropTypes.array,
+    friendshipRequestsSended : PropTypes.array,
 };
 
-export default withSearch(SearchFriends);
+export default withApi(withSearch(withUserData(SearchFriends)));

@@ -18,6 +18,39 @@ import { addMessage } from '../../utils/functions';
 import { DEFAULT_USER_IMG } from 'react-native-dotenv';
 import SelectButton from './SelectButton';
 import Filter from './Filter';
+import { withSearch } from '../../providers';
+
+const ContactItem = ({contact, onSelectContact, registered}) => (
+    <ListItem         
+        noIndent
+        thumbnail
+        button
+        onPress = { () => !registered? onSelectContact(contact) : null }
+    >
+        <Left style = { styles.thumbnailWrapper }>
+            <Thumbnail 
+                style = { styles.thumbnail }
+                source = { { uri : contact.hasThumbnail? contact.thumbnailPath : DEFAULT_USER_IMG }} 
+            />
+        </Left> 
+        <Body style = { styles.bodyWrapper }>
+            <Text>{contact.givenName}</Text>
+        </Body>
+        <Right style = { styles.buttonWrapper }>
+            <View>
+                {registered
+                ? (<Text>Registrado</Text>)
+                : (
+                    <CheckBox 
+                        onPress = { () => onSelectContact(contact) }
+                        checked = { contact.selected } 
+                    />
+                )}
+
+            </View>
+        </Right>
+    </ListItem>
+);
 
 /**
  * This component renders a list of contacts.
@@ -26,6 +59,7 @@ class ContactsList extends React.Component {
     state = {
         contacts : [],        
         selectedContacts : [],
+        friends : [],
     };
 
     permissions = [
@@ -33,7 +67,13 @@ class ContactsList extends React.Component {
     ];
 
     componentDidMount() {
-        //this.getContacts();
+        if(this.props.showIfRegistered) {
+            this.getUsersInJako();
+        }
+    }
+
+    async getUsersInJako() {
+        await this.props.fetchFriends();
     }
 
     getContacts() {
@@ -81,39 +121,33 @@ class ContactsList extends React.Component {
         }
         return filteredContacts;
     }
+    filterPhoneNumber(phoneNumber) {
+        return phoneNumber.replace(/[\(\) \-\+]/g, '');
+    }
+
+    isInJako({phoneNumbers=[]}) {
+        const [phoneNumber] = phoneNumbers;
+        if(!phoneNumber) return false;
+        const number = this.filterPhoneNumber(phoneNumber.number);
+        const usuario = this.props.resultsFriends.find(user => user.usuario === number);
+        return Boolean(usuario);
+    }
 
     renderList() {
         const contacts = this.getFilteredContacts();
+        const {showIfRegistered} = this.props;
+    
         return (
             <>
             <ScrollView style = { styles.scrollView }>
                 <List style = { styles.listItem }>
                     {contacts.map((contact, key) => (
-                        <ListItem 
-                            key = { `contact-item-${key}` } 
-                            noIndent
-                            thumbnail
-                            button
-                            onPress = { () => this.onSelectContact(contact) }
-                        >
-                            <Left style = { styles.thumbnailWrapper }>
-                                <Thumbnail 
-                                    style = { styles.thumbnail }
-                                    source = { { uri : contact.hasThumbnail? contact.thumbnailPath : DEFAULT_USER_IMG }} 
-                                />
-                            </Left> 
-                            <Body style = { styles.bodyWrapper }>
-                                <Text>{contact.givenName}</Text>
-                            </Body>
-                            <Right style = { styles.buttonWrapper }>
-                                <View>
-                                    <CheckBox 
-                                        onPress = { () => this.onSelectContact(contact) }
-                                        checked = { contact.selected } 
-                                    />
-                                </View>
-                            </Right>
-                        </ListItem>
+                       <ContactItem 
+                            key = { `contact-item-${key}` }  
+                            contact = {contact}
+                            onSelectContact = {this.onSelectContact.bind(this)}
+                            registered = {showIfRegistered && this.isInJako(contact)}
+                        /> 
                     ))}
                 </List>
             </ScrollView>            
@@ -214,7 +248,7 @@ const styles = StyleSheet.create({
         flex : 10,
     },
     buttonWrapper : {
-        flex : 2,
+        flex : 4,
         paddingRight : 30,
         justifyContent : "flex-start"
     },
@@ -225,6 +259,9 @@ const styles = StyleSheet.create({
 
 ContactsList.propTypes = {
     onSelectContacts : PropTypes.func,    
+    showIfRegistered : PropTypes.bool,
+    fetchFriends        : PropTypes.func,
+    resultsFriends      : PropTypes.array,
 };
 
-export default ContactsList;
+export default withSearch(ContactsList);

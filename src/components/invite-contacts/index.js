@@ -50,6 +50,7 @@ class InviteContacts extends React.PureComponent {
             >
                 <ContactList 
                     onSelectContacts = { contacts => this.onSelectContacts(contacts) }
+                    showIfRegistered
                 />
             </Modal>
         )

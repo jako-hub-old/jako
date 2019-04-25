@@ -186,6 +186,7 @@ class UserProfileCard extends React.Component {
                 <CommonTabs 
                     id      = "user-tabs"
                     tabs    = { [                        
+                        {label : "Información", component : userInfo},
                         {
                             label : "Amigos", 
                             component : (
@@ -199,8 +200,7 @@ class UserProfileCard extends React.Component {
                                     />
                                 </>
                             )
-                        },
-                        {label : "Información", component : userInfo},
+                        },                        
                     ] }
                 />
             </>

@@ -24,13 +24,15 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
 }, dispatch);
 
 const mapStateToProps = ({
-    search:{results=[], resultsFriends, searchQuery="", viewGameDetail, selectedGame}
+    search:{results=[], resultsFriends, searchQuery="", viewGameDetail, selectedGame},
+    session:{userCode},
 }) => ({
     results,
     resultsFriends,
     searchQuery,
     viewGameDetail,
     selectedGame,
+    userCode,
 });
 
 export const propTypes = {
@@ -47,6 +49,7 @@ export const propTypes = {
     setSelectedGame     : PropTypes.func,
     fetchFriends        : PropTypes.func,
     resultsFriends      : PropTypes.array,
+    userCode            : PropTypes.any,
 };
 
 /**

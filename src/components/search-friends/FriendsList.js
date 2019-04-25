@@ -13,7 +13,7 @@ import { DEFAULT_USER_IMG } from 'react-native-dotenv';
 import { IconButton } from '../../commons/forms';
 import { FriendshipButton } from '../../commons/buttons';
 
-const FriendCard = ({friend, onViewProfile, onRequest}) => (
+const FriendCard = ({friend, onViewProfile, onRequest, sended, onCancel}) => (
     <View style = {styles.friendCard}>
         <View style = {styles.avatar}>
             <TouchableOpacity onPress = {onViewProfile}>
@@ -33,23 +33,35 @@ const FriendCard = ({friend, onViewProfile, onRequest}) => (
         </View>
         <View style = { styles.right }>
             {/* <IconButton onPress = { onRequest } icon = "user-plus"  /> */}
-            <FriendshipButton 
-                asIcon
-                playerCode={friend.codigo_jugador} 
-            />
+            {!sended && (
+                <FriendshipButton 
+                    asIcon
+                    playerCode={friend.codigo_jugador} 
+                />
+            )}
+            {sended && (
+                <IconButton 
+                    icon = "times"
+                    onPress = {() => onCancel? onCancel(friend) : null}
+                />
+            )}
         </View>
     </View>
 )
 
-const FriendsList = ({friends=[], onViewProfile, onRequestFriendship}) => (
+const FriendsList = ({friends=[], onViewProfile, onRequestFriendship, sendedRequest, onCancel}) => (
     <View style = { styles.root }>
         {friends.map((friend, key) => {            
+            const request = sendedRequest(friend.codigo_jugador);
+            const sended = Boolean(request);
             return (
                 <FriendCard 
                     key     = {`friend-list-item-${key}`}
                     friend  = {friend}
                     onViewProfile = { () => onViewProfile(friend) }
                     onRequest = {() => onRequestFriendship(friend)}
+                    sended = {sended}
+                    onCancel = {onCancel}
                 />
             )
         })}
@@ -89,6 +101,8 @@ const styles = StyleSheet.create({
 FriendsList.propTypes = {
     friends : PropTypes.array,
     onViewProfile : PropTypes.func,
+    sendedRequest : PropTypes.func,
+    onCancel : PropTypes.func,
 };
 
 export default FriendsList;

@@ -27,7 +27,6 @@ class MyProfileScreen extends React.Component {
         const {state} = props.navigation;
         if(state.params && state.params.goToFriends) {
             this.state.currentTab = 1;
-            alert("here!");
         }
     }
 

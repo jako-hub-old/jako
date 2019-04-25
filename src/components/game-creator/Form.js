@@ -9,6 +9,8 @@ import {
     Form,
     Label,
     Item,    
+    Text,
+    CheckBox,
 } from 'native-base';
 import ScenarioPicker from '../../components/scenario-picker';
 import { 
@@ -40,6 +42,8 @@ const GameForm = (props) => {
         defDate,
         defStartAt,
         defEndsAt,      
+        toggleInvitation,
+        sendInvitation,
     } = props;
     return (
         <View style={styles.root}>            
@@ -87,6 +91,13 @@ const GameForm = (props) => {
                     onAddTeam   = { onAddTeam    }
                     onRemoveTeam= { onRemoveTeam }
                 />
+                <View style = { styles.inviteZone }>
+                    <Text>Invitar amigos</Text>
+                    <CheckBox 
+                        checked = { sendInvitation   }
+                        onPress = { toggleInvitation }
+                    />
+                </View>
                 <View>
                     <SubmitButton 
                         primary
@@ -106,6 +117,13 @@ const styles = StyleSheet.create({
         paddingHorizontal : 10,
         paddingVertical : 10,
     },
+    inviteZone : { 
+        flex : 1,
+        alignItems : "center", 
+        justifyContent : "center",
+        flexDirection : "row",
+        paddingVertical : 20,
+    }
 });
 
 GameForm.propTypes = {    

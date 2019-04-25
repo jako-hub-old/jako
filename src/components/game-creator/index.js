@@ -25,6 +25,7 @@ class GameCreatorComponent extends React.Component {
         codigo_juego : null,
         teams        : [],
         teamNames    : {},
+        sendInvitation : false,
     };
 
     constructor(props) {
@@ -32,6 +33,12 @@ class GameCreatorComponent extends React.Component {
         this.state.defDate        = new Date();
         this.state.defStartat     = new Date();
         this.state.defEndsat      = new Date();
+    }
+    
+    toggleInvitation() {
+        this.setState({
+            sendInvitation : !this.state.sendInvitation,
+        });
     }
 
     onChange(field, name) {
@@ -101,6 +108,7 @@ class GameCreatorComponent extends React.Component {
             startAt,
             endsAt,
             teams,
+            sendInvitation,
         } = this.state;
         const jugador = this.props.userCode;
         const escenario = scenario.codigo_escenario;
@@ -118,6 +126,7 @@ class GameCreatorComponent extends React.Component {
             equipos : teams,
             fecha_desde : initialDate,
             fecha_hasta : endDate,
+            invitar_amigos : sendInvitation,
         };
         this.props.doPost(endpoints.juego.nuevo, data).then(response => {
             const {error, error_controlado, codigo_juego} = response;
@@ -170,6 +179,7 @@ class GameCreatorComponent extends React.Component {
             defDate,
             defStartat,
             defEndsat,
+            sendInvitation,
         } = this.state;
         return (
             <ScrollView>                
@@ -189,9 +199,11 @@ class GameCreatorComponent extends React.Component {
                         defDate          = { defDate    }
                         defStartAt       = { defStartat }
                         defEndsAt        = { defEndsat  }
-                        isValidForm      = { this.isValidForm()           }
-                        onAddTeam        = { this.onAddTeam.bind(this)    }
-                        onRemoveTeam     = { this.onRemoveTeam.bind(this) }
+                        isValidForm      = { this.isValidForm()            }
+                        onAddTeam        = { this.onAddTeam.bind(this)     }
+                        onRemoveTeam     = { this.onRemoveTeam.bind(this)  }
+                        sendInvitation   = { sendInvitation                }
+                        toggleInvitation = { () => this.toggleInvitation() }
                     />                    
                 </View>
             </ScrollView>

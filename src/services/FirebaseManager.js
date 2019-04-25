@@ -68,7 +68,8 @@ class FirebaseManager extends React.PureComponent {
          */
         const notificationOpen = await firebase.notifications().getInitialNotification();
         if (notificationOpen) {
-            const { title, body } = notificationOpen.notification.data;
+            const data = notificationOpen.notification.data
+            const { title, body } = data;
             setTimeout(() => {
                 this.props.notify({
                     title,

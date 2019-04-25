@@ -80,6 +80,7 @@ class FirebaseManager extends React.PureComponent {
                     path_data : data.path_data,
                     property_name : data.property_name,
                 });
+                firebase.notifications().removeAllDeliveredNotifications();
             }, 1000);
         }
 

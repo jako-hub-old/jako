@@ -34,8 +34,17 @@ class News extends React.Component {
         });
     }
 
+    renderEmpty() {
+        return (
+            <View style = { styles.emptyRoot }>
+                <Text note>Parece que aún no hay actividad en Jako</Text>
+            </View>
+        );
+    }
+
     renderNews() {
-        const { news=[] } = this.props;        
+        const { news=[] } = this.props;
+        if(news.length === 0) return this.renderEmpty();
         return news.map((item, key) => (
             <PostItem 
                 key = { `post-item-${key}-${item.codigo_publicacion}` } 
@@ -66,6 +75,11 @@ class News extends React.Component {
 const styles = StyleSheet.create({
     root : {
         flex : 1,
+    },
+    emptyRoot : {
+        flex : 1,
+        alignItems : "center",
+        paddingVertical : 20,
     },
 });
 

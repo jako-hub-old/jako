@@ -15,6 +15,7 @@ import MyPublications from './MyPublications';
 import {
     View,
 } from 'native-base';
+import MyInvitations from './MyInvitations';
 /**
  * This component handles the user profile actions.
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
@@ -25,6 +26,7 @@ import {
 class MyProfileComponent extends React.Component {
     state = {
         openPublications : false,
+        openInvitations : false,
     };
     onLogout() {
         const { navigation, logout } = this.props;
@@ -107,10 +109,20 @@ class MyProfileComponent extends React.Component {
             openPublications : !this.state.openPublications,
         });
     }
+    toggleInvitations() {
+        this.setState({
+            openInvitations : !this.state.openInvitations,
+        });
+    }
+
+    goToGame(game) {
+        const navigation = this.props.navigation;
+        navigation.navigate("JoinToGame", {selectedGame : game});
+    }
 
     render() {
         const { userCode, navigation, photo } = this.props;
-        const {openPublications} = this.state;
+        const {openPublications, openInvitations} = this.state;
         return (
             <>
             <View style = { styles.root }>
@@ -124,6 +136,8 @@ class MyProfileComponent extends React.Component {
                         <UserOptions 
                             onLogout = { () => this.onLogout() }
                             togglePublications = {() => this.togglePublications()}
+                            toggleGameInvitations = {() => this.toggleInvitations()}
+
                         />
                     ) }
                 />
@@ -133,8 +147,15 @@ class MyProfileComponent extends React.Component {
                 <MyPublications 
                     open={openPublications} 
                     onClose = {() => this.togglePublications()}
-                />
+                />                
                 )}
+            {openInvitations && (
+                <MyInvitations 
+                    open = {openInvitations}
+                    onClose = {() => this.toggleInvitations()}
+                    goToGame = {this.goToGame.bind(this)}
+                />
+            )}
             </>
         );
     }

@@ -18,6 +18,7 @@ export default {
         invitar : '/v1/juego/invitar',
         cerrar : '/v1/juego/cerrar',
         compartirConAmigos : '/v1/juego/compartir/amigos',
+        invitaciones : '/v1/juego/invitaciones',
     },
     escenarios : {
         lista : '/v1/escenario/lista',        

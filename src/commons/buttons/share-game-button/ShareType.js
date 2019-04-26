@@ -107,6 +107,7 @@ ShareType.propTypes = {
     fetchFriendshipRequest : PropTypes.func,
     removeFriendshipRequest: PropTypes.func,
     navigation : PropTypes.any,
+    onClose : PropTypes.func,
 };
 
 export default withUserData(ShareType);

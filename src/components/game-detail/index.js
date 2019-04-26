@@ -20,6 +20,7 @@ import stylesPalette from '../../utils/stylesPalette';
 import CommentGameComponent from '../comment-game';
 import TeamsList from './TeamsList';
 import TerminateGame from '../terminate-game';
+import ShareGameModal from '../../commons/buttons/share-game-button/ShareGameModal';
 
 /**
  * This component handles the game detail display.
@@ -45,6 +46,7 @@ class GameDetailComponent extends React.Component {
         openComment     : true,
         allowJoin       : true,
         currentTab      : 0,
+        openShare    : false,
     };
 
     constructor(props) {
@@ -173,6 +175,20 @@ class GameDetailComponent extends React.Component {
         return this.props.userCode === this.state.codigo_jugador;
     }
 
+    onClose() {
+        this.setState({
+            openShare : false,
+        });
+    }
+
+
+    onShareGame() {
+        this.setState({
+            openShare : true,
+        });
+    }
+
+
     render() {
         const {selectedGame, userCode} = this.props;
         const {
@@ -184,9 +200,11 @@ class GameDetailComponent extends React.Component {
             allowJoin,
             currentTab,
             jugador_seudonimo,
+            openShare,
         } = this.state;
         const isInGame = this.isInGame();
         return (
+            <>
             <View style={styles.root}>
                 <ScrollView>
                     {this.state.nombre && (
@@ -202,6 +220,7 @@ class GameDetailComponent extends React.Component {
                         onViewProfile = {() => this.onViewHostProfile()}
                         gameCode    = { codigo_juego }
                         isInGame    = { isInGame }
+                        onShareGame = { () => this.onShareGame() }
                     />                    
                     <View styles = { {flex : 1,} }>
                         {isInGame && (
@@ -253,6 +272,14 @@ class GameDetailComponent extends React.Component {
                     </View>
                 </ScrollView>
             </View>
+            {openShare && (
+                <ShareGameModal 
+                    open    = { openShare   } 
+                    game    = { selectedGame            }
+                    onClose = {() => this.onClose()     } 
+                />
+            )}
+            </>
         );
     }
 }

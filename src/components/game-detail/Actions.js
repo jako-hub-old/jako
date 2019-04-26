@@ -12,7 +12,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { ShareGameButton } from '../../commons/buttons';
 
-const Actions = ({onAdd, canJoin=true, user, onViewProfile, gameCode, isInGame}) => (
+const Actions = ({onAdd, canJoin=true, user, onViewProfile, gameCode, isInGame, onShareGame}) => (
     <View style={styles.root}>
         <View style = {styles.profileButton}>
             <Text note style = {{marginRight : 10}}>
@@ -31,7 +31,7 @@ const Actions = ({onAdd, canJoin=true, user, onViewProfile, gameCode, isInGame})
             <Button transparent style={styles.button}>
                 <Icon name="heart" size={25} />
             </Button>
-            <ShareGameButton gameCode = { gameCode }/>
+            <ShareGameButton gameCode = { gameCode } onPress = { onShareGame } />
         </View>
     </View>
 );

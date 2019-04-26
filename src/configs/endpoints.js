@@ -44,5 +44,6 @@ export default {
     },
     publicacion : {
         lista : '/v1/publicacion/lista',
+        jugador : '/v1/publicacion/jugador',
     }
 };

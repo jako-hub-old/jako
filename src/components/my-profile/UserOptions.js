@@ -13,8 +13,20 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
  * This component allows to render the user profile options.
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
  */
-const UserOptions = ({onLogout}) => (
+const UserOptions = ({onLogout, toggleGameInvitations, togglePublications}) => (
     <List>
+        <ListItem button onPress = { toggleGameInvitations }>
+            <Body><Text>Invitaciones a juegos</Text></Body>
+            <Right>
+                <Icon name = { "futbol" } size = {20} />
+            </Right>
+        </ListItem>
+        <ListItem button onPress = { togglePublications }>
+            <Body><Text>Publicaciones</Text></Body>
+            <Right>
+                <Icon name = { "newspaper" } size = {20} />
+            </Right>
+        </ListItem>
         <ListItem button onPress = { onLogout } noIndent>
             <Body><Text>Salir</Text></Body>
             <Right>

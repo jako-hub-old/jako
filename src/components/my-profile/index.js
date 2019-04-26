@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    View,
     StyleSheet,
 } from 'react-native';
 import UserProfileCard from '../user-profile-card';
@@ -12,6 +11,10 @@ import { withSession, withApi, withUserData } from '../../providers';
 import { consoleError, addMessage } from '../../utils/functions';
 import endpoints from '../../configs/endpoints';
 import { IMAGES_SERVER } from 'react-native-dotenv';
+import MyPublications from './MyPublications';
+import {
+    View,
+} from 'native-base';
 /**
  * This component handles the user profile actions.
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
@@ -20,6 +23,9 @@ import { IMAGES_SERVER } from 'react-native-dotenv';
  * @extends {React.Component}
  */
 class MyProfileComponent extends React.Component {
+    state = {
+        openPublications : false,
+    };
     onLogout() {
         const { navigation, logout } = this.props;
         if(logout) logout(navigation);
@@ -96,9 +102,17 @@ class MyProfileComponent extends React.Component {
             });
     }
 
+    togglePublications() {
+        this.setState({
+            openPublications : !this.state.openPublications,
+        });
+    }
+
     render() {
         const { userCode, navigation, photo } = this.props;
+        const {openPublications} = this.state;
         return (
+            <>
             <View style = { styles.root }>
                 <UserProfileCard 
                     me
@@ -109,10 +123,19 @@ class MyProfileComponent extends React.Component {
                     optionsComponent    = { (
                         <UserOptions 
                             onLogout = { () => this.onLogout() }
+                            togglePublications = {() => this.togglePublications()}
                         />
                     ) }
-                />                
+                />
             </View>
+            {openPublications && 
+                (
+                <MyPublications 
+                    open={openPublications} 
+                    onClose = {() => this.togglePublications()}
+                />
+                )}
+            </>
         );
     }
 }

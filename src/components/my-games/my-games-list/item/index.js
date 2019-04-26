@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
  * This component renders the Item presentation
  * @param {*} param0 
  */
-const Item = ({item, onSelect, onViewProfile}) => (
+const Item = ({item, onSelect, onViewProfile, onShare}) => (
     <View style={styles.root}>
         <TouchableOpacity onPress={onSelect}>
             <View style={styles.wrapper}>
@@ -38,6 +38,7 @@ const Item = ({item, onSelect, onViewProfile}) => (
             user            = { item.jugador_seudonimo  }
             gameCode        = { item.codigo_juego       }
             onViewProfile   = { onViewProfile           }
+            onShare         = { onShare                 }
          />
     </View>
     
@@ -69,6 +70,7 @@ Item.propTypes = {
     onAdd           : PropTypes.func,
     onComment       : PropTypes.func,
     onViewProfile   : PropTypes.func,
+    onShare         : PropTypes.func,
 };
 
 export default Item;

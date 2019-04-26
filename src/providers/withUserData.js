@@ -34,10 +34,10 @@ export const propTypes = {
     verified            : PropTypes.bool,
     setVerified         : PropTypes.func,
     friendshipRequests  : PropTypes.array,
-    friendshipRequestsSended : PropTypes.array,
-    fetchUserSendedRequests: PropTypes.func,
-    fetchFriendshipRequest : PropTypes.func,
-    removeFriendshipRequest: PropTypes.func,
+    friendshipRequestsSended    : PropTypes.array,
+    fetchUserSendedRequests     : PropTypes.func,
+    fetchFriendshipRequest      : PropTypes.func,
+    removeFriendshipRequest     : PropTypes.func,
 };
 
 /**

@@ -8,6 +8,7 @@ import {_t} from "../../configs/dictionary";
 import stylesPalette from "../../utils/stylesPalette";
 import ListMyGamesComponent from './my-games-list';
 import {withGames, withSearch} from "../../providers";
+import ShareGameModal from '../../commons/buttons/share-game-button/ShareGameModal';
 
 /**
  * This component allows to handle the user games
@@ -18,6 +19,8 @@ class MyGamesComponent extends React.Component {
         currentTab  : 0,
         games       : [],
         loading     : false,
+        selectedGame : null,
+        openShare : false,
     };
 
     componentDidMount() {
@@ -58,19 +61,44 @@ class MyGamesComponent extends React.Component {
         this.fetchGames();
     }
 
+    onShareGame(selectedGame) {
+        this.setState({
+            selectedGame,
+        });
+    }
+
+    onClose() {
+        this.setState({
+            selectedGame : null,
+        });
+    }
+
     render() {
-        const { myGames=[] } = this.props;   
+        const { myGames=[] } = this.props;
+        const {
+            selectedGame,
+        } = this.state;
         return (
-            <Container>
-                <ListMyGamesComponent
-                    games        = { myGames }
-                    onSelectGame = { this.onSelectGame.bind(this) }
-                    goToSearch   = { this.goToSearch.bind(this)   }
-                    onViewProfile= { this.onViewProfile.bind(this)}
-                    onRefresh    = { () => this.onRefresh() }
-                    loading      = { this.state.loading     }
-                />
-            </Container>
+            <>
+                <Container>
+                    <ListMyGamesComponent
+                        games        = { myGames }
+                        onSelectGame = { this.onSelectGame.bind(this)   }
+                        goToSearch   = { this.goToSearch.bind(this)     }
+                        onViewProfile= { this.onViewProfile.bind(this)  }
+                        onRefresh    = { () => this.onRefresh()         }
+                        loading      = { this.state.loading             }
+                        onShare      = { this.onShareGame.bind(this)    }
+                    />
+                </Container>
+                {selectedGame && (
+                    <ShareGameModal 
+                        open    = { Boolean(selectedGame)   } 
+                        game    = { selectedGame            }
+                        onClose = {() => this.onClose()     } 
+                    />
+                )}
+            </>
         );
     }
 }

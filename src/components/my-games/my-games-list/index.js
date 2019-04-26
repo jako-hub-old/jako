@@ -33,6 +33,7 @@ const ListComponent = (props) => {
         onViewProfile,
         onRefresh,
         loading,
+        onShare,
     } = props;
     let content = null;
     if(games.length === 0) {
@@ -45,6 +46,7 @@ const ListComponent = (props) => {
                         <Item
                             item            = { item                   }
                             key             = { `my-games-item-${key}` }
+                            onShare         = { () => onShare(item)    }
                             onSelect        = { () => onSelectGame? onSelectGame(item) : null   }
                             onViewProfile   = { () => onViewProfile? onViewProfile(item) : null }
                         />
@@ -98,10 +100,11 @@ const styles = StyleSheet.create({
 });
 
 ListComponent.propTypes = {
-    games : PropTypes.array.isRequired,
-    onSelectGame : PropTypes.func,
-    goToSearch   : PropTypes.func.isRequired,
-    onViewProfile: PropTypes.func,
+    games           : PropTypes.array.isRequired,
+    onSelectGame    : PropTypes.func,
+    goToSearch      : PropTypes.func.isRequired,
+    onViewProfile   : PropTypes.func,
+    onShare         : PropTypes.func,
 };
 
 export default ListComponent;

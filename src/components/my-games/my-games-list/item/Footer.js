@@ -18,7 +18,7 @@ import {
  * This component renders the footer of an item
  * @param {*} param0 
  */
-const Footer = ({onLike, onViewProfile, liked, user, gameCode}) => {
+const Footer = ({onLike, onViewProfile, liked, user, gameCode, onShare}) => {
     const likeButtonStyles = {
         ...styles.defaultIcon,
         ...(liked? styles.buttonLikePressed : {}),
@@ -41,7 +41,7 @@ const Footer = ({onLike, onViewProfile, liked, user, gameCode}) => {
                         style={likeButtonStyles}
                     />
                 </Button>
-                {/* <ShareGameButton gameCode = { gameCode }/> */}
+                <ShareGameButton gameCode = { gameCode } onPress = { onShare } />
             </View>
         </View>
     );

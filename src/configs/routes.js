@@ -76,13 +76,17 @@ export const AuthRoutes = {
     Register : {
         screen : RegisterScreen,
         navigationOptions: {
-            headerVisible: false
+            headerVisible: false,
         }
     },
 };
 
 export const generalRoutes = {
+};
+
+export const testRoutes = {
     TestArea : { screen : TestAreaScreen },
+    PlayerProfile : PlayerProfileScreen,
 };
 
 export const createTabOptions = (screen, name) => ({ 

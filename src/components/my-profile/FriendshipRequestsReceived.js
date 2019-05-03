@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
     StyleSheet,
+    Alert,
+    TouchableOpacity,
 } from 'react-native';
 import {
     View,
@@ -19,7 +21,13 @@ import { LoadingSpinner } from '../../commons/loaders';
 import {IMAGES_SERVER, DEFAULT_USER_IMG} from 'react-native-dotenv';
 import {IconButton} from '../../commons/forms';
 
-const RequestItem = ({request, onAccept, onCancel}) => {
+const SimpleTouch = ({children, onPress}) => (
+    <TouchableOpacity onPress = { onPress } style = { {alignSelf : "stretch"} }>
+        {children}
+    </TouchableOpacity>
+);
+
+const RequestItem = ({request, onAccept, onCancel, onViewProfile}) => {
     const {
         foto,
         jugador_nombre_corto:short_name,
@@ -28,14 +36,22 @@ const RequestItem = ({request, onAccept, onCancel}) => {
     return (
         <ListItem thumbnail style = { styles.listItem } noBorder>
             <Left style = { styles.listItemAvatar }>
-                <Thumbnail 
-                    source = { {uri : foto? `${IMAGES_SERVER}${foto}` : DEFAULT_USER_IMG} } 
-                    style = { [styles.listPhoto, styles.thumbWrapper] }
-                />
+                <SimpleTouch
+                    onPress = { onViewProfile }
+                >
+                    <Thumbnail 
+                        source = { {uri : foto? `${IMAGES_SERVER}${foto}` : DEFAULT_USER_IMG} } 
+                        style = { [styles.listPhoto, styles.thumbWrapper] }
+                    />
+                </SimpleTouch>
             </Left>
             <Body style = { styles.listItemBody }>
-                <Text>{short_name}</Text>
-                <Text note>{alias}</Text>
+                <SimpleTouch onPress = { onViewProfile }>
+                    <Text>{short_name}</Text>
+                </SimpleTouch>
+                <SimpleTouch onPress = { onViewProfile }>
+                    <Text note>{alias}</Text>
+                </SimpleTouch>
             </Body>
             <Right style = { styles.listItemActions }>
                 <IconButton onPress = { onAccept } style = { styles.listItemActionIcon } icon = "check" small />
@@ -77,6 +93,7 @@ class FriendshipRequestsReceived extends React.Component {
         showOthers : false,
     };
     componentDidMount() {
+        
         this.fetchRequests();
     }
 
@@ -97,8 +114,21 @@ class FriendshipRequestsReceived extends React.Component {
     }
 
     onCancel(request) {
-        alert("Cancel!");
+        Alert.alert(
+            "Cancelar solicitud",
+            "¿Seguro desea cancelar la solicitud?",
+            [
+                {text : "No"},
+                {text : "Si"},
+            ],
+        );
     } 
+
+    onViewProfile({codigo_jugador:playerCode, jugador_seudonimo:playerAlias}) {
+        if(this.props.navigation) {
+            this.props.navigation.navigate("PlayerProfile", {playerCode, playerAlias});
+        }
+    }
 
     renderList() {
         const {friendshipRequests=[], maxResults=2} = this.props;
@@ -118,6 +148,7 @@ class FriendshipRequestsReceived extends React.Component {
                             request = { item }
                             onAccept = { () => this.onAccept(item) }
                             onCancel = { () => this.onCancel(item) }
+                            onViewProfile = { () => this.onViewProfile(item) }
                         />
                     ))}
                     {!showOthers && (totalOthers > 0) && (
@@ -211,6 +242,7 @@ const styles = StyleSheet.create({
 });
 
 FriendshipRequestsReceived.propTypes = {
+    navigation : PropTypes.any.isRequired,
     fetchMyFriends      : PropTypes.func,
     userCode            : PropTypes.any,
     setUserData         : PropTypes.func,

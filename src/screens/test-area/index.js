@@ -19,7 +19,7 @@ class TestAreaScreen extends React.Component {
             <BaseScreen
                 navigation = { navigation }
             >
-                <FriendshipRequestsReceived />
+                <FriendshipRequestsReceived navigation = { navigation } />
             </BaseScreen>
         );
     }

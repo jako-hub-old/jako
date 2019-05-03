@@ -19,7 +19,7 @@ const palette = stylesPalette();
  * This component only renders the profile view.
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
  */
-const Header = ({photo, requestSended, fullName, me, alias, isFriend, isPlayer, playerCode, requestReceived, disableUpload, onSelectImage, userFriends}) => (
+const Header = ({photo, requestReceived, requestSended, fullName, me, alias, isFriend, isPlayer, playerCode, disableUpload, onSelectImage, userFriends}) => (
     <View style = { styles.root }>
         <View style = { styles.contentWrapper}>
             <View style = {styles.picWrapper}>
@@ -46,9 +46,10 @@ const Header = ({photo, requestSended, fullName, me, alias, isFriend, isPlayer, 
                     <Text style = { {textAlign : "center"} }>Amigos <Icon name="thumbs-up" size = { 20 } /></Text>
                 </View>
             )}
-            {!requestSended  && isPlayer && !isFriend && !me && (
+            {!requestReceived && !requestSended  && isPlayer && !isFriend && !me && (
                 <View styles = { styles.firendshipButton }>
-                    <FriendshipButton playerCode = { playerCode } />
+                    
+                    <Text>here</Text>
                 </View>
             )}
             {requestSended && isPlayer && !isFriend && !me && (

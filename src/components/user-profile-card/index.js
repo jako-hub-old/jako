@@ -142,6 +142,13 @@ class UserProfileCard extends React.Component {
         return Boolean(player);
     }
 
+    requestReceived() {
+        const {me, playerCode, friendshipRequests=[]} = this.props;
+        if(me) return false;
+        const player = friendshipRequests.find(item => item.codigo_jugador === playerCode);
+        return Boolean(player);
+    }
+
     renderCard() {
          const {
              userInfo : { 
@@ -164,6 +171,7 @@ class UserProfileCard extends React.Component {
         } = this.props;        
         const userInfo = this.renderUserInfo();
         const requestSended = this.requestSended();
+        const requestReceived = this.requestReceived();
         return (
             <>
                 <Header 
@@ -177,7 +185,8 @@ class UserProfileCard extends React.Component {
                     playerCode      = { playerCode      }
                     me              = {me               }
                     onViewProfile   = { this.onViewProfile.bind(this) }
-                    requestSended   = { requestSended }
+                    requestSended   = { requestSended   }
+                    requestReceived = { requestReceived }
                 />
                 <GameResume 
                     assists     = { asistencia   }

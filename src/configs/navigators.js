@@ -18,6 +18,7 @@ import {
     createTabOptions,
     playerRoutes,
     generalRoutes,
+    testRoutes,
  } from "./routes";
 
 const AuthNavigator = createSwitchNavigator(AuthRoutes, {
@@ -87,12 +88,18 @@ const AppNavigator = createStackNavigator({
     headerMode       : 'none',
 });
 
+const TestNavigator = createStackNavigator(testRoutes, {
+    initialRouteName : "TestArea",
+    headerMode : "none",
+});
+
 const AppNavigatorContainer = createSwitchNavigator({
     Auth : AuthNavigator,
     App  : AppNavigator,
+    testing : TestNavigator,
     ...generalRoutes,
 }, {
-    initialRouteName : "TestArea",
+    initialRouteName : "testing",
 });
 
 export default AppNavigatorContainer;

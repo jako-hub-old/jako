@@ -1,7 +1,7 @@
 import React from 'react';
 import BaseScreen from '../BaseScreen';
-import InviteContacts from '../../components/invite-contacts';
-import { PrettyButton } from '../../commons/forms';
+import { withUserData } from '../../providers';
+import FriendshipRequestsReceived from '../../components/my-profile/FriendshipRequestsReceived';
 
 class TestAreaScreen extends React.Component {
     state = {
@@ -19,16 +19,10 @@ class TestAreaScreen extends React.Component {
             <BaseScreen
                 navigation = { navigation }
             >
-                <PrettyButton onPress = {() => this.toggle()}>
-                    Open
-                </PrettyButton>
-                <InviteContacts 
-                    open = {open}
-                    onClose = {() => this.toggle()}
-                />
+                <FriendshipRequestsReceived />
             </BaseScreen>
         );
     }
 }
 
-export default TestAreaScreen;
+export default withUserData(TestAreaScreen);

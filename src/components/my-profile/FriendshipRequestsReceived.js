@@ -17,8 +17,9 @@ import {
 import { withUserData } from '../../providers';
 import { LoadingSpinner } from '../../commons/loaders';
 import {IMAGES_SERVER, DEFAULT_USER_IMG} from 'react-native-dotenv';
+import {IconButton} from '../../commons/forms';
 
-const RequestItem = ({request}) => {
+const RequestItem = ({request, onAccept, onCancel}) => {
     const {
         foto,
         jugador_nombre_corto:short_name,
@@ -26,16 +27,20 @@ const RequestItem = ({request}) => {
     } = request;
     return (
         <ListItem thumbnail style = { styles.listItem } noBorder>
-            <Left>
+            <Left style = { styles.listItemAvatar }>
                 <Thumbnail 
                     source = { {uri : foto? `${IMAGES_SERVER}${foto}` : DEFAULT_USER_IMG} } 
                     style = { [styles.listPhoto, styles.thumbWrapper] }
                 />
             </Left>
-            <Body>
+            <Body style = { styles.listItemBody }>
                 <Text>{short_name}</Text>
                 <Text note>{alias}</Text>
             </Body>
+            <Right style = { styles.listItemActions }>
+                <IconButton onPress = { onAccept } style = { styles.listItemActionIcon } icon = "check" small />
+                <IconButton onPress = { onCancel } style = { styles.listItemActionIcon } icon = "times" small />
+            </Right>
         </ListItem>
     )
 };
@@ -87,6 +92,14 @@ class FriendshipRequestsReceived extends React.Component {
         });
     }
 
+    onAccept(request) {
+        alert("accept!");
+    }
+
+    onCancel(request) {
+        alert("Cancel!");
+    } 
+
     renderList() {
         const {friendshipRequests=[], maxResults=2} = this.props;
         const {showOthers} = this.state;
@@ -103,6 +116,8 @@ class FriendshipRequestsReceived extends React.Component {
                         <RequestItem 
                             key = { `friendship-request-item-list-${key}-${item.codigo_jugador_solicitud}` }
                             request = { item }
+                            onAccept = { () => this.onAccept(item) }
+                            onCancel = { () => this.onCancel(item) }
                         />
                     ))}
                     {!showOthers && (totalOthers > 0) && (
@@ -176,6 +191,21 @@ const styles = StyleSheet.create({
         padding             : 0,
         paddingTop          : 0,
         paddingBottom       : 0, 
+    },
+    listItemActions : {
+        flex : 4,
+        flexDirection : "row",
+        justifyContent : "center",
+        alignItems : "center",
+    },
+    listItemBody : {
+        flex : 7,
+    },
+    listItemAvatar : {
+        flex : 2,
+    },
+    listItemActionIcon : {
+        marginHorizontal : 5,
     },
     buttonHide : {alignItems : "center", flexDirection : "row", justifyContent : "center"}
 });

@@ -53,8 +53,22 @@ class FriendshipRequestsReceived extends React.Component {
      * This function is triggered when the user accept the request.
      * @param {*} request 
      */
-    onAccept(request) {
-        alert("accept!");
+    async onAccept({codigo_jugador_solicitud:requestCode, jugador_nombre_corto:playerName}) {
+        const {doPost, startLoading, stopLoading, removeFriendshipRequest,} = this.props;
+        startLoading();
+        const response = await doPost(endpoints.jugador_solicitud.respuesta, {
+            solicitud : requestCode,
+            respuesta : 's',
+        });
+        const {error, error_controlado} = response;
+        if(error || error_controlado) {
+            consoleError("Friendship request accept: ", response);
+            addMessage("Ocurrió un error al aceptar la solicitud");
+        } else {
+            addMessage(`${playerName} y tu ahora son amigos`);
+            removeFriendshipRequest(requestCode);
+        }
+        stopLoading();
     }
 
     /**

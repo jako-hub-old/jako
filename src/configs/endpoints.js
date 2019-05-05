@@ -35,6 +35,8 @@ export default {
         respuesta   : '/v1/jugador/solicitud/respuesta',
         envaidas    : '/v1/jugador/solicitud/enviadas',
         cancelar    : '/v1/jugador/solicitud/cancelar',
+        sugerencias : '/v1/jugador/solicitud/sugerencia',
+        
     },
     comentario : {
         nuevo : '/v1/comentario/nuevo',

@@ -54,6 +54,9 @@ class FriendsList extends React.PureComponent {
         if(friends.length === 0) return this.renderEmpty();
         return (
             <View style = { styles.root }>                
+                <View style = { styles.header }>
+                    <Text style = { styles.headerText }>Mis amigos</Text>
+                </View>
                 <List>
                     {friends.map((friend, key) => (
                         <ListItem 
@@ -83,11 +86,20 @@ class FriendsList extends React.PureComponent {
 const styles = StyleSheet.create({
     root : {
         flex : 1,
+        paddingBottom : 20,
     },
     loader : {
         flex : 1, 
         justifyContent : "center",
         alignItems : "center",
+    },
+    header : {
+        backgroundColor : "#f7f7f7",
+        padding         : 15,
+    },
+    headerText : {
+        textAlign : "center",
+        color : "#707070",
     },
 });
 

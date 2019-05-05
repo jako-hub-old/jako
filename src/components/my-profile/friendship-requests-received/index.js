@@ -182,6 +182,9 @@ class FriendshipRequestsReceived extends React.Component {
         }
         return (
           <View style = {styles.root}>
+                <View style = { styles.header }>
+                    <Text style = { styles.headerText }>Solicitudes de amistad</Text>
+                </View>
               {content}
           </View>  
         );
@@ -191,7 +194,15 @@ class FriendshipRequestsReceived extends React.Component {
 const styles = StyleSheet.create({
     root : {
 
-    },    
+    },
+    header : {
+        backgroundColor : "#f7f7f7",
+        padding         : 15,
+    },
+    headerText : {
+        textAlign : "center",
+        color : "#707070",
+    },
     empty : {
         paddingVertical : 15,
         justifyContent  : "center",

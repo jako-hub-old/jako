@@ -48,9 +48,8 @@ const Header = ({photo, requestReceived, requestSended, fullName, me, alias, isF
             )}
             {!requestReceived && !requestSended  && isPlayer && !isFriend && !me && (
                 <View styles = { styles.firendshipButton }>
-                    
-                    <Text>here</Text>
-                </View>
+                <FriendshipButton playerCode = { playerCode } />
+            </View>
             )}
             {requestSended && isPlayer && !isFriend && !me && (
                 <View styles = { styles.firendshipButton }>

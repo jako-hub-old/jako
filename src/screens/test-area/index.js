@@ -1,7 +1,7 @@
 import React from 'react';
 import BaseScreen from '../BaseScreen';
 import { withUserData } from '../../providers';
-import FriendshipRequestsReceived from '../../components/my-profile/friendship-requests-received';
+import FriendshipSuggestion from '../../components/my-profile/friendship-suggestion';
 
 
 class TestAreaScreen extends React.Component {
@@ -20,7 +20,7 @@ class TestAreaScreen extends React.Component {
             <BaseScreen
                 navigation = { navigation }
             >
-                <FriendshipRequestsReceived 
+                <FriendshipSuggestion 
                     navigation = { navigation } 
                     onlyIfResults
                 />

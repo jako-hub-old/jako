@@ -5,11 +5,12 @@ import stylesPalette from "../../utils/stylesPalette";
 import PropTypes from 'prop-types';
 import { LoadingSpinner } from '../loaders';
 
-const PrettyButton = ({children, disabled, primary, icon, loading, ...otherProps}) => {
+const PrettyButton = ({children, small, disabled, primary, icon, loading, ...otherProps}) => {
     const buttonStyles = [
         styles.btnRoot, 
-        (disabled? styles.disabled : {}),
-        (primary? styles.btnPrimary : {}),
+        (disabled? styles.disabled : null),
+        (primary? styles.btnPrimary : null),
+        (small? styles.small : null),
     ];
     const textStyles = [
         styles.btnText,
@@ -51,11 +52,19 @@ const styles = StyleSheet.create({
         backgroundColor : "#b0bec5",
         color : "#cfd8dc"
     },
+    small : {
+        paddingVertical : 2,
+        paddingTop : 2,
+        paddingBottom : 2,
+        paddingHorizontal : 15,
+        height : 35,
+    },
 });
 
 PrettyButton.propTypes = {
     label       : PropTypes.string,
     disabled    : PropTypes.bool,
+    small       : PropTypes.bool,
 };
 
 export default PrettyButton;

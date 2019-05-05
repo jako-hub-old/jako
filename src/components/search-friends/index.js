@@ -13,7 +13,11 @@ import { withSearch, withUserData, withApi } from '../../providers';
 import FriendsList from './FriendsList';
 import { consoleError, addMessage } from '../../utils/functions';
 import endpoints from '../../configs/endpoints';
+import FriendshipSuggestion from '../my-profile/friendship-suggestion';
 
+/**
+ * This component handles the friends search.
+ */
 class SearchFriends extends Component {
     state = {
         loading : true,
@@ -106,9 +110,11 @@ class SearchFriends extends Component {
 
     render() {
         const { loading } = this.state;
+        const { navigation } = this.props;
         const resultsFriends = this.getFilteredFriends();
         const totalFriends = resultsFriends.length;
         return (
+            <>            
             <ScrollView
                 refreshControl = {
                     <RefreshControl 
@@ -117,6 +123,7 @@ class SearchFriends extends Component {
                     />
                 }
             >
+                <FriendshipSuggestion navigation = { navigation } />  
                 {totalFriends === 0 && this.renderEmpty() }
                 {totalFriends > 0 && (
                     <FriendsList 
@@ -128,6 +135,7 @@ class SearchFriends extends Component {
                     />
                 )}
             </ScrollView>
+            </>
         );
     }
 }

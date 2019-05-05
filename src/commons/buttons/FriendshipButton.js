@@ -18,7 +18,7 @@ class FriendshipButton extends React.Component {
     };
 
     async onRequestFriendship() {
-        const {userCode, playerCode, doPost} = this.props;
+        const {userCode, playerCode, doPost, onRequestDone} = this.props;
         this.setState({
             loading : true,
         });
@@ -38,6 +38,8 @@ class FriendshipButton extends React.Component {
                 await this.props.fetchFriendshipRequest();
                 await this.props.fetchUserSendedRequests();
                 this.setState({loading : false});
+                console.log("the code: ", playerCode);
+                if(onRequestDone) onRequestDone(playerCode);
             }
             this.setState({
                 loading : false,
@@ -55,7 +57,7 @@ class FriendshipButton extends React.Component {
         const {
             loading,
         } = this.state;
-        const { asIcon } = this.props;
+        const { asIcon, sm, label="Solicitar amistad" } = this.props;
         return (
             <View style = { styles.root }>
                 <View>
@@ -65,8 +67,10 @@ class FriendshipButton extends React.Component {
                             loading = {loading} 
                             icon = {(<Icon name = "telegram-plane" size={18}  />)}
                             onPress = { () => this.onRequestFriendship() }
+                            small = {sm}
+                        
                         >
-                            Solicitar amistad 
+                            {label} 
                         </PrettyButton>
                     )}
                     {asIcon && !loading && (
@@ -93,6 +97,7 @@ const styles = StyleSheet.create({
 
 FriendshipButton.propTypes = {
     playerCode : PropTypes.any,
+    sm         : PropTypes.bool,
     startLoading    : PropTypes.func,
     stopLoading     : PropTypes.func,
     loading         : PropTypes.bool,
@@ -103,6 +108,9 @@ FriendshipButton.propTypes = {
     asIcon          : PropTypes.bool,
     fetchFriendshipRequest  : PropTypes.func,
     fetchUserSendedRequests : PropTypes.func,
+    onRequestDone           : PropTypes.func,
+    label                   : PropTypes.string,
+    
 };
 
 export default withApi(withUserData(FriendshipButton));

@@ -51,6 +51,9 @@ const FriendCard = ({friend, onViewProfile, onRequest, sended, onCancel}) => (
 
 const FriendsList = ({friends=[], onViewProfile, onRequestFriendship, sendedRequest, onCancel}) => (
     <View style = { styles.root }>
+        <View style = { styles.header }>
+            <Text style = { styles.headerText }>Resultados de búsqueda</Text>
+        </View>
         {friends.map((friend, key) => {            
             const request = sendedRequest(friend.codigo_jugador);
             const sended = Boolean(request);
@@ -71,6 +74,14 @@ const FriendsList = ({friends=[], onViewProfile, onRequestFriendship, sendedRequ
 const styles = StyleSheet.create({
     root : {
 
+    },
+    header : {
+        backgroundColor : "#f7f7f7",
+        padding         : 15,
+    },
+    headerText : {
+        textAlign : "center",
+        color : "#707070",
     },
     friendCard : {
         flex : 1,

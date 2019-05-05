@@ -17,6 +17,7 @@ import {
 import { CommonTabs } from '../../commons/others';
 import { IMAGES_SERVER, DEFAULT_USER_IMG } from 'react-native-dotenv';
 import FriendshipRequestButtons from '../friendship-requests-buttons';
+import FriendshipRequestsReceived from '../my-profile/friendship-requests-received';
 
 
 const ErrorMessage = ({message}) => (
@@ -68,14 +69,15 @@ class UserProfileCard extends React.Component {
         }
     }
 
-    fetchUserInfo() {
-        this.props.doPost(endpoints.jugador.detalle, {
-            jugador : this.props.playerCode,
-        })
-        .then(response => {
+    async fetchUserInfo() {
+        try {
+            const response = await this.props.doPost(endpoints.jugador.detalle, {
+                jugador : this.props.playerCode,
+            })
+            const { error:errorApi, error_controlado } = response;
             let userInfo = {};
             let error = null;
-            const { error:errorApi, error_controlado } = response;
+            
             if(errorApi || error_controlado) {
                 error = "Ocurrió un error al obtener la información del usuario";
             } else {
@@ -86,26 +88,25 @@ class UserProfileCard extends React.Component {
                 loading : false,
                 error,
             });
-        })
-        .catch(response => {
+        } catch(response) {
             consoleError("Getting user info: ", response);
             this.setState({
                 loading : false,
                 error   : "Ocurrió un error al obtener la información del usuario",
             });
-        });
+        };
     }
 
-    fetchMyFriends() {
+    async fetchMyFriends() {
         this.setState({loadingFriends : true});
         const {playerCode, isPlayer} = this.props;
-        this.props.fetchMyFriends(playerCode, isPlayer)
-            .then( response => {
-                this.setState({loadingFriends : false, friends : response});
-            })
-            .catch(() => {
-                this.setState({loadingFriends : false});
-            });
+        const response = await this.props.fetchMyFriends(playerCode, isPlayer);
+        const {error, error_controlado} = response;
+        if(response !== false && !(error || error_controlado) ) {
+            this.setState({loadingFriends : false, friends : response});
+        } else {
+            this.setState({loadingFriends : false});
+        }            
     }
 
     onViewProfile({codigo_jugador_amigo:playerCode, seudonimo:playerAlias}) {
@@ -124,6 +125,7 @@ class UserProfileCard extends React.Component {
     onRefresh() {
         this.fetchUserInfo();
         this.fetchMyFriends();
+        this.props.fetchFriendshipRequest();
     }
 
     isFriend() {
@@ -200,7 +202,7 @@ class UserProfileCard extends React.Component {
                             label : "Amigos", 
                             component : (
                                 <>
-                                    <FriendshipRequestButtons navigation = { navigation } />
+                                    <FriendshipRequestsReceived onlyIfResults navigation = { navigation } />
                                     <FriendsList 
                                         fetchFriends    = { () => { this.fetchMyFriends() } } 
                                         friends         = { friends }
@@ -267,6 +269,7 @@ UserProfileCard.propTypes = {
     isPlayer        : PropTypes.bool,
     friendshipRequests  : PropTypes.array,
     friendshipRequestsSended : PropTypes.array,
+    fetchFriendshipRequest : PropTypes.func,
 };
 
 export default withApi(withUserData(UserProfileCard));

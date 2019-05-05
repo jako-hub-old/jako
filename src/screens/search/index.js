@@ -6,20 +6,16 @@ import {_t} from "../../configs/dictionary";
 import { SearchComponent, SearchFilter, SearchFriends } from '../../components';
 import { FabButton } from '../../commons/buttons';
 import { withSession } from '../../providers';
-import {
-    Tabs,
-    Tab,
-} from 'native-base';
-import { CommonTabs } from '../../commons/others';
-
+import TabButtons, { TAB_FRIENDS, TAB_GAMES } from './TabButtons';
 export {default as GameDetailScreen} from './GameDetail';
+
 
 /**
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
  */
 class MyProfileScreen extends React.Component {
     state = {
-        currentTab : 0,
+        currentTab : TAB_GAMES,
     };
 
     constructor(props) {
@@ -34,8 +30,8 @@ class MyProfileScreen extends React.Component {
         
     }
 
-    onChangeTab({i}) {
-        this.setState({currentTab:i});
+    onChangeTab(tab) {
+        this.setState({currentTab:tab});
     }
 
     render() {
@@ -50,23 +46,14 @@ class MyProfileScreen extends React.Component {
                 title           = {false} 
                 TitleComponent  = {(<SearchFilter />)}
                 disableNotify
-                enableFriendSuggester
             >
-                <CommonTabs 
-                    id = "id-search-tabs"
-                    onChangeTab = {this.onChangeTab.bind(this)}
-                    tab = {currentTab}
-                    tabs = {[
-                        {
-                            label : "Juegos",
-                            component : (currentTab === 0 && ( <View style={styles.root}><SearchComponent navigation={navigation} /></View>)),
-                        },
-                        {
-                            label : "Amigos",
-                            component : (currentTab === 1 && (<SearchFriends navigation = {navigation} />)),
-                        },
-                    ]}
-                />
+                <TabButtons onChange = { this.onChangeTab.bind(this) } />
+                {currentTab === TAB_GAMES && (
+                    <View style={styles.root}><SearchComponent navigation={navigation} /></View>
+                )}
+                {currentTab === TAB_FRIENDS && (
+                    <SearchFriends navigation = {navigation} />
+                )}
                 
                 
                 <FabButton 

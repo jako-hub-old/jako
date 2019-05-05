@@ -25,10 +25,10 @@ const Button = ({label, onPress, icon, active}) => (
     </SimpleTouch>
 );
 
-const TabButtons = ({onChange}) => (    
+const TabButtons = ({onChange, currentTab}) => (    
     <View style = {styles.root}>
-        <Button label = "Juegos" active icon="futbol" onPress = { () =>  onChange? onChange(TAB_GAMES) : null} />
-        <Button label = "Amigos" icon="users"  onPress = { () =>  onChange? onChange(TAB_FRIENDS) : null} />
+        <Button label = "Juegos" active = { currentTab === TAB_GAMES } icon="futbol" onPress = { () =>  onChange? onChange(TAB_GAMES) : null} />
+        <Button label = "Amigos" active = { currentTab === TAB_FRIENDS } icon="users"  onPress = { () =>  onChange? onChange(TAB_FRIENDS) : null} />
     </View>    
 );
 

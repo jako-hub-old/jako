@@ -10,6 +10,8 @@ import {
     Right,
     Thumbnail,
     CheckBox,
+    Input,
+    Item,
 } from 'native-base';
 import { StyleSheet, ScrollView } from 'react-native';
 import Contacts from 'react-native-contacts';
@@ -19,37 +21,54 @@ import { DEFAULT_USER_IMG } from 'react-native-dotenv';
 import SelectButton from './SelectButton';
 import Filter from './Filter';
 import { withSearch } from '../../providers';
+import { PrettyButton } from '../../commons/forms';
+import InviteForm from './InviteForm';
 
-const ContactItem = ({contact, onSelectContact, registered}) => (
-    <ListItem         
-        noIndent
-        thumbnail
-        button
-        onPress = { () => !registered? onSelectContact(contact) : null }
-    >
-        <Left style = { styles.thumbnailWrapper }>
-            <Thumbnail 
-                style = { styles.thumbnail }
-                source = { { uri : contact.hasThumbnail? contact.thumbnailPath : DEFAULT_USER_IMG }} 
-            />
-        </Left> 
-        <Body style = { styles.bodyWrapper }>
-            <Text>{contact.givenName}</Text>
-        </Body>
-        <Right style = { styles.buttonWrapper }>
-            <View>
-                {registered
-                ? (<Text>Registrado</Text>)
-                : (
-                    <CheckBox 
-                        onPress = { () => onSelectContact(contact) }
-                        checked = { contact.selected } 
-                    />
-                )}
+const ContactItem = ({contact, onSelectContact, registered}) => {
+    const {thumbnailPath, hasThumbnail, givenName, phoneNumbers=[]} = contact;
+    let [phoneNumber=false] = phoneNumbers;
+    if(!phoneNumber) return null;
+    return (
+        <ListItem         
+            noIndent
+            thumbnail
+            button
+            onPress = { () => !registered? onSelectContact(contact) : null }
+        >
+            <Left style = { styles.thumbnailWrapper }>
+                <Thumbnail 
+                    style = { styles.thumbnail }
+                    source = { { uri : hasThumbnail? thumbnailPath : DEFAULT_USER_IMG }} 
+                />
+            </Left> 
+            <Body style = { styles.bodyWrapper }>
+                <Text>{givenName}</Text>
+                <Text note>{phoneNumber.number}</Text>
+            </Body>
+            <Right style = { styles.buttonWrapper }>
+                <View>
+                    {registered
+                    ? (<Text>Registrado</Text>)
+                    : (
+                        <CheckBox 
+                            onPress = { () => onSelectContact(contact) }
+                            checked = { contact.selected } 
+                        />
+                    )}
+    
+                </View>
+            </Right>
+        </ListItem>
+    );
+};
 
-            </View>
-        </Right>
-    </ListItem>
+
+const ButtonFreeNumber = ({onPress}) => (
+    <View style = { styles.freeNumber }>
+        <PrettyButton onPress = { onPress }>
+            Escribir número
+        </PrettyButton>
+    </View>
 );
 
 /**
@@ -60,6 +79,7 @@ class ContactsList extends React.Component {
         contacts : [],        
         selectedContacts : [],
         friends : [],
+        openedForm : false,
     };
 
     permissions = [
@@ -76,13 +96,24 @@ class ContactsList extends React.Component {
         await this.props.fetchFriends();
     }
 
+    toggleOpenForm() {
+        this.setState({
+            openedForm : !this.state.openedForm,
+        });
+    }
+
     getContacts() {
         Contacts.getAll((err, contacts) => {
             if(err) {
                 addMessage("Error al leer los contactos");
             } else {
+                const sortedContacts = contacts.sort((a, b) => {
+                    if(a.givenName < b.givenName) return -1;
+                    if(a.givenName > b.givenName) return 1;
+                    return 0;
+                });
                 this.setState({
-                    contacts,
+                    contacts : sortedContacts,
                 });
             }
         });
@@ -177,11 +208,53 @@ class ContactsList extends React.Component {
         }
     }
 
+    onSendForm(selectedContacts) {
+        const {onSelectContacts} = this.props;
+        if(onSelectContacts) {
+            onSelectContacts(selectedContacts);
+        }
+    }
+
+    renderForm() {
+        return (
+            <InviteForm onCancel = {() => this.toggleOpenForm()} onSend = { this.onSendForm.bind(this) } />
+        );
+    }
+
     render() {
-        const { contacts=[], selectedContacts=[], filter, } = this.state;        
+        const { contacts=[], selectedContacts=[], filter, openedForm, } = this.state;        
         const totalContacts = contacts.length;
         const addedContacts = selectedContacts.length;        
         const rootStyles = [styles.root, (addedContacts > 0? styles.rootPadding : {})];
+        const enabledFormAdd = this.props.enabledFormAdd;
+        let content = null;
+        if(!openedForm) {
+            content = (
+                <>
+                    <View style = { styles.header }>
+                        <Text>Tus contactos</Text>
+                    </View>
+                    <Filter 
+                        value = { filter } 
+                        onChange = { this.onChangeFilter.bind(this) } 
+                        onClear = { () => this.onClear() }
+                    />
+                    { totalContacts === 0 && (this.emptyContacts())     }
+                    { totalContacts > 0 && (this.renderList(contacts))  }
+                    {(!addedContacts && enabledFormAdd) && (<ButtonFreeNumber onPress = { () => this.toggleOpenForm() } />)}
+                    { addedContacts > 0 && 
+                    (<SelectButton 
+                        selected = {addedContacts} 
+                        onSelect = { () => this.onSelectContacts() }
+                        />) 
+                    }
+                </>
+            );
+        } else {
+            content = (
+                <>{this.renderForm()}</>
+            );
+        }
         return (
             <PermissionsManager  
                 permissions = { this.permissions } 
@@ -189,22 +262,7 @@ class ContactsList extends React.Component {
             >
                 <>
                     <View style = { rootStyles } >
-                        <View style = { styles.header }>
-                            <Text>Tus contactos</Text>
-                        </View>
-                        <Filter 
-                            value = { filter } 
-                            onChange = { this.onChangeFilter.bind(this) } 
-                            onClear = { () => this.onClear() }
-                        />
-                        { totalContacts === 0 && (this.emptyContacts())     }
-                        { totalContacts > 0 && (this.renderList(contacts))  }
-                        { addedContacts > 0 && 
-                        (<SelectButton 
-                            selected = {addedContacts} 
-                            onSelect = { () => this.onSelectContacts() }
-                            />) 
-                        }
+                        {content}
                     </View>                    
                 </>
             </PermissionsManager>
@@ -217,7 +275,7 @@ const styles = StyleSheet.create({
         flex : 1,        
     },
     rootPadding : {
-        paddingBottom : 80,
+        paddingBottom : 100,
     },
     header : {
         flexDirection : "row",
@@ -255,6 +313,19 @@ const styles = StyleSheet.create({
     scrollView : {
         paddingBottom : 40,
     },
+    freeNumber : {
+        position : "absolute",
+        bottom : 0,
+        flexDirection : "row",
+        justifyContent : "center",
+        alignItems : "center",
+        width : "100%",
+        padding : 10,
+        backgroundColor : "#FFF"
+    },
+    formRoot : {
+
+    },
 });
 
 ContactsList.propTypes = {
@@ -262,6 +333,7 @@ ContactsList.propTypes = {
     showIfRegistered : PropTypes.bool,
     fetchFriends        : PropTypes.func,
     resultsFriends      : PropTypes.array,
+    enabledFormAdd      : PropTypes.bool,
 };
 
 export default withSearch(ContactsList);

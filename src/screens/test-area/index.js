@@ -2,6 +2,7 @@ import React from 'react';
 import BaseScreen from '../BaseScreen';
 import { withUserData } from '../../providers';
 import FriendshipSuggestion from '../../components/my-profile/friendship-suggestion';
+import ContactsList from '../../components/invite-contacts/ContactsList';
 
 
 class TestAreaScreen extends React.Component {
@@ -20,10 +21,7 @@ class TestAreaScreen extends React.Component {
             <BaseScreen
                 navigation = { navigation }
             >
-                <FriendshipSuggestion 
-                    navigation = { navigation } 
-                    onlyIfResults
-                />
+                <ContactsList enabledFormAdd  onSelectContacts = { (contacts) => console.log(contacts)} />
             </BaseScreen>
         );
     }

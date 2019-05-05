@@ -21,6 +21,7 @@ class InviteContacts extends React.PureComponent {
         });
         const {doPost, startLoading, stopLoading, userCode} = this.props;
         this.props.onClose();
+        console.log("The numbes = ", phoneNumbers);
         try {
             startLoading();
             const response = await doPost(endpoints.usuarios.invitarAJako, {
@@ -51,6 +52,7 @@ class InviteContacts extends React.PureComponent {
                 <ContactList 
                     onSelectContacts = { contacts => this.onSelectContacts(contacts) }
                     showIfRegistered
+                    enabledFormAdd
                 />
             </Modal>
         )

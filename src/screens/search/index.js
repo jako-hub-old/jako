@@ -22,7 +22,7 @@ class MyProfileScreen extends React.Component {
         super(props);
         const {state} = props.navigation;
         if(state.params && state.params.goToFriends) {
-            this.state.currentTab = 1;
+            this.state.currentTab = TAB_GAMES;
         }
     }
 
@@ -47,7 +47,7 @@ class MyProfileScreen extends React.Component {
                 TitleComponent  = {(<SearchFilter />)}
                 disableNotify
             >
-                <TabButtons onChange = { this.onChangeTab.bind(this) } />
+                <TabButtons onChange = { this.onChangeTab.bind(this) } currentTab = { currentTab } />
                 {currentTab === TAB_GAMES && (
                     <View style={styles.root}><SearchComponent navigation={navigation} /></View>
                 )}
@@ -58,7 +58,7 @@ class MyProfileScreen extends React.Component {
                 
                 <FabButton 
                     icon = "plus"
-                    onPress = {() => navigation.navigate("CreateGame", {prevRoute : "Search"})}
+                    onPress = {() => navigation.navigate("CreateGame", {prevRoute : "Search"})}                    
                 />
                 
             </BaseScreen>

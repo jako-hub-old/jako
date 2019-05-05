@@ -116,6 +116,7 @@ class FriendshipSuggestion extends React.Component {
                             suggestion = { item }                            
                             onViewProfile = { () => this.onViewProfile(item) }
                             onRequestDone = { this.onRequestDone.bind(this) }
+                            smallPeresentation = { this.props.small }
                         />
                     ))}
                 </View>
@@ -133,7 +134,7 @@ class FriendshipSuggestion extends React.Component {
 
     render() {
         const {loading, suggestions} = this.state;        
-        const {onlyIfResults} = this.props;
+        const {onlyIfResults, small} = this.props;
         let content = null;
         const total = suggestions.length;
         if(loading) {
@@ -146,7 +147,9 @@ class FriendshipSuggestion extends React.Component {
         return (
           <View style = {styles.root}>
                 <View style = { styles.header }>
-                    <Text style = { styles.headerText }>Sugerencias de amistad</Text>
+                    <Text style = { styles.headerText }>
+                        {small? "Quizá conoces a" : "Sugerencias de amistad"}
+                    </Text>
                 </View>
               {content}
           </View>  
@@ -191,6 +194,7 @@ FriendshipSuggestion.propTypes = {
     fetchUserSendedRequests     : PropTypes.func,
     friendshipRequests          : PropTypes.array,
     fetchFriendshipRequest      : PropTypes.func,
+    small                       : PropTypes.bool,
 };
 
 export default withApi(withUserData(FriendshipSuggestion));

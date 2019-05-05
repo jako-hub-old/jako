@@ -17,22 +17,24 @@ import {IMAGES_SERVER, DEFAULT_USER_IMG} from 'react-native-dotenv';
 import { FriendshipButton } from '../../../commons/buttons';
 
 const MAX_CHARS = 16;
+const MAX_CHARS_SMALL = 10;
 
 /**
  * This component renders only the items presentation.
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
  * @param {*} param0 
  */
-const RequestItem = ({suggestion, onRequestDone, onViewProfile}) => {
+const RequestItem = ({smallPeresentation, suggestion, onRequestDone, onViewProfile}) => {
     const {
         foto,
         jugador_nombre_corto:short_name,
         jugador_seudonimo:alias,
         codigo_jugador:playerCode
     } = suggestion;
-    const displayName = short_name.length > MAX_CHARS? short_name.substring(0, MAX_CHARS) + '...' : short_name;
+    const maxChars = smallPeresentation? MAX_CHARS_SMALL : MAX_CHARS;
+    const displayName = short_name.length > maxChars? short_name.substring(0, maxChars) + '...' : short_name;
     return (
-        <View style = { styles.listItem } noBorder>
+        <View style = { [styles.listItem, (smallPeresentation? styles.smallListItem : null)] } noBorder>
             <View style = { styles.listItemAvatar }>
                 <SimpleTouch
                     wrapType = "stretch"
@@ -40,13 +42,13 @@ const RequestItem = ({suggestion, onRequestDone, onViewProfile}) => {
                 >
                     <Thumbnail 
                         source = { {uri : foto? `${IMAGES_SERVER}${foto}` : DEFAULT_USER_IMG} } 
-                        style = { [styles.listPhoto, styles.thumbWrapper] }
+                        style = { [styles.listPhoto, styles.thumbWrapper, (smallPeresentation? styles.smallThumb : null)] }
                     />
                 </SimpleTouch>
             </View>
             <View style = { styles.listItemBody }>
                 <SimpleTouch wrapType = "stretch" onPress = { onViewProfile }>
-                    <Text style = { {textAlign : "center"} }>{displayName}</Text>
+                    <Text style = { [{textAlign : "center", }, (smallPeresentation? {fontSize : 15} : null)] }>{displayName}</Text>
                 </SimpleTouch>
                 <SimpleTouch wrapType = "stretch" onPress = { onViewProfile }>
                     <Text note style = { {textAlign : "center"} } >{alias}</Text>
@@ -72,11 +74,18 @@ const styles = StyleSheet.create({
         width : 50,
         height : 50,
     },
+    smallThumb : {
+        width : 40,
+        height : 40,
+    },
     listItem : {
         width : 150,
         flexDirection : "column",
         alignItems : "center",
         paddingVertical : 5,
+    },
+    smallListItem : {
+        width : 120,
     },
     listItemActions : {
         flex            : 1,
@@ -102,6 +111,7 @@ RequestItem.propTypes = {
         jugador_seudonimo       : PropTypes.string,
     }),
     onRequestDone : PropTypes.func,
+    smallPeresentation : PropTypes.bool,
 };
 
 export default RequestItem;

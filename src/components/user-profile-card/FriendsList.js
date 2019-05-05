@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import { DEFAULT_USER_IMG, IMAGES_SERVER }   from 'react-native-dotenv';
 import { LoadingSpinner } from '../../commons/loaders';
+import FriendshipSuggestion from '../my-profile/friendship-suggestion';
 
 class FriendsList extends React.PureComponent {
     componentDidMount() {
@@ -34,12 +35,16 @@ class FriendsList extends React.PureComponent {
     }
 
     renderEmpty() {
+        const navigation = this.props.navigation;
         return (            
-            <View style = { styles.root }>
-                <Text note style = { { textAlign : "center", marginTop: 15 } }>
-                    {"Aún no tiene contactos"}
-                </Text>
-            </View>
+            <>
+                <View style = { styles.root }>
+                    <Text note style = { { textAlign : "center", marginTop: 15 } }>
+                        {"Aún no tiene contactos"}                
+                    </Text>
+                </View>
+                <FriendshipSuggestion small navigation = { navigation } onlyIfResults />
+            </>
         );
     }
     
@@ -112,6 +117,7 @@ FriendsList.propTypes = {
         codigo_jugador_amigo_pk         : PropTypes.any,
     })),
     onViewProfile : PropTypes.func,
+    navigation : PropTypes.any,
 };
 
 export default FriendsList;

@@ -170,6 +170,7 @@ class UserProfileCard extends React.Component {
             me,
             playerCode,
             navigation,
+            isPlayer,
         } = this.props;        
         const userInfo = this.renderUserInfo();
         const requestSended = this.requestSended();
@@ -194,26 +195,20 @@ class UserProfileCard extends React.Component {
                     assists     = { asistencia   }
                     absences    = { inasistencia }
                 />
-                <CommonTabs 
-                    id      = "user-tabs"
-                    tabs    = { [                        
-                        {label : "Información", component : userInfo},
-                        {
-                            label : "Amigos", 
-                            component : (
-                                <>
-                                    <FriendshipRequestsReceived onlyIfResults navigation = { navigation } />
-                                    <FriendsList 
-                                        fetchFriends    = { () => { this.fetchMyFriends() } } 
-                                        friends         = { friends }
-                                        loading         = { loadingFriends }
-                                        onViewProfile   = { this.onViewProfile.bind(this)   }
-                                    />
-                                </>
-                            )
-                        },                        
-                    ] }
-                />
+                {!isPlayer && (
+                    <>
+                    <FriendsList 
+                        navigation      = { navigation }
+                        fetchFriends    = { () => { this.fetchMyFriends() } } 
+                        friends         = { friends }
+                        loading         = { loadingFriends }
+                        onViewProfile   = { this.onViewProfile.bind(this)   }
+                    />
+                    <FriendshipRequestsReceived onlyIfResults navigation = { navigation } />
+                    {userInfo}
+                    </>
+                )}
+                
             </>
         );
     }

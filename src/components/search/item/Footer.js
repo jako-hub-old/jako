@@ -49,6 +49,7 @@ const Footer = ({onLike, isInGame, onViewProfile, liked, user, onAdd, gameCode})
                         <Icon name="user-plus" size={20}/>
                     </Button>
                 )}
+                {/*
                 <Button style={styles.button} transparent onPress={onLike}>
                     <Icon 
                         name="heart" 
@@ -56,6 +57,7 @@ const Footer = ({onLike, isInGame, onViewProfile, liked, user, onAdd, gameCode})
                         style={likeButtonStyles}
                     />
                 </Button>
+                */}
                 <ShareGameButton gameCode = { gameCode }/>
             </View>
         </View>

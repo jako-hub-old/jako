@@ -34,6 +34,7 @@ const Footer = ({onLike, onViewProfile, liked, user, gameCode, onShare}) => {
                 </TouchableOpacity>
             </View>
             <View style = {styles.buttonsWrapper}>
+                {/*
                 <Button style={styles.button} transparent onPress={onLike}>
                     <Icon 
                         name="heart" 
@@ -41,6 +42,7 @@ const Footer = ({onLike, onViewProfile, liked, user, gameCode, onShare}) => {
                         style={likeButtonStyles}
                     />
                 </Button>
+                */}
                 <ShareGameButton gameCode = { gameCode } onPress = { onShare } />
             </View>
         </View>

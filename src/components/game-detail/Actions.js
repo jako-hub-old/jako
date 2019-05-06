@@ -28,9 +28,11 @@ const Actions = ({onAdd, canJoin=true, user, onViewProfile, gameCode, isInGame, 
                     <Icon name="user-plus" size={25} />
                 </Button>
             )}
+            {/** 
             <Button transparent style={styles.button}>
                 <Icon name="heart" size={25} />
             </Button>
+             */}
             <ShareGameButton gameCode = { gameCode } onPress = { onShareGame } />
         </View>
     </View>

@@ -123,7 +123,7 @@ class SearchFriends extends Component {
                     />
                 }
             >
-                <FriendshipSuggestion navigation = { navigation } />  
+                <FriendshipSuggestion onlyIfResults navigation = { navigation } />  
                 {totalFriends === 0 && this.renderEmpty() }
                 {totalFriends > 0 && (
                     <FriendsList 

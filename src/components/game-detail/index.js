@@ -21,6 +21,7 @@ import CommentGameComponent from '../comment-game';
 import TeamsList from './TeamsList';
 import TerminateGame from '../terminate-game';
 import ShareGameModal from '../../commons/buttons/share-game-button/ShareGameModal';
+import TabButtons from '../../commons/buttons/TabButtons';
 
 /**
  * This component handles the game detail display.
@@ -47,7 +48,7 @@ class GameDetailComponent extends React.Component {
         allowJoin       : true,
         currentTab      : 0,
         openShare    : false,
-    };
+    };    
 
     constructor(props) {
         super(props);
@@ -62,6 +63,15 @@ class GameDetailComponent extends React.Component {
 
     setCommentRef(node) {
         this.commentRef = node;
+    }
+
+    getTabOptions() {
+        const { comentarios=[] } = this.state;
+        const total = comentarios.length;
+        return [
+            {label : "Equipos", icon : "users"},
+            {label : `Comentarios ${total > 0? `(${total})` : ""}`, icon : "comments"},
+        ];
     }
 
     /**
@@ -188,6 +198,12 @@ class GameDetailComponent extends React.Component {
         });
     }
 
+    onChangeTab(currentTab) {
+        this.setState({
+            currentTab,
+        });
+    }
+
 
     render() {
         const {selectedGame, userCode} = this.props;
@@ -195,7 +211,6 @@ class GameDetailComponent extends React.Component {
             codigo_juego,
             comentarios,
             loadingComments,
-            openComment,
             detalles,
             allowJoin,
             currentTab,
@@ -229,47 +244,34 @@ class GameDetailComponent extends React.Component {
                                 teams    = { detalles     }
                             />
                         )}
-                        <Tabs 
-                            tabContainerStyle       = { {elevation:0} }
-                            tabBarUnderlineStyle    = { styles.tabUnderLine }
-                            page                    = { currentTab }
-                            onChangeTab             = { tab => this.setState({currentTab : tab.i}) }
-                        >                                                        
-                            <Tab 
-                                heading             = "Jugadores" 
-                                tabStyle            = { styles.tabDefault } 
-                                textStyle           = { styles.tabText }
-                                activeTabStyle      = { styles.tabActive }                                
-                                activeTextStyle     = { styles.tabActiveText }
-                            >
-                                <TeamsList 
-                                    onViewProfile   = { this.onViewProfile.bind(this) }
-                                    teams           = { detalles }
-                                    playerCode      = { userCode }
-                                />
-                            </Tab>
-                            <Tab 
-                                heading             = "Comentarios" 
-                                tabStyle            = { styles.tabDefault } 
-                                textStyle           = { styles.tabText }
-                                activeTabStyle      = { styles.tabActive }                                
-                                activeTextStyle     = { styles.tabActiveText }
-                            >
-                                {openComment && (
-                                    <CommentGameComponent 
-                                        setCommentRef = { this.setCommentRef.bind(this) }
-                                        onClose       = { () => this.toggleComment()    }
-                                        gameCode      = { selectedGame.codigo_juego     }
-                                        onSaveComment = { this.onSaveComment.bind(this) }
-                                    />
-                                )}
-                                <CommentsList 
-                                    comments = { comentarios }
-                                    loading  = { loadingComments }
-                                />
-                            </Tab>
-                        </Tabs>
+
                     </View>
+                    <TabButtons 
+                        currentTab  = { currentTab              }
+                        buttons     = { this.getTabOptions()    }
+                        onChange    = { this.onChangeTab.bind(this) }
+                    />
+                    {currentTab === 0 && (
+                        <TeamsList 
+                            onViewProfile   = { this.onViewProfile.bind(this) }
+                            teams           = { detalles }
+                            playerCode      = { userCode }
+                        />
+                    )}
+                    {currentTab === 1 && (
+                        <>
+                            <CommentGameComponent 
+                                setCommentRef = { this.setCommentRef.bind(this) }
+                                onClose       = { () => this.toggleComment()    }
+                                gameCode      = { selectedGame.codigo_juego     }
+                                onSaveComment = { this.onSaveComment.bind(this) }
+                            />
+                            <CommentsList 
+                                comments = { comentarios }
+                                loading  = { loadingComments }
+                            />
+                        </>
+                    )}
                 </ScrollView>
             </View>
             {openShare && (

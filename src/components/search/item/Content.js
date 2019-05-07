@@ -27,7 +27,7 @@ const Content = (props={}) => {
         <View style={styles.root}>
             <Body style={styles.body}>
                 <RenderRow title={escenario_nombre} value={negocio_nombre}/>
-                <RenderRow title={"Acceso"} value={acceso}/>
+                <RenderRow title={""} value={acceso}/>
             </Body>
         </View>
     );

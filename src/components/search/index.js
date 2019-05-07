@@ -2,6 +2,7 @@ import React from 'react';
 import { withSearch, withGames } from '../../providers';
 import PropTypes from 'prop-types';
 import Results from './Results';
+import ShareGameModal from '../../commons/buttons/share-game-button/ShareGameModal';
 
 /**
  * This component handles the items search.
@@ -9,6 +10,7 @@ import Results from './Results';
 class SearchComponent extends React.Component {
     state = {
         loading : true,
+        selectedGame : null,
     };
     componentDidMount() {
         this.fetchGames();
@@ -72,9 +74,22 @@ class SearchComponent extends React.Component {
         return gameFound !== undefined;
     }
 
+    onClose() {
+        this.setState({
+            selectedGame : null,
+        });
+    }
+
+    onShare(selectedGame) {
+        this.setState({
+            selectedGame,
+        });
+    }
+
     render() {
         const {
-            loading,            
+            loading,   
+            selectedGame,         
         } = this.state;
         const { 
             userCode,
@@ -91,8 +106,16 @@ class SearchComponent extends React.Component {
                     onJoinToGame    = { this.joinToGame.bind(this)      }
                     onRefresh       = { () => this.refreshGames()       }
                     goToCreate      = { () => this.goToCreate()         }
-                    onViewProfile   = { this.onViewProfile.bind(this) }
+                    onViewProfile   = { this.onViewProfile.bind(this)   }
+                    onShare         = { this.onShare.bind(this)         }
                 />
+                {selectedGame && (
+                    <ShareGameModal 
+                        open    = { Boolean(selectedGame)   } 
+                        game    = { selectedGame            }
+                        onClose = {() => this.onClose()     } 
+                    />
+                )}
             </>
         );
     }

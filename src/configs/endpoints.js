@@ -16,6 +16,7 @@ export default {
         jugador : '/v1/juego/jugador',
         retirar : '/v1/juego/retirar',
         invitar : '/v1/juego/invitar',
+        rechazarInvitacion : '/v1/juego/invitaciones/rechazar',
         cerrar : '/v1/juego/cerrar',
         compartirConAmigos : '/v1/juego/compartir/amigos',
         invitaciones : '/v1/juego/invitaciones',

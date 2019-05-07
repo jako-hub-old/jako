@@ -10,10 +10,10 @@ import {
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-const RenderRow = ({title, value, icon}) => (
+const RenderRow = ({title, value, full, icon}) => (
     <View style={styles.row}>
         <View style={styles.info}><Text>{icon && (<Icon size={15} name={icon}/>)}{icon? ` ${title}` : title}</Text></View>
-        <View style={styles.value}><Text>{value}</Text></View>
+        {!full && (<View style={styles.value}><Text>{value}</Text></View>)}
     </View>
 );
 
@@ -36,8 +36,8 @@ const GameItemBody = (props={}) => {
     return (
         <View style={styles.root}>
             <Body style={styles.body}>
-                <RenderRow title={scenario} value={negocio_nombre}/>
-                <RenderRow title={"Acceso"} value={juego_acceso || acceso}/>
+                <RenderRow title={negocio_nombre} full/>
+                <RenderRow title={""} value={juego_acceso || acceso}/>
             </Body>
         </View>
     );

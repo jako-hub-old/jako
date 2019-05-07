@@ -65,22 +65,24 @@ class JoinToGameComponent extends React.Component {
             });
     }
 
-    onSubmit(form) {
+    async onSubmit(form) {
         const {number:numero, position:posicion, team:equipo} = form;
         const {userCode:jugador} = this.props;
         const {codigo_juego:juego, nombre} = this.state.selectedGame;
+
         this.props.startLoading();
-        this.props.doPost(endpoints.juego.unir, {
-            juego,
-            jugador,
-            posicion,
-            numero,
-            equipo,
-        })
-        .then(response => {
+        try {
+            const response = await this.props.doPost(endpoints.juego.unir, {
+                juego,
+                jugador,
+                posicion,
+                numero,
+                equipo,
+            });
             const {validacion, error, error_controlado} = response;
             if(error || error_controlado) {
                 addMessage("Ocurrió un error al unirse al juego");
+                consoleError("Game Join: ", response);
             } else if(validacion) {
                 addMessage(validacion);
             } else {
@@ -91,12 +93,11 @@ class JoinToGameComponent extends React.Component {
                     this.props.navigation.navigate("MyGames");
                 }, 100);
             }
-            this.props.stopLoading();
-        })
-        .catch(response => {
+        }  catch(response){
             consoleError("Error join to game ", response);
+        } finally {
             this.props.stopLoading();
-        });
+        }
     }
 
     render() {

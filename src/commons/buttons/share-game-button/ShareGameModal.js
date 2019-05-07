@@ -41,6 +41,7 @@ const ContactItem = ({contact, onSelectContact, registered, nameLabel}) => (
         </Left> 
         <Body style = { styles.bodyWrapper }>
             <Text>{contact[nameLabel]}</Text>
+            <Text note>{contact.seudonimo}</Text>
         </Body>
         <Right style = { styles.buttonWrapper }>
             <View>
@@ -70,11 +71,15 @@ class ShareGameModal extends React.Component {
     };
 
     componentDidMount() {
-        const {friends=[], fetchMyFriends, userCode} = this.props;
+        this.fetchData();
+    }
+
+    async fetchData() {
+        const {friends=[], fetchMyFriends, userCode} = this.props;        
+        if(friends.length === 0) await fetchMyFriends(userCode);
         this.setState({
             friends : [...friends],
         });
-        if(friends.length === 0)  fetchMyFriends(userCode);
     }
 
     componentWillUnmount() {
@@ -90,13 +95,41 @@ class ShareGameModal extends React.Component {
                 </Text>
                 <ContactsList 
                     onSelectContacts = { this.onSelectContacts.bind(this) }
+                    enabledFormAdd
                 />
             </View>
         );
     }
+    
+    filterPhoneNumber(phoneNumber) {
+        return phoneNumber.replace(/[\(\) \-\+]/g, '');
+    }
 
-    onSelectContacts(contacts=[]) {
-        this.props.onClose();
+    async onSelectContacts(contacts=[]) {
+        const { doPost, startLoading, stopLoading, userCode } = this.props;
+        const phoneNumbers = contacts.map(contact => {
+            const [phoneNumber] = contact.phoneNumbers;
+            if(phoneNumber) return this.filterPhoneNumber(phoneNumber.number);
+            return '';
+        });        
+
+        try {
+            startLoading();
+            const response = await doPost(endpoints.usuarios.invitarAJako, {
+                jugador : userCode,
+                telefonos : phoneNumbers,
+            });
+            if(response === true) {
+                addMessage(`${phoneNumbers.length > 1? "Se han enviado las invitaciones a tus contactos" : "Se ha enviado la invitación al contacto"}`);
+            } else {
+                addMessage("Error al invitar a contactos");
+            }
+        } catch (err) {
+            addMessage("Error al invitar a contactos");
+        } finally {            
+            stopLoading();
+            this.props.onClose();
+        }           
     }
 
     async inviteFriends() {
@@ -109,6 +142,7 @@ class ShareGameModal extends React.Component {
             juego : codigo_juego,
             jugadores,
         };        
+        console.log("selectedFriends: ", jugadores, data);
         try {
             startLoading();            
             const response = await doPost(endpoints.juego.invitar, data);
@@ -161,6 +195,7 @@ class ShareGameModal extends React.Component {
     renderFriends() {
         const {loading, friends=[], selectedFriends=[]} = this.state;
         const total = selectedFriends.length;
+        console.log("The friends: ", friends);
         return (
             <>
                 <ScrollView

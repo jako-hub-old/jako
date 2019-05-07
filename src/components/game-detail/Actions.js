@@ -11,35 +11,45 @@ import {
 } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { ShareGameButton } from '../../commons/buttons';
+import { PrettyButton } from '../../commons/forms';
 
 const Actions = ({onAdd, canJoin=true, user, onViewProfile, gameCode, isInGame, onShareGame}) => (
     <View style={styles.root}>
-        <View style = {styles.profileButton}>
-            <Text note style = {{marginRight : 10}}>
-                Anfitrión:
-            </Text>
-            <TouchableOpacity style={styles.buttonLink} transparent onPress={onViewProfile}>
-                <Text>{user}</Text>
-            </TouchableOpacity>
+        <View style = { styles.wrapper } >
+            <View style = {styles.hostWrapper}>
+                <Text note style = {{marginRight : 10}}>
+                    Anfitrión:
+                </Text>
+                <TouchableOpacity style={styles.buttonLink} transparent onPress={onViewProfile}>
+                    <Text>{user}</Text>
+                </TouchableOpacity>
+            </View>
         </View>
-        <View style = {styles.buttonsWrapper}>
+        <View style = { styles.mainButtonsWrapper } >
             {canJoin && (
-                <Button transparent style={styles.button} onPress={onAdd}>
-                    <Icon name="user-plus" size={25} />
-                </Button>
+                <PrettyButton small onPress = { onAdd }>
+                    <Icon name="user-plus" size={13} /> Unirme a este juego
+                </PrettyButton>
             )}
-            {/** 
-            <Button transparent style={styles.button}>
-                <Icon name="heart" size={25} />
-            </Button>
-             */}
-            <ShareGameButton gameCode = { gameCode } onPress = { onShareGame } />
+            <PrettyButton small onPress = { onShareGame }>
+                <Icon name="share-alt" size={13} /> Compartir
+            </PrettyButton>
         </View>
     </View>
 );
 
 const styles = StyleSheet.create({
     root : {
+        marginBottom : 5,
+    },
+    mainButtonsWrapper : {
+        flexDirection   : "row",
+        alignItems      : "center",
+        justifyContent  : "center",
+        marginBottom    : 20,
+        marginTop : 5,
+    },
+    wrapper : {
         flex : 1,
         flexDirection : "row",
         justifyContent : "space-between",
@@ -49,11 +59,13 @@ const styles = StyleSheet.create({
         justifyContent : "flex-end",
         paddingHorizontal : 10,
     },
-    profileButton : {
-        flex : 2,
+    hostWrapper : {
+        flex : 1,
         flexDirection : "row",
         alignItems : "center",
         justifyContent : "flex-end",
+        paddingRight : 30,
+        marginBottom : 10,
     },
     button : {
         width : 45,

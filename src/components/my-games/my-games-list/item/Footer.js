@@ -14,6 +14,7 @@ import stylesPalette from '../../../../utils/stylesPalette';
 import {
     ShareGameButton,
 } from '../../../../commons/buttons';
+import { PrettyButton } from '../../../../commons/forms';
 /**
  * This component renders the footer of an item
  * @param {*} param0 
@@ -25,26 +26,26 @@ const Footer = ({onLike, onViewProfile, liked, user, gameCode, onShare}) => {
     };
     return (
         <View style={styles.root}>
-            <View style = {styles.profileButton}>
-                <Text note style = {{marginRight : 10}}>
-                    Anfitrión:
-                </Text>
-                <TouchableOpacity style={styles.buttonLink} transparent onPress={onViewProfile}>
-                    <Text>{user}</Text>
-                </TouchableOpacity>
-            </View>
-            <View style = {styles.buttonsWrapper}>
-                {/*
-                <Button style={styles.button} transparent onPress={onLike}>
-                    <Icon 
-                        name="heart" 
-                        size={20}
-                        style={likeButtonStyles}
-                    />
-                </Button>
-                */}
-                <ShareGameButton gameCode = { gameCode } onPress = { onShare } />
-            </View>
+            {/*
+                <View style = {styles.profileButton}>
+                    <Text note style = {{marginRight : 10}}>
+                        Anfitrión:
+                    </Text>
+                    <TouchableOpacity style={styles.buttonLink} transparent onPress={onViewProfile}>
+                        <Text>{user}</Text>
+                    </TouchableOpacity>
+                </View>            
+                <View style = {styles.buttonsWrapper}>                
+                 <ShareGameButton gameCode = { gameCode } onPress = { onShare } />  
+                </View>
+            */}
+            <View style = { styles.mainButtonsWrapper }>
+                <View>
+                    <PrettyButton small onPress = { onShare } >
+                        <Icon name = "share-alt" size = { 13} /> Compartir
+                    </PrettyButton>
+                </View>
+            </View>            
         </View>
     );
 };
@@ -56,6 +57,12 @@ const styles = StyleSheet.create({
         flex : 1,
         flexDirection : "row",
         justifyContent : "space-between",
+    },
+    mainButtonsWrapper : {
+        flexDirection   : "row",
+        justifyContent  : "center",
+        flex            : 1,
+        marginTop       : 10,
     },
     buttonsWrapper : {
         flex            : 1,

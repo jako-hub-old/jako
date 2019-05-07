@@ -36,37 +36,17 @@ const Footer = ({onLike, onShare, isInGame, onViewProfile, liked, user, onAdd, g
     };
     return (
         <View style={styles.root}>
-            <View style = {styles.profileButton}>
+            <View style = {styles.actionButtons}>
                 {!isInGame && (
                     <View>
                         <PrettyButton small onPress={onAdd}>
-                            Unirme a este juego
+                            <Icon name = "user-plus" size = { 13 } /> Unirme a este juego
                         </PrettyButton>
                     </View>
                 )}
-            </View>
-            {/*
-            <View style = {styles.profileButton}>
-                <Text note style = {{marginRight : 10}}>
-                    Anfitrión:
-                </Text>
-                <TouchableOpacity style={styles.buttonLink} transparent onPress={onViewProfile}>
-                    <Text>{user}</Text>
-                </TouchableOpacity>
-            </View>    
-            */}        
-            <View style = {styles.buttonsWrapper}>            
-                
-                {/*
-                <Button style={styles.button} transparent onPress={onLike}>
-                    <Icon 
-                        name="heart" 
-                        size={20}
-                        style={likeButtonStyles}
-                    />
-                </Button>
-                */}
-                <ShareGameButton gameCode = { gameCode } onPress = { onShare }/>
+                <PrettyButton onPress = { onShare } small>
+                    <Icon name = "share-alt" size = { 13 } /> Compartir
+                </PrettyButton>
             </View>
         </View>
     );
@@ -90,11 +70,12 @@ const styles = StyleSheet.create({
         justifyContent      : "center",
         marginHorizontal    : 5,
     },
-    profileButton : {
+    actionButtons : {
         flex : 6,
         flexDirection : "row",
         alignItems : "center",
-        justifyContent : "flex-end",
+        justifyContent : "center",
+        marginTop : 10,
     },
     defaultIcon : {
         color : '#bdbdbd',

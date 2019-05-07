@@ -36,8 +36,7 @@ const GameItemBody = (props={}) => {
     return (
         <View style={styles.root}>
             <Body style={styles.body}>
-                <RenderRow title={negocio_nombre} full/>
-                <RenderRow title={""} value={juego_acceso || acceso}/>
+                <RenderRow title={negocio_nombre} value = { juego_acceso || acceso }/>
             </Body>
         </View>
     );
@@ -45,7 +44,7 @@ const GameItemBody = (props={}) => {
 
 const styles = StyleSheet.create({
     root : {
-        marginVertical : 2,
+        //marginVertical : 2,
     },
     body : {
         flex                : 1,
@@ -55,7 +54,7 @@ const styles = StyleSheet.create({
         flex            : 1,
         justifyContent  : "space-between",
         flexDirection   : 'row',
-        marginBottom    : 5,
+        //marginBottom    : 5,
     },
     info : {
         flex : 1,

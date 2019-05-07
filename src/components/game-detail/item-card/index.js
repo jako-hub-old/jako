@@ -41,7 +41,7 @@ const ItemCard = ({game, onAdd}) => {
 const styles = StyleSheet.create({
     root : {
         flex : 1,
-        marginVertical : 15,
+        marginTop : 15,
     },
     wrapper : {
         flex : 1,

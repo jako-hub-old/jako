@@ -8,19 +8,11 @@ import {
 } from 'react-native';
 import Share from 'react-native-share';
 
-const shareGame = (code, startLoading, stopLoading) => {
-    const text = `jakoapp://juego/${code}`;    
-    const url = `whatsapp://send?text=${text}`;
-    const shareOptions = {
-        title: 'Share via',
-        message: 'some message',
-        url: 'some share url',
-        social: Share.Social.WHATSAPP
-    };
-    Share.shareSingle(shareOptions);
-    
-}
-
+/**
+ * This component allows to render a share button.
+ * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
+ * @deprecated
+ */
 class ShareGameButton extends React.PureComponent {
 
     render = () => { 

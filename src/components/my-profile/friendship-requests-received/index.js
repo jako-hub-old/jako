@@ -113,8 +113,12 @@ class FriendshipRequestsReceived extends React.Component {
      * @param {*} param0 
      */
     onViewProfile({codigo_jugador:playerCode, jugador_seudonimo:playerAlias}) {
-        if(this.props.navigation) {
-            this.props.navigation.navigate("PlayerProfile", {playerCode, playerAlias});
+        const {navigation, onViewProfile} = this.props;
+        if(navigation) {
+            if(onViewProfile) {
+                onViewProfile();
+            }
+            navigation.navigate("PlayerProfile", {playerCode, playerAlias});
         }
     }
 
@@ -223,6 +227,7 @@ FriendshipRequestsReceived.propTypes = {
     startLoading                : PropTypes.func,
     stopLoading                 : PropTypes.func,
     onlyIfResults               : PropTypes.bool,
+    onViewProfile               : PropTypes.func,
 };
 
 export default withUserData(withApi(FriendshipRequestsReceived));

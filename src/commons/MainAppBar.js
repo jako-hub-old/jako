@@ -12,6 +12,7 @@ import { StyleSheet, View, } from 'react-native';
 import PropTypes from 'prop-types';
 import stylesPalette from "../utils/stylesPalette";
 import NotifiesList from './notifies-list';
+import FriendshipNotifier from './notifies/FriendshipNotifier';
 
 
 
@@ -48,6 +49,7 @@ const MainAppBar = ({allowBack, disableNotify, navigation, title="Jako", goBack,
         )}
         {!disableNotify && (
             <Right style = { styles.right }>
+                <FriendshipNotifier navigation = { navigation } />
                 <NotifiesList navigation = { navigation } />
             </Right>
         )}
@@ -70,11 +72,14 @@ const styles = StyleSheet.create({
         paddingVertical : 4,
     },
     body : {
-        flex : 5,
-        alignItems : "center",
+        flex : 6,
+        alignItems : "flex-start",
+        paddingLeft : 20,
     },
     right : {
-        flex : 1,
+        flex : 2,
+        justifyContent : "center",
+        alignItems : "center",
     },
 });
 

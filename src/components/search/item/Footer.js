@@ -2,28 +2,13 @@ import React from 'react';
 import {
     StyleSheet,
     View,
-    Text,
-    TouchableOpacity,
 } from 'react-native';
-import {
-    Button,
-} from 'native-base';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import stylesPalette from "../../../utils/stylesPalette";
 import {
-    ShareGameButton,
 } from '../../../commons/buttons';
 import { PrettyButton } from '../../../commons/forms';
-
-
-const RenderIcon = ({iconName}) => (
-    <Icon 
-        name    = {iconName}
-        size    = {20}
-        style   = {styles.defaultIcon}
-    />
-);
 
 /**
  * This component renders the footer of an item
@@ -40,7 +25,7 @@ const Footer = ({onLike, onShare, isInGame, onViewProfile, liked, user, onAdd, g
                 {!isInGame && (
                     <View>
                         <PrettyButton small onPress={onAdd}>
-                            <Icon name = "user-plus" size = { 13 } /> Unirme a este juego
+                            <Icon name = "user-plus" size = { 13 } /> Unirme 
                         </PrettyButton>
                     </View>
                 )}

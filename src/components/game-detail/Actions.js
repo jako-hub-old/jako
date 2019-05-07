@@ -28,7 +28,7 @@ const Actions = ({onAdd, canJoin=true, user, onViewProfile, gameCode, isInGame, 
         <View style = { styles.mainButtonsWrapper } >
             {canJoin && (
                 <PrettyButton small onPress = { onAdd }>
-                    <Icon name="user-plus" size={13} /> Unirme a este juego
+                    <Icon name="user-plus" size={13} /> Unirme
                 </PrettyButton>
             )}
             <PrettyButton small onPress = { onShareGame }>

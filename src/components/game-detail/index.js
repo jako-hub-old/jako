@@ -69,7 +69,7 @@ class GameDetailComponent extends React.Component {
         const { comentarios=[] } = this.state;
         const total = comentarios.length;
         return [
-            {label : "Equipos", icon : "users"},
+            {label : "Jugadores", icon : "users"},
             {label : `Comentarios ${total > 0? `(${total})` : ""}`, icon : "comments"},
         ];
     }

@@ -5,7 +5,7 @@ import {
     StyleSheet,
     TouchableOpacity,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 /**
  * This component renders a simple icon button.

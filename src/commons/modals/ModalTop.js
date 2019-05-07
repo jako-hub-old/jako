@@ -10,7 +10,12 @@ import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { ScrollView } from 'react-native-gesture-handler';
 
-const ModalTop = ({open, onClose, animation="fade", children, title}) => (
+/**
+ * This component renders a modal attached to top.
+ * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
+ * @param {*} param0 
+ */
+const ModalTop = ({open, icon, onClose, animation="fade", children, title}) => (
     <Modal
         visible         = {open}
         onRequestClose  = {onClose}
@@ -21,7 +26,7 @@ const ModalTop = ({open, onClose, animation="fade", children, title}) => (
             <View style={styles.content}>
                 <View style={styles.header}>
                     <Text style={styles.headerText}>
-                        {title}
+                        {icon? (<Icon style = { styles.icon } name = {icon} size = {23} />) : null}{title}
                     </Text>
                     <View>
                         <TouchableOpacity onPress={onClose}>
@@ -45,6 +50,9 @@ const styles = StyleSheet.create({
         flex                : 1,
         alignItems          : "center",
         justifyContent      : "flex-start",
+    },
+    icon : {
+        marginRight : 15,
     },
     content : {
         backgroundColor : "#FFF",        

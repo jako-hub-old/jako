@@ -14,6 +14,7 @@ import stylesPalette from "../../../utils/stylesPalette";
 import {
     ShareGameButton,
 } from '../../../commons/buttons';
+import { PrettyButton } from '../../../commons/forms';
 
 
 const RenderIcon = ({iconName}) => (
@@ -28,7 +29,7 @@ const RenderIcon = ({iconName}) => (
  * This component renders the footer of an item
  * @param {*} param0 
  */
-const Footer = ({onLike, isInGame, onViewProfile, liked, user, onAdd, gameCode}) => {
+const Footer = ({onLike, onShare, isInGame, onViewProfile, liked, user, onAdd, gameCode}) => {
     const likeButtonStyles = {
         ...styles.defaultIcon,
         ...(liked? styles.buttonLikePressed : {}),
@@ -36,19 +37,26 @@ const Footer = ({onLike, isInGame, onViewProfile, liked, user, onAdd, gameCode})
     return (
         <View style={styles.root}>
             <View style = {styles.profileButton}>
+                {!isInGame && (
+                    <View>
+                        <PrettyButton small onPress={onAdd}>
+                            Unirme a este juego
+                        </PrettyButton>
+                    </View>
+                )}
+            </View>
+            {/*
+            <View style = {styles.profileButton}>
                 <Text note style = {{marginRight : 10}}>
                     Anfitrión:
                 </Text>
                 <TouchableOpacity style={styles.buttonLink} transparent onPress={onViewProfile}>
                     <Text>{user}</Text>
                 </TouchableOpacity>
-            </View>            
-            <View style = {styles.buttonsWrapper}>
-                {!isInGame && (
-                    <Button style={styles.button} transparent onPress={onAdd}>
-                        <Icon name="user-plus" size={20}/>
-                    </Button>
-                )}
+            </View>    
+            */}        
+            <View style = {styles.buttonsWrapper}>            
+                
                 {/*
                 <Button style={styles.button} transparent onPress={onLike}>
                     <Icon 
@@ -58,7 +66,7 @@ const Footer = ({onLike, isInGame, onViewProfile, liked, user, onAdd, gameCode})
                     />
                 </Button>
                 */}
-                <ShareGameButton gameCode = { gameCode }/>
+                <ShareGameButton gameCode = { gameCode } onPress = { onShare }/>
             </View>
         </View>
     );
@@ -73,7 +81,7 @@ const styles = StyleSheet.create({
         justifyContent : "space-between",
     },
     buttonsWrapper : {
-        flex            : 1,
+        flex            : 2,
         flexDirection   : 'row',
         justifyContent  : 'flex-end',
     },
@@ -83,7 +91,7 @@ const styles = StyleSheet.create({
         marginHorizontal    : 5,
     },
     profileButton : {
-        flex : 1,
+        flex : 6,
         flexDirection : "row",
         alignItems : "center",
         justifyContent : "flex-end",

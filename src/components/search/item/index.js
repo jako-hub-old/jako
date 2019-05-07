@@ -19,7 +19,7 @@ import stylesPalette from '../../../utils/stylesPalette';
  * This component renders the Item presentation
  * @param {*} param0 
  */
-const Item = ({item, isInGame=true, organizer, onSelect, onAdd, onViewProfile,}) => (
+const Item = ({item, onShare, isInGame=true, organizer, onSelect, onAdd, onViewProfile,}) => (
     <View style={styles.root}>
         <TouchableOpacity onPress={onSelect}>
             <View style={styles.wrapper}>
@@ -51,6 +51,7 @@ const Item = ({item, isInGame=true, organizer, onSelect, onAdd, onViewProfile,})
             onAdd       = { onAdd    }
             user        = { organizer? "Tú" : item.jugador_seudonimo }
             onViewProfile = {onViewProfile}
+            onShare     = { () => onShare(item) }
          />
     </View>
     

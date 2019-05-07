@@ -92,7 +92,7 @@ const GameForm = (props) => {
                     onRemoveTeam= { onRemoveTeam }
                 />
                 <View style = { styles.inviteZone }>
-                    <Text>Invitar amigos</Text>
+                    <Text>Notificar amigos</Text>
                     <CheckBox 
                         checked = { sendInvitation   }
                         onPress = { toggleInvitation }

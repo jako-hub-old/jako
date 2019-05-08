@@ -10,6 +10,7 @@ import { SimpleTouch } from '../touchables';
 import { withUserData } from '../../providers';
 import { ModalTop } from '../modals';
 import FriendshipRequestsReceived from '../../components/my-profile/friendship-requests-received';
+import { IconButton } from '../forms';
 
 class FriendshipNotifier extends React.Component {
     state = {
@@ -63,7 +64,7 @@ class FriendshipNotifier extends React.Component {
                             <View style = { styles.tipCount }>
                                 <Text style = { styles.tipText }>{totalRequests}</Text>
                             </View>
-                        )}
+                        )}                    
                     </View>                
                 </SimpleTouch>
                 {openModal && (this.renderModal())}

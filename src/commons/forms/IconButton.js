@@ -5,16 +5,22 @@ import {
     StyleSheet,
     TouchableOpacity,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon4 from 'react-native-vector-icons/FontAwesome';
 
 /**
  * This component renders a simple icon button.
  * @param {*} param0 
  */
-const IconButton = ({icon, size=25, disabled, onPress, small=false, color=null}) => {
+const IconButton = ({icon, size=25, disabled, noFa5, onPress, small=false, color=null}) => {
     const button = (    
         <View style={{...styles.root, ...(disabled? styles.disabled : {}), ...(small? styles.small : {})}}>
-            <Icon style = {{color : color}} name={icon} size={small? 18 : size} />
+            {noFa5 && (
+                <Icon4 style = {{color : color}} name={icon} size={small? 18 : size} />
+            )}
+            {!noFa5 && ( 
+                <Icon style = {{color : color}} name={icon} size={small? 18 : size} />
+            )}
         </View>
     );
     if(disabled) return button;

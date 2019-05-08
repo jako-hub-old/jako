@@ -31,7 +31,7 @@ const MainAppBar = ({allowBack, disableNotify, navigation, title="Jako", goBack,
         androidStatusBarColor={palette.primary.variant}
     >
         {allowBack && (
-            <Left>            
+            <Left style = { styles.left }>        
                 <Button transparent onPress={() => goBack()}>
                     <Icon name="arrow-left" size={18}/>
                 </Button>
@@ -66,6 +66,9 @@ const palette = stylesPalette();
 const styles = StyleSheet.create({
     root : {
         backgroundColor : palette.primary.color,
+    },
+    left : {
+        flex : 1,
     },
     titleComponent : {
         flex : 1,

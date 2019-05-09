@@ -24,7 +24,7 @@ const palette = stylesPalette();
 
 const styles = StyleSheet.create({
     root : {
-        backgroundColor : palette.primary.color,
+        backgroundColor : palette.accent.color,
     },
 });
 

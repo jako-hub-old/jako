@@ -31,7 +31,7 @@ const palette = stylesPalette();
 const styles = StyleSheet.create({
     btnRoot : {
         elevation : 0,
-        borderColor : palette.primary.color,
+        borderColor : palette.accent.color,
         borderWidth : 2,
         backgroundColor : "transparent",
         justifyContent : "center",
@@ -40,16 +40,17 @@ const styles = StyleSheet.create({
         marginHorizontal : 5,
     },
     btnPrimary : {
-        backgroundColor : palette.primary.color,
+        backgroundColor : palette.accent.color,
     },
     btnPrimaryText : {
-        color : "#fff",
+        color : palette.accent.primaryText,
     },
     btnText : {
-        color : palette.primary.color,
+        color : palette.accent.primaryText,
     },
     disabled : {
         backgroundColor : "#b0bec5",
+        borderColor : "#b0bec5",
         color : "#cfd8dc"
     },
     small : {

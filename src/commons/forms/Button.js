@@ -8,6 +8,7 @@ import {
     Button,
     Text,
 } from 'native-base';
+import stylesPalette from '../../utils/stylesPalette';
 
 const ButtonButton = ({onPress, children, disabled, light, primary, info, success, warning, danger, dark, styles:otherStyles}) => (
     <View>
@@ -29,10 +30,12 @@ const ButtonButton = ({onPress, children, disabled, light, primary, info, succes
     </View>
 );
 
+const palette = stylesPalette();
 const styles = StyleSheet.create({
     root : {
         paddingHorizontal : 20,
-    },
+        backgroundColor : palette.accent.color
+    },    
 });
 
 ButtonButton.propTypes = {

@@ -23,7 +23,7 @@ const palette = stylesPalette();
 
 const styles = StyleSheet.create({
     btnRoot : {
-        backgroundColor : palette.primary.color,
+        backgroundColor : palette.accent.color,
         width : 50,
         height : 50,
         justifyContent : "center",

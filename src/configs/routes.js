@@ -13,6 +13,7 @@ import {
     TestAreaScreen,
 } from "../screens";
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import stylesPalette from '../utils/stylesPalette';
 
 /**
  * Home tab view routes.
@@ -89,6 +90,8 @@ export const testRoutes = {
     PlayerProfile : PlayerProfileScreen,
 };
 
+const palette = stylesPalette();
+
 export const createTabOptions = (screen, name) => ({ 
     screen,
     navigationOptions: {
@@ -97,8 +100,8 @@ export const createTabOptions = (screen, name) => ({
             inactiveTintColor : "#bdbdbd",
             showLabel : false,
             activeTintColor : "#FFF",
-            activeBackgroundColor : "#42a5f5",
-            inactiveBackgroundColor : "#42a5f5",
+            activeBackgroundColor : palette.primary.dark,
+            inactiveBackgroundColor : palette.primary.dark,
         },
     }
 });

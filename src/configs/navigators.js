@@ -20,6 +20,7 @@ import {
     generalRoutes,
     testRoutes,
  } from "./routes";
+import stylesPalette from '../utils/stylesPalette';
 
 const AuthNavigator = createSwitchNavigator(AuthRoutes, {
     initialRouteName : "Register",
@@ -60,6 +61,9 @@ const PlayerNavigator = createStackNavigator(playerRoutes, {
     headerMode       : 'none',
 });
 
+
+const palette = stylesPalette();
+
 const MainNavigator = createBottomTabNavigator({
     HomeTab     : createTabOptions(HomeNavigator, 'home'),
     MyGamesTab  : createTabOptions(MyGameNavigator, 'futbol'),
@@ -72,10 +76,10 @@ const MainNavigator = createBottomTabNavigator({
     activeColor         : "white",
     labeled             : false,
     barStyle : {
-        backgroundColor: '#42a5f5',
+        backgroundColor: palette.primary.dark,
     },
     style: {
-        backgroundColor: '#42a5f5',
+        backgroundColor: palette.primary.dark,
     }
 }); 
 

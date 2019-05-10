@@ -1,11 +1,11 @@
 import React from 'react';
 import {
-    StyleSheet,
-    View,
-    Text,
+    StyleSheet,        
 } from 'react-native';
 import {
     Body,
+    Text,
+    View,
 } from 'native-base';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/FontAwesome5';

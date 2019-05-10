@@ -31,7 +31,7 @@ const RegisterForm = ({form, onChange, error, onSubmit, goToLogin}) => {
                         style           = { styles.row } 
                         error           = { error }
                     >
-                        <Label>Número de teléfono</Label>
+                        <Label><Text>Número de teléfono</Text></Label>
                         <Input
                             keyboardType    = "numeric"
                             value           = { form.phoneNumber }

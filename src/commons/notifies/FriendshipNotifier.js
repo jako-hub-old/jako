@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
         color : "#FFF",
     },
     iconButton : {
-        color : "#FFF",
+        //color : "#FFF",
     },
 });
 

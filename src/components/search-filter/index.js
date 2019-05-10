@@ -21,7 +21,6 @@ const RenderForm = ({onChangeQuery, searchQuery, clearText, focusInput, setInput
             <Item rounded style={styles.inputContainer}>
                 <Input
                     ref         = {ref => setInputRef(ref)}
-                    placeholder = "Busca en jako"
                     value       = { searchQuery }
                     onChangeText= { text => onChangeQuery(text) }
                     style       = {styles.input}
@@ -70,10 +69,11 @@ const styles = StyleSheet.create({
         flex : 1,
         flexDirection : "row",
         alignItems : "flex-start",
-        justifyContent : "flex-start",        
+        justifyContent : "center",        
     },
     form : {
         flex : 1,
+        marginHorizontal : 20,
     },
     icon : {
         marginRight : 15,
@@ -82,7 +82,10 @@ const styles = StyleSheet.create({
     inputContainer : {
         paddingLeft : 30,
         backgroundColor : "#FFF",
-        height : 48,
+        height : 35,      
+        borderRadius : 5,  
+        backgroundColor : "#f5f5f5",
+        borderColor : "#f5f5f5",
     },
     input : {
         

@@ -1,9 +1,9 @@
 import React from 'react';
 import {
     View,
-    StyleSheet,
-    Text,
+    StyleSheet,    
 } from 'react-native';
+import {Text} from 'native-base';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 

@@ -6,7 +6,7 @@ import {_t} from "../../configs/dictionary";
 import { SearchComponent, SearchFilter, SearchFriends } from '../../components';
 import { FabButton } from '../../commons/buttons';
 import { withSession } from '../../providers';
-import TabButtons, { TAB_FRIENDS, TAB_GAMES } from './TabButtons';
+import TabButtons from '../../commons/buttons/TabButtons';
 export {default as GameDetailScreen} from './GameDetail';
 
 
@@ -15,14 +15,19 @@ export {default as GameDetailScreen} from './GameDetail';
  */
 class MyProfileScreen extends React.Component {
     state = {
-        currentTab : TAB_GAMES,
+        currentTab : 0,
     };
+
+    tabs = [
+        {label : "Juegos", icon : "futbol"},
+        {label : "Amigos", icon : "users"},
+    ];
 
     constructor(props) {
         super(props);
         const {state} = props.navigation;
         if(state.params && state.params.goToFriends) {
-            this.state.currentTab = TAB_GAMES;
+            this.state.currentTab = 1;
         }
     }
 
@@ -43,15 +48,16 @@ class MyProfileScreen extends React.Component {
         return (
             <BaseScreen 
                 navigation      = {navigation} 
-                title           = {false} 
-                TitleComponent  = {(<SearchFilter />)}
-                disableNotify
+                title           = {"Search"} 
             >
-                <TabButtons onChange = { this.onChangeTab.bind(this) } currentTab = { currentTab } />
-                {currentTab === TAB_GAMES && (
+                <View style = { styles.searchBarContainer }> 
+                    <SearchFilter />
+                </View>            
+                <TabButtons buttons = { this.tabs} onChange = { this.onChangeTab.bind(this) } currentTab = { currentTab } />
+                {currentTab === 0 && (
                     <View style={styles.root}><SearchComponent navigation={navigation} /></View>
                 )}
-                {currentTab === TAB_FRIENDS && (
+                {currentTab === 1 && (
                     <SearchFriends navigation = {navigation} />
                 )}
                 
@@ -73,6 +79,9 @@ const styles = StyleSheet.create({
         flexDirection : "column",
         paddingHorizontal   : 10,
         paddingVertical     : 10,
+    },
+    searchBarContainer : {
+        height : 40,
     },
 });
 

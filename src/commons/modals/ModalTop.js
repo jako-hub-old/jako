@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         justifyContent      : "flex-start",
     },
     icon : {
-        marginRight : 15,
+        marginRight : 30,
     },
     content : {
         backgroundColor : "#FFF",        

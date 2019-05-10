@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { initializeSession } from './src/store/actions/session.actions';
 import { FirebaseManager } from './src/services';
 import { AppSplash, ModalLoader } from './src/commons/loaders';
+import { MainTheme } from './src/commons/themes';
 
 const AppContainer = createAppContainer(AppNavigator);
 
@@ -45,9 +46,11 @@ export default class App extends Component {
     render() {
         return (
             <ReduxProvider store={store}>
-                <Root>                    
-                    <AppWrapper/>
-                </Root>
+                <MainTheme>
+                    <Root>                                    
+                        <AppWrapper/>
+                    </Root>
+                </MainTheme>
             </ReduxProvider>
         );
     }

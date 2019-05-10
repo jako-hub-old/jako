@@ -102,7 +102,7 @@ class NotifiesList extends React.Component {
         return (
             <>
                 <View style = { styles.root }>
-                    <IconButton icon="bell" color = "#FFF" noFa5 onPress = { () => this.toggleModal() } />
+                    <IconButton icon="bell" noFa5 onPress = { () => this.toggleModal() } />
                     {total > 0 && (
                         <View style = { styles.badge }>
                             <Text style = { styles.badgeText }>{ total }</Text>

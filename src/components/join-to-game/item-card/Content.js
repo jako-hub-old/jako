@@ -2,9 +2,9 @@ import React from 'react';
 import {
     StyleSheet,
     View,
-    Text,
 } from 'react-native';
 import {
+    Text,
     Body,
 } from 'native-base';
 import PropTypes from 'prop-types';

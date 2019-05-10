@@ -1,6 +1,6 @@
 import React from 'react';
 import {ScrollView, View} from "react-native";
-import {Button, Form, Input, Item, Label, Text} from "native-base";
+import {Form, Input, Item, Label, Text} from "native-base";
 import { StyleSheet } from 'react-native';
 import SubmitButton from "../../commons/forms/SubmitButton";
 import PropTypes from 'prop-types';
@@ -18,12 +18,12 @@ const LoginForm = ({form, onChange, onSubmit}) => (
         <ScrollView>
             <Form style={styles.form}>
                 <View style={{alignItems : "center"}}>
-                        <Text uppercase>
-                            Ingresa a jako
-                        </Text>
+                    <Text >
+                        Ingresa a jako
+                    </Text>
                 </View>
                 <Item floatingLabel style={styles.row}>
-                    <Label>Teléfono celular</Label>
+                    <Label><Text>Teléfono celular</Text></Label>
                     <Input
                         keyboardType    = "numeric"
                         value           = {form.phoneNumber}
@@ -32,7 +32,7 @@ const LoginForm = ({form, onChange, onSubmit}) => (
                 </Item>
                 <View style={styles.buttonRow}>
                     <SubmitButton block primary onPress={onSubmit}>
-                        <Text>Ingresar</Text>
+                        Ingresar
                     </SubmitButton>
                 </View>
             </Form>

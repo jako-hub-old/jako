@@ -4,9 +4,8 @@ import {
     StyleSheet,
 } from 'react-native';
 import Header, { GameItemBody } from '../../game-item-header';
-import Content from './Content';
-import ImagePreview from './ImagePreview';
 import PropTypes from 'prop-types';
+import GameImagePreview from '../../game-item-header/ImagePreview';
 
 /**
  * This component renders the Item presentation
@@ -17,7 +16,7 @@ const ItemCard = ({game, onAdd}) => {
         <View style={styles.root}>
             <View style={styles.wrapper}>
                 <View style={styles.pictureWrapper}>
-                    <ImagePreview />
+                    <GameImagePreview />
                 </View>
                 <View style={styles.infoWrapper}>
                     <Header

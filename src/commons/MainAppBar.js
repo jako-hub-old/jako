@@ -6,6 +6,7 @@ import {
     Left,
     Right,
     Title,
+    Text,
 } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { StyleSheet, View, } from 'react-native';
@@ -28,6 +29,7 @@ import FriendshipNotifier from './notifies/FriendshipNotifier';
 const MainAppBar = ({allowBack, disableNotify, navigation, title="Jako", goBack, TitleComponent=false}) => (
     <Header
         style={styles.root}
+        noShadow
         androidStatusBarColor={palette.primary.variant}
     >
         {allowBack && (
@@ -44,7 +46,12 @@ const MainAppBar = ({allowBack, disableNotify, navigation, title="Jako", goBack,
         )}
         {!TitleComponent && (
             <Body style={styles.body}>
-                {title && (<Title>{title}</Title>)}                
+                <View style = { { flexDirection : "row" } }>
+                    <Icon name="coins" size={18} style = { {marginRight : 10,} } />
+                    <Text>
+                        100
+                    </Text>
+                </View>
             </Body>
         )}
         {!disableNotify && (
@@ -65,7 +72,7 @@ MainAppBar.propTypes = {
 const palette = stylesPalette();
 const styles = StyleSheet.create({
     root : {
-        backgroundColor : palette.primary.color,
+        backgroundColor : "#FFF",
     },
     left : {
         flex : 1,

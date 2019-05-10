@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, } from 'react-native';
-import { Button } from 'native-base';
+import { StyleSheet } from 'react-native';
+import { Button, Text } from 'native-base';
 import stylesPalette from "../../utils/stylesPalette";
 import PropTypes from 'prop-types';
 

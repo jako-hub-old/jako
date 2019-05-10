@@ -30,8 +30,8 @@ const styles = StyleSheet.create({
         color : '#bdbdbd',
     },
     image : {
-        width : 80,
-        height : 80,
+        width : 60,
+        height : 60,
     },
 });
 

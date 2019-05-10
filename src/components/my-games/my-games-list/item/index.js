@@ -6,8 +6,9 @@ import {
 } from 'react-native';
 import Header, { GameItemBody } from '../../../game-item-header';
 import Footer from './Footer';
-import ImagePreview from './ImagePreview';
 import PropTypes from 'prop-types';
+import GameImagePreview from '../../../game-item-header/ImagePreview';
+import stylesPalette from '../../../../utils/stylesPalette';
 
 /**
  * This component renders the Item presentation
@@ -18,7 +19,7 @@ const Item = ({item, onSelect, onViewProfile, onShare}) => (
         <TouchableOpacity onPress={onSelect}>
             <View style={styles.wrapper}>
                 <View style={styles.pictureWrapper}>
-                    <ImagePreview />
+                    <GameImagePreview />
                 </View>
                 <View style={styles.infoWrapper}>
                     <Header
@@ -44,15 +45,22 @@ const Item = ({item, onSelect, onViewProfile, onShare}) => (
     
 );
 
+const palette = stylesPalette();
+
 const styles = StyleSheet.create({
     root : {
         flex : 1,
-        marginVertical : 5,
+        marginVertical : 5,        
+        borderBottomColor : palette.accent.divider,
+        borderBottomWidth : 1,
+        marginHorizontal : 10,
+        paddingBottom : 10,
+        borderBottomLeftRadius : 20,
+        borderBottomRightRadius : 20,
     },
     wrapper : {
         flex : 1,
         flexDirection   : "row",
-        justifyContent  : "space-between",
         alignItems      : "center",
     },
     pictureWrapper : {

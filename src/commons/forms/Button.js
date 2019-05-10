@@ -34,7 +34,8 @@ const palette = stylesPalette();
 const styles = StyleSheet.create({
     root : {
         paddingHorizontal : 20,
-        backgroundColor : palette.accent.color
+        backgroundColor : palette.accent.color,
+        borderRadius : 30,
     },    
 });
 

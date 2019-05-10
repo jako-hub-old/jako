@@ -42,7 +42,8 @@ const GameItemHeader = ({title="", totalPlayers=0, confirmedPlayers=0, date="00-
 
 const styles = StyleSheet.create({
     root : {
-        flex : 1,
+        justifyContent : "flex-start",
+        flexDirection : "column",
     },
     row : {
         flex : 1,
@@ -56,7 +57,7 @@ const styles = StyleSheet.create({
         color : "#000",
     },
     titleWrapper : {
-        flex : 9,
+        flex : 9,        
     },
     playersInfo : {
         flex : 2,

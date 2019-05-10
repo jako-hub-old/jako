@@ -50,11 +50,11 @@ const palette = stylesPalette();
 const styles = StyleSheet.create({
     root : {
         flex : 1,
-        marginVertical : 5,        
-        borderBottomColor : palette.accent.divider,
+        marginVertical : 5,                
         borderBottomWidth : 1,
         marginHorizontal : 10,
         paddingBottom : 10,
+        borderBottomColor : palette.accent.divider,
         borderBottomLeftRadius : 20,
         borderBottomRightRadius : 20,
     },

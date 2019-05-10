@@ -14,6 +14,7 @@ import {
     Text,
 } from 'native-base';
 import stylesPalette from '../../../utils/stylesPalette';
+import GameImagePreview from '../../game-item-header/ImagePreview';
 
 /**
  * This component renders the Item presentation
@@ -24,7 +25,7 @@ const Item = ({item, onShare, isInGame=true, organizer, onSelect, onAdd, onViewP
         <TouchableOpacity onPress={onSelect}>
             <View style={styles.wrapper}>
                 <View style={styles.pictureWrapper}>
-                    <ImagePreview />
+                    <GameImagePreview />
                     {isInGame && (
                         <View style = { styles.isInGame }>
                             <Text style={ {color : "#FFF"} }>Participas</Text>
@@ -61,12 +62,17 @@ const styles = StyleSheet.create({
     root : {
         flex : 1,
         marginVertical : 5,
+        borderBottomColor : palette.accent.divider,
+        borderBottomWidth : 1,
+        borderBottomLeftRadius : 20,
+        borderBottomRightRadius : 20,
+        paddingBottom : 10,
     },
     wrapper : {
         flex : 1,
         flexDirection   : "row",
         justifyContent  : "space-between",
-        alignItems      : "center",
+        alignItems      : "center",        
     },
     pictureWrapper : {
         flex : 3,

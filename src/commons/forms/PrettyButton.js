@@ -30,14 +30,15 @@ const palette = stylesPalette();
 
 const styles = StyleSheet.create({
     btnRoot : {
-        elevation : 0,
-        borderColor : palette.accent.color,
-        borderWidth : 2,
-        backgroundColor : "transparent",
-        justifyContent : "center",
-        alignItems : "center",
-        paddingHorizontal : 20,
-        marginHorizontal : 5,
+        elevation           : 0,
+        borderColor         : palette.accent.color,
+        borderWidth         : 2,
+        backgroundColor     : "transparent",
+        justifyContent      : "center",
+        alignItems          : "center",
+        paddingHorizontal   : 2,
+        marginHorizontal    : 2,
+        height              : 30,
     },
     btnPrimary : {
         backgroundColor : palette.accent.color,
@@ -46,6 +47,7 @@ const styles = StyleSheet.create({
         color : palette.accent.primaryText,
     },
     btnText : {
+        fontSize : 12,
         color : palette.accent.primaryText,
     },
     disabled : {
@@ -57,8 +59,8 @@ const styles = StyleSheet.create({
         paddingVertical : 2,
         paddingTop : 2,
         paddingBottom : 2,
-        paddingHorizontal : 15,
-        height : 35,
+        paddingHorizontal : 5,
+        height : 25,
         alignItems : "center",
         justifyContent : "center",
     },

@@ -28,5 +28,8 @@ export default {
             variant     : '#ef5350',
             contrast    : '#FFF',
         },
+        bgs : {
+            gray : "#e0e0e0"
+        },
     }
 };

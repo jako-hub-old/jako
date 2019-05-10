@@ -12,6 +12,7 @@ import {
     ListItem,
     Body,
     Right,
+    Label,
 } from 'native-base';
 import { PrettyButton, IconButton, RoundedButton } from '../../commons/forms';
 
@@ -60,9 +61,11 @@ const InviteForm = ({onCancel, onSend}) => {
             </View>
             <View style = { styles.row }>
                 <View style = { styles.inputWrapper }>
-                    <Item> 
+                    <Item floatingLabel> 
+                        <Label>
+                            <Text>Ingresa el número de teléfono</Text>
+                        </Label>
                         <Input 
-                            placeholder = "Ingresa el número de teléfono" 
                             value = { phoneNumber }
                             onChangeText = { text => setPhoneNumber(text) }
                             keyboardType = { "number-pad" }

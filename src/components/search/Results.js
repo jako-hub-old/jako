@@ -12,11 +12,15 @@ import {
 import { Button } from '../../commons/forms';
 import Item from './item';
 import { withSession } from '../../providers';
+import { EmptyObject } from '../../commons/others';
 
 const EmptySet = ({goToCreate, crearJuego}) => (
     <View style={styles.EmptySet}>
         <View>
-            <Text style={{textAlign : "center"}} note>Al parecer no hay juegos cercanos</Text>
+            <EmptyObject 
+                message = "Al parecer no hay juegos cercanos"
+                icon = "futbol-o"
+            />
             {crearJuego && (
                 <View style={{flex : 1, alignItems : "center", marginTop: 15}}>
                     <Button info onPress={goToCreate}>

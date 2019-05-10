@@ -12,6 +12,8 @@ import {
 import { withPosts } from '../../providers';
 import PostItem from './PostItem';
 const TYPE_GAMES = 'JUE';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import EmptyObject from '../../commons/others/EmptyIcon';
 
 class News extends React.Component {
     state = {
@@ -21,7 +23,6 @@ class News extends React.Component {
     componentDidMount() {
         this.fetchNews();
     }
-
 
     fetchNews() {
         this.setState({loading : true});
@@ -36,8 +37,11 @@ class News extends React.Component {
 
     renderEmpty() {
         return (
-            <View style = { styles.emptyRoot }>
-                <Text note>Parece que aún no hay actividad en Jako</Text>
+            <View style = { styles.emptyRoot }>            
+                <EmptyObject 
+                    message = "Parece que aún no hay actividad en Jako"
+                    icon = "newspaper-o" 
+                />
             </View>
         );
     }

@@ -2,27 +2,31 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
     StyleSheet,
+    Image,
 } from 'react-native';
 import {
     View,
     Text,
 } from 'native-base';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 import stylesPalette from '../../utils/stylesPalette';
 import moment from 'moment';
-
+import defaultGameImage from '../../assets/images/game-default-image.png';
+import {DEFAULT_USER_IMG, IMAGES_SERVER} from 'react-native-dotenv';
 const TYPE_GAMES = 'JUE';
 
-const GamePost = ({item}) => (
+const GamePost = ({item, date}) => (
     <View style = {styles.rootGame}>
         <View style = {styles.wrapper}>
             <View style = {styles.iconWrapper}>
                 <View style = { styles.iconSafeArea }>
-                    <Icon name = "futbol" size = { 45 } />
+                    <Image style = { styles.image }  source = { defaultGameImage } />
                 </View>
             </View>
             <View style = {styles.textWrapper}>
-                <Text>{item.texto}</Text>
+                <Text style = { styles.postText }>{item.texto}</Text>
+                <Text note style = {{fontSize : 12, marginTop : 10}}>
+                    {date}
+                </Text>
             </View>
         </View>        
     </View>
@@ -34,20 +38,21 @@ class PostItem extends React.PureComponent {
         const {
             tipo,            
             fecha,
+            foto,
         } = this.props.item;
         const date = moment(fecha).format("YYYY-MM-DD HH:mm")
         return (
             <View style = { styles.root }>
                 <View style = { styles.storyWrapper }>
-                    <View style = {styles.timelineTip} />
-                    {tipo === TYPE_GAMES && (
-                        <GamePost item = {this.props.item} />
-                    )}
-                    <View style = { styles.additionalInfo }>
-                        <Text note style = {{fontSize : 12,}}>
-                            {date}
-                        </Text>
+                    <View style = {styles.timelineTip}>
+                        <Image 
+                            source = { { uri : foto? `${IMAGES_SERVER}${foto}` : DEFAULT_USER_IMG } } 
+                            style = { styles.userImage }
+                        />
                     </View>
+                    {tipo === TYPE_GAMES && (
+                        <GamePost item = {this.props.item} date = { date } />
+                    )}
                 </View>
             </View>
         );
@@ -62,10 +67,16 @@ const styles = StyleSheet.create({
         paddingHorizontal : 20,
     },
     storyWrapper : {
-        borderLeftWidth : 4,
-        borderLeftColor : palette.primary.color,
+        borderLeftWidth : 1,
+        borderLeftColor : palette.accent.divider,
+        borderBottomWidth : 1,
+        borderBottomColor : palette.accent.divider,
+        borderBottomLeftRadius : 8,
+        marginTop : -5,
     },
-    iconWrapper : {},
+    iconWrapper : {
+        borderRadius : 50,        
+    },
     rootGame : {
         flex : 1,
         paddingLeft : 15,
@@ -85,24 +96,43 @@ const styles = StyleSheet.create({
     },
     textWrapper : {
         flex : 10,
-        justifyContent : "center",
+        justifyContent : "flex-start",
+        paddingLeft : 20,
     },
     timelineTip : {
         position : "absolute",
         left : '0%',
-        top : "36%",
-        backgroundColor : palette.primary.color,
-        width : 20,
-        height : 20,
+        top : "15%",
+        backgroundColor : "#f0f0f0",
+        borderColor : palette.accent.divider,
+        borderWidth : 1,
+        justifyContent : "center",
+        alignItems : "center",
+        width : 30,
+        height : 30,
         borderRadius : 100,
         transform : [
-            {translateX : -10}
+            {translateX : -15}
         ]
     },
     additionalInfo : {
         flex : 1,
         flexDirection : "row",
-        justifyContent : "flex-end"
+        justifyContent : "flex-end",
+
+    },
+    image : {
+        width : 50,
+        height : 50,
+        borderRadius : 50,
+    },
+    postText : {
+        fontSize : 12,
+    },
+    userImage : {
+        width : 30,
+        height : 30,
+        borderRadius : 100,
     },
 });
 

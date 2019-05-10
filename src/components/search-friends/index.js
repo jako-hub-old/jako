@@ -14,6 +14,7 @@ import FriendsList from './FriendsList';
 import { consoleError, addMessage } from '../../utils/functions';
 import endpoints from '../../configs/endpoints';
 import FriendshipSuggestion from '../my-profile/friendship-suggestion';
+import { EmptyObject } from '../../commons/others';
 
 /**
  * This component handles the friends search.
@@ -46,7 +47,10 @@ class SearchFriends extends Component {
     renderEmpty() {
         return (
             <View style = { styles.emptyRoot }>
-                <Text note style = { {textAlign : "center"} }> No hay amigos que mostrar </Text>
+                <EmptyObject 
+                    message = "No hay usuarios que mostrar"
+                    icon = "users"
+                />
             </View>
         );
     }

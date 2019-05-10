@@ -11,11 +11,15 @@ import {
 import PropTypes from 'prop-types';
 import Item from './item';
 import { Button, IconButton } from '../../../commons/forms';
+import { EmptyObject } from '../../../commons/others';
 
 const EmptySet = ({goToSearch}) => (
     <View style={styles.EmptySet}>
         <View>
-            <Text note>No te encuentras en ningún juego en el momento</Text>
+            <EmptyObject 
+                message = "No te encuentras en ningún juego en el momento"
+                icon = "futbol-o"
+            />
             <View style={{flex : 1, alignItems : "center", marginTop: 15}}>
                 <Button info onPress={goToSearch}>
                     Busca juegos y únete

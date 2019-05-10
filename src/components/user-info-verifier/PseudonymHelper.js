@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
     Modal,
-    View,
-    Text,
     StyleSheet,
 } from 'react-native';
 import {
@@ -11,6 +9,8 @@ import {
     Item,
     Input,
     Label,
+    View,
+    Text,
 } from 'native-base';
 import { SubmitButton } from '../../commons/forms';
 import { replaceSpaces, consoleError, addMessage, isValidEmail } from '../../utils/functions';
@@ -24,9 +24,9 @@ import endpoints from '../../configs/endpoints';
 const PseudoForm = ({onSubmit, loading, isValidForm, onChange, email, name, pseudonym, setInputRef, goToNext,}) => {
     return (
         <Form style={styles.form}>
-            <Item>
+            <Item floatingLabel>
+                <Label><Text>Tu nombre</Text></Label>
                 <Input 
-                    placeholder     = "Tu nombre"
                     ref             = { ref => setInputRef('name', ref) }
                     onSubmitEditing = { () => goToNext('name')                  }
                     disabled        = { loading }
@@ -34,9 +34,9 @@ const PseudoForm = ({onSubmit, loading, isValidForm, onChange, email, name, pseu
                     onChangeText    = { text => onChange("name", text) }
                 />
             </Item>  
-            <Item>
+            <Item floatingLabel>
+                <Label><Text>Un alias</Text></Label>
                 <Input 
-                    placeholder     = "Un alias"
                     ref             = { ref => setInputRef('pseudonym', ref)   }
                     onSubmitEditing = { () => goToNext('pseudonym')            }
                     disabled        = { loading }
@@ -44,9 +44,9 @@ const PseudoForm = ({onSubmit, loading, isValidForm, onChange, email, name, pseu
                     onChangeText    = { text => onChange("pseudonym", replaceSpaces(text, '_')) }
                 />
             </Item>  
-            <Item>
+            <Item floatingLabel>
+                <Label><Text>E-mail</Text></Label>
                 <Input 
-                    placeholder     = "E-mail"
                     ref             = { ref => setInputRef('email', ref)   }
                     onSubmitEditing = { () => goToNext('email')            }
                     disabled        = { loading }
@@ -216,7 +216,7 @@ styles = StyleSheet.create({
     },
     formRow : {
         marginTop : 20,
-    },
+    },    
 });
 
 PseudonymHelper.propTypes = {

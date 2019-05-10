@@ -72,7 +72,8 @@ const styles = StyleSheet.create({
         borderBottomWidth : 1,
         borderBottomColor : palette.accent.divider,
         borderBottomLeftRadius : 8,
-        marginTop : -5,
+        marginTop : -6,
+        paddingTop : 10,
     },
     iconWrapper : {
         borderRadius : 50,        
@@ -102,7 +103,7 @@ const styles = StyleSheet.create({
     timelineTip : {
         position : "absolute",
         left : '0%',
-        top : "15%",
+        top : "25%",
         backgroundColor : "#f0f0f0",
         borderColor : palette.accent.divider,
         borderWidth : 1,

@@ -12,8 +12,9 @@ import {
 import { withPosts } from '../../providers';
 import PostItem from './PostItem';
 const TYPE_GAMES = 'JUE';
-import Icon from 'react-native-vector-icons/FontAwesome';
+
 import EmptyObject from '../../commons/others/EmptyIcon';
+import PostFilters from './PostFilters';
 
 class News extends React.Component {
     state = {
@@ -49,12 +50,17 @@ class News extends React.Component {
     renderNews() {
         const { news=[] } = this.props;
         if(news.length === 0) return this.renderEmpty();
-        return news.map((item, key) => (
-            <PostItem 
-                key = { `post-item-${key}-${item.codigo_publicacion}` } 
-                item = { item }
-            />
-        ));
+        return (
+            <View styles = { styles.listView}>
+                <PostFilters />
+                {news.map((item, key) => (
+                    <PostItem 
+                        key = { `post-item-${key}-${item.codigo_publicacion}` } 
+                        item = { item }
+                    />
+                ))}
+            </View>
+        );
     }
 
     render() {        
@@ -84,6 +90,9 @@ const styles = StyleSheet.create({
         flex : 1,
         alignItems : "center",
         paddingVertical : 20,
+    },
+    listView : {
+        flex : 1,
     },
 });
 

@@ -93,6 +93,6 @@ BaseScreen.propTypes = {
     isFocused     : PropTypes.bool,
     disableNotify : PropTypes.bool,
     enableFriendSuggester : PropTypes.bool,
-    allowUserStatus : PropTypes.func,
+    allowUserStatus : PropTypes.bool,
 };
 export default withNavigationFocus(BaseScreen);

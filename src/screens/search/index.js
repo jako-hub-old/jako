@@ -49,6 +49,7 @@ class MyProfileScreen extends React.Component {
             <BaseScreen 
                 navigation      = {navigation} 
                 title           = {"Search"} 
+                allowUserStatus
             >
                 <View style = { styles.searchBarContainer }> 
                     <SearchFilter />

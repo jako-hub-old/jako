@@ -51,6 +51,9 @@ class CommentGame extends React.Component {
                     codigo_jugador,
                     foto,
                 });
+                this.setState({
+                    comment : "",
+                });
             } else {
                 consoleError("Guardar comentario", response);
                 Toast.show({text : 'Ocurrió un error al guardar el comentario'});

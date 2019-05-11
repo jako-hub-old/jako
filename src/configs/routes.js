@@ -83,6 +83,7 @@ export const AuthRoutes = {
 };
 
 export const generalRoutes = {
+    MyProfile : MyProfileScreen,
 };
 
 export const testRoutes = {

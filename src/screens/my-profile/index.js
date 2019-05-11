@@ -11,7 +11,10 @@ class MyProfileScreen extends React.PureComponent {
     render() {
         const navigation = this.props.navigation;
         return (
-            <BaseScreen navigation={navigation} title={_t('my_profile_title_1')} >
+            <BaseScreen 
+                navigation={navigation} title={_t('my_profile_title_1')} 
+                allowUserStatus
+            >
                 <MyProfileComponent navigation = { navigation } />
             </BaseScreen>
         );

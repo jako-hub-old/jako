@@ -68,7 +68,7 @@ const MainNavigator = createBottomTabNavigator({
     HomeTab     : createTabOptions(HomeNavigator, 'home'),
     MyGamesTab  : createTabOptions(MyGameNavigator, 'futbol-o'),
     SearchTab   : createTabOptions(SearchNavigator, 'search'),
-    ProfileTab  : createTabOptions(ProfileNavigator, 'user'),
+    //ProfileTab  : createTabOptions(ProfileNavigator, 'user'),
     ContactTab  : createTabOptions(ContactNavigator, 'question-circle'),
 }, {
     shifting            : true,
@@ -83,10 +83,18 @@ const MainNavigator = createBottomTabNavigator({
     }
 }); 
 
+const GeneralNavigator = createStackNavigator({
+    ...generalRoutes,
+}, {
+    initialRouteName : '',
+    headerMode : 'none',
+});
+
 const AppNavigator = createStackNavigator({
     Main    : MainNavigator,
     Games   : GamesNavigator,
     Player  : PlayerNavigator,
+    General : GeneralNavigator,
 }, {
     initialRouteName : "Main",
     headerMode       : 'none',
@@ -100,8 +108,7 @@ const TestNavigator = createStackNavigator(testRoutes, {
 const AppNavigatorContainer = createSwitchNavigator({
     Auth : AuthNavigator,
     App  : AppNavigator,
-    testing : TestNavigator,
-    ...generalRoutes,
+    testing : TestNavigator,    
 }, {
     initialRouteName : "Auth",
 });

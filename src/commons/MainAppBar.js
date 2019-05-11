@@ -15,6 +15,7 @@ import stylesPalette from "../utils/stylesPalette";
 import NotifiesList from './notifies-list';
 import FriendshipNotifier from './notifies/FriendshipNotifier';
 import UserStatusOption from '../components/user-status-option';
+import UserProfileButton from './UserProfileButton';
 
 
 
@@ -27,7 +28,7 @@ import UserStatusOption from '../components/user-status-option';
  * @returns {*}
  * @constructor
  */
-const MainAppBar = ({allowBack, allowUserStatus=true, disableNotify, navigation, title="Jako", goBack, TitleComponent=false}) => (
+const MainAppBar = ({allowBack, allowUserStatus, disableNotify, navigation, title="Jako", goBack, TitleComponent=false}) => (
     <Header
         style={styles.root}
         noShadow
@@ -40,16 +41,21 @@ const MainAppBar = ({allowBack, allowUserStatus=true, disableNotify, navigation,
                 </Button>
             </Left>
         )}
+        {!allowBack && (
+            <Left style = { styles.leftSlim }>        
+                <UserProfileButton 
+                    navigation = { navigation }
+                />          
+            </Left> 
+        )}
         {TitleComponent !== false && (
             <View style={styles.titleComponent}>
                 {TitleComponent}
             </View>
         )}
-        {!TitleComponent && (
-            <Body style={styles.body}>
-                {allowUserStatus && (<UserStatusOption navigation = { navigation } />)}
-            </Body>
-        )}
+        <Body style={styles.body}>              
+            {allowUserStatus && (<UserStatusOption navigation = { navigation } />)}
+        </Body>
         {!disableNotify && (
             <Right style = { styles.right }>
                 <FriendshipNotifier navigation = { navigation } />
@@ -59,10 +65,11 @@ const MainAppBar = ({allowBack, allowUserStatus=true, disableNotify, navigation,
     </Header>
 );
 MainAppBar.propTypes = {
-    navigation  : PropTypes.object.isRequired,
-    title       : PropTypes.any,
-    allowBack   : PropTypes.bool,
-    TitleComponent : PropTypes.any,
+    navigation      : PropTypes.object,
+    title           : PropTypes.any,
+    allowBack       : PropTypes.bool,
+    TitleComponent  : PropTypes.any,
+    allowUserStatus : PropTypes.bool,
 };
 
 const palette = stylesPalette();
@@ -79,6 +86,7 @@ const styles = StyleSheet.create({
     },
     body : {
         flex : 6,
+        flexDirection : "row",
         alignItems : "flex-start",
         paddingLeft : 20,
     },

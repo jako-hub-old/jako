@@ -37,7 +37,12 @@ class MyGamesScreen extends React.PureComponent {
     render() {
         const {sessionStack, navigation} = this.props;    
         return (
-            <BaseScreen navigation={navigation} title={"Mis juegos"} enableFriendSuggester>
+            <BaseScreen 
+                navigation={navigation} 
+                title={"Mis juegos"} 
+                enableFriendSuggester
+                allowUserStatus
+            >
                 <MyGamesComponent navigation={navigation}/>
                 <FabButton 
                     icon = "plus"

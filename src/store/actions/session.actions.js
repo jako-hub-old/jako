@@ -2,7 +2,7 @@ import {readSession, writeInSession, writeAllInSession} from "../../services/Ses
 import {startLoading, stopLoading} from './global.actions';
 import AsynStorageService, {SESSION} from "../../services/AsyncStorageService";
 import { consoleInfo, consoleError } from "../../utils/functions";
-import { setVerified, clearUserData } from "./userData.actions";
+import { setVerified, clearUserData, setUserData } from "./userData.actions";
 
 export const SET_SESSION_VAR = '[SESSION] SET_SESSION_VAR';
 export const DEL_SESSION_VAR = '[SESSION] DEL_SESSION_VARS';
@@ -79,8 +79,10 @@ export const initializeSession = () => {
                 // First we read the session from the async storage,
                 // if the when the session read is done, then we set the reading state to false
                 session.reading = false;
+                const userInfo = session.user_info || {};
                 dispatch(setSessionStack(session)); // Then we set the session stack to the main redux state.
                 dispatch(stopLoading());
+                dispatch(setUserData({photo : userInfo.foto}));
             })
             .catch(error => {
                 console.log("Error : ", error);

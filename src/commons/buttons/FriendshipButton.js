@@ -57,7 +57,7 @@ class FriendshipButton extends React.Component {
         const {
             loading,
         } = this.state;
-        const { asIcon, sm, label="Solicitar amistad" } = this.props;
+        const { asIcon, icon="telegram-plane", sm, label="Solicitar amistad", size = 18 } = this.props;
         return (
             <View style = { styles.root }>
                 <View>
@@ -65,7 +65,7 @@ class FriendshipButton extends React.Component {
                         <PrettyButton 
                             primary 
                             loading = {loading} 
-                            icon = {(<Icon name = "telegram-plane" size={18}  />)}
+                            icon = {(<Icon name = {icon} size={size}  />)}
                             onPress = { () => this.onRequestFriendship() }
                             small = {sm}
                         
@@ -90,7 +90,6 @@ class FriendshipButton extends React.Component {
 
 const styles = StyleSheet.create({
     root : {
-        marginTop : 10,
         alignItems : "center"
     },
 });

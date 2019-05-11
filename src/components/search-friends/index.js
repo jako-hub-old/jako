@@ -80,7 +80,7 @@ class SearchFriends extends Component {
     }
 
     onRequestFriendship(friend) {
-        alert("request!");
+        
     }
 
     onViewProfile({seudonimo:playerAlias, codigo_jugador:playerCode}) {

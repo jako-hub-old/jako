@@ -10,8 +10,10 @@ import {
     Thumbnail,
 } from 'native-base';
 import { DEFAULT_USER_IMG, IMAGES_SERVER } from 'react-native-dotenv';
-import { IconButton } from '../../commons/forms';
+import { IconButton, PrettyButton } from '../../commons/forms';
 import { FriendshipButton } from '../../commons/buttons';
+import { SimpleHeader } from '../../commons/containers';
+import stylesPalette from '../../utils/stylesPalette';
 
 const FriendCard = ({friend, onViewProfile, onRequest, sended, onCancel}) => (
     <View style = {styles.friendCard}>
@@ -35,15 +37,16 @@ const FriendCard = ({friend, onViewProfile, onRequest, sended, onCancel}) => (
             {/* <IconButton onPress = { onRequest } icon = "user-plus"  /> */}
             {!sended && (
                 <FriendshipButton 
-                    asIcon
                     playerCode={friend.codigo_jugador} 
+                    label = "Añadir"
+                    icon = "user-plus"
+                    size = {12}
                 />
             )}
             {sended && (
-                <IconButton 
-                    icon = "times"
-                    onPress = {() => onCancel? onCancel(friend) : null}
-                />
+                <PrettyButton onPress = {() => onCancel? onCancel(friend) : null} >                    
+                    Cancelar
+                </PrettyButton>
             )}
         </View>
     </View>
@@ -51,9 +54,9 @@ const FriendCard = ({friend, onViewProfile, onRequest, sended, onCancel}) => (
 
 const FriendsList = ({friends=[], onViewProfile, onRequestFriendship, sendedRequest, onCancel}) => (
     <View style = { styles.root }>
-        <View style = { styles.header }>
-            <Text style = { styles.headerText }>Resultados de búsqueda</Text>
-        </View>
+        <SimpleHeader 
+            title = "Resultados de búsqueda"
+        />
         {friends.map((friend, key) => {            
             const request = sendedRequest(friend.codigo_jugador);
             const sended = Boolean(request);
@@ -71,23 +74,19 @@ const FriendsList = ({friends=[], onViewProfile, onRequestFriendship, sendedRequ
     </View>
 );
 
+const palette = stylesPalette();
+
 const styles = StyleSheet.create({
     root : {
 
-    },
-    header : {
-        backgroundColor : "#f7f7f7",
-        padding         : 15,
-    },
-    headerText : {
-        textAlign : "center",
-        color : "#707070",
     },
     friendCard : {
         flex : 1,
         flexDirection : "row",
         justifyContent : "space-between",
-        padding : 10,
+        //borderBottomColor : palette.accent.divider,
+        //borderBottomWidth : 1,
+        marginBottom : 5,
     },
     avatar : {
         justifyContent : "center",
@@ -95,12 +94,13 @@ const styles = StyleSheet.create({
         flex : 2,        
     },
     body : {
-        flex : 10,
+        flex : 8,
         justifyContent : "center",
     },
     right : {
-        flex : 2,
+        flex : 4,
         justifyContent : "center",
+        alignItems : "center",
     },
     thumbnail : {
         width : 40,

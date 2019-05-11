@@ -18,7 +18,7 @@ const RenderForm = ({onChangeQuery, searchQuery, clearText, focusInput, setInput
     const isEmpty = searchQuery === "";
     return (
         <Form style={styles.form}>
-            <Item rounded style={styles.inputContainer}>
+            <Item rounded style={styles.inputContainer}>                
                 <Input
                     ref         = {ref => setInputRef(ref)}
                     value       = { searchQuery }

@@ -59,6 +59,7 @@ import FriendsSearchSuggester from '../components/friends-search-suggester';
             TitleComponent, 
             isFocused,
             enableFriendSuggester,
+            allowUserStatus,
         } = this.props;
         
         return (
@@ -66,6 +67,7 @@ import FriendsSearchSuggester from '../components/friends-search-suggester';
                 {header && (
                     <MainAppBar
                         allowBack       = {allowBack}
+                        allowUserStatus = {allowUserStatus}
                         goBack          = {this.goBack.bind(this)}
                         navigation      = {navigation}
                         title           = {title}
@@ -91,5 +93,6 @@ BaseScreen.propTypes = {
     isFocused     : PropTypes.bool,
     disableNotify : PropTypes.bool,
     enableFriendSuggester : PropTypes.bool,
+    allowUserStatus : PropTypes.func,
 };
 export default withNavigationFocus(BaseScreen);

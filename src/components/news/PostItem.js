@@ -11,8 +11,11 @@ import {
 import stylesPalette from '../../utils/stylesPalette';
 import moment from 'moment';
 import defaultGameImage from '../../assets/images/game-default-image.png';
-import {DEFAULT_USER_IMG, IMAGES_SERVER} from 'react-native-dotenv';
+import {DEFAULT_USER_IMG, IMAGES_SERVER, DEFAULT_ADMIN_IMG} from 'react-native-dotenv';
+import NewsPost from './NewsPost';
+
 const TYPE_GAMES = 'JUE';
+const TYPE_NEWS = 'NOT';
 
 const GamePost = ({item, date}) => (
     <View style = {styles.rootGame}>
@@ -32,26 +35,44 @@ const GamePost = ({item, date}) => (
     </View>
 );
 
+
 class PostItem extends React.PureComponent {
-    
+    userImage(foto) {
+        return (
+            <Image 
+                source = { { uri : foto? `${IMAGES_SERVER}${foto}` : DEFAULT_USER_IMG } } 
+                style = { styles.userImage }
+            />
+        )
+    }
+
+    adminImage() {
+        return (
+            <Image 
+                source = { { uri : DEFAULT_ADMIN_IMG } } 
+                style = { styles.userImage }
+            />
+        )
+    }
     render() {
         const {
             tipo,            
             fecha,
             foto,
+            plataforma,
         } = this.props.item;
         const date = moment(fecha).format("YYYY-MM-DD HH:mm")
         return (
             <View style = { styles.root }>
                 <View style = { styles.storyWrapper }>
                     <View style = {styles.timelineTip}>
-                        <Image 
-                            source = { { uri : foto? `${IMAGES_SERVER}${foto}` : DEFAULT_USER_IMG } } 
-                            style = { styles.userImage }
-                        />
+                        {plataforma? this.adminImage() : this.userImage(foto)}
                     </View>
                     {tipo === TYPE_GAMES && (
                         <GamePost item = {this.props.item} date = { date } />
+                    )}
+                    {tipo === TYPE_NEWS  && (
+                        <NewsPost item = {this.props.item} date = { date } />
                     )}
                 </View>
             </View>

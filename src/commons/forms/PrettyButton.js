@@ -32,11 +32,11 @@ const styles = StyleSheet.create({
     btnRoot : {
         elevation           : 0,
         borderColor         : palette.accent.color,
-        borderWidth         : 2,
+        borderWidth         : 1,
         backgroundColor     : "transparent",
         justifyContent      : "center",
         alignItems          : "center",
-        paddingHorizontal   : 2,
+        paddingHorizontal   : 1,
         marginHorizontal    : 2,
         height              : 30,
     },
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         color : palette.accent.primaryText,
     },
     btnText : {
-        fontSize : 12,
+        fontSize : 10,
         color : palette.accent.primaryText,
     },
     disabled : {

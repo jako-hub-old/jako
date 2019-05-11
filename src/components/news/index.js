@@ -7,7 +7,6 @@ import {
 } from 'react-native';
 import {
     View,
-    Text,
 } from 'native-base';
 import { withPosts } from '../../providers';
 import PostItem from './PostItem';

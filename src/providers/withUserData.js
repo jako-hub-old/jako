@@ -38,6 +38,7 @@ export const propTypes = {
     fetchUserSendedRequests     : PropTypes.func,
     fetchFriendshipRequest      : PropTypes.func,
     removeFriendshipRequest     : PropTypes.func,
+    moneyPoints                 : PropTypes.number,
 };
 
 /**

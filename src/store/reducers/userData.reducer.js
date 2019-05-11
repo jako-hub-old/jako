@@ -5,6 +5,7 @@ import {
     SET_FRIENDSHIP_REQUESTS,
     REMOVE_FRIENDSHIP_REQUEST,
     SET_USER_FRIENDSHIP_REQUESTS_SENDED,
+    CLEAR_USER_DATA,
 } from '../actions/userData.actions';
 
 const defaultState = {
@@ -13,6 +14,7 @@ const defaultState = {
     friendshipRequestsSended : [],
     photo    : null,
     verified : false,
+    moneyPoints : 0,
 };
 
 export default gameReducer = (state=defaultState, action) => {
@@ -25,6 +27,7 @@ export default gameReducer = (state=defaultState, action) => {
             ...state,
             ...action.userData,
         });
+        case CLEAR_USER_DATA : return defaultState;
         case SET_USER_VERIFIED : return ({
             ...state,
             verified : action.verified,

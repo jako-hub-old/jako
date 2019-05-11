@@ -77,7 +77,6 @@ export const fetchNews = () => (dispatch, getState) => (new Promise((resolve, re
                 reject(false);
             } else {
                 dispatch(setNews(response));
-                console.log(response);
                 resolve(true);                
             }
         })

@@ -44,13 +44,18 @@ class UserInfoVerifier extends React.Component {
         }).then(response => {
             const {error_controlado, validacion, error} = response;            
             if(!error_controlado && !error && !validacion) {
-                const {seudonimo, foto} = response;
+                const {seudonimo, foto, puntos} = response;
                 this.props.sessionWrite("user_info", response);
                 if(!seudonimo) {
                     this.setState({
                         pseudonymHelper : true
                     });
                 } 
+                if(puntos) {
+                    this.props.setUserData({
+                        moneyPoints : parseInt(puntos),
+                    });
+                }
                 if(foto) {
                     this.props.setUserData({
                         photo : `${IMAGES_SERVER}${foto}`,

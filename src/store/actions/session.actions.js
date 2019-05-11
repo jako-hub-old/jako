@@ -2,7 +2,7 @@ import {readSession, writeInSession, writeAllInSession} from "../../services/Ses
 import {startLoading, stopLoading} from './global.actions';
 import AsynStorageService, {SESSION} from "../../services/AsyncStorageService";
 import { consoleInfo, consoleError } from "../../utils/functions";
-import { setVerified } from "./userData.actions";
+import { setVerified, clearUserData } from "./userData.actions";
 
 export const SET_SESSION_VAR = '[SESSION] SET_SESSION_VAR';
 export const DEL_SESSION_VAR = '[SESSION] DEL_SESSION_VARS';
@@ -141,6 +141,7 @@ export const logout = (navigation) => {
             .then(() => {
                 if(navigation) navigation.navigate("Register");
                 dispatch(setVerified(false));
+                clearUserData();
             })
             .catch(response => {
                 consoleError('Error loginout', response);

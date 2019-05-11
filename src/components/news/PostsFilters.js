@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
         borderLeftColor : palette.accent.divider,
         borderLeftWidth : 1,
         marginLeft      : 20,
-        paddingLeft     : 30,
+        paddingLeft     : 15,
         paddingBottom : 5,
         flexDirection : "row",
     },
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
         color : "#FFF",
     },
     filterButtonText : {
-        fontSize : 14,
+        fontSize : 12,
     },
     activeText : {
         color : "#FFF",

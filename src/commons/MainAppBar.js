@@ -14,6 +14,7 @@ import PropTypes from 'prop-types';
 import stylesPalette from "../utils/stylesPalette";
 import NotifiesList from './notifies-list';
 import FriendshipNotifier from './notifies/FriendshipNotifier';
+import UserStatusOption from '../components/user-status-option';
 
 
 
@@ -26,7 +27,7 @@ import FriendshipNotifier from './notifies/FriendshipNotifier';
  * @returns {*}
  * @constructor
  */
-const MainAppBar = ({allowBack, disableNotify, navigation, title="Jako", goBack, TitleComponent=false}) => (
+const MainAppBar = ({allowBack, allowUserStatus=true, disableNotify, navigation, title="Jako", goBack, TitleComponent=false}) => (
     <Header
         style={styles.root}
         noShadow
@@ -46,12 +47,7 @@ const MainAppBar = ({allowBack, disableNotify, navigation, title="Jako", goBack,
         )}
         {!TitleComponent && (
             <Body style={styles.body}>
-                <View style = { { flexDirection : "row" } }>
-                    <Icon name="coins" size={18} style = { {marginRight : 10,} } />
-                    <Text>
-                        100
-                    </Text>
-                </View>
+                {allowUserStatus && (<UserStatusOption navigation = { navigation } />)}
             </Body>
         )}
         {!disableNotify && (

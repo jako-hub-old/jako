@@ -9,7 +9,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import stylesPalette from '../../utils/stylesPalette';
 
-const PostFilters = () => {
+const PostsHeader = () => {
     return (
         <View style = { styles.root }>
             <View style = { styles.iconWrapper }>
@@ -49,4 +49,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default PostFilters;
+export default PostsHeader;

@@ -11,14 +11,23 @@ import {
 } from 'native-base';
 import { withPosts } from '../../providers';
 import PostItem from './PostItem';
+const TYPE_ALL   = 'ALL';
 const TYPE_GAMES = 'JUE';
+const TYPE_NEWS  = 'NOT';
 
 import EmptyObject from '../../commons/others/EmptyIcon';
-import PostFilters from './PostFilters';
+import PostsHeader from './PostsHeader';
+import PostsFilters from './PostsFilters';
 
 class News extends React.Component {
+    originalState = {};
     state = {
         loading : false,
+        filters : [
+            {label : "Todos", icon : "list", target: TYPE_ALL, active : true},
+            {label : "Juegos", icon : "futbol-o", target: TYPE_GAMES},
+            {label : "Noticias", icon : "newspaper-o", target: TYPE_NEWS},
+        ],
     };
 
     componentDidMount() {
@@ -36,9 +45,19 @@ class News extends React.Component {
         });
     }
 
+    onChangeFilters({target}) {
+        this.setState(({filters}) => ({
+            filters : filters.map(item => {
+                if(item.target === target) item.active = true;
+                else item.active = false;
+                return item;
+            }),
+        }));
+    }
+
     renderEmpty() {
         return (
-            <View style = { styles.emptyRoot }>            
+            <View style = { styles.emptyRoot }>
                 <EmptyObject 
                     message = "Parece que aún no hay actividad en Jako"
                     icon = "newspaper-o" 
@@ -47,18 +66,40 @@ class News extends React.Component {
         );
     }
 
+    getFilteredNews() {
+        const {filters} = this.state;
+        const {target} = filters.find(item => item.active === true);
+        let fileteredData = [...this.props.news];
+        if(target === TYPE_GAMES) {
+            return fileteredData = fileteredData.filter(item => item.tipo === TYPE_GAMES);
+        } else if(target === TYPE_NEWS) {
+            return fileteredData = fileteredData.filter(item => item.tipo === TYPE_NEWS);
+        } else {
+            return fileteredData;
+        }
+    }
+
     renderNews() {
-        const { news=[] } = this.props;
-        if(news.length === 0) return this.renderEmpty();
+        const news = this.getFilteredNews()||[];
+        let content = null;
+        if(news.length === 0) {
+            content = this.renderEmpty();
+        } else {
+            content = (news.map((item, key) => (
+                <PostItem 
+                    key = { `post-item-${key}-${item.codigo_publicacion}` } 
+                    item = { item }
+                />
+            )))
+        }
         return (
             <View styles = { styles.listView}>
-                <PostFilters />
-                {news.map((item, key) => (
-                    <PostItem 
-                        key = { `post-item-${key}-${item.codigo_publicacion}` } 
-                        item = { item }
-                    />
-                ))}
+                <PostsHeader />
+                <PostsFilters 
+                    filters = {this.state.filters} 
+                    onChange = { this.onChangeFilters.bind(this) }
+                />
+                {content}
             </View>
         );
     }

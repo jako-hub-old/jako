@@ -2,16 +2,22 @@ import React from 'react';
 import BaseScreen from '../BaseScreen';
 import PropTypes from 'prop-types';
 import {
-    StyleSheet,
+    StyleSheet,    
+} from 'react-native';
+import {
     View,
     Text
-} from 'react-native';
+} from 'native-base';
 import { Button } from '../../commons/forms';
+import { EmptyObject } from '../../commons/others';
 
 const EmptySet = () => (
     <View style={styles.EmptySet}>
         <View>
-            <Text note>Si tienes alguna inquietud no dudes en contactarnos</Text>
+            <EmptyObject
+                message = "Si tienes alguna inquietud no dudes en contactarnos"
+                icon = "question-circle"
+            />
             <View style={{flex : 1, alignItems : "center", marginTop: 15}}>
                 <Button info>
                     +57 3205015059

@@ -195,6 +195,7 @@ class UserProfileCard extends React.Component {
                     onViewProfile   = { this.onViewProfile.bind(this) }
                     requestSended   = { requestSended   }
                     requestReceived = { requestReceived }
+                    onEdit          = { () => this.toggleEdit() }
                 />
                 <GameResume 
                     assists     = { asistencia   }

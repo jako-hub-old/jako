@@ -59,7 +59,7 @@ class News extends React.Component {
         return (
             <View style = { styles.emptyRoot }>
                 <EmptyObject 
-                    message = "Parece que aún no hay actividad en Jako"
+                    message = "No se encontró actividad"
                     icon = "newspaper-o" 
                 />
             </View>

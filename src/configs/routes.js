@@ -12,7 +12,7 @@ import {
     PlayerProfileScreen,
     TestAreaScreen,
 } from "../screens";
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import stylesPalette from '../utils/stylesPalette';
 
 /**

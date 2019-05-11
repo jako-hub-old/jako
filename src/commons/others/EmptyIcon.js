@@ -33,6 +33,10 @@ const styles = StyleSheet.create({
         padding         : 20,
         borderRadius    : 200,
         marginTop       : 20,
+        height : 100,
+        width : 100,
+        justifyContent : "center",
+        alignItems : "center",
     },
     icon : {
         

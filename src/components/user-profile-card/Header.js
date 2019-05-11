@@ -12,6 +12,7 @@ import { IconButton       }      from '../../commons/forms';
 import { CancelFriendshipButton, FriendshipButton, ConfirmFriendshipButton, } from '../../commons/buttons';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import RemoveFriendshipRequestButton from '../../commons/buttons/RemoveFriendshipRequestButton';
+import { SimpleTouch } from '../../commons/touchables';
 
 const palette = stylesPalette();
 
@@ -19,12 +20,14 @@ const palette = stylesPalette();
  * This component only renders the profile view.
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
  */
-const Header = ({photo, requestReceived, requestSended, fullName, me, alias, isFriend, isPlayer, playerCode, disableUpload, onSelectImage, userFriends}) => (
+const Header = ({photo, requestReceived, onViewPhoto, requestSended, fullName, me, alias, isFriend, isPlayer, playerCode, disableUpload, onSelectImage, userFriends}) => (
     <View style = { styles.root }>
         <View style = { styles.contentWrapper}>
             <View style = {styles.picWrapper}>
                 <View style = { styles.thumbWrapper }>
-                    <Thumbnail style = { {width : "100%", height : "100%", borderRadius : 50} } source={{uri : photo || DEFAULT_USER_IMG}} />
+                    <SimpleTouch  onPress = { onViewPhoto } style = { {width : "100%", height : "100%", borderRadius : 50} } >
+                        <Thumbnail style = { {width : "100%", height : "100%", borderRadius : 50} } source={{uri : photo || DEFAULT_USER_IMG}} />
+                    </SimpleTouch>
                     {!disableUpload && (
                         <View style={styles.buttonTip}>
                             <IconButton 
@@ -97,8 +100,8 @@ const styles = StyleSheet.create({
         justifyContent  : "center",
     },
     thumbWrapper : {
-        height : 80,
-        width : 80,
+        height : 60,
+        width : 60,
         margin : 15,
         justifyContent : "center",
         alignItems : "center",
@@ -113,8 +116,8 @@ const styles = StyleSheet.create({
         borderRadius : 50,
     },
     userInfo : {
-        flexDirection   : "row",
         justifyContent  : "center",
+        alignItems      : "center",
         marginTop       : 10,
     },
     alias : {
@@ -135,6 +138,7 @@ Header.propTypes = {
     playerCode      : PropTypes.any,
     onViewProfile   : PropTypes.func,
     requestSended   : PropTypes.bool,
+    onViewPhoto     : PropTypes.func,
 };
 
 export default Header;

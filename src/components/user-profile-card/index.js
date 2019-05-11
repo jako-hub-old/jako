@@ -151,6 +151,10 @@ class UserProfileCard extends React.Component {
         return Boolean(player);
     }
 
+    onViewPhoto() {
+        
+    }
+
     renderCard() {
          const {
              userInfo : { 
@@ -178,6 +182,7 @@ class UserProfileCard extends React.Component {
         return (
             <>
                 <Header 
+                    onViewPhoto     = { this.onViewPhoto.bind(this) }
                     photo           = { me? userPhoto :  (foto? `${IMAGES_SERVER}${foto}` :  DEFAULT_USER_IMG) }
                     fullName        = { nombre_corto    }
                     alias           = { seudonimo       }

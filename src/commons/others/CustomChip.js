@@ -12,7 +12,7 @@ import stylesPalette from '../../utils/stylesPalette';
  * This component allows to render a simple chip.
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
  */
-const CustomChip = ({ label, size=20, icon, type='primary'}) => {
+const CustomChip = ({ label, size=12, icon, type='primary'}) => {
     const getTypeSteyles = () => {
         switch(type) {
             case 'primary'  : return styles.primary;
@@ -50,8 +50,8 @@ const styles = StyleSheet.create({
     iconWrapper : {
         borderWidth     : 1,
         padding         : 5,
-        width           : 35,
-        height          : 35,
+        width           : 25,
+        height          : 25,
         borderRadius    : 50,
     },
     primary : {

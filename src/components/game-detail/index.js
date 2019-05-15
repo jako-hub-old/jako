@@ -4,11 +4,10 @@ import {
     View,
     StyleSheet,
     ScrollView,
+    RefreshControl,
 } from 'react-native';
 import {
     Toast,
-    Tab,
-    Tabs,
 } from 'native-base';
 import ItemCard from './item-card';
 import CommentsList from './CommentsList';
@@ -48,6 +47,7 @@ class GameDetailComponent extends React.Component {
         allowJoin       : true,
         currentTab      : 0,
         openShare    : false,
+        loading : false,
     };    
 
     constructor(props) {
@@ -79,17 +79,19 @@ class GameDetailComponent extends React.Component {
      *
      * @memberof GameDetailComponent
      */
-    fetchGameInfo() {
+    async fetchGameInfo() {
         const {codigo_juego} = this.props.selectedGame;        
-        this.setState({loadingComments : true});
-        this.props.doPost(endpoints.juego.detalle, {
-            juego : codigo_juego,
-        })
-        .then(response => {
-            if(response.error_controlado || response.error) {
+        this.setState({loadingComments : true, loading : true});
+        try {
+            const response = await this.props.doPost(endpoints.juego.detalle, {
+                juego : codigo_juego,
+            });
+            const {error_controlado, error} = response;
+            if(error_controlado || error) {
                 Toast.show({text : "Ocurrió un error al obtener la información del juego (Detalle)"});
                 this.setState({
                     loadingComments : false,
+                    loading : false,
                 });
             } else {
                 const {detalles = [], equipos=[]} = response;
@@ -112,13 +114,17 @@ class GameDetailComponent extends React.Component {
                     ...response,
                     detalles        : newDetails,
                     loadingComments : false,
+                    loading : false,
                 });
             }
-        })
-        .catch(response => {
+        } catch(response) {
             consoleError("List of comments", response);
             Toast.show({text : "Error al obtener comentarios"});
-        });            
+            this.setState({
+                loadingComments : false,
+                loading : false,
+            });
+        }
     }
 
     /**
@@ -204,6 +210,9 @@ class GameDetailComponent extends React.Component {
         });
     }
 
+    onRefreshData() {
+        this.fetchGameInfo();  
+    }
 
     render() {
         const {selectedGame, userCode} = this.props;
@@ -216,12 +225,20 @@ class GameDetailComponent extends React.Component {
             currentTab,
             jugador_seudonimo,
             openShare,
+            loading,
         } = this.state;
         const isInGame = this.isInGame();
         return (
             <>
             <View style={styles.root}>
-                <ScrollView>
+                <ScrollView
+                    refreshControl = {
+                        <RefreshControl 
+                            onRefresh = { this.onRefreshData.bind(this) }
+                            refreshing = { loading }
+                        />
+                    }
+                >
                     {this.state.nombre && (
                         <ItemCard 
                             game = {this.state}

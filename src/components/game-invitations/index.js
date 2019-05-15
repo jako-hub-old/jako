@@ -16,7 +16,7 @@ import { PrettyButton } from '../../commons/forms';
 import moment from 'moment';
 import { SimpleTouch } from '../../commons/touchables';
 
-const GameItem = ({photo, onView, onAccept, onReject, date, playerName}) => {
+const GameItem = ({playerPhoto, onView, onAccept, onReject, date, playerName}) => {
     const realDate = moment(date).format("YYYY-MM-DD h:mm a");
     return (
         <View style = { styles.listItem }>
@@ -24,7 +24,7 @@ const GameItem = ({photo, onView, onAccept, onReject, date, playerName}) => {
                 <SimpleTouch onPress = { onView } >
                     <Image 
                         style = { styles.image }
-                        source = {{uri : photo? `${IMAGES_SERVER}${photo}` : DEFAULT_USER_IMG}} 
+                        source = {{uri : playerPhoto? `${IMAGES_SERVER}${playerPhoto}` : DEFAULT_USER_IMG}} 
                     />
                 </SimpleTouch>
             </View>

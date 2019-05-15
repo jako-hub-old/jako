@@ -162,7 +162,11 @@ class UserProfileCard extends React.Component {
                 userPhotoUrl : this.props.photoOriginal,
             });
         } else {
-
+            const {foto, foto_original} = this.state.userInfo;
+            this.setState({
+                userPhotoThumbUrl : `${IMAGES_SERVER}${foto}`,
+                userPhotoUrl : `${IMAGES_SERVER}${foto_original}`,
+            });
         }
     }
 

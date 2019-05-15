@@ -62,6 +62,10 @@ class MyProfileComponent extends React.Component {
     selectImage () {
         const options = {
             title: 'Selecciona una imagen de perfil',
+            takePhotoButtonTitle : 'Toma una foto',
+            chooseFromLibraryButtonTitle : 'Selecciona de tu galería',
+            cancelButtonTitle : 'Cancelar',
+            cameraType : 'front',
         };
         ImagePicker.showImagePicker(options, (response) => {
             console.log('Response = ', response);
@@ -75,7 +79,7 @@ class MyProfileComponent extends React.Component {
         });
     }
 
-    uploadImage({fileName, type, uri}, userCode) {
+    async uploadImage({fileName, type, uri}, userCode) {
         const data = new FormData();
         data.append("foto", {
             name : fileName,
@@ -84,24 +88,24 @@ class MyProfileComponent extends React.Component {
         });
         data.append("jugador", userCode);
         this.props.startLoading();
-        this.props.upload(endpoints.jugador.guardarFoto, data)
-            .then(response => {
-                this.props.stopLoading();
-                const {error, error_controlado} = response;
-                if(error || error_controlado) {
-                    addMessage("Ocurrió un error al guardar la imagen");
-                } else if(response !== false){
-                    this.props.setUserData({
-                        photo : `${IMAGES_SERVER}${response}`,
-                    });
-                } else {
-                    addMessage("Ocurrió un error al guardar la imagen");
-                }
-            })
-            .catch(response => {
-                console.log("Error: ", response);
-                this.props.stopLoading();
-            });
+        try {
+            const response = await this.props.upload(endpoints.jugador.guardarFoto, data)                        
+            const {error, error_controlado, foto, thumb} = response;
+            if(error || error_controlado) {
+                addMessage("Ocurrió un error al guardar la imagen");
+            } else if(response !== false){
+                this.props.setUserData({
+                    photo : `${IMAGES_SERVER}${thumb}`,
+                    photoOriginal : `${IMAGES_SERVER}${foto}`,
+                });
+            } else {
+                addMessage("Ocurrió un error al guardar la imagen");
+            }
+        } catch (response) {
+            addMessage("Ocurrió un error al cargar la imagen");
+        } finally {
+            this.props.stopLoading();
+        }
     }
 
     togglePublications() {

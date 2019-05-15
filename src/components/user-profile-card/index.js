@@ -18,6 +18,7 @@ import { CommonTabs } from '../../commons/others';
 import { IMAGES_SERVER, DEFAULT_USER_IMG } from 'react-native-dotenv';
 import FriendshipRequestButtons from '../friendship-requests-buttons';
 import FriendshipRequestsReceived from '../my-profile/friendship-requests-received';
+import ViewUserPhoto from './ViewUserPhoto';
 
 
 const ErrorMessage = ({message}) => (
@@ -52,6 +53,8 @@ class UserProfileCard extends React.Component {
             inasistencia    : null,
         },
         friends : [],
+        userPhotoUrl : null,
+        userPhotoThumbUrl : null,
     };
 
     constructor(props) {
@@ -152,7 +155,21 @@ class UserProfileCard extends React.Component {
     }
 
     onViewPhoto() {
-        
+        const {me} = this.props;
+        if(me) {
+            this.setState({
+                userPhotoThumbUrl : this.props.photo,
+                userPhotoUrl : this.props.photoOriginal,
+            });
+        } else {
+
+        }
+    }
+
+    onClosePhoto() {
+        this.setState({
+            userPhotoUrl : null,
+        });
     }
 
     renderCard() {
@@ -165,7 +182,9 @@ class UserProfileCard extends React.Component {
                 inasistencia,
              },
              loadingFriends,
-             friends=[],             
+             friends=[],
+             userPhotoUrl,   
+             userPhotoThumbUrl,       
          } = this.state;
         const { 
             disableUpload, 
@@ -214,7 +233,14 @@ class UserProfileCard extends React.Component {
                     {userInfo}
                     </>
                 )}
-                
+                {userPhotoUrl && (
+                    <ViewUserPhoto 
+                        open = { true }
+                        onClose = { this.onClosePhoto.bind(this) }
+                        imageUrl = { userPhotoUrl }
+                        thumb = { userPhotoThumbUrl }
+                    />
+                )}
             </>
         );
     }

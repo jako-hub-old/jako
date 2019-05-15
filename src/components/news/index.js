@@ -8,7 +8,7 @@ import {
 import {
     View,
 } from 'native-base';
-import { withPosts } from '../../providers';
+import { withPosts, withSearch } from '../../providers';
 import PostItem from './PostItem';
 const TYPE_ALL   = 'ALL';
 const TYPE_GAMES = 'JUE';
@@ -78,8 +78,22 @@ class News extends React.Component {
         }
     }
 
+    onViewPost(post) {        
+        const type = post.tipo;
+        if(type === 'JUE') {
+            this.viewGame(post);
+        }
+    }
+
+    viewGame({codigoJuegoFk}) {
+        const navigation = this.props.navigation;
+        this.props.selectGame({codigo_juego : codigoJuegoFk});
+        navigation.navigate("GameDetail", {});
+    }
+
     renderNews() {
         const news = this.getFilteredNews()||[];
+        
         let content = null;
         if(news.length === 0) {
             content = this.renderEmpty();
@@ -88,6 +102,7 @@ class News extends React.Component {
                 <PostItem 
                     key = { `post-item-${key}-${item.codigo_publicacion}` } 
                     item = { item }
+                    onViewPost = { () => this.onViewPost(item) }
                 />
             )))
         }
@@ -140,6 +155,7 @@ News.propTypes = {
     navigation : PropTypes.any,
     news        : PropTypes.array,
     fetchNews   : PropTypes.func,
+    selectGame          : PropTypes.func,
 };
 
-export default withPosts(News);
+export default withSearch(withPosts(News));

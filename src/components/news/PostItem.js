@@ -13,25 +13,28 @@ import moment from 'moment';
 import defaultGameImage from '../../assets/images/game-default-image.png';
 import {DEFAULT_USER_IMG, IMAGES_SERVER, DEFAULT_ADMIN_IMG} from 'react-native-dotenv';
 import NewsPost from './NewsPost';
+import { SimpleTouch } from '../../commons/touchables';
 
 const TYPE_GAMES = 'JUE';
 const TYPE_NEWS = 'NOT';
 
-const GamePost = ({item, date}) => (
+const GamePost = ({item, date, onViewPost}) => (
     <View style = {styles.rootGame}>
-        <View style = {styles.wrapper}>
-            <View style = {styles.iconWrapper}>
-                <View style = { styles.iconSafeArea }>
-                    <Image style = { styles.image }  source = { defaultGameImage } />
+        <SimpleTouch wrapType = "stretch" onPress = {onViewPost}>
+            <View style = {styles.wrapper}>
+                <View style = {styles.iconWrapper}>
+                    <View style = { styles.iconSafeArea }>
+                        <Image style = { styles.image }  source = { defaultGameImage } />
+                    </View>
                 </View>
-            </View>
-            <View style = {styles.textWrapper}>
-                <Text style = { styles.postText }>{item.texto}</Text>
-                <Text note style = {{fontSize : 12, marginTop : 10}}>
-                    {date}
-                </Text>
-            </View>
-        </View>        
+                <View style = {styles.textWrapper}>
+                    <Text style = { styles.postText }>{item.texto}</Text>
+                    <Text note style = {{fontSize : 12, marginTop : 10}}>
+                        {date}
+                    </Text>
+                </View>
+            </View>        
+        </SimpleTouch>
     </View>
 );
 
@@ -61,6 +64,7 @@ class PostItem extends React.PureComponent {
             foto,
             plataforma,
         } = this.props.item;
+        const onViewPost = this.props.onViewPost;
         const date = moment(fecha).format("YYYY-MM-DD HH:mm")
         return (
             <View style = { styles.root }>
@@ -69,7 +73,7 @@ class PostItem extends React.PureComponent {
                         {plataforma? this.adminImage() : this.userImage(foto)}
                     </View>
                     {tipo === TYPE_GAMES && (
-                        <GamePost item = {this.props.item} date = { date } />
+                        <GamePost onViewPost = { onViewPost } item = {this.props.item} date = { date } />
                     )}
                     {tipo === TYPE_NEWS  && (
                         <NewsPost item = {this.props.item} date = { date } />
@@ -160,6 +164,7 @@ const styles = StyleSheet.create({
 
 PostItem.propTypes = {
     item : PropTypes.any,
+    onViewPost : PropTypes.func,
 };
 
 export default PostItem;

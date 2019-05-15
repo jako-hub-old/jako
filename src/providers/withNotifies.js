@@ -2,11 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { addNotify, removeNotify, popNotify, viewNotify, fetchNews} from '../store/actions/global.actions';
 import { fetchFriendshipRequest, fetchMyFriends, fetchUserSendedRequests } from '../store/actions/userData.actions';
+import { fetchGameInvitations }  from '../store/actions/game.actions';
 import { selectGame } from '../store/actions/search.actions';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import uuid from 'react-native-uuid';
-import { TYPE_FRIENDSHIP_REQUEST, TYPE_NEW_GAME } from '../commons/notifies-list';
+import { TYPE_FRIENDSHIP_REQUEST, TYPE_NEW_GAME, TYPE_PULL_ACTIVITIES,  TYPE_GAME_INVITATION } from '../commons/notifies-list';
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     addNotify,
@@ -16,6 +17,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     selectGame,
     fetchFriendshipRequest,
     fetchUserSendedRequests,
+    fetchGameInvitations,
     fetchMyFriends,
     fetchNews,
 }, dispatch);
@@ -47,8 +49,11 @@ export default WrappedComponent => (connect(mapStateToProps, mapDispatchToProps)
                 this.props.fetchMyFriends(this.props.userCode);
                 this.props.fetchUserSendedRequests();
             }
-            if(notify.type === TYPE_NEW_GAME) {
+            if(notify.type === TYPE_NEW_GAME || notify.type === TYPE_PULL_ACTIVITIES) {
                 this.props.fetchNews();
+            }
+            if(notify.type === TYPE_GAME_INVITATION) {
+                this.props.fetchGameInvitations();
             }
         }
         render() {

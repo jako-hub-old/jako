@@ -19,6 +19,8 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 
 export const TYPE_NEW_GAME              = 'new-game';
 export const TYPE_FRIENDSHIP_REQUEST    = 'friend-request';
+export const TYPE_PULL_ACTIVITIES       = 'pull-news';
+export const TYPE_GAME_INVITATION       = 'game-invitation';
 
 const NotifyItem = ({item, isButton, viewNotify, onPress}) => (
     <ListItem 

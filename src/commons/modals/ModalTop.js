@@ -25,9 +25,12 @@ const ModalTop = ({open, icon, onClose, animation="fade", children, title}) => (
         <View style={styles.backDrop}>
             <View style={styles.content}>
                 <View style={styles.header}>
-                    <Text style={styles.headerText}>
-                        {icon? (<Icon style = { styles.icon } name = {icon} size = {23} />) : null}{title}
-                    </Text>
+                    <View style = { styles.titleHolder }>
+                        {icon? (<Icon style = { styles.icon } name = {icon} size = {23} />) : null}
+                        <Text style={styles.headerText}>
+                            {title}
+                        </Text>
+                    </View>
                     <View>
                         <TouchableOpacity onPress={onClose}>
                             <View style={styles.button}>
@@ -35,7 +38,7 @@ const ModalTop = ({open, icon, onClose, animation="fade", children, title}) => (
                             </View>
                         </TouchableOpacity>
                     </View>
-                </View>                
+                </View>
                 <ScrollView>
                     {children}
                 </ScrollView>                                    
@@ -52,7 +55,7 @@ const styles = StyleSheet.create({
         justifyContent      : "flex-start",
     },
     icon : {
-        marginRight : 30,
+        marginRight : 10,
     },
     content : {
         backgroundColor : "#FFF",        
@@ -83,6 +86,10 @@ const styles = StyleSheet.create({
         justifyContent : "center", 
         alignItems : "center",
         backgroundColor : "#FFF",
+    },
+    titleHolder : {
+        flexDirection : "row",
+        alignItems : "center",
     },
 });
 

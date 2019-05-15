@@ -3,6 +3,7 @@ import BaseScreen from '../BaseScreen';
 import { withUserData } from '../../providers';
 import FriendshipSuggestion from '../../components/my-profile/friendship-suggestion';
 import ContactsList from '../../components/invite-contacts/ContactsList';
+import GameInvitations from '../../components/game-invitations';
 
 
 class TestAreaScreen extends React.Component {
@@ -20,8 +21,7 @@ class TestAreaScreen extends React.Component {
         return (
             <BaseScreen
                 navigation = { navigation }
-            >
-                <ContactsList enabledFormAdd  onSelectContacts = { (contacts) => console.log(contacts)} />
+            >                
             </BaseScreen>
         );
     }

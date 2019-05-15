@@ -68,7 +68,6 @@ const MainNavigator = createBottomTabNavigator({
     HomeTab     : createTabOptions(HomeNavigator, 'home'),
     MyGamesTab  : createTabOptions(MyGameNavigator, 'futbol-o'),
     SearchTab   : createTabOptions(SearchNavigator, 'search'),
-    //ProfileTab  : createTabOptions(ProfileNavigator, 'user'),
     ContactTab  : createTabOptions(ContactNavigator, 'question-circle'),
 }, {
     shifting            : true,

@@ -16,6 +16,7 @@ import NotifiesList from './notifies-list';
 import FriendshipNotifier from './notifies/FriendshipNotifier';
 import UserStatusOption from '../components/user-status-option';
 import UserProfileButton from './UserProfileButton';
+import GameInvitationNotifier from './notifies/GameInvitationNotifier';
 
 
 
@@ -59,7 +60,8 @@ const MainAppBar = ({allowBack, allowUserStatus, disableNotify, navigation, titl
         {!disableNotify && (
             <Right style = { styles.right }>
                 <FriendshipNotifier navigation = { navigation } />
-                <NotifiesList navigation = { navigation } />
+                <GameInvitationNotifier navigation = { navigation } />
+                {/* <NotifiesList navigation = { navigation } /> */}
             </Right>
         )}
     </Header>
@@ -81,19 +83,19 @@ const styles = StyleSheet.create({
         flex : 1,
     },
     titleComponent : {
-        flex : 1,
+        flex            : 1,
         paddingVertical : 4,
     },
     body : {
         flex : 6,
-        flexDirection : "row",
-        alignItems : "flex-start",
-        paddingLeft : 20,
+        flexDirection   : "row",
+        alignItems      : "flex-start",
+        paddingLeft     : 20,
     },
     right : {
-        flex : 2,
-        justifyContent : "center",
-        alignItems : "center",
+        flex            : 3,
+        justifyContent  : "flex-end",
+        alignItems      : "center",
     },
 });
 

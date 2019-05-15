@@ -19,14 +19,16 @@ import stylesPalette from '../utils/stylesPalette';
  * Home tab view routes.
  */
 export const homeRoutes = {
-    Posts : { screen : HomeScreen },
+    Posts       : HomeScreen,
+    GameDetail  : GameDetailScreen,
+    JoinToGame  : JoinToGameScreen,
 }
 
 /**
  * My Games tab view routes.
  */
 export const myGameRoutes = {
-    MyGames : {screen : MyGamesScreen},
+    MyGames         : {screen : MyGamesScreen},
     GameDetail      : { screen : GameDetailScreen },    
     JoinToGame      : { screen : JoinToGameScreen },
 };
@@ -40,7 +42,7 @@ export const searchRoutes = {
         navigationOptions : { tabBarIcon : ({tintColor}) => (<Icon color={tintColor} name={"search"} size={24} />) },
     },    
     GameDetail      : { screen : GameDetailScreen },
-    JoinToGame      : { screen : JoinToGameScreen },    
+    JoinToGame      : { screen : JoinToGameScreen },
 };
 
 /**
@@ -84,6 +86,7 @@ export const AuthRoutes = {
 
 export const generalRoutes = {
     MyProfile : MyProfileScreen,
+    JoinToGame: JoinToGameScreen,
 };
 
 export const testRoutes = {

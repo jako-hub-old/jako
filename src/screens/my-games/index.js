@@ -19,8 +19,7 @@ class MyGamesScreen extends React.PureComponent {
 
         Linking.getInitialURL().then(url => {
             if(url) {
-                setTimeout(() => {
-                    console.log("Url", url);                    
+                setTimeout(() => {              
                     const {action, value} = resolveUrl(url);
                     if(action === "juego") {
                         this.props.selectGame({codigo_juego : value});

@@ -4,6 +4,8 @@
 # Xcode
 #
 .env
+.env.dev
+.env.prod
 build/
 .idea/
 *.pbxuser

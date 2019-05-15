@@ -78,7 +78,7 @@ import FriendsSearchSuggester from '../components/friends-search-suggester';
                 {children}
                 {isFocused && (<UserInfoVerifier enableFriendSuggester={enableFriendSuggester} navigation = {navigation}/>)}
                 {/*enableFriendSuggester && <FriendsSearchSuggester navigation = {navigation} />*/}
-                <NotificationBar navigation = { navigation } />
+                {/*<NotificationBar navigation = { navigation } />*/}
             </>
         )
      }
